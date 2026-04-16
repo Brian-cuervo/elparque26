@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElParque26 | Un Show Más</title>
+    <title>ElParque26 | Streaming</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav class="navbar">
         <div class="logo">El<span>Parque26</span></div>
         <ul class="nav-links">
@@ -19,73 +18,89 @@
     <header class="hero">
         <div class="hero-content">
             <h1 id="main-title">Un Show Más</h1>
-            <p>Temporada 1 • ElParque26</p>
+            <p id="sub-title">Temporada 1</p>
         </div>
     </header>
 
-    <section class="video-player-container">
+    <section class="video-section">
         <div class="video-wrapper">
             <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
-            <div id="video-placeholder">Selecciona un capítulo para empezar a ver</div>
+            <div id="video-placeholder">
+                <p>🍿 Seleccioná un capítulo para empezar</p>
+            </div>
         </div>
     </section>
 
-    <section class="container">
-        <h2>Personal del Parque</h2>
-        <div class="character-grid">
-            <div class="char-card"><div class="char-frame"><img src="mordecai.png"></div><h3>Mordecai</h3></div>
-            <div class="char-card"><div class="char-frame"><img src="rigby.png"></div><h3>Rigby</h3></div>
-            <div class="char-card" onclick="enojarBenson()" style="cursor:pointer;"><div class="char-frame"><img src="benson.png"></div><h3>Benson</h3></div>
-            <div class="char-card"><div class="char-frame"><img src="skips.png"></div><h3>Skips</h3></div>
-            <div class="char-card"><div class="char-frame"><img src="papaleta.png"></div><h3>Papaleta</h3></div>
+    <section class="characters-mini">
+        <div class="char-row">
+            <div class="c-item"><img src="mordecai.png"></div>
+            <div class="c-item" onclick="retoHuevo()" style="cursor:pointer;"><img src="rigby.png"></div>
+            <div class="c-item" onclick="enojarBenson()" style="cursor:pointer;"><img src="benson.png"></div>
+            <div class="c-item"><img src="skips.png"></div>
+            <div class="c-item"><img src="papaleta.png"></div>
         </div>
     </section>
 
     <main class="container">
-        <h2>Capítulos Temporada 1</h2>
+        <h3>Temporada 1</h3>
         <div class="movie-carousel">
-            
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')">
-                <div class="mini-placeholder">📺</div>
+                <div class="thumb">🍳</div>
                 <h4>1. El Poder</h4>
             </div>
-
-            <div class="card-mini" onclick="cargarVideo('')">
-                <div class="mini-placeholder">🎬</div>
-                <h4>2. Acomoden las sillas</h4>
+            <div class="card-mini" onclick="cargarVideo('TU_LINK_CAP_2_AQUI')">
+                <div class="thumb">🪑</div>
+                <h4>2. Acomoden sillas</h4>
             </div>
-
-            <div class="card-mini" onclick="cargarVideo('')">
-                <div class="mini-placeholder">🎬</div>
-                <h4>3. Boletos con cafeína</h4>
+            <div class="card-mini" onclick="alert('Próximamente')">
+                <div class="thumb">☕</div>
+                <h4>3. Boletos Café</h4>
             </div>
-
-            </div>
+        </div>
     </main>
 
     <script>
-    function cargarVideo(url) {
-        if(url === '') {
-            alert("Este capítulo aún no está disponible");
-            return;
+        function cargarVideo(url) {
+            if(!url || url.includes('TU_LINK')) {
+                alert("Este capítulo todavía no está cargado");
+                return;
+            }
+            const frame = document.getElementById('video-frame');
+            const placeholder = document.getElementById('video-placeholder');
+            frame.src = url;
+            frame.style.display = "block";
+            placeholder.style.display = "none";
         }
-        const frame = document.getElementById('video-frame');
-        const placeholder = document.getElementById('video-placeholder');
-        
-        frame.src = url;
-        frame.style.display = "block";
-        placeholder.style.display = "none";
-    }
 
-    function enojarBenson() {
-        document.body.style.backgroundColor = "#ff4757";
-        document.getElementById('main-title').innerText = "¡VUELVAN A TRABAJAR!";
-        setTimeout(() => {
-            document.body.style.backgroundColor = "#0a0b10";
-            document.getElementById('main-title').innerText = "Un Show Más";
-        }, 3000);
-    }
+        function enojarBenson() {
+            const titulo = document.getElementById('main-title');
+            document.body.style.backgroundColor = "#ff4757";
+            titulo.innerText = "¡VUELVAN A TRABAJAR!";
+            setTimeout(() => {
+                document.body.style.backgroundColor = "#0a0b10";
+                titulo.innerText = "Un Show Más";
+            }, 2500);
+        }
+
+        function retoHuevo() {
+            const titulo = document.getElementById('main-title');
+            titulo.innerText = "¡SÉ EL HUEVO-EXTRAORDINARIO!";
+            document.body.style.backgroundColor = "#ffd32a";
+            
+            // Crear la imagen de la gorra
+            const gorra = document.createElement("img");
+            gorra.src = "gorra.png";
+            gorra.className = "gorra-animada";
+            document.body.appendChild(gorra);
+
+            setTimeout(() => {
+                document.body.style.backgroundColor = "#0a0b10";
+                titulo.innerText = "Un Show Más";
+                gorra.remove();
+            }, 3000);
+        }
     </script>
 </body>
 </html>
+
 
