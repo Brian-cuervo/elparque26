@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElParque26 | Un Show Más</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">El<span>Parque26</span></div>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Temporadas</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 id="main-title">Un Show Más</h1>
+            <p>Temporada 1 • ElParque26</p>
+        </div>
+    </header>
+
+    <section class="video-player-container">
+        <div class="video-wrapper">
+            <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+            <div id="video-placeholder">Selecciona un capítulo para empezar a ver</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Personal del Parque</h2>
+        <div class="character-grid">
+            <div class="char-card"><div class="char-frame"><img src="mordecai.png"></div><h3>Mordecai</h3></div>
+            <div class="char-card"><div class="char-frame"><img src="rigby.png"></div><h3>Rigby</h3></div>
+            <div class="char-card" onclick="enojarBenson()" style="cursor:pointer;"><div class="char-frame"><img src="benson.png"></div><h3>Benson</h3></div>
+            <div class="char-card"><div class="char-frame"><img src="skips.png"></div><h3>Skips</h3></div>
+            <div class="char-card"><div class="char-frame"><img src="papaleta.png"></div><h3>Papaleta</h3></div>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2>Capítulos Temporada 1</h2>
+        <div class="movie-carousel">
+            
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')">
+                <div class="mini-placeholder">📺</div>
+                <h4>1. El Poder</h4>
+            </div>
+
+            <div class="card-mini" onclick="cargarVideo('')">
+                <div class="mini-placeholder">🎬</div>
+                <h4>2. Acomoden las sillas</h4>
+            </div>
+
+            <div class="card-mini" onclick="cargarVideo('')">
+                <div class="mini-placeholder">🎬</div>
+                <h4>3. Boletos con cafeína</h4>
+            </div>
+
+            </div>
+    </main>
+
+    <script>
+    function cargarVideo(url) {
+        if(url === '') {
+            alert("Este capítulo aún no está disponible");
+            return;
+        }
+        const frame = document.getElementById('video-frame');
+        const placeholder = document.getElementById('video-placeholder');
+        
+        frame.src = url;
+        frame.style.display = "block";
+        placeholder.style.display = "none";
+    }
+
+    function enojarBenson() {
+        document.body.style.backgroundColor = "#ff4757";
+        document.getElementById('main-title').innerText = "¡VUELVAN A TRABAJAR!";
+        setTimeout(() => {
+            document.body.style.backgroundColor = "#0a0b10";
+            document.getElementById('main-title').innerText = "Un Show Más";
+        }, 3000);
+    }
+    </script>
+</body>
+</html>
+
