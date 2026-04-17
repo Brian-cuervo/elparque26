@@ -104,17 +104,43 @@
 </div>
     </main>
 
-    <script>
+        <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
-            frame.src = url;
+            
+            // MAGIA: Cambia /view o /edit por /preview automáticamente
+            // Así vos pegás el link de Drive directo y funciona solo
+            let urlLimpia = url.replace(/\/view.*/, "/preview").replace(/\/edit.*/, "/preview");
+
+            frame.src = urlLimpia;
             frame.style.display = "block";
             placeholder.style.display = "none";
         }
 
+        function mostrarTemporada(num) {
+            const t1 = document.getElementById('temp-1');
+            const t2 = document.getElementById('temp-2');
+            const btn1 = document.getElementById('btn-t1');
+            const btn2 = document.getElementById('btn-t2');
+
+            if(num === 1) {
+                t1.style.display = "flex";
+                t2.style.display = "none";
+                btn1.style.background = "var(--azul)"; btn1.style.color = "#111";
+                btn2.style.background = "#222"; btn2.style.color = "white";
+            } else {
+                t1.style.display = "none";
+                t2.style.display = "flex";
+                btn2.style.background = "var(--azul)"; btn2.style.color = "#111";
+                btn1.style.background = "#222"; btn1.style.color = "white";
+            }
+        }
+
         function capituloAleatorio() {
-            const cards = document.querySelectorAll('.card-mini');
+            // Selecciona solo los capítulos de la temporada que se está viendo
+            const visibleCarousel = document.querySelector('.movie-carousel[style*="display: flex"]') || document.getElementById('temp-1');
+            const cards = visibleCarousel.querySelectorAll('.card-mini');
             const randomCard = cards[Math.floor(Math.random() * cards.length)];
             randomCard.click();
         }
@@ -175,5 +201,6 @@
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
     </script>
+
 </body>
 </html>
