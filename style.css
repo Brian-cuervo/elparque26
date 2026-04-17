@@ -118,23 +118,25 @@ body { background: #0a0b10; color: white; font-family: sans-serif; margin: 0; tr
     box-sizing: border-box;
 }
 
+/* Tapa Frontal (Ahora con textura de cuero y lomo 3D) */
 .front-cover {
-    background: #4a2e15;
+    background: linear-gradient(to right, #2a1a0b 0%, #4a2e15 12%, #5c3a21 100%); /* Efecto de luz en el cuero */
     color: #d4af37;
-    border: 3px solid #2a1a0b;
+    border: 2px solid #1a0f05;
+    border-radius: 3px 15px 15px 3px;
     transform-origin: left;
     transition: transform 1.2s ease-in-out;
     z-index: 2;
     backface-visibility: hidden;
+    box-shadow: inset 8px 0 15px rgba(0,0,0,0.6), 5px 5px 15px rgba(0,0,0,0.5); /* Sombra profunda para el lomo */
 }
 
+/* Páginas Internas (Ahora con efecto de papel viejo) */
 .back-cover {
-    background: #f4e4bc;
+    background: radial-gradient(circle, #fff3d4 0%, #e6cd98 100%); /* Efecto de pergamino gastado en los bordes */
     color: #333;
-    border: 1px solid #ccc;
+    border: 1px solid #c2a878;
+    border-radius: 3px 15px 15px 3px;
     z-index: 1;
-}
-
-.libro-abierto .front-cover {
-    transform: rotateY(-140deg);
+    box-shadow: inset -5px 0 20px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.5);
 }
