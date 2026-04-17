@@ -3,126 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL PARQUE - Un Show Más</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-    
+    <title>ElParque26 | Streaming</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">El<span>Parque26</span></div>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Temporadas</a></li>
+        </ul>
+    </nav>
 
-    <h1 id="main-title">EL PARQUE</h1>
+    <header class="hero">
+        <div class="hero-content">
+            <h1 id="main-title">Un Show Más</h1>
+            <p id="sub-title">Temporada 1</p>
+        </div>
+    </header>
 
-    <div class="iconos-container">
-        <div class="personaje" onclick="mordecai()">
-            <img src="https://i.postimg.cc/85w1Xq1q/mordecai.png" alt="Mordecai">
-            <p>Mordecai</p>
-        </div>
-        <div class="personaje" onclick="rigby()">
-            <img src="https://i.postimg.cc/k47vH6yL/rigby.png" alt="Rigby">
-            <p>Rigby</p>
-        </div>
-        <div class="personaje" onclick="benson()">
-            <img src="https://i.postimg.cc/3w6H1f9F/benson.png" alt="Benson">
-            <p>Benson</p>
-        </div>
-        <div class="personaje" onclick="sabiduriaSkips()">
-            <img src="https://i.postimg.cc/mD8mK0S7/skips-face.png" alt="Skips">
-            <p>Skips</p>
-        </div>
-        <div class="personaje" onclick="lloverPaletas()">
-            <img src="https://i.postimg.cc/50tFh404/papaleta.png" alt="Papaleta">
-            <p>Papaleta</p>
-        </div>
-        <div class="personaje" onclick="musculoso()">
-            <img src="https://i.postimg.cc/mrl1pT9C/musculoso.png" alt="Musculoso">
-            <p>Musculoso</p>
-        </div>
-    </div>
-
-    <a href="URL_DE_TU_FORMULARIO" target="_blank">
-        <button class="btn-reportes">FORMS (REPORTES Y MÁS)</button>
-    </a>
-
-    <div class="reproductor-container">
-        <iframe id="reproductor" src="https://drive.google.com/file/d/ID_VIDEO_DRIVE/preview" allow="autoplay" allowfullscreen></iframe>
-    </div>
-
-    <div class="contenedor-libro">
-        <div id="mi-libro" class="libro" onclick="abrirCerrarLibro()">
-            <div class="tapa back-cover">
-                <h3 style="font-family: 'Arial', sans-serif; color: #8b0000; border-bottom: 2px solid #8b0000; margin-top: 20px;">LA WIKI DEL PARQUE</h3>
-                <p style="font-size: 0.9rem; margin: 15px; line-height: 1.4; color: #222;">Acá vamos a cargar toda la info de los episodios, objetos mágicos y secretos de Un Show Más.</p>
-                <p style="font-size: 0.8rem; color: #777;">(¡Próximamente...!)</p>
-            </div>
-            <div class="tapa front-cover">
-                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; line-height: 1.1; margin: 0; letter-spacing: 1px;">EL LIBRO</h2>
-                <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem; margin: 2px 0; font-weight: bold; color: #ffeb3b;">DE LOS</p>
-                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; margin: 0; letter-spacing: 1px;">RÉCORDS</h2>
-                <div style="width: 60px; height: 5px; background: #d4af37; margin-top: 25px; border-radius: 2px;"></div>
-                <p style="font-size: 0.7rem; margin-top: 40px; opacity: 0.7;">Toca para abrir</p>
+    <section class="video-section">
+        <div class="video-wrapper">
+            <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+            <div id="video-placeholder">
+                <p>🍿 Seleccioná un capítulo para empezar</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <h3 style="margin-top: 40px;">CAPÍTULOS</h3>
-    <div class="capitulos-container">
-        <button class="btn" onclick="cambiarCapitulo('ID1_DRIVE', '1. Capítulo Uno')">1. Capítulo Uno</button>
-        <button class="btn" onclick="cambiarCapitulo('ID2_DRIVE', '2. Capítulo Dos')">2. Capítulo Dos</button>
-        <button class="btn" onclick="cambiarCapitulo('ID3_DRIVE', '3. Capítulo Tres')">3. Capítulo Tres</button>
-    </div>
+    <section class="characters-mini">
+        <div class="char-row">
+            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
+            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
+            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
+            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
+            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
+            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3>Temporada 1</h3>
+            <button onclick="capituloAleatorio()" style="background: var(--azul); border: none; font-family: var(--fuente-serie); padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; color: #111;">? Aleatorio</button>
+        </div>
+
+        <div class="movie-carousel">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')">
+                <div class="thumb">🎹</div>
+                <h4>1. El Poder</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng/preview')">
+                <div class="thumb">🪑</div>
+                <h4>2. Solo acomoden las sillas</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HHWivqG2OKypS010BqGZXJoIGsNPOgPY/preview')">
+                <div class="thumb">☕</div>
+                <h4>3. Boletos con cafeína</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1boCAvhqFcjx-g9ZYxCL3YpRShwShna60/preview')">
+                <div class="thumb">🥊</div>
+                <h4>4. Golpes mortales</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16J4NiBaFrv78W7pts0DXipokz5JIGkEu/preview')">
+                <div class="thumb">🎂</div>
+                <h4>5. Pastel gratis</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1TksMOxY1PLCVKDRfg8nNEk7rE4BfQxxe/preview')">
+                <div class="thumb">🌭</div>
+                <h4>6. Parrillada</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1SERS4ehO7YESKXHThn8dpw5nACEJk0sI/preview')">
+                <div class="thumb">🧀</div>
+                <h4>7. Queso derretido</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1tMWkWReut_pfZY_IFzz6wu-YHjLXGFM3/preview')">
+                <div class="thumb">🦄</div>
+                <h4>8. Los Unicornios deben irse</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1pQ1Uf6RIls7jcKrRT35OIvpLeHj0sUKp/preview')">
+                <div class="thumb">☎️</div>
+                <h4>9. Bromistas</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10_iN2FBEogN0XPimFGNvrzH73LpCSaOW/preview')">
+                <div class="thumb">🎮</div>
+                <h4>10. Don</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC/preview')">
+                <div class="thumb">👻</div>
+                <h4>11. El cuerpo de Rigby</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly/preview')">
+                <div class="thumb">🎸</div>
+                <h4>12. Mordecai y los Rigby's</h4>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; padding-bottom: 20px;">
+    <p style="font-size: 0.8rem; color: #555; font-family: sans-serif;">¿Algún capítulo caído o sugerencia?</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
+</div>
+    </main>
 
     <script>
-        function cambiarCapitulo(idDrive, tituloCap) {
-            const reproductor = document.getElementById('reproductor');
-            reproductor.src = `https://drive.google.com/file/d/${idDrive}/preview`;
-            document.getElementById('main-title').innerText = tituloCap.toUpperCase();
+        function cargarVideo(url) {
+            const frame = document.getElementById('video-frame');
+            const placeholder = document.getElementById('video-placeholder');
+            frame.src = url;
+            frame.style.display = "block";
+            placeholder.style.display = "none";
         }
 
-        function mordecai() { alert("Mordecai: OOOOOHH!"); }
-        function rigby() { alert("Rigby: HMPH! HMPH!"); }
-        function benson() { alert("Benson: ¡ESTÁN DESPEDIDOS O LIMPIAN ESTE DESASTRE!"); }
-        function musculoso() { alert("Musculoso: ¡OOOOOHHH MI MAMI!"); }
+        function capituloAleatorio() {
+            const cards = document.querySelectorAll('.card-mini');
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            randomCard.click();
+        }
 
-        function lloverPaletas() {
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    let p = document.createElement('div');
-                    p.innerText = '🍭';
-                    p.className = 'paleta';
-                    p.style.left = Math.random() * 100 + 'vw';
-                    p.style.animationDelay = Math.random() * 2 + 's';
-                    document.body.appendChild(p);
-                    setTimeout(() => p.remove(), 3000);
-                }, i * 100);
-            }
+        function enojarBenson() {
+            const t = document.getElementById('main-title');
+            document.body.style.backgroundColor = "#ff4757";
+            t.innerText = "¡VUELVAN A TRABAJAR!";
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
+        }
+
+        function retoHuevo() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
+            document.body.style.backgroundColor = "#ffd32a";
+            const g = document.createElement("img");
+            g.src = "gorra.png";
+            g.className = "efecto-pop";
+            document.body.appendChild(g);
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; g.remove(); }, 3000);
+        }
+
+        function festejoMordo() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¡OOOOOOOOOOH!";
+            document.body.style.backgroundColor = "#1e90ff";
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
         }
 
         function sabiduriaSkips() {
             const t = document.getElementById('main-title');
-            const frases = [
-                "YA HE VISTO ESTO ANTES...",
-                "¡TÉMPANOS!",
-                "MI MENTE ES UNA TRAMPA DE ACERO.",
-                "YA NO PUEDO MÁS...",
-                "VEO TODA LA CULPA EN TUS OJOS.",
-                "MI VERDADERO NOMBRE NO ES SKIPS...",
-                "¡SÉ EXTRA HUEVO ORDINARIO!",
-                "NECESITAN EL COMBO DE DESTRUCCIÓN."
-            ];
-            const fraseSuerte = frases[Math.floor(Math.random() * frases.length)];
-            
-            t.innerText = fraseSuerte;
+            t.innerText = "YA HE VISTO ESTO ANTES...";
             document.body.style.filter = "grayscale(1)";
-            setTimeout(() => { 
-                document.body.style.filter = "none"; 
-                t.innerText = "EL PARQUE"; 
-            }, 3000);
+            setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
         }
 
-        function abrirCerrarLibro() {
-            const libro = document.getElementById('mi-libro');
-            libro.classList.toggle('libro-abierto');
+        function regaloPapaleta() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¡QUÉ BUEN SHOW!";
+            document.body.style.backgroundColor = "#ff79ff";
+            for(let i=0; i<20; i++) {
+                const p = document.createElement("img");
+                p.src = "paleta.png";
+                const size = Math.random() * (60 - 30) + 30;
+                p.style = `position:fixed; left:${Math.random()*100}%; top:-100px; width:${size}px; z-index:9999; transition:3s linear;`;
+                document.body.appendChild(p);
+                setTimeout(() => { p.style.top = "110vh"; p.style.transform = "rotate(720deg)"; }, 100);
+                setTimeout(() => { p.remove(); }, 3100);
+            }
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+        }
+
+        function bromaMusculoso() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¿SABEN QUIÉN MÁS?";
+            document.body.classList.add("shake-effect");
+            setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
+            setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
     </script>
 </body>
