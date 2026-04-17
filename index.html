@@ -103,6 +103,22 @@
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
 </div>
     </main>
+    <div class="contenedor-libro">
+        <div id="mi-libro" class="libro" onclick="abrirCerrarLibro()">
+            <div class="tapa back-cover">
+                <h3 style="font-family: 'Arial', sans-serif; color: #8b0000; border-bottom: 2px solid #8b0000; margin-top: 20px;">LA WIKI DEL PARQUE</h3>
+                <p style="font-size: 0.9rem; margin: 15px; line-height: 1.4; color: #222;">Acá vamos a cargar toda la info de los episodios, objetos mágicos y secretos de Un Show Más.</p>
+                <p style="font-size: 0.8rem; color: #777;">(¡Próximamente...!)</p>
+            </div>
+            <div class="tapa front-cover">
+                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; line-height: 1.1; margin: 0; letter-spacing: 1px;">EL LIBRO</h2>
+                <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem; margin: 2px 0; font-weight: bold; color: #ffeb3b;">DE LOS</p>
+                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; margin: 0; letter-spacing: 1px;">RÉCORDS</h2>
+                <div style="width: 60px; height: 5px; background: #d4af37; margin-top: 25px; border-radius: 2px;"></div>
+                <p style="font-size: 0.7rem; margin-top: 40px; opacity: 0.7;">Toca para abrir</p>
+            </div>
+        </div>
+    </div>
 
     <script>
         function cargarVideo(url) {
@@ -173,6 +189,11 @@
             document.body.classList.add("shake-effect");
             setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
+        }
+                // Función del Libro
+        function abrirCerrarLibro() {
+            const libro = document.getElementById('mi-libro');
+            libro.classList.toggle('libro-abierto');
         }
     </script>
 </body>
