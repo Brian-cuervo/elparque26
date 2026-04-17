@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -33,11 +33,12 @@
 
     <section class="characters-mini">
         <div class="char-row">
-            <div class="c-item"><img src="mordecai.png"></div>
-            <div class="c-item" onclick="retoHuevo()" style="cursor:pointer;"><img src="rigby.png"></div>
-            <div class="c-item" onclick="enojarBenson()" style="cursor:pointer;"><img src="benson.png"></div>
-            <div class="c-item"><img src="skips.png"></div>
-            <div class="c-item"><img src="papaleta.png"></div>
+            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
+            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
+            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
+            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
+            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
+            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
         </div>
     </section>
 
@@ -52,19 +53,12 @@
                 <div class="thumb">🪑</div>
                 <h4>2. Acomoden sillas</h4>
             </div>
-            <div class="card-mini" onclick="alert('Próximamente')">
-                <div class="thumb">☕</div>
-                <h4>3. Boletos Café</h4>
             </div>
-        </div>
     </main>
 
     <script>
         function cargarVideo(url) {
-            if(!url || url.includes('TU_LINK')) {
-                alert("Este capítulo todavía no está cargado");
-                return;
-            }
+            if(!url || url.includes('TU_LINK')) { alert("Próximamente..."); return; }
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
             frame.src = url;
@@ -72,35 +66,64 @@
             placeholder.style.display = "none";
         }
 
+        // --- EFECTOS DE LOS PERSONAJES ---
+
         function enojarBenson() {
-            const titulo = document.getElementById('main-title');
+            const t = document.getElementById('main-title');
             document.body.style.backgroundColor = "#ff4757";
-            titulo.innerText = "¡VUELVAN A TRABAJAR!";
-            setTimeout(() => {
-                document.body.style.backgroundColor = "#0a0b10";
-                titulo.innerText = "Un Show Más";
-            }, 2500);
+            t.innerText = "¡VUELVAN A TRABAJAR!";
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
         }
 
         function retoHuevo() {
-            const titulo = document.getElementById('main-title');
-            titulo.innerText = "¡SÉ EL HUEVO-EXTRAORDINARIO!";
+            const t = document.getElementById('main-title');
+            t.innerText = "¡SÉ EL HUEVO-EXTRAORDINARIO!";
             document.body.style.backgroundColor = "#ffd32a";
-            
-            // Crear la imagen de la gorra
-            const gorra = document.createElement("img");
-            gorra.src = "gorra.png";
-            gorra.className = "gorra-animada";
-            document.body.appendChild(gorra);
+            const g = document.createElement("img");
+            g.src = "gorra.png";
+            g.className = "efecto-pop";
+            document.body.appendChild(g);
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; g.remove(); }, 3000);
+        }
 
-            setTimeout(() => {
-                document.body.style.backgroundColor = "#0a0b10";
-                titulo.innerText = "Un Show Más";
-                gorra.remove();
-            }, 3000);
+        function festejoMordo() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¡OOOOOOOOOOH!";
+            document.body.style.backgroundColor = "#1e90ff";
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
+        }
+
+        function sabiduriaSkips() {
+            const t = document.getElementById('main-title');
+            t.innerText = "YA HE VISTO ESTO ANTES...";
+            document.body.style.filter = "grayscale(1)";
+            setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
+        }
+
+        function regaloPapaleta() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¡QUÉ BUEN SHOW!";
+            document.body.style.backgroundColor = "#ff79ff";
+            for(let i=0; i<20; i++) {
+                const p = document.createElement("img");
+                p.src = "paleta.png";
+                const size = Math.random() * (60 - 30) + 30;
+                p.style = `position:fixed; left:${Math.random()*100}%; top:-100px; width:${size}px; z-index:9999; transition:3s linear;`;
+                document.body.appendChild(p);
+                setTimeout(() => { p.style.top = "110vh"; p.style.transform = "rotate(720deg)"; }, 100);
+                setTimeout(() => { p.remove(); }, 3100);
+            }
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+        }
+
+        function bromaMusculoso() {
+            const t = document.getElementById('main-title');
+            t.innerText = "¿SABEN QUIÉN MÁS?";
+            document.body.classList.add("shake-effect");
+            setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
+            setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
     </script>
 </body>
 </html>
-
-
+           
