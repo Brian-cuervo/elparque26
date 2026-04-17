@@ -145,11 +145,35 @@
         }
 
         function sabiduriaSkips() {
-            const t = document.getElementById('main-title');
-            t.innerText = "YA HE VISTO ESTO ANTES...";
-            document.body.style.filter = "grayscale(1)";
-            setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
-        }
+    const t = document.getElementById('main-title');
+    
+    // Frases oficiales de la Wiki de Un Show Más
+    const frases = [
+        "YA HE VISTO ESTO ANTES...",
+        "¡TÉMPANOS!",
+        "MI MENTE ES UNA TRAMPA DE ACERO.",
+        "YA NO PUEDO MÁS...",
+        "VEO TODA LA CULPA EN TUS OJOS.",
+        "¡YA HE VISTO ESTO ANTES!",
+        "MI VERDADERO NOMBRE NO ES SKIPS..."
+    ];
+    
+    // Elige una frase al azar
+    const fraseSuerte = frases[Math.floor(Math.random() * frases.length)];
+    
+    // Cambia el título con la frase de la suerte
+    t.innerText = fraseSuerte;
+    
+    // Tu efecto vintage que ya tenías
+    document.body.style.filter = "grayscale(1)";
+    
+    // Vuelve a la normalidad después de 3 segundos
+    setTimeout(() => { 
+        document.body.style.filter = "none"; 
+        t.innerText = "EL PARQUE"; // Asegurate que este sea el nombre de tu web
+    }, 3000);
+}
+
 
         function regaloPapaleta() {
             const t = document.getElementById('main-title');
