@@ -86,7 +86,8 @@ body { background: #0a0b10; color: white; font-family: sans-serif; margin: 0; tr
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-/* EL LIBRO DE LOS RÉCORDS (3D INTERACTIVO) */
+/* --- SECCIÓN DEL LIBRO REPARADA Y MEJORADA --- */
+
 .contenedor-libro {
     perspective: 1000px;
     margin: 40px auto;
@@ -99,6 +100,7 @@ body { background: #0a0b10; color: white; font-family: sans-serif; margin: 0; tr
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
+    transition: transform 0.5s;
     cursor: pointer;
 }
 
@@ -108,35 +110,37 @@ body { background: #0a0b10; color: white; font-family: sans-serif; margin: 0; tr
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 5px 15px 15px 5px;
+    border-radius: 3px 15px 15px 3px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.6);
     box-sizing: border-box;
 }
 
-/* Tapa Frontal (Ahora con textura de cuero y lomo 3D) */
+/* Tapa Frontal con textura de cuero HD */
 .front-cover {
-    background: linear-gradient(to right, #2a1a0b 0%, #4a2e15 12%, #5c3a21 100%); /* Efecto de luz en el cuero */
+    background: linear-gradient(to right, #2a1a0b 0%, #4a2e15 12%, #5c3a21 100%);
     color: #d4af37;
     border: 2px solid #1a0f05;
-    border-radius: 3px 15px 15px 3px;
     transform-origin: left;
     transition: transform 1.2s ease-in-out;
     z-index: 2;
     backface-visibility: hidden;
-    box-shadow: inset 8px 0 15px rgba(0,0,0,0.6), 5px 5px 15px rgba(0,0,0,0.5); /* Sombra profunda para el lomo */
+    box-shadow: inset 8px 0 15px rgba(0,0,0,0.6), 5px 5px 15px rgba(0,0,0,0.5);
 }
 
-/* Páginas Internas (Ahora con efecto de papel viejo) */
+/* Páginas de adentro con textura de papel viejo */
 .back-cover {
-    background: radial-gradient(circle, #fff3d4 0%, #e6cd98 100%); /* Efecto de pergamino gastado en los bordes */
+    background: radial-gradient(circle, #fff3d4 0%, #e6cd98 100%);
     color: #333;
     border: 1px solid #c2a878;
-    border-radius: 3px 15px 15px 3px;
     z-index: 1;
     box-shadow: inset -5px 0 20px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.5);
+}
+
+/* ESTA ES LA LÍNEA QUE HACÍA FALTA PARA QUE ABRA: */
+.libro-abierto .front-cover {
+    transform: rotateY(-150deg);
 }
