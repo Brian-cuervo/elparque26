@@ -144,3 +144,28 @@ body { background: #0a0b10; color: white; font-family: sans-serif; margin: 0; tr
 .libro-abierto .front-cover {
     transform: rotateY(-150deg);
 }
+/* --- MEJORAS PARA TEMPORADAS --- */
+
+/* Contenedor de botones T1 y T2 */
+.selector-temporadas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 5px;
+}
+
+/* Estilo para que el carrusel sea más suave en el celu */
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Fluidez en iPhone */
+}
+
+/* Evita que los botones se achiquen si hay muchos */
+button {
+    flex-shrink: 0;
+}
