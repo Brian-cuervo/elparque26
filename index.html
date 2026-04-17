@@ -103,7 +103,6 @@
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
         </div>
     </main>
-
     <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
@@ -115,7 +114,9 @@
             frame.src = urlLimpia;
             frame.style.display = "block";
             placeholder.style.display = "none";
-            window.scrollTo({top: 0, behavior: 'smooth'}); // Sube al reproductor al elegir capítulo
+            
+            // Sube al reproductor automáticamente al elegir capítulo
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function mostrarTemporada(num) {
@@ -123,28 +124,36 @@
             const t2 = document.getElementById('temp-2');
             const btn1 = document.getElementById('btn-t1');
             const btn2 = document.getElementById('btn-t2');
+            const subTitle = document.getElementById('sub-title');
 
             if(num === 1) {
                 t1.style.display = "flex";
                 t2.style.display = "none";
                 btn1.style.background = "var(--azul)"; btn1.style.color = "#111";
                 btn2.style.background = "#222"; btn2.style.color = "white";
+                subTitle.innerText = "Temporada 1";
             } else {
                 t1.style.display = "none";
                 t2.style.display = "flex";
                 btn2.style.background = "var(--azul)"; btn2.style.color = "#111";
                 btn1.style.background = "#222"; btn1.style.color = "white";
+                subTitle.innerText = "Temporada 2";
             }
         }
 
         function capituloAleatorio() {
-            const visibleCarousel = Array.from(document.querySelectorAll('.movie-carousel')).find(c => c.style.display !== 'none');
+            // Busca el contenedor que esté visible actualmente
+            const t1 = document.getElementById('temp-1');
+            const t2 = document.getElementById('temp-2');
+            const visibleCarousel = (t2.style.display === 'flex') ? t2 : t1;
+            
             const cards = visibleCarousel.querySelectorAll('.card-mini');
             const randomCard = cards[Math.floor(Math.random() * cards.length)];
             randomCard.click();
         }
 
         // --- EFECTOS DE PERSONAJES ---
+
         function enojarBenson() {
             const t = document.getElementById('main-title');
             document.body.style.backgroundColor = "#ff4757";
@@ -156,7 +165,17 @@
             const t = document.getElementById('main-title');
             t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
             document.body.style.backgroundColor = "#ffd32a";
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+            
+            const g = document.createElement("img");
+            g.src = "gorra.png";
+            g.style = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; width: 200px;";
+            document.body.appendChild(g);
+
+            setTimeout(() => { 
+                document.body.style.backgroundColor = "#0a0b10"; 
+                t.innerText = "Un Show Más"; 
+                g.remove(); 
+            }, 3000);
         }
 
         function festejoMordo() {
@@ -177,7 +196,26 @@
             const t = document.getElementById('main-title');
             t.innerText = "¡QUÉ BUEN SHOW!";
             document.body.style.backgroundColor = "#ff79ff";
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+            
+            for(let i=0; i<20; i++) {
+                const p = document.createElement("img");
+                p.src = "paleta.png";
+                const size = Math.random() * (60 - 30) + 30;
+                p.style = `position:fixed; left:${Math.random()*100}%; top:-100px; width:${size}px; z-index:9999; transition:3s linear;`;
+                document.body.appendChild(p);
+                
+                setTimeout(() => { 
+                    p.style.top = "110vh"; 
+                    p.style.transform = `rotate(${Math.random()*720}deg)`; 
+                }, 100);
+                
+                setTimeout(() => { p.remove(); }, 3100);
+            }
+            
+            setTimeout(() => { 
+                document.body.style.backgroundColor = "#0a0b10"; 
+                t.innerText = "Un Show Más"; 
+            }, 3000);
         }
 
         function bromaMusculoso() {
