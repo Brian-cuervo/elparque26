@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -43,22 +43,65 @@
     </section>
 
     <main class="container">
-        <h3>Temporada 1</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3>Temporada 1</h3>
+            <button onclick="capituloAleatorio()" style="background: var(--azul); border: none; font-family: var(--fuente-serie); padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; color: #111;">? Aleatorio</button>
+        </div>
+
         <div class="movie-carousel">
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')">
-                <div class="thumb">🍳</div>
+                <div class="thumb">👊</div>
                 <h4>1. El Poder</h4>
             </div>
-            <div class="card-mini" onclick="cargarVideo('TU_LINK_CAP_2_AQUI')">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng/preview')">
                 <div class="thumb">🪑</div>
-                <h4>2. Acomoden sillas</h4>
+                <h4>2. Solo acomoden las sillas</h4>
             </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HHWivqG2OKypS010BqGZXJoIGsNPOgPY/preview')">
+                <div class="thumb">☕</div>
+                <h4>3. Boletos con cafeína</h4>
             </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1boCAvhqFcjx-g9ZYxCL3YpRShwShna60/preview')">
+                <div class="thumb">🥊</div>
+                <h4>4. Golpes mortales</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16J4NiBaFrv78W7pts0DXipokz5JIGkEu/preview')">
+                <div class="thumb">🥩</div>
+                <h4>5. Pastel gratis</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1TksMOxY1PLCVKDRfg8nNEk7rE4BfQxxe/preview')">
+                <div class="thumb">🌭</div>
+                <h4>6. Parrillada</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1SERS4ehO7YESKXHThn8dpw5nACEJk0sI/preview')">
+                <div class="thumb">🧀</div>
+                <h4>7. Queso derretido</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1tMWkWReut_pfZY_IFzz6wu-YHjLXGFM3/preview')">
+                <div class="thumb">🦄</div>
+                <h4>8. Unicornios</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1pQ1Uf6RIls7jcKrRT35OIvpLeHj0sUKp/preview')">
+                <div class="thumb">☎️</div>
+                <h4>9. Bromistas</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10_iN2FBEogN0XPimFGNvrzH73LpCSaOW/preview')">
+                <div class="thumb">🎮</div>
+                <h4>10. Don</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC/preview')">
+                <div class="thumb">👻</div>
+                <h4>11. El cuerpo de Rigby</h4>
+            </div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly/preview')">
+                <div class="thumb">🎸</div>
+                <h4>12. Mordecai y los Rigby's</h4>
+            </div>
+        </div>
     </main>
 
     <script>
         function cargarVideo(url) {
-            if(!url || url.includes('TU_LINK')) { alert("Próximamente..."); return; }
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
             frame.src = url;
@@ -66,7 +109,11 @@
             placeholder.style.display = "none";
         }
 
-        // --- EFECTOS DE LOS PERSONAJES ---
+        function capituloAleatorio() {
+            const cards = document.querySelectorAll('.card-mini');
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            randomCard.click();
+        }
 
         function enojarBenson() {
             const t = document.getElementById('main-title');
@@ -126,4 +173,3 @@
     </script>
 </body>
 </html>
-           
