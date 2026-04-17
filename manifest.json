@@ -1,0 +1,16 @@
+{
+  "name": "ElParque26 - Un Show Más",
+  "short_name": "ElParque26",
+  "description": "Mirá todos los capítulos de Un Show Más",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a0b10",
+  "theme_color": "#00d2ff",
+  "icons": [
+    {
+      "src": "mordecai.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
