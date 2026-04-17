@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElParque26 | Streaming</title>
+    <title>Un Show Más Capítulos Completos Latino | ElParque26</title>
+    <meta name="description" content="Mirá todos los capítulos de Un Show Más en español latino. Temporada 1 y 2 en HD. El mejor sitio para fans de Mordecai y Rigby.">
+    <meta name="keywords" content="Un Show Más, Regular Show, Capítulos Completos, Latino, Mordecai y Rigby, Ver Online, ElParque26">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,14 +13,15 @@
         <div class="logo">El<span>Parque26</span></div>
         <ul class="nav-links">
             <li><a href="#">Inicio</a></li>
-            <li><a href="#">Temporadas</a></li>
+            <li><a href="#" onclick="mostrarTemporada(1)">Temporada 1</a></li>
+            <li><a href="#" onclick="mostrarTemporada(2)">Temporada 2</a></li>
         </ul>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <h1 id="main-title">Un Show Más</h1>
-            <p id="sub-title">Temporada 1</p>
+            <p id="sub-title">Streaming de Fans para Fans</p>
         </div>
     </header>
 
@@ -43,79 +46,76 @@
     </section>
 
     <main class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h3>Temporada 1</h3>
-            <button onclick="capituloAleatorio()" style="background: var(--azul); border: none; font-family: var(--fuente-serie); padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; color: #111;">? Aleatorio</button>
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
+            <button onclick="mostrarTemporada(1)" id="btn-t1" style="background: var(--azul); border: none; font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; color: #111;">Temporada 1</button>
+            <button onclick="mostrarTemporada(2)" id="btn-t2" style="background: #222; border: 1px solid var(--azul); font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; color: white;">Temporada 2</button>
+            <button onclick="capituloAleatorio()" style="background: #333; border: none; font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; color: white; margin-left: auto;">? ALEATORIO</button>
         </div>
 
-        <div class="movie-carousel">
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')">
-                <div class="thumb">🎹</div>
-                <h4>1. El Poder</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng/preview')">
-                <div class="thumb">🪑</div>
-                <h4>2. Solo acomoden las sillas</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HHWivqG2OKypS010BqGZXJoIGsNPOgPY/preview')">
-                <div class="thumb">☕</div>
-                <h4>3. Boletos con cafeína</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1boCAvhqFcjx-g9ZYxCL3YpRShwShna60/preview')">
-                <div class="thumb">🥊</div>
-                <h4>4. Golpes mortales</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16J4NiBaFrv78W7pts0DXipokz5JIGkEu/preview')">
-                <div class="thumb">🎂</div>
-                <h4>5. Pastel gratis</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1TksMOxY1PLCVKDRfg8nNEk7rE4BfQxxe/preview')">
-                <div class="thumb">🌭</div>
-                <h4>6. Parrillada</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1SERS4ehO7YESKXHThn8dpw5nACEJk0sI/preview')">
-                <div class="thumb">🧀</div>
-                <h4>7. Queso derretido</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1tMWkWReut_pfZY_IFzz6wu-YHjLXGFM3/preview')">
-                <div class="thumb">🦄</div>
-                <h4>8. Los Unicornios deben irse</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1pQ1Uf6RIls7jcKrRT35OIvpLeHj0sUKp/preview')">
-                <div class="thumb">☎️</div>
-                <h4>9. Bromistas</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10_iN2FBEogN0XPimFGNvrzH73LpCSaOW/preview')">
-                <div class="thumb">🎮</div>
-                <h4>10. Don</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC/preview')">
-                <div class="thumb">👻</div>
-                <h4>11. El cuerpo de Rigby</h4>
-            </div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly/preview')">
-                <div class="thumb">🎸</div>
-                <h4>12. Mordecai y los Rigby's</h4>
-            </div>
+        <div id="temp-1" class="movie-carousel">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')"><div class="thumb">🎹</div><h4>1. El Poder</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng/preview')"><div class="thumb">🪑</div><h4>2. Solo acomoden las sillas</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HHWivqG2OKypS010BqGZXJoIGsNPOgPY/preview')"><div class="thumb">☕</div><h4>3. Boletos con cafeína</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1boCAvhqFcjx-g9ZYxCL3YpRShwShna60/preview')"><div class="thumb">🥊</div><h4>4. Golpes mortales</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16J4NiBaFrv78W7pts0DXipokz5JIGkEu/preview')"><div class="thumb">🎂</div><h4>5. Pastel gratis</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1TksMOxY1PLCVKDRfg8nNEk7rE4BfQxxe/preview')"><div class="thumb">🌭</div><h4>6. Parrillada</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1SERS4ehO7YESKXHThn8dpw5nACEJk0sI/preview')"><div class="thumb">🧀</div><h4>7. Queso derretido</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1tMWkWReut_pfZY_IFzz6wu-YHjLXGFM3/preview')"><div class="thumb">🦄</div><h4>8. Los Unicornios deben irse</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1pQ1Uf6RIls7jcKrRT35OIvpLeHj0sUKp/preview')"><div class="thumb">☎️</div><h4>9. Bromistas</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10_iN2FBEogN0XPimFGNvrzH73LpCSaOW/preview')"><div class="thumb">🎮</div><h4>10. Don</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC/preview')"><div class="thumb">👻</div><h4>11. El cuerpo de Rigby</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly/preview')"><div class="thumb">🎸</div><h4>12. Mordecai y los Rigby's</h4></div>
         </div>
+
+        <div id="temp-2" class="movie-carousel" style="display: none;">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1foDU6VBh6SwGxn3lmaEah5wb7lay55Yw/view?usp=drivesdk')"><div class="thumb">👔</div><h4>1. Que tal gobernador</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1aUC0qkVeVblc2YaKmwNr-dgBW2JCLFny/view?usp=drivesdk')"><div class="thumb">⏳</div><h4>2. El padre tiempo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1oQTwslpYkiEJivqeFqmQALwAWjfrcPI5/view?usp=drivesdk')"><div class="thumb">🙏</div><h4>3. Dia del agradecimiento</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1W0xqNcKID-BtRJEnCogjW8iOgiAwbX9g/view?usp=drivesdk')"><div class="thumb">👁️</div><h4>4. Fisgón</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HZ0K3yiNK81F2wtX92ZOoRLP232yA8VI/view?usp=drivesdk')"><div class="thumb">😵‍💫</div><h4>5. Mareados</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/182O2taQ03fCjZsQVWnXY6d--gTTcUo1s/view?usp=drivesdk')"><div class="thumb">👩</div><h4>6. Mi Mami</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1-lG8e6MqzHfR-KdxnpbKBtHeZ4OUCDpw/view?usp=drivesdk')"><div class="thumb">🏆</div><h4>7. El record</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1T6sIiqzWKE2XhiXDGAcDfBaRTxc2CL7f/view?usp=drivesdk')"><div class="thumb">📺</div><h4>8. Ira contra el televisor</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1ev3QnHOnN1HvV9Arn5mQ1BvYLaWqWHEO/view?usp=drivesdk')"><div class="thumb">👊</div><h4>9. Beto Bullicio</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/11kxCzK9BPrBCxZDEz18Y1hm8xFZ_9osW/view?usp=drivesdk')"><div class="thumb">🧠</div><h4>10. Borrando la memoria</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1waiitg_0rUYRIYz4rimXSDTLI-sKuZ5G/view?usp=drivesdk')"><div class="thumb">🚗</div><h4>11. Benson se va</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Qub1ptBqhiVk0Z_ERpBGJA-CmXpD8n4s/view?usp=drivesdk')"><div class="thumb">🧾</div><h4>12. Pero si tengo el recibo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1iM14JDnPbVC-X3HC07FFe5rnL5DbOdNX/view?usp=drivesdk')"><div class="thumb">🎶</div><h4>13. Una canción pegajosa</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/17bh-IgFwXk669vbv3hK0Xs1B3WNWnWWc/view?usp=drivesdk')"><div class="thumb">💪</div><h4>14. Mujer musculosa</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1f2qoJSgJeFiLvbVH75PbLSmJ1c_UuHg2/view?usp=drivesdk')"><div class="thumb">☕</div><h4>15. Trabajador temporal</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Zfwqni9Fu-jGiYa77Que48ZSDjmAZE9D/view?usp=drivesdk')"><div class="thumb">👉</div><h4>16. Tocado</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1atlm2b5F7Rlsdwb1A7x8cXhJDMaeWxVo/view?usp=drivesdk')"><div class="thumb">👋</div><h4>17. Los veo allá</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1yafF8aWUTIaN7kIGXohAfxHtMfy28Mvj/view?usp=drivesdk')"><div class="thumb">🤝</div><h4>18. Hazme un favor</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1dWmjc8Zzp8xqjAtGAdbMYhcDYft0rk4I/view?usp=drivesdk')"><div class="thumb">💀</div><h4>19. El Cementerio</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1muPs6lWMKOilWAi3OXPIhmXFr0hpCFy3/view?usp=drivesdk')"><div class="thumb">🤼</div><h4>20. Lucha realmente real</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1yoXSSAscLjBv7K8wNrlZq8huuGCCiIv2/view?usp=drivesdk')"><div class="thumb">🥊</div><h4>21. La revancha</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1lJ9zWvV-DAI8qL_WPkS_cRoVDdTJIvKE/view?usp=drivesdk')"><div class="thumb">🦉</div><h4>22. El Búho</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/19_2afafePZZonW8H7z7rqfBGUkbV4X_d/view?usp=drivesdk')"><div class="thumb">🦆</div><h4>23. Patitos huerfanitos</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1lQ4uHkJZLFf85Cl4QclFW1yKcVAZW0m3/view?usp=drivesdk')"><div class="thumb">✨</div><h4>24. Mas mejor</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OHB8eZU-cLGs7J5-Sl2TGezldmtY-yMm/view?usp=drivesdk')"><div class="thumb">🌅</div><h4>25. El primer dia</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/11_dM6NmT1K1g0lzex2GMhFquCkN-DC_9/view?usp=drivesdk')"><div class="thumb">📹</div><h4>26. El super video</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1xr_hwTcvBjdHbKcOWBfSoCBpPGmuGa7b/view?usp=drivesdk')"><div class="thumb">🐺</div><h4>27. El lobo-zorrillo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1yD7PLYygO0lzbM6I9T44Ts2sVqMTTU40/view?usp=drivesdk')"><div class="thumb">🎤</div><h4>28. El video del karaoke</h4></div>
+        </div>
+
         <div style="text-align: center; margin-top: 30px; padding-bottom: 20px;">
-    <p style="font-size: 0.8rem; color: #555; font-family: sans-serif;">¿Algún capítulo caído o sugerencia?</p>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
-</div>
+            <p style="font-size: 0.8rem; color: #555; font-family: sans-serif;">¿Algún capítulo caído o sugerencia?</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
+        </div>
     </main>
 
-        <script>
+    <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
             
-            // MAGIA: Cambia /view o /edit por /preview automáticamente
-            // Así vos pegás el link de Drive directo y funciona solo
+            // MAGIA: Limpia links de Drive automáticamente
             let urlLimpia = url.replace(/\/view.*/, "/preview").replace(/\/edit.*/, "/preview");
 
             frame.src = urlLimpia;
             frame.style.display = "block";
             placeholder.style.display = "none";
+            window.scrollTo({top: 0, behavior: 'smooth'}); // Sube al reproductor al elegir capítulo
         }
 
         function mostrarTemporada(num) {
@@ -138,13 +138,13 @@
         }
 
         function capituloAleatorio() {
-            // Selecciona solo los capítulos de la temporada que se está viendo
-            const visibleCarousel = document.querySelector('.movie-carousel[style*="display: flex"]') || document.getElementById('temp-1');
+            const visibleCarousel = Array.from(document.querySelectorAll('.movie-carousel')).find(c => c.style.display !== 'none');
             const cards = visibleCarousel.querySelectorAll('.card-mini');
             const randomCard = cards[Math.floor(Math.random() * cards.length)];
             randomCard.click();
         }
 
+        // --- EFECTOS DE PERSONAJES ---
         function enojarBenson() {
             const t = document.getElementById('main-title');
             document.body.style.backgroundColor = "#ff4757";
@@ -156,11 +156,7 @@
             const t = document.getElementById('main-title');
             t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
             document.body.style.backgroundColor = "#ffd32a";
-            const g = document.createElement("img");
-            g.src = "gorra.png";
-            g.className = "efecto-pop";
-            document.body.appendChild(g);
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; g.remove(); }, 3000);
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
 
         function festejoMordo() {
@@ -181,15 +177,6 @@
             const t = document.getElementById('main-title');
             t.innerText = "¡QUÉ BUEN SHOW!";
             document.body.style.backgroundColor = "#ff79ff";
-            for(let i=0; i<20; i++) {
-                const p = document.createElement("img");
-                p.src = "paleta.png";
-                const size = Math.random() * (60 - 30) + 30;
-                p.style = `position:fixed; left:${Math.random()*100}%; top:-100px; width:${size}px; z-index:9999; transition:3s linear;`;
-                document.body.appendChild(p);
-                setTimeout(() => { p.style.top = "110vh"; p.style.transform = "rotate(720deg)"; }, 100);
-                setTimeout(() => { p.remove(); }, 3100);
-            }
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
 
@@ -201,6 +188,5 @@
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
     </script>
-
 </body>
 </html>
