@@ -7,200 +7,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     
-    <style>
-        /* 1. ESTILOS GENERALES */
-        body {
-            background-color: #333; 
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: filter 0.5s; /* Para el efecto suave de Skips */
-        }
-
-        /* 2. TÍTULO PRINCIPAL */
-        #main-title {
-            font-family: 'Luckiest Guy', cursive;
-            color: #ffcc00;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-        }
-
-        /* 3. ICONOS DE PERSONAJES */
-        .iconos-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .personaje {
-            cursor: pointer;
-            text-align: center;
-            width: 70px;
-        }
-
-        .personaje img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid #ffcc00;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .personaje img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px #ffcc00;
-        }
-
-        .personaje p {
-            font-family: 'Luckiest Guy', cursive;
-            color: white;
-            font-size: 0.8rem;
-            margin-top: 5px;
-        }
-
-        /* 4. BOTÓN DE REPORTES */
-        .btn-reportes {
-            background-color: #f44336;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-family: 'Luckiest Guy', cursive;
-            cursor: pointer;
-            margin-bottom: 20px;
-            box-shadow: 0 4px #d32f2f;
-        }
-
-        .btn-reportes:active {
-            box-shadow: 0 2px #d32f2f;
-            transform: translateY(2px);
-        }
-
-        /* 5. REPRODUCTOR DE VIDEO (DRIVE) */
-        .reproductor-container {
-            position: relative;
-            width: 100%;
-            max-width: 640px;
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
-            height: 0;
-            margin-bottom: 30px;
-        }
-
-        .reproductor-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #ffcc00;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
-        }
-
-        /* 6. BOTONES DE CAPÍTULOS */
-        .capitulos-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            max-width: 640px;
-        }
-
-        .btn {
-            background-color: #555;
-            color: white;
-            padding: 10px 15px;
-            border: 2px solid #ffcc00;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .btn:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        /* 7. ANIMACIÓN DE PALETAS (Papaleta) */
-        .paleta {
-            position: fixed;
-            top: -50px;
-            font-size: 30px;
-            animation: caer 3s linear forwards;
-            z-index: 999;
-        }
-
-        @keyframes caer {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
-        }
-
-        /* 8. EL LIBRO DE LOS RÉCORDS (3D INTERACTIVO) */
-        .contenedor-libro {
-            perspective: 1000px;
-            margin: 40px auto;
-            width: 250px;
-            height: 350px;
-        }
-
-        .libro {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .tapa {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 5px 15px 15px 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.6);
-            box-sizing: border-box;
-        }
-
-        /* Tapa Frontal del Libro (Cerrado) */
-        .front-cover {
-            background: #4a2e15;
-            color: #d4af37;
-            border: 3px solid #2a1a0b;
-            transform-origin: left;
-            transition: transform 1.2s ease-in-out;
-            z-index: 2;
-            backface-visibility: hidden;
-        }
-
-        /* Páginas Internas del Libro (Abierto) */
-        .back-cover {
-            background: #f4e4bc;
-            color: #333;
-            border: 1px solid #ccc;
-            z-index: 1;
-        }
-
-        /* Clase que activa el giro 3D */
-        .libro-abierto .front-cover {
-            transform: rotateY(-140deg);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -243,23 +50,18 @@
 
     <div class="contenedor-libro">
         <div id="mi-libro" class="libro" onclick="abrirCerrarLibro()">
-            
             <div class="tapa back-cover">
                 <h3 style="font-family: 'Arial', sans-serif; color: #8b0000; border-bottom: 2px solid #8b0000; margin-top: 20px;">LA WIKI DEL PARQUE</h3>
                 <p style="font-size: 0.9rem; margin: 15px; line-height: 1.4; color: #222;">Acá vamos a cargar toda la info de los episodios, objetos mágicos y secretos de Un Show Más.</p>
                 <p style="font-size: 0.8rem; color: #777;">(¡Próximamente...!)</p>
             </div>
-
             <div class="tapa front-cover">
                 <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; line-height: 1.1; margin: 0; letter-spacing: 1px;">EL LIBRO</h2>
                 <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem; margin: 2px 0; font-weight: bold; color: #ffeb3b;">DE LOS</p>
                 <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; margin: 0; letter-spacing: 1px;">RÉCORDS</h2>
-                
                 <div style="width: 60px; height: 5px; background: #d4af37; margin-top: 25px; border-radius: 2px;"></div>
-                
                 <p style="font-size: 0.7rem; margin-top: 40px; opacity: 0.7;">Toca para abrir</p>
             </div>
-
         </div>
     </div>
 
@@ -271,20 +73,17 @@
     </div>
 
     <script>
-        // Cambiar el capítulo en el reproductor
         function cambiarCapitulo(idDrive, tituloCap) {
             const reproductor = document.getElementById('reproductor');
             reproductor.src = `https://drive.google.com/file/d/${idDrive}/preview`;
             document.getElementById('main-title').innerText = tituloCap.toUpperCase();
         }
 
-        // Funciones simples de personajes (Solo texto, cero errores)
         function mordecai() { alert("Mordecai: OOOOOHH!"); }
         function rigby() { alert("Rigby: HMPH! HMPH!"); }
         function benson() { alert("Benson: ¡ESTÁN DESPEDIDOS O LIMPIAN ESTE DESASTRE!"); }
         function musculoso() { alert("Musculoso: ¡OOOOOHHH MI MAMI!"); }
 
-        // Papaleta: Lluvia de paletas
         function lloverPaletas() {
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
@@ -299,10 +98,8 @@
             }
         }
 
-        // Skips: Efecto Vintage + Frases de la Wiki
         function sabiduriaSkips() {
             const t = document.getElementById('main-title');
-            
             const frases = [
                 "YA HE VISTO ESTO ANTES...",
                 "¡TÉMPANOS!",
@@ -313,24 +110,20 @@
                 "¡SÉ EXTRA HUEVO ORDINARIO!",
                 "NECESITAN EL COMBO DE DESTRUCCIÓN."
             ];
-            
             const fraseSuerte = frases[Math.floor(Math.random() * frases.length)];
             
             t.innerText = fraseSuerte;
             document.body.style.filter = "grayscale(1)";
-            
             setTimeout(() => { 
                 document.body.style.filter = "none"; 
                 t.innerText = "EL PARQUE"; 
             }, 3000);
         }
 
-        // Libro de los Récords: Abrir y cerrar
         function abrirCerrarLibro() {
             const libro = document.getElementById('mi-libro');
             libro.classList.toggle('libro-abierto');
         }
     </script>
-
 </body>
 </html>
