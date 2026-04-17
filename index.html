@@ -104,34 +104,6 @@
 </div>
     </main>
 
-    <div class="contenedor-libro">
-        <div id="mi-libro" class="libro" onclick="abrirCerrarLibro()">
-            
-            <div class="tapa back-cover" style="padding: 15px; overflow-y: auto;">
-                <h3 style="font-family: 'Arial', sans-serif; color: #8b0000; border-bottom: 2px solid #8b0000; margin-top: 10px; font-size: 1.1rem;">LA WIKI DEL PARQUE</h3>
-                
-                <div style="text-align: left; font-size: 0.75rem; margin-top: 15px; line-height: 1.3;">
-                    <h4 style="margin: 0 0 3px 0; color: #4a2e15;">🎹 El Poder (Teclado)</h4>
-                    <p style="margin: 0 0 10px 0; color: #222;">Aparece en el primer capítulo. Todo lo que cantas con él se hace realidad. Mordecai y Rigby se lo robaron a un mago.</p>
-                    
-                    <h4 style="margin: 0 0 3px 0; color: #4a2e15;">🥪 Sándwich de la Muerte</h4>
-                    <p style="margin: 0 0 10px 0; color: #222;">Si lo comes mal, te mueres. La única forma segura de comerlo es usando pantalones cortos y un corte de pelo mullet.</p>
-
-                    <h4 style="margin: 0 0 3px 0; color: #4a2e15;">🕹️ Los Guantes Máximos</h4>
-                    <p style="margin: 0 0 10px 0; color: #222;">El accesorio definitivo para los videojuegos. Rigby los usa para intentar ganarle a Mordecai.</p>
-                </div>
-            </div>
-
-            <div class="tapa front-cover">
-                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; line-height: 1.1; margin: 0; letter-spacing: 1px;">EL LIBRO</h2>
-                <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem; margin: 2px 0; font-weight: bold; color: #ffeb3b;">DE LOS</p>
-                <h2 style="font-family: 'Luckiest Guy', cursive; font-size: 1.8rem; margin: 0; letter-spacing: 1px;">RÉCORDS</h2>
-                <div style="width: 60px; height: 5px; background: #d4af37; margin-top: 25px; border-radius: 2px;"></div>
-                <p style="font-size: 0.7rem; margin-top: 40px; opacity: 0.7;">Toca para abrir</p>
-            </div>
-        </div>
-    </div>
-
     <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
@@ -201,12 +173,6 @@
             document.body.classList.add("shake-effect");
             setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
-        }
-        
-        // Función del Libro
-        function abrirCerrarLibro() {
-            const libro = document.getElementById('mi-libro');
-            libro.classList.toggle('libro-abierto');
         }
     </script>
 </body>
