@@ -104,6 +104,36 @@
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
         </div>
     </main>
+    
+    <section class="container">
+    <div class="pelea-container">
+        <h3 style="color: var(--azul); margin-bottom: 10px;">🥊 DUELO EN EL PARQUE 🥊</h3>
+        <button class="btn-ataque btn-cambiar" onclick="cambiarLuchador()">🔄 Cambiar a Rigby</button>
+        
+        <div style="display: flex; gap: 20px; color: white;">
+            <div style="flex: 1;">
+                <p id="nombre-jugador">Mordo</p>
+                <div class="health-bar"><div id="vida-jugador" class="health-fill"></div></div>
+            </div>
+            <div style="flex: 1;">
+                <p>Benson</p>
+                <div class="health-bar"><div id="vida-benson" class="health-fill"></div></div>
+            </div>
+        </div>
+
+        <div class="fighter-stage">
+            <img id="img-jugador" src="mordecai_normal.png" alt="Jugador">
+            <img id="img-benson" src="benson_normal.png" alt="Benson">
+        </div>
+
+        <div class="controles-pelea">
+            <button class="btn-ataque" onclick="atacar('golpe')">👊 GOLPE</button>
+            <button class="btn-ataque btn-especial" onclick="atacar('especial')">✨ ESPECIAL</button>
+        </div>
+        <p id="pelea-status" style="color: #ffd32a;">¡Derrotá a Benson para que no te despida!</p>
+    </div>
+</section>
+
     <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
@@ -226,6 +256,118 @@
             setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
+
+        // --- LÓGICA DEL MINIJUEGO ---
+let vidaBenson = 100;
+let vidaJugador = 100;
+let luchadorActual = "mordecai"; 
+let peleando = false;
+
+function cambiarLuchador() {
+    if (vidaBenson <= 0 || vidaJugador <= 0) return; 
+    
+    const imgJugador = document.getElementById('img-jugador');
+    const btnCambiar = document.querySelector('.btn-cambiar');
+    const nombreJugador = document.getElementById('nombre-jugador');
+
+    if (luchadorActual === "mordecai") {
+        luchadorActual = "rigby";
+        imgJugador.src = "rigby_normal.png";
+        nombreJugador.innerText = "Rigby";
+        btnCambiar.innerText = "🔄 Cambiar a Mordo";
+    } else {
+        luchadorActual = "mordecai";
+        imgJugador.src = "mordecai_normal.png";
+        nombreJugador.innerText = "Mordo";
+        btnCambiar.innerText = "🔄 Cambiar a Rigby";
+    }
+}
+
+function atacar(tipo) {
+    if(vidaBenson <= 0 || vidaJugador <= 0 || peleando) return;
+    peleando = true; 
+
+    const imgBenson = document.getElementById('img-benson');
+    const imgJugador = document.getElementById('img-jugador');
+    const barraBenson = document.getElementById('vida-benson');
+    const statusPelea = document.getElementById('pelea-status');
+
+    // Ataque del jugador
+    let daño = (tipo === 'golpe') ? 10 : 25;
+    vidaBenson -= daño;
+    
+    imgJugador.src = (tipo === 'golpe') ? `${luchadorActual}_golpe.png` : `${luchadorActual}_especial.png`;
+    imgJugador.style.transform = "translateX(20px)";
+
+    setTimeout(() => {
+        barraBenson.style.width = Math.max(0, vidaBenson) + "%";
+        imgBenson.src = "benson_dolor.png";
+        imgBenson.classList.add("shake-effect");
+        
+        if(vidaBenson < 60) barraBenson.style.background = "#ffd32a";
+        if(vidaBenson < 30) barraBenson.style.background = "#ff4757";
+
+        imgJugador.src = `${luchadorActual}_normal.png`;
+        imgJugador.style.transform = "none";
+    }, 200);
+
+    setTimeout(() => {
+        imgBenson.classList.remove("shake-effect");
+        
+        if(vidaBenson <= 0) {
+            statusPelea.innerText = "¡GANASTE! Benson está noqueado... ¡OOOOOOH!";
+            imgBenson.src = "benson_furia.png";
+            imgBenson.style.filter = "grayscale(1) rotate(90deg)";
+            peleando = false;
+        } else {
+            imgBenson.src = "benson_normal.png";
+            contraataqueBenson();
+        }
+    }, 800);
+}
+
+function contraataqueBenson() {
+    const imgBenson = document.getElementById('img-benson');
+    const imgJugador = document.getElementById('img-jugador');
+    const barraJugador = document.getElementById('vida-jugador');
+    const statusPelea = document.getElementById('pelea-status');
+
+    setTimeout(() => {
+        imgBenson.src = "benson_golpe.png";
+        imgBenson.style.transform = "translateX(-20px)";
+
+        setTimeout(() => {
+            vidaJugador -= 20;
+            barraJugador.style.width = Math.max(0, vidaJugador) + "%";
+            
+            if(vidaJugador < 60) barraJugador.style.background = "#ffd32a";
+            if(vidaJugador < 30) barraJugador.style.background = "#ff4757";
+
+            imgJugador.src = `${luchadorActual}_dolor.png`;
+            imgJugador.classList.add("shake-effect");
+
+            imgBenson.src = "benson_normal.png";
+            imgBenson.style.transform = "none";
+        }, 200);
+
+        setTimeout(() => {
+            imgJugador.classList.remove("shake-effect");
+            
+            if(vidaJugador <= 0) {
+                statusPelea.innerText = "¡PERDISTE! Estás despedido... ¡Qué ordinario!";
+                imgJugador.src = `${luchadorActual}_dolor.png`;
+                imgJugador.style.filter = "grayscale(1) rotate(-90deg)";
+                imgBenson.src = "benson_furia.png"; 
+            } else {
+                imgJugador.src = `${luchadorActual}_normal.png`;
+            }
+            peleando = false; 
+        }, 800);
+
+    }, 500); 
+}
+
+   
     </script>
 </body>
 </html>
