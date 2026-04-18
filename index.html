@@ -130,7 +130,9 @@
             <button class="btn-ataque" onclick="atacar('golpe')">👊 GOLPE</button>
             <button class="btn-ataque btn-especial" onclick="atacar('especial')">✨ ESPECIAL</button>
         </div>
-        <p id="pelea-status" style="color: #ffd32a;">¡Derrotá a Benson para que no te despida!</p>
+                <p id="pelea-status" style="color: #ffd32a;">¡Derrotá a Benson para que no te despida!</p>
+        
+        <button class="btn-ataque" style="background: #2ed573; margin-top: 15px;" onclick="reiniciarPelea()">🔄 REINICIAR PELEA</button>
     </div>
 </section>
 
@@ -316,7 +318,7 @@ function atacar(tipo) {
         
         if(vidaBenson <= 0) {
             statusPelea.innerText = "¡GANASTE! Benson está noqueado... ¡OOOOOOH!";
-            imgBenson.src = "benson_furia.png";
+            imgBenson.src = "benson_especial.png";
             imgBenson.style.filter = "grayscale(1) rotate(90deg)";
             peleando = false;
         } else {
@@ -357,7 +359,7 @@ function contraataqueBenson() {
                 statusPelea.innerText = "¡PERDISTE! Estás despedido... ¡Qué ordinario!";
                 imgJugador.src = `${luchadorActual}_dolor.png`;
                 imgJugador.style.filter = "grayscale(1) rotate(-90deg)";
-                imgBenson.src = "benson_furia.png"; 
+                imgBenson.src = "benson_especial.png"; 
             } else {
                 imgJugador.src = `${luchadorActual}_normal.png`;
             }
@@ -365,6 +367,35 @@ function contraataqueBenson() {
         }, 800);
 
     }, 500); 
+}
+function reiniciarPelea() {
+    vidaBenson = 100;
+    vidaJugador = 100;
+    peleando = false;
+
+    const barraBenson = document.getElementById('vida-benson');
+    const barraJugador = document.getElementById('vida-jugador');
+    const imgBenson = document.getElementById('img-benson');
+    const imgJugador = document.getElementById('img-jugador');
+    const statusPelea = document.getElementById('pelea-status');
+
+    // Resetear barras de vida a verde y 100%
+    barraBenson.style.width = "100%";
+    barraBenson.style.background = "#00ff00";
+    barraJugador.style.width = "100%";
+    barraJugador.style.background = "#00ff00";
+
+    // Resetear imágenes (les saca el filtro gris y los pone derechos)
+    imgBenson.src = "benson_normal.png";
+    imgBenson.style.filter = "none";
+    imgBenson.style.transform = "none";
+
+    imgJugador.src = `${luchadorActual}_normal.png`;
+    imgJugador.style.filter = "none";
+    imgJugador.style.transform = "none";
+
+    // Resetear el texto
+    statusPelea.innerText = "¡Derrotá a Benson para que no te despida!";
 }
 
    
