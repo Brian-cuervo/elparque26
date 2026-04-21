@@ -227,65 +227,122 @@
         }
 
         // --- EFECTOS PERSONAJES ---
+        function mostrarMensaje(texto, imagen = null) {
+            const m = document.createElement(imagen ? "img" : "div");
+            if (imagen) m.src = imagen;
+            else m.innerText = texto;
+            m.className = "efecto-pop";
+            document.body.appendChild(m);
+            setTimeout(() => m.remove(), 2500);
+        }
+
         function enojarBenson() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
             t.innerText = "¡VUELVAN A TRABAJAR!";
+            mostrarMensaje("¡ESTÁN DESPEDIDOS!");
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
         }
         function retoHuevo() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ffd32a";
             t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
+            mostrarMensaje(null, "gorra.png");
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
         function festejoMordo() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#1e90ff";
             t.innerText = "¡OOOOOOOOOOH!";
+            mostrarMensaje("¡OOOOOOOOOOH!");
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
         }
         function sabiduriaSkips() {
             const t = document.getElementById('main-title'); document.body.style.filter = "grayscale(1)";
             t.innerText = "YA HE VISTO ESTO ANTES...";
+            mostrarMensaje("Ya he visto esto antes...");
             setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
         }
         function regaloPapaleta() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff79ff";
             t.innerText = "¡QUÉ BUEN SHOW!";
+            mostrarMensaje("¡Qué buen show!");
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
         function bromaMusculoso() {
             const t = document.getElementById('main-title');
             document.body.classList.add("shake-effect");
             t.innerText = "¿SABEN QUIÉN MÁS?";
-            setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
-            setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
+            mostrarMensaje("¡MI MAMI!");
+            setTimeout(() => { t.innerText = "Un Show Más"; document.body.classList.remove("shake-effect"); }, 3500);
         }
 
-        // --- LÓGICA PELEA ---
+        // --- LÓGICA PELEA MEJORADA ---
         let vidaBenson = 100, vidaJugador = 100, luchadorActual = "mordecai", peleando = false;
+        
         function cambiarLuchador() {
-            const img = document.getElementById('img-jugador'); const nombre = document.getElementById('nombre-jugador');
+            if (peleando) return;
+            const img = document.getElementById('img-jugador'); 
+            const nombre = document.getElementById('nombre-jugador');
             luchadorActual = (luchadorActual === "mordecai") ? "rigby" : "mordecai";
             img.src = luchadorActual + "_normal.png";
             nombre.innerText = luchadorActual.charAt(0).toUpperCase() + luchadorActual.slice(1);
         }
+
         function atacar(tipo) {
             if(vidaBenson <= 0 || vidaJugador <= 0 || peleando) return;
             peleando = true;
-            vidaBenson -= (tipo === 'golpe') ? 10 : 25;
-            document.getElementById('vida-benson').style.width = Math.max(0, vidaBenson) + "%";
-            if(vidaBenson <= 0) { document.getElementById('pelea-status').innerText = "¡GANASTE!"; peleando = false; }
-            else { setTimeout(contraataqueBenson, 800); }
+            
+            const imgJ = document.getElementById('img-jugador');
+            const imgB = document.getElementById('img-benson');
+
+            // Movimiento de ataque
+            imgJ.style.transform = "translateX(50px) scale(1.1)";
+            
+            setTimeout(() => {
+                vidaBenson -= (tipo === 'golpe') ? 10 : 25;
+                document.getElementById('vida-benson').style.width = Math.max(0, vidaBenson) + "%";
+                imgB.classList.add("shake-effect");
+                imgJ.style.transform = "translateX(0) scale(1)";
+            }, 200);
+
+            setTimeout(() => {
+                imgB.classList.remove("shake-effect");
+                if(vidaBenson <= 0) { 
+                    document.getElementById('pelea-status').innerText = "¡GANASTE! Benson está noqueado."; 
+                    imgB.style.filter = "grayscale(1) rotate(90deg)";
+                    peleando = false; 
+                }
+                else { setTimeout(contraataqueBenson, 600); }
+            }, 800);
         }
+
         function contraataqueBenson() {
-            vidaJugador -= 20;
-            document.getElementById('vida-jugador').style.width = Math.max(0, vidaJugador) + "%";
-            if(vidaJugador <= 0) document.getElementById('pelea-status').innerText = "¡PERDISTE!";
-            peleando = false;
+            const imgJ = document.getElementById('img-jugador');
+            const imgB = document.getElementById('img-benson');
+
+            imgB.style.transform = "translateX(-50px) scale(1.1)";
+
+            setTimeout(() => {
+                vidaJugador -= 20;
+                document.getElementById('vida-jugador').style.width = Math.max(0, vidaJugador) + "%";
+                imgJ.classList.add("shake-effect");
+                imgB.style.transform = "translateX(0) scale(1)";
+            }, 200);
+
+            setTimeout(() => {
+                imgJ.classList.remove("shake-effect");
+                if(vidaJugador <= 0) {
+                    document.getElementById('pelea-status').innerText = "¡PERDISTE! ¡ESTÁS DESPEDIDO!";
+                    imgJ.style.filter = "grayscale(1) rotate(-90deg)";
+                }
+                peleando = false;
+            }, 800);
         }
+
         function reiniciarPelea() {
-            vidaBenson = 100; vidaJugador = 100;
+            vidaBenson = 100; vidaJugador = 100; peleando = false;
             document.getElementById('vida-benson').style.width = "100%";
             document.getElementById('vida-jugador').style.width = "100%";
+            document.getElementById('img-jugador').style.filter = "none";
+            document.getElementById('img-benson').style.filter = "none";
             document.getElementById('pelea-status').innerText = "¡Derrotá a Benson!";
         }
     </script>
