@@ -3,28 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Show Más Capítulos Completos Latino | ElParque26</title>
+    <title>Un Show Más Latino | ElParque26</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="description" content="Mirá todos los capítulos de Un Show Más en español latino. Temporada 1 y 2 en HD. El mejor sitio para fans de Mordecai y Rigby.">
-    <meta name="keywords" content="Un Show Más, Regular Show, Capítulos Completos, Latino, Mordecai y Rigby, Ver Online, ElParque26">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
 <body class="v-particles">
-     <nav class="navbar">
+    <nav class="navbar">
         <div class="logo">El<span>Parque26</span></div>
         <ul class="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#" onclick="mostrarTemporada(1)">Temporada 1</a></li>
-            <li><a href="#" onclick="mostrarTemporada(2)">Temporada 2</a></li>
-            <li><a href="#" onclick="mostrarTemporada(3)">Temporada 3</a></li>
+            <li><a href="#" onclick="location.reload()">Inicio</a></li>
+            <li><a href="#buscador">Buscar</a></li>
         </ul>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <h1 id="main-title">Un Show Más</h1>
-            <p id="sub-title">Streaming de Fans para Fans</p>
         </div>
     </header>
 
@@ -32,35 +26,35 @@
         <div class="video-wrapper">
             <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
             <div id="video-placeholder">
-                <p>🍿 Seleccioná un capítulo para empezar</p>
+                <p>🍿 Seleccioná un capítulo abajo</p>
             </div>
         </div>
     </section>
 
-    <section class="characters-mini">
-        <div class="char-row">
-            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
-            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
-            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
-            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
-            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
-            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
-        </div>
-    </section>
+    <div style="text-align: center; padding: 20px;">
+        <input type="text" id="buscador" onkeyup="buscarCapitulos()" placeholder="🔍 Buscar capítulo..." style="width: 85%; max-width: 400px; padding: 12px; border-radius: 25px; border: 2px solid var(--azul); background: #111; color: white; outline: none; text-align: center;">
+    </div>
 
-    <main class="container">
+    <section class="container">
+        <h3 style="color: var(--azul); margin-bottom: 15px;">TEMPORADAS</h3>
+        <div class="poster-selector">
+            <div class="poster-card" id="btn-t1" onclick="mostrarTemporada(1)">
+                <img src="t1.png" alt="Temporada 1">
+                <div class="poster-info">T1</div>
+            </div>
+            <div class="poster-card" id="btn-t2" onclick="mostrarTemporada(2)">
+                <img src="t2.png" alt="Temporada 2">
+                <div class="poster-info">T2</div>
+            </div>
+            <div class="poster-card" id="btn-t3" onclick="mostrarTemporada(3)">
+                <img src="t3.png" alt="Temporada 3">
+                <div class="poster-info">T3</div>
+            </div>
+            <button onclick="capituloAleatorio()" class="btn-random">? ALEATORIO</button>
+        </div>
+
+        <h3 id="sub-title" style="margin-top: 30px; font-size: 1.2rem;">Temporada 1</h3>
         
-        <div style="text-align: center; margin-bottom: 20px;">
-            <input type="text" id="buscador" onkeyup="buscarCapitulos()" placeholder="🔍 Buscar capítulo (ej: El Poder)..." style="width: 90%; max-width: 400px; padding: 12px; border-radius: 25px; border: 2px solid var(--azul); background: #111; color: white; font-family: sans-serif; outline: none; font-size: 1rem; text-align: center;">
-        </div>
-
-        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
-            <button onclick="mostrarTemporada(1)" id="btn-t1" style="background: var(--azul); border: none; font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; color: #111;">Temporada 1</button>
-            <button onclick="mostrarTemporada(2)" id="btn-t2" style="background: #222; border: 1px solid var(--azul); font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; color: white;">Temporada 2</button>
-            <button onclick="mostrarTemporada(3)" id="btn-t3" style="background: #222; border: 1px solid var(--azul); font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; color: white;">Temporada 3</button>
-            <button onclick="capituloAleatorio()" style="background: #333; border: none; font-family: var(--fuente-serie); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; color: white; margin-left: auto;">? ALEATORIO</button>
-        </div>
-
         <div id="temp-1" class="movie-carousel">
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/15Xn178mK05xpnsr4JWP6czSApq9cCGYo/preview')"><div class="thumb">🎹</div><h4>1. El Poder</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng/preview')"><div class="thumb">🪑</div><h4>2. Solo acomoden las sillas</h4></div>
@@ -148,361 +142,151 @@
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/14KNxS3k4-rTNQyEcDHxlx9MYLEkJ_zMw/view?usp=drivesdk')"><div class="thumb">🍩</div><h4>38. Azucarados</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1ZWj9Z26x4c7W4IAF4CaF-XFTgn5R4Y1Z/view?usp=drivesdk')"><div class="thumb">💋</div><h4>39. Un Mal Beso</h4></div>
         </div>
+    </section>
 
-        <div style="text-align: center; margin-top: 30px; padding-bottom: 20px;">
-            <p style="font-size: 0.8rem; color: #555; font-family: sans-serif;">¿Algún capítulo caído o sugerencia?</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScQma-YWeGJumyvk7iMLyYdtblXkFUJYV52SZfFUyTt3ZhcQQ/viewform" target="_blank" style="background: #111; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-family: 'Luckiest Guy', cursive; font-size: 0.9rem; display: inline-block;">📩 MANDAR REPORTE</a>
+    <section class="characters-mini">
+        <div class="char-row">
+            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
+            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
+            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
+            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
+            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
+            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
         </div>
-    </main>
-    
+    </section>
+
     <section class="container">
-    <div class="pelea-container">
-        <h3 style="color: var(--azul); margin-bottom: 10px;">🥊 DUELO EN EL PARQUE 🥊</h3>
-        <button class="btn-ataque btn-cambiar" onclick="cambiarLuchador()">🔄 Cambiar a Rigby</button>
-        
-        <div style="display: flex; gap: 20px; color: white;">
-            <div style="flex: 1;">
-                <p id="nombre-jugador">Mordo</p>
-                <div class="health-bar"><div id="vida-jugador" class="health-fill"></div></div>
+        <div class="pelea-container">
+            <h3 style="color: var(--azul); margin-bottom: 10px;">🥊 DUELO EN EL PARQUE 🥊</h3>
+            <button class="btn-ataque btn-cambiar" onclick="cambiarLuchador()">🔄 Cambiar Luchador</button>
+            <div style="display: flex; gap: 20px; color: white;">
+                <div style="flex: 1;"><p id="nombre-jugador">Mordo</p><div class="health-bar"><div id="vida-jugador" class="health-fill"></div></div></div>
+                <div style="flex: 1;"><p>Benson</p><div class="health-bar"><div id="vida-benson" class="health-fill"></div></div></div>
             </div>
-            <div style="flex: 1;">
-                <p>Benson</p>
-                <div class="health-bar"><div id="vida-benson" class="health-fill"></div></div>
+            <div class="fighter-stage">
+                <img id="img-jugador" src="mordecai_normal.png" alt="Jugador">
+                <img id="img-benson" src="benson_normal.png" alt="Benson">
             </div>
+            <div class="controles-pelea">
+                <button class="btn-ataque" onclick="atacar('golpe')">👊 GOLPE</button>
+                <button class="btn-ataque btn-especial" onclick="atacar('especial')">✨ ESPECIAL</button>
+            </div>
+            <p id="pelea-status" style="color: #ffd32a;">¡Derrotá a Benson!</p>
+            <button class="btn-ataque" style="background: #2ed573; margin-top: 15px;" onclick="reiniciarPelea()">🔄 REINICIAR</button>
         </div>
-
-        <div class="fighter-stage">
-            <img id="img-jugador" src="mordecai_normal.png" alt="Jugador">
-            <img id="img-benson" src="benson_normal.png" alt="Benson">
-        </div>
-
-        <div class="controles-pelea">
-            <button class="btn-ataque" onclick="atacar('golpe')">👊 GOLPE</button>
-            <button class="btn-ataque btn-especial" onclick="atacar('especial')">✨ ESPECIAL</button>
-        </div>
-                <p id="pelea-status" style="color: #ffd32a;">¡Derrotá a Benson para que no te despida!</p>
-        
-        <button class="btn-ataque" style="background: #2ed573; margin-top: 15px;" onclick="reiniciarPelea()">🔄 REINICIAR PELEA</button>
-    </div>
-</section>
+    </section>
 
     <script>
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
-            
-            // MAGIA: Limpia links de Drive automáticamente
             let urlLimpia = url.replace(/\/view.*/, "/preview").replace(/\/edit.*/, "/preview");
-
             frame.src = urlLimpia;
             frame.style.display = "block";
             placeholder.style.display = "none";
-            
-            // Sube al reproductor automáticamente al elegir capítulo
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // LÓGICA DEL BUSCADOR
         function buscarCapitulos() {
             let input = document.getElementById('buscador').value.toLowerCase();
             let tarjetas = document.querySelectorAll('.card-mini');
-            let t1 = document.getElementById('temp-1');
-            let t2 = document.getElementById('temp-2');
-            let t3 = document.getElementById('temp-3');
+            let t1 = document.getElementById('temp-1'); let t2 = document.getElementById('temp-2'); let t3 = document.getElementById('temp-3');
 
-            // Si el buscador está vacío, volvemos a mostrar solo la temporada 1 (o la última activa)
             if (input === "") {
-                tarjetas.forEach(card => card.style.display = ""); // Restaura la visibilidad normal
-                mostrarTemporada(1); // Resetea a la T1
+                tarjetas.forEach(card => card.style.display = "");
+                mostrarTemporada(1);
                 return;
             }
 
-            // Si hay texto escrito, mostramos TODAS las temporadas temporalmente para ver resultados
-            t1.style.display = "flex";
-            t2.style.display = "flex";
-            t3.style.display = "flex";
-
-            // Filtra tarjeta por tarjeta
+            t1.style.display = "flex"; t2.style.display = "flex"; t3.style.display = "flex";
             tarjetas.forEach(card => {
                 let titulo = card.querySelector('h4').innerText.toLowerCase();
-                if (titulo.includes(input)) {
-                    card.style.display = ""; // La muestra
-                } else {
-                    card.style.display = "none"; // La oculta
-                }
+                card.style.display = titulo.includes(input) ? "" : "none";
             });
         }
 
         function mostrarTemporada(num) {
-            const t1 = document.getElementById('temp-1');
-            const t2 = document.getElementById('temp-2');
-            const t3 = document.getElementById('temp-3');
-            const btn1 = document.getElementById('btn-t1');
-            const btn2 = document.getElementById('btn-t2');
-            const btn3 = document.getElementById('btn-t3');
+            const temps = [document.getElementById('temp-1'), document.getElementById('temp-2'), document.getElementById('temp-3')];
+            const btns = [document.getElementById('btn-t1'), document.getElementById('btn-t2'), document.getElementById('btn-t3')];
             const subTitle = document.getElementById('sub-title');
-            
-            // Limpia el buscador si se cambia de temporada
+
             document.getElementById('buscador').value = "";
-            let tarjetas = document.querySelectorAll('.card-mini');
-            tarjetas.forEach(card => card.style.display = "");
+            document.querySelectorAll('.card-mini').forEach(card => card.style.display = "");
 
-            // Ocultar todas
-            t1.style.display = "none";
-            t2.style.display = "none";
-            t3.style.display = "none";
-            btn1.style.background = "#222"; btn1.style.color = "white";
-            btn2.style.background = "#222"; btn2.style.color = "white";
-            btn3.style.background = "#222"; btn3.style.color = "white";
-
-            // Mostrar la seleccionada
-            if(num === 1) {
-                t1.style.display = "flex";
-                btn1.style.background = "var(--azul)"; btn1.style.color = "#111";
-                subTitle.innerText = "Temporada 1";
-            } else if(num === 2) {
-                t2.style.display = "flex";
-                btn2.style.background = "var(--azul)"; btn2.style.color = "#111";
-                subTitle.innerText = "Temporada 2";
-            } else if(num === 3) {
-                t3.style.display = "flex";
-                btn3.style.background = "var(--azul)"; btn3.style.color = "#111";
-                subTitle.innerText = "Temporada 3";
-            }
+            temps.forEach((t, i) => {
+                t.style.display = (i + 1 === num) ? "flex" : "none";
+                btns[i].classList.toggle('active', i + 1 === num);
+            });
+            subTitle.innerText = "Temporada " + num;
         }
 
         function capituloAleatorio() {
-            // Busca el contenedor que esté visible actualmente
-            const t1 = document.getElementById('temp-1');
-            const t2 = document.getElementById('temp-2');
-            const t3 = document.getElementById('temp-3');
-            let visibleCarousel = t1;
-            
-            if (t2.style.display === 'flex') visibleCarousel = t2;
-            if (t3.style.display === 'flex') visibleCarousel = t3;
-            
-            const cards = visibleCarousel.querySelectorAll('.card-mini');
-            // Solo elige entre las tarjetas que no estén ocultas por el buscador
-            const tarjetasVisibles = Array.from(cards).filter(card => card.style.display !== "none");
-            
-            if (tarjetasVisibles.length > 0) {
-                const randomCard = tarjetasVisibles[Math.floor(Math.random() * tarjetasVisibles.length)];
-                randomCard.click();
-            }
+            const visibleCarousel = Array.from(document.querySelectorAll('.movie-carousel')).find(c => c.style.display === 'flex') || document.getElementById('temp-1');
+            const cards = Array.from(visibleCarousel.querySelectorAll('.card-mini')).filter(c => c.style.display !== "none");
+            if (cards.length > 0) cards[Math.floor(Math.random() * cards.length)].click();
         }
 
-        // --- EFECTOS DE PERSONAJES ---
-
+        // --- EFECTOS PERSONAJES ---
         function enojarBenson() {
-            const t = document.getElementById('main-title');
-            document.body.style.backgroundColor = "#ff4757";
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
             t.innerText = "¡VUELVAN A TRABAJAR!";
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
         }
-
         function retoHuevo() {
-            const t = document.getElementById('main-title');
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ffd32a";
             t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
-            document.body.style.backgroundColor = "#ffd32a";
-            
-            const g = document.createElement("img");
-            g.src = "gorra.png";
-            g.style = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; width: 200px;";
-            document.body.appendChild(g);
-
-            setTimeout(() => { 
-                document.body.style.backgroundColor = "#0a0b10"; 
-                t.innerText = "Un Show Más"; 
-                g.remove(); 
-            }, 3000);
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
-
         function festejoMordo() {
-            const t = document.getElementById('main-title');
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#1e90ff";
             t.innerText = "¡OOOOOOOOOOH!";
-            document.body.style.backgroundColor = "#1e90ff";
             setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
         }
-
         function sabiduriaSkips() {
-            const t = document.getElementById('main-title');
+            const t = document.getElementById('main-title'); document.body.style.filter = "grayscale(1)";
             t.innerText = "YA HE VISTO ESTO ANTES...";
-            document.body.style.filter = "grayscale(1)";
             setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
         }
-
         function regaloPapaleta() {
-            const t = document.getElementById('main-title');
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff79ff";
             t.innerText = "¡QUÉ BUEN SHOW!";
-            document.body.style.backgroundColor = "#ff79ff";
-            
-            for(let i=0; i<20; i++) {
-                const p = document.createElement("img");
-                p.src = "paleta.png";
-                const size = Math.random() * (60 - 30) + 30;
-                p.style = `position:fixed; left:${Math.random()*100}%; top:-100px; width:${size}px; z-index:9999; transition:3s linear;`;
-                document.body.appendChild(p);
-                
-                setTimeout(() => { 
-                    p.style.top = "110vh"; 
-                    p.style.transform = `rotate(${Math.random()*720}deg)`; 
-                }, 100);
-                
-                setTimeout(() => { p.remove(); }, 3100);
-            }
-            
-            setTimeout(() => { 
-                document.body.style.backgroundColor = "#0a0b10"; 
-                t.innerText = "Un Show Más"; 
-            }, 3000);
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
         }
-
         function bromaMusculoso() {
             const t = document.getElementById('main-title');
-            t.innerText = "¿SABEN QUIÉN MÁS?";
             document.body.classList.add("shake-effect");
+            t.innerText = "¿SABEN QUIÉN MÁS?";
             setTimeout(() => { t.innerText = "¡MI MAMI!"; document.body.classList.remove("shake-effect"); }, 1500);
             setTimeout(() => { t.innerText = "Un Show Más"; }, 3500);
         }
 
-        // --- LÓGICA DEL MINIJUEGO ---
-        let vidaBenson = 100;
-        let vidaJugador = 100;
-        let luchadorActual = "mordecai"; 
-        let peleando = false;
-
+        // --- LÓGICA PELEA ---
+        let vidaBenson = 100, vidaJugador = 100, luchadorActual = "mordecai", peleando = false;
         function cambiarLuchador() {
-            if (vidaBenson <= 0 || vidaJugador <= 0) return; 
-            
-            const imgJugador = document.getElementById('img-jugador');
-            const btnCambiar = document.querySelector('.btn-cambiar');
-            const nombreJugador = document.getElementById('nombre-jugador');
-
-            if (luchadorActual === "mordecai") {
-                luchadorActual = "rigby";
-                imgJugador.src = "rigby_normal.png";
-                nombreJugador.innerText = "Rigby";
-                btnCambiar.innerText = "🔄 Cambiar a Mordo";
-            } else {
-                luchadorActual = "mordecai";
-                imgJugador.src = "mordecai_normal.png";
-                nombreJugador.innerText = "Mordo";
-                btnCambiar.innerText = "🔄 Cambiar a Rigby";
-            }
+            const img = document.getElementById('img-jugador'); const nombre = document.getElementById('nombre-jugador');
+            luchadorActual = (luchadorActual === "mordecai") ? "rigby" : "mordecai";
+            img.src = luchadorActual + "_normal.png";
+            nombre.innerText = luchadorActual.charAt(0).toUpperCase() + luchadorActual.slice(1);
         }
-
         function atacar(tipo) {
             if(vidaBenson <= 0 || vidaJugador <= 0 || peleando) return;
-            peleando = true; 
-
-            const imgBenson = document.getElementById('img-benson');
-            const imgJugador = document.getElementById('img-jugador');
-            const barraBenson = document.getElementById('vida-benson');
-            const statusPelea = document.getElementById('pelea-status');
-
-            // Ataque del jugador
-            let daño = (tipo === 'golpe') ? 10 : 25;
-            vidaBenson -= daño;
-            
-            imgJugador.src = (tipo === 'golpe') ? `${luchadorActual}_golpe.png` : `${luchadorActual}_especial.png`;
-            imgJugador.style.transform = "translateX(20px)";
-
-            setTimeout(() => {
-                barraBenson.style.width = Math.max(0, vidaBenson) + "%";
-                imgBenson.src = "benson_dolor.png";
-                imgBenson.classList.add("shake-effect");
-                
-                if(vidaBenson < 60) barraBenson.style.background = "#ffd32a";
-                if(vidaBenson < 30) barraBenson.style.background = "#ff4757";
-
-                imgJugador.src = `${luchadorActual}_normal.png`;
-                imgJugador.style.transform = "none";
-            }, 200);
-
-            setTimeout(() => {
-                imgBenson.classList.remove("shake-effect");
-                
-                if(vidaBenson <= 0) {
-                    statusPelea.innerText = "¡GANASTE! Benson está noqueado... ¡OOOOOOH!";
-                    imgBenson.src = "benson_especial.png";
-                    imgBenson.style.filter = "grayscale(1) rotate(90deg)";
-                    peleando = false;
-                } else {
-                    imgBenson.src = "benson_normal.png";
-                    contraataqueBenson();
-                }
-            }, 800);
+            peleando = true;
+            vidaBenson -= (tipo === 'golpe') ? 10 : 25;
+            document.getElementById('vida-benson').style.width = Math.max(0, vidaBenson) + "%";
+            if(vidaBenson <= 0) { document.getElementById('pelea-status').innerText = "¡GANASTE!"; peleando = false; }
+            else { setTimeout(contraataqueBenson, 800); }
         }
-
         function contraataqueBenson() {
-            const imgBenson = document.getElementById('img-benson');
-            const imgJugador = document.getElementById('img-jugador');
-            const barraJugador = document.getElementById('vida-jugador');
-            const statusPelea = document.getElementById('pelea-status');
-
-            setTimeout(() => {
-                imgBenson.src = "benson_golpe.png";
-                imgBenson.style.transform = "translateX(-20px)";
-
-                setTimeout(() => {
-                    vidaJugador -= 20;
-                    barraJugador.style.width = Math.max(0, vidaJugador) + "%";
-                    
-                    if(vidaJugador < 60) barraJugador.style.background = "#ffd32a";
-                    if(vidaJugador < 30) barraJugador.style.background = "#ff4757";
-
-                    imgJugador.src = `${luchadorActual}_dolor.png`;
-                    imgJugador.classList.add("shake-effect");
-
-                    imgBenson.src = "benson_normal.png";
-                    imgBenson.style.transform = "none";
-                }, 200);
-
-                setTimeout(() => {
-                    imgJugador.classList.remove("shake-effect");
-                    
-                    if(vidaJugador <= 0) {
-                        statusPelea.innerText = "¡PERDISTE! Estás despedido... ¡Qué ordinario!";
-                        imgJugador.src = `${luchadorActual}_dolor.png`;
-                        imgJugador.style.filter = "grayscale(1) rotate(-90deg)";
-                        imgBenson.src = "benson_especial.png"; 
-                    } else {
-                        imgJugador.src = `${luchadorActual}_normal.png`;
-                    }
-                    peleando = false; 
-                }, 800);
-
-            }, 500); 
-        }
-        
-        function reiniciarPelea() {
-            vidaBenson = 100;
-            vidaJugador = 100;
+            vidaJugador -= 20;
+            document.getElementById('vida-jugador').style.width = Math.max(0, vidaJugador) + "%";
+            if(vidaJugador <= 0) document.getElementById('pelea-status').innerText = "¡PERDISTE!";
             peleando = false;
-
-            const barraBenson = document.getElementById('vida-benson');
-            const barraJugador = document.getElementById('vida-jugador');
-            const imgBenson = document.getElementById('img-benson');
-            const imgJugador = document.getElementById('img-jugador');
-            const statusPelea = document.getElementById('pelea-status');
-
-            // Resetear barras de vida a verde y 100%
-            barraBenson.style.width = "100%";
-            barraBenson.style.background = "#00ff00";
-            barraJugador.style.width = "100%";
-            barraJugador.style.background = "#00ff00";
-
-            // Resetear imágenes (les saca el filtro gris y los pone derechos)
-            imgBenson.src = "benson_normal.png";
-            imgBenson.style.filter = "none";
-            imgBenson.style.transform = "none";
-
-            imgJugador.src = `${luchadorActual}_normal.png`;
-            imgJugador.style.filter = "none";
-            imgJugador.style.transform = "none";
-
-            // Resetear el texto
-            statusPelea.innerText = "¡Derrotá a Benson para que no te despida!";
+        }
+        function reiniciarPelea() {
+            vidaBenson = 100; vidaJugador = 100;
+            document.getElementById('vida-benson').style.width = "100%";
+            document.getElementById('vida-jugador').style.width = "100%";
+            document.getElementById('pelea-status').innerText = "¡Derrotá a Benson!";
         }
     </script>
 </body>
