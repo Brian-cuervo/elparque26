@@ -21,6 +21,19 @@ body {
     letter-spacing: 1px; 
 }
 
+/* --- EFECTO NEÓN TÍTULO --- */
+#main-title {
+    color: #fff;
+    text-shadow: 
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px var(--azul),
+        0 0 82px var(--azul);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
 /* --- NAVEGACIÓN --- */
 .navbar { 
     background: #111; 
@@ -84,7 +97,7 @@ body {
     width: 90%;
 }
 
-/* --- EFECTO POP --- */
+/* --- EFECTOS ESPECIALES --- */
 .efecto-pop { 
     position: fixed; 
     top: 35%; 
@@ -101,6 +114,19 @@ body {
 }
 
 @keyframes pop { from { transform: translate(-50%, -50%) scale(0); } to { transform: translate(-50%, -50%) scale(1); } }
+
+.paleta-caida {
+    position: fixed;
+    top: -50px;
+    font-size: 2.5rem;
+    z-index: 10001;
+    pointer-events: none;
+    animation: caerPaleta 3s linear forwards;
+}
+
+@keyframes caerPaleta {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
 
 /* --- BUSCADOR --- */
 .search-container {
@@ -214,7 +240,6 @@ body {
     margin-bottom: 30px;
     animation: floating 3s ease-in-out infinite;
 }
-.maint-title { font-size: 3.5rem; color: var(--azul); text-shadow: 0 0 20px var(--azul); }
 .loader {
     width: 60px; height: 60px;
     border: 6px solid #222; border-top: 6px solid var(--azul);
