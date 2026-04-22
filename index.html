@@ -5,10 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Show Más Latino | ElParque26</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos rápidos para el Neón y las Paletas (También podés pasarlos al CSS) */
+        #main-title {
+            color: #fff;
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--azul), 0 0 82px var(--azul);
+            text-transform: uppercase;
+            transition: 0.5s;
+        }
+
+        .paleta-caida {
+            position: fixed;
+            top: -50px;
+            font-size: 2.5rem;
+            z-index: 10001;
+            pointer-events: none;
+            animation: caerPaleta 3s linear forwards;
+        }
+
+        @keyframes caerPaleta {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="v-particles">
     <nav class="navbar">
-        <div class="logo">El<span>Parque26</span></div>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
+        </div>
         <div class="nav-links">
             <a href="#buscador">Buscar</a>
         </div>
@@ -59,11 +83,14 @@
     </footer>
 
     <script>
+        // BUSCADOR CORREGIDO: Ahora filtra los enlaces <a> correctamente
         function buscarTemporada() {
             let input = document.getElementById('inputBuscador').value.toLowerCase();
             let posters = document.querySelectorAll('.poster-card');
+            
             posters.forEach(p => {
-                let nombre = p.getAttribute('data-name');
+                let nombre = p.getAttribute('data-name').toLowerCase();
+                // Usamos 'inline-block' o 'block' para que no se rompa el diseño del flex
                 p.style.display = nombre.includes(input) ? "block" : "none";
             });
         }
@@ -76,6 +103,7 @@
             setTimeout(() => m.remove(), 2500);
         }
 
+        // EFECTOS DE PERSONAJES
         function enojarBenson() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
             t.innerText = "¡VUELVAN A TRABAJAR!"; mostrarMensaje("¡ESTÁN DESPEDIDOS!");
@@ -96,11 +124,32 @@
             t.innerText = "YA HE VISTO ESTO ANTES..."; mostrarMensaje("Ya he visto esto antes...");
             setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
         }
+
+        // PAPALETA CORREGIDO: Lluvia de dulces real
         function regaloPapaleta() {
-            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff79ff";
-            t.innerText = "¡QUÉ BUEN SHOW!"; mostrarMensaje("¡Qué buen show!");
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+            const t = document.getElementById('main-title');
+            document.body.style.backgroundColor = "#ff79ff";
+            t.innerText = "¡QUÉ BUEN SHOW!";
+            mostrarMensaje("¡Qué buen show!");
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const p = document.createElement("div");
+                    p.className = "paleta-caida";
+                    p.innerText = "🍭";
+                    p.style.left = Math.random() * 100 + "vw";
+                    p.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                    document.body.appendChild(p);
+                    setTimeout(() => p.remove(), 3000);
+                }, i * 100);
+            }
+
+            setTimeout(() => {
+                document.body.style.backgroundColor = "#0a0b10";
+                t.innerText = "Un Show Más";
+            }, 3000);
         }
+
         function bromaMusculoso() {
             const t = document.getElementById('main-title'); document.body.classList.add("shake-effect");
             t.innerText = "¿SABEN QUIÉN MÁS?"; mostrarMensaje("¡MI MAMI!");
