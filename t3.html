@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporada 3 - ElParque26</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="v-particles">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: var(--azul); font-weight: bold; text-decoration: none;">⬅ INICIO</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" style="height: 12vh; background: linear-gradient(rgba(0,0,0,0.8), #0a0b10);">
+        <h1 style="font-size: 2rem;">Temporada 3</h1>
+    </header>
+
+    <section class="video-section">
+        <div class="video-wrapper">
+            <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+            <div id="video-placeholder">
+                <p>🍿 Seleccioná un capítulo de la T3 abajo</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="movie-carousel" style="flex-wrap: wrap; justify-content: center; overflow: visible;">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1rxZnE0Cp4l8i9vwHteD92TzHvnKeJdBk/preview')"><div class="thumb">🏒</div><h4>1. Juego Mortal</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1RsnXKA9wpP1lCs-7V2KFLAkKuuP9NXAi/preview')"><div class="thumb">👱‍♂️</div><h4>2. Rubio por Apuesta</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1TKOngovW-A9I330NLOpGH59sycSKiXb2/preview')"><div class="thumb">🎳</div><h4>3. Skips Hace Chuza</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1arvcMqonHDGuuukQ61J-bI4L7IWmDLbp/preview')"><div class="thumb">🎃</div><h4>4. Cuentos de Terror</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1yfacl5rNPAGAebiCBOkDCGIL8YHneJ-L/preview')"><div class="thumb">🏕️</div><h4>5. Acampar es Genial</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1pqRyLJK6tieUiDJV7ODaXpA32Wz-f04A/preview')"><div class="thumb">🏀</div><h4>6. Juego Celestial</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1_l1NaRM6C7VPls38rzd8kXGStjWunza9/preview')"><div class="thumb">🚲</div><h4>7. Bicicletas Cool</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1d2TcqzrOigrvWFp1nFij3-9DubRrMIMy/preview')"><div class="thumb">📜</div><h4>8. Reglas de la Casa</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1QrdiaEbKFEaCRVGauPF0GROpSVtsOGMK/preview')"><div class="thumb">🎤</div><h4>9. A Rapear</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/19POzRDYGHB-feU6yM_LoXeUn2sV-9f9P/preview')"><div class="thumb">🚗</div><h4>10. Paseando</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1wTQnpCTZAFE1ZjRIn27eYtXCe-d6kefX/preview')"><div class="thumb">🧥</div><h4>11. El Encapuchado</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1wNfL2xwHzQ3rUK450pSDo6KsfnQy6M37/preview')"><div class="thumb">🌶️</div><h4>12. Picante Weekend</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/17nC0z_t2nLICa9I4kamOq5dAyLLLhVQe/preview')"><div class="thumb">🥠</div><h4>13. Galleta Suerte</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1f8dYiWQ014CnVzD8lkihUaYvfnbfODTq/preview')"><div class="thumb">🧘‍♂️</div><h4>14. Piensa Positivo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HM32HhpYkf6DkEexvGyYeVoIVzGHWC0k/preview')"><div class="thumb">🦍</div><h4>15. Skips vs Tech</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1q1JfjFbVuhYmJd-XNGbTOAv8iJhhs-6k/preview')"><div class="thumb">🍑</div><h4>16. Marca Trasero</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1-9GqolsJSHHGv_XIwGAOTi64dzXHCcs7/preview')"><div class="thumb">🥚</div><h4>17. Extrahuevordinario</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1hEiqDg-EuYspp7qjyBNcjQz92zIk9cIa/preview')"><div class="thumb">📸</div><h4>18. Modelo Barriga</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1A2Z_cK952k_3LZlEhNVfYJkLPezRRH4K/preview')"><div class="thumb">🎮</div><h4>19. Amos Videojuegos</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/11iq4FFhrDrn5670IWVJBHMOYV4xNevUA/preview')"><div class="thumb">🎟️</div><h4>20. Gran Ganador</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1aAVxAx5lHD8xuno_cBOHWrlHplfiXwLx/preview')"><div class="thumb">🍔</div><h4>21. La Mejor Burger</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Znzm7dIC_uBpXdlZa56mKHyEewF7V9k9/preview')"><div class="thumb">🦆</div><h4>22. Reemplazados</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1AsqmarLfpxsZxz3fUW_ftrItwcX9j09j/preview')"><div class="thumb">🚤</div><h4>23. Barco Basurero</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1s7l0a6wHcc2a3DZSE0_zPIYvad0nnbBN/preview')"><div class="thumb">👊</div><h4>24. Puños Justicieros</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Ux-lsRqr8v39Oeg8De6-OkF2o_xt2fzN/preview')"><div class="thumb">💕</div><h4>25. Sí, Cielo, Sí</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Jk_-_ez4V5XLefLmiOlw_7xkX-TSfJ90/preview')"><div class="thumb">🛺</div><h4>26. Carro Golf Extremo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1AhSYxBBmXYjaZv3eHP9j33MJhT0sfJ3V/preview')"><div class="thumb">🦇</div><h4>27. Muerte a las 8</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10OeEgToRm9PJ6VTrEBBRXQWK1RkbDlID/preview')"><div class="thumb">🚪</div><h4>28. Acceso Denegado</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/19SPTlj64EEcAAoCeeRUCt9wQaeKNP-4G/preview')"><div class="thumb">🏋️‍♂️</div><h4>29. Muscu-Instructor</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1AP06P9zTBr1cj2np0JJjZH4u7AGBnCvM/preview')"><div class="thumb">🚛</div><h4>30. Salón Trailero</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16OTC4Nt3DvRgLNO9HPfJfRQwV2YNEipG/preview')"><div class="thumb">🛠️</div><h4>31. Fuera Servicio</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Hguu0WqB72rZTFLIxmyNC5zQGcDnpumd/preview')"><div class="thumb">🍝</div><h4>32. Resto de Lujo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1KJrLG13SoKkcmW16fdIgMenr7tgx2d1K/preview')"><div class="thumb">📖</div><h4>33. El Diario</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1s1cxhTwxTWlz8wrAWq1S9oqgPuMHx6Wc/preview')"><div class="thumb">📼</div><h4>34. Mejor VHS</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Dw7b_VoCYgDphwKxqmUqPEYHPzgS1y-9/preview')"><div class="thumb">🪣</div><h4>35. Sin Bromas</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1BYXV7lry66x1thJq4CqbNzLehogbj14k/preview')"><div class="thumb">🐻</div><h4>36. Oso de Muerte</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1C_DUx1t1Yu7JdhrZqKAqCWvYgP716GOF/preview')"><div class="thumb">🎲</div><h4>37. Dados Peluche</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/14KNxS3k4-rTNQyEcDHxlx9MYLEkJ_zMw/preview')"><div class="thumb">🍩</div><h4>38. Azucarados</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1ZWj9Z26x4c7W4IAF4CaF-XFTgn5R4Y1Z/preview')"><div class="thumb">🤢</div><h4>39. Un Mal Beso</h4></div>
+        </div>
+    </section>
+
+    <script>
+        function cargarVideo(url) {
+            const frame = document.getElementById('video-frame');
+            const placeholder = document.getElementById('video-placeholder');
+            frame.src = url;
+            frame.style.display = "block";
+            placeholder.style.display = "none";
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
+
+
+
+
