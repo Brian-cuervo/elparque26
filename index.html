@@ -31,23 +31,23 @@
         </div>
     </section>
 
-    <div style="text-align: center; padding: 20px;">
-        <input type="text" id="buscador" onkeyup="buscarCapitulos()" placeholder="🔍 Buscar capítulo..." style="width: 85%; max-width: 400px; padding: 12px; border-radius: 25px; border: 2px solid var(--azul); background: #111; color: white; outline: none; text-align: center;">
+    <div class="search-container">
+        <input type="text" id="buscador" onkeyup="buscarCapitulos()" placeholder="🔍 Buscar capítulo..." class="search-input">
     </div>
 
     <section class="container">
         <h3 style="color: var(--azul); margin-bottom: 15px;">TEMPORADAS</h3>
         <div class="poster-selector">
             <div class="poster-card" id="btn-t1" onclick="mostrarTemporada(1)">
-                <img src="t1.png" alt="Temporada 1">
+                <img src="t1.png" alt="T1">
                 <div class="poster-info">T1</div>
             </div>
             <div class="poster-card" id="btn-t2" onclick="mostrarTemporada(2)">
-                <img src="t2.png" alt="Temporada 2">
+                <img src="t2.png" alt="T2">
                 <div class="poster-info">T2</div>
             </div>
             <div class="poster-card" id="btn-t3" onclick="mostrarTemporada(3)">
-                <img src="t3.png" alt="Temporada 3">
+                <img src="t3.png" alt="T3">
                 <div class="poster-info">T3</div>
             </div>
             <button onclick="capituloAleatorio()" class="btn-random">? ALEATORIO</button>
@@ -113,7 +113,7 @@
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1QrdiaEbKFEaCRVGauPF0GROpSVtsOGMK/view?usp=drivesdk')"><div class="thumb">🎤</div><h4>9. A Rapear</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/19POzRDYGHB-feU6yM_LoXeUn2sV-9f9P/view?usp=drivesdk')"><div class="thumb">🚗</div><h4>10. Paseando</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1wTQnpCTZAFE1ZjRIn27eYtXCe-d6kefX/view?usp=drivesdk')"><div class="thumb">🧥</div><h4>11. El Encapuchado</h4></div>
-            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1wNfL2xwHzQ3rUK450pSDo6KsfnQy6M37/view?usp=drivesdk')"><div class="thumb">🌶️</div><h4>12. Un Picante Fin de Semana</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1wNfL2xwHzQ3rUK450pSDo6KsfnQy6M37/view?usp=drivesdk')"><div class="thumb">🌶️</div><h4>12. Un Picante Fin de Weekend</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/17nC0z_t2nLICa9I4kamOq5dAyLLLhVQe/view?usp=drivesdk')"><div class="thumb">🥠</div><h4>13. La Galleta de la Suerte</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1f8dYiWQ014CnVzD8lkihUaYvfnbfODTq/view?usp=drivesdk')"><div class="thumb">🧘‍♂️</div><h4>14. Piensa Positivo</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1HM32HhpYkf6DkEexvGyYeVoIVzGHWC0k/view?usp=drivesdk')"><div class="thumb">🦍</div><h4>15. Skips contra la Tecnología</h4></div>
@@ -146,12 +146,12 @@
 
     <section class="characters-mini">
         <div class="char-row">
-            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
-            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
-            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
-            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
-            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
-            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
+            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png" alt="Mordecai"></div>
+            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png" alt="Rigby"></div>
+            <div class="c-item" onclick="enojarBenson()"><img src="benson.png" alt="Benson"></div>
+            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png" alt="Skips"></div>
+            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png" alt="Papaleta"></div>
+            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png" alt="Musculoso"></div>
         </div>
     </section>
 
@@ -177,6 +177,8 @@
     </section>
 
     <script>
+        let tempActual = 1;
+
         function cargarVideo(url) {
             const frame = document.getElementById('video-frame');
             const placeholder = document.getElementById('video-placeholder');
@@ -190,9 +192,15 @@
         function buscarCapitulos() {
             let input = document.getElementById('buscador').value.toLowerCase();
             let tarjetas = document.querySelectorAll('.card-mini');
-            let t1 = document.getElementById('temp-1'); let t2 = document.getElementById('temp-2'); let t3 = document.getElementById('temp-3');
-            if (input === "") { tarjetas.forEach(card => card.style.display = ""); mostrarTemporada(1); return; }
-            t1.style.display = "flex"; t2.style.display = "flex"; t3.style.display = "flex";
+            let carruseles = [document.getElementById('temp-1'), document.getElementById('temp-2'), document.getElementById('temp-3')];
+            
+            if (input === "") {
+                tarjetas.forEach(card => card.style.display = "");
+                mostrarTemporada(tempActual);
+                return;
+            }
+
+            carruseles.forEach(c => c.style.display = "flex");
             tarjetas.forEach(card => {
                 let titulo = card.querySelector('h4').innerText.toLowerCase();
                 card.style.display = titulo.includes(input) ? "" : "none";
@@ -200,18 +208,24 @@
         }
 
         function mostrarTemporada(num) {
+            tempActual = num;
             const temps = [document.getElementById('temp-1'), document.getElementById('temp-2'), document.getElementById('temp-3')];
             const btns = [document.getElementById('btn-t1'), document.getElementById('btn-t2'), document.getElementById('btn-t3')];
             const subTitle = document.getElementById('sub-title');
+            
             document.getElementById('buscador').value = "";
             document.querySelectorAll('.card-mini').forEach(card => card.style.display = "");
-            temps.forEach((t, i) => { t.style.display = (i + 1 === num) ? "flex" : "none"; btns[i].classList.toggle('active', i + 1 === num); });
+
+            temps.forEach((t, i) => {
+                t.style.display = (i + 1 === num) ? "flex" : "none";
+                btns[i].classList.toggle('active', i + 1 === num);
+            });
             subTitle.innerText = "Temporada " + num;
         }
 
         function capituloAleatorio() {
-            const visibleCarousel = Array.from(document.querySelectorAll('.movie-carousel')).find(c => c.style.display === 'flex') || document.getElementById('temp-1');
-            const cards = Array.from(visibleCarousel.querySelectorAll('.card-mini')).filter(c => c.style.display !== "none");
+            const carousel = document.getElementById(`temp-${tempActual}`);
+            const cards = Array.from(carousel.querySelectorAll('.card-mini'));
             if (cards.length > 0) cards[Math.floor(Math.random() * cards.length)].click();
         }
 
@@ -223,6 +237,7 @@
             setTimeout(() => m.remove(), 2500);
         }
 
+        // Efectos Personajes
         function enojarBenson() {
             const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
             t.innerText = "¡VUELVAN A TRABAJAR!"; mostrarMensaje("¡ESTÁN DESPEDIDOS!");
@@ -254,31 +269,60 @@
             setTimeout(() => { t.innerText = "Un Show Más"; document.body.classList.remove("shake-effect"); }, 3500);
         }
 
+        // Pelea
         let vidaBenson = 100, vidaJugador = 100, luchadorActual = "mordecai", peleando = false;
-        function cambiarLuchador() { if (peleando) return; const img = document.getElementById('img-jugador'); const nombre = document.getElementById('nombre-jugador'); luchadorActual = (luchadorActual === "mordecai") ? "rigby" : "mordecai"; img.src = luchadorActual + "_normal.png"; nombre.innerText = luchadorActual.charAt(0).toUpperCase() + luchadorActual.slice(1); }
+        function cambiarLuchador() { if (peleando) return; const img = document.getElementById('img-jugador'); luchadorActual = (luchadorActual === "mordecai") ? "rigby" : "mordecai"; img.src = luchadorActual + "_normal.png"; document.getElementById('nombre-jugador').innerText = luchadorActual.charAt(0).toUpperCase() + luchadorActual.slice(1); }
+        
         function atacar(tipo) {
             if(vidaBenson <= 0 || vidaJugador <= 0 || peleando) return; peleando = true;
             const imgJ = document.getElementById('img-jugador'); const imgB = document.getElementById('img-benson');
             imgJ.style.transform = "translateX(50px) scale(1.1)";
-            setTimeout(() => { vidaBenson -= (tipo === 'golpe') ? 10 : 25; document.getElementById('vida-benson').style.width = Math.max(0, vidaBenson) + "%"; imgB.classList.add("shake-effect"); imgJ.style.transform = "translateX(0) scale(1)"; }, 200);
-            setTimeout(() => { imgB.classList.remove("shake-effect"); if(vidaBenson <= 0) { document.getElementById('pelea-status').innerText = "¡GANASTE!"; imgB.style.filter = "grayscale(1) rotate(90deg)"; peleando = false; } else { setTimeout(contraataqueBenson, 600); } }, 800);
+            setTimeout(() => {
+                vidaBenson -= (tipo === 'golpe') ? 10 : 25;
+                document.getElementById('vida-benson').style.width = Math.max(0, vidaBenson) + "%";
+                imgB.classList.add("shake-effect");
+                imgJ.style.transform = "translateX(0) scale(1)";
+            }, 200);
+            setTimeout(() => {
+                imgB.classList.remove("shake-effect");
+                if(vidaBenson <= 0) { document.getElementById('pelea-status').innerText = "¡GANASTE!"; imgB.style.filter = "grayscale(1) rotate(90deg)"; peleando = false; }
+                else { setTimeout(contraataqueBenson, 600); }
+            }, 800);
         }
+
         function contraataqueBenson() {
             const imgJ = document.getElementById('img-jugador'); const imgB = document.getElementById('img-benson');
             imgB.style.transform = "translateX(-50px) scale(1.1)";
-            setTimeout(() => { vidaJugador -= 20; document.getElementById('vida-jugador').style.width = Math.max(0, vidaJugador) + "%"; imgJ.classList.add("shake-effect"); imgB.style.transform = "translateX(0) scale(1)"; }, 200);
-            setTimeout(() => { imgJ.classList.remove("shake-effect"); if(vidaJugador <= 0) { document.getElementById('pelea-status').innerText = "¡PERDISTE!"; imgJ.style.filter = "grayscale(1) rotate(-90deg)"; } peleando = false; }, 800);
+            setTimeout(() => {
+                vidaJugador -= 20;
+                document.getElementById('vida-jugador').style.width = Math.max(0, vidaJugador) + "%";
+                imgJ.classList.add("shake-effect");
+                imgB.style.transform = "translateX(0) scale(1)";
+            }, 200);
+            setTimeout(() => {
+                imgJ.classList.remove("shake-effect");
+                if(vidaJugador <= 0) { document.getElementById('pelea-status').innerText = "¡PERDISTE!"; imgJ.style.filter = "grayscale(1) rotate(-90deg)"; }
+                peleando = false;
+            }, 800);
         }
-        function reiniciarPelea() { vidaBenson = 100; vidaJugador = 100; peleando = false; document.getElementById('vida-benson').style.width = "100%"; document.getElementById('vida-jugador').style.width = "100%"; document.getElementById('img-jugador').style.filter = "none"; document.getElementById('img-benson').style.filter = "none"; document.getElementById('pelea-status').innerText = "¡Derrotá a Benson!"; }
+        function reiniciarPelea() { 
+            vidaBenson = 100; vidaJugador = 100; peleando = false;
+            document.getElementById('vida-benson').style.width = "100%"; document.getElementById('vida-jugador').style.width = "100%";
+            document.getElementById('img-jugador').style.filter = "none"; document.getElementById('img-benson').style.filter = "none";
+            document.getElementById('img-jugador').style.transform = "none"; document.getElementById('img-benson').style.transform = "none";
+            document.getElementById('pelea-status').innerText = "¡Derrotá a Benson!"; 
+        }
 
-        // --- ARRASTRE MOUSE ---
+        // Arrastre Universal (Mouse + Touch)
         const sliders = document.querySelectorAll('.movie-carousel, .poster-selector');
         sliders.forEach(slider => {
             let isDown = false; let startX; let scrollLeft;
-            slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; slider.style.cursor = 'grabbing'; });
-            slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
-            slider.addEventListener('mousemove', (e) => { if(!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
+            const start = (e) => { isDown = true; startX = (e.pageX || e.touches[0].pageX) - slider.offsetLeft; scrollLeft = slider.scrollLeft; slider.style.cursor = 'grabbing'; };
+            const end = () => { isDown = false; slider.style.cursor = 'grab'; };
+            const move = (e) => { if(!isDown) return; e.preventDefault(); const x = (e.pageX || e.touches[0].pageX) - slider.offsetLeft; slider.scrollLeft = scrollLeft - (x - startX) * 2; };
+            slider.addEventListener('mousedown', start); slider.addEventListener('touchstart', start);
+            slider.addEventListener('mouseleave', end); slider.addEventListener('mouseup', end); slider.addEventListener('touchend', end);
+            slider.addEventListener('mousemove', move); slider.addEventListener('touchmove', move);
         });
     </script>
 </body>
