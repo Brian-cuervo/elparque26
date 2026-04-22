@@ -83,78 +83,122 @@
     </footer>
 
     <script>
-        // BUSCADOR CORREGIDO: Ahora filtra los enlaces <a> correctamente
-        function buscarTemporada() {
-            let input = document.getElementById('inputBuscador').value.toLowerCase();
-            let posters = document.querySelectorAll('.poster-card');
-            
-            posters.forEach(p => {
-                let nombre = p.getAttribute('data-name').toLowerCase();
-                // Usamos 'inline-block' o 'block' para que no se rompa el diseño del flex
-                p.style.display = nombre.includes(input) ? "block" : "none";
-            });
-        }
-
-        function mostrarMensaje(texto, imagen = null) {
-            const m = document.createElement(imagen ? "img" : "div");
-            if (imagen) m.src = imagen; else m.innerText = texto;
-            m.className = "efecto-pop";
-            document.body.appendChild(m);
-            setTimeout(() => m.remove(), 2500);
-        }
-
-        // EFECTOS DE PERSONAJES
-        function enojarBenson() {
-            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
-            t.innerText = "¡VUELVAN A TRABAJAR!"; mostrarMensaje("¡ESTÁN DESPEDIDOS!");
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
-        }
-        function retoHuevo() {
-            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ffd32a";
-            t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!"; mostrarMensaje(null, "gorra.png");
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
-        }
-        function festejoMordo() {
-            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#1e90ff";
-            t.innerText = "¡OOOOOOOOOOH!"; mostrarMensaje("¡OOOOOOOOOOH!");
-            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
-        }
-        function sabiduriaSkips() {
-            const t = document.getElementById('main-title'); document.body.style.filter = "grayscale(1)";
-            t.innerText = "YA HE VISTO ESTO ANTES..."; mostrarMensaje("Ya he visto esto antes...");
-            setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
-        }
-
-        // PAPALETA CORREGIDO: Lluvia de dulces real
-        function regaloPapaleta() {
-            const t = document.getElementById('main-title');
-            document.body.style.backgroundColor = "#ff79ff";
-            t.innerText = "¡QUÉ BUEN SHOW!";
-            mostrarMensaje("¡Qué buen show!");
-
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const p = document.createElement("div");
-                    p.className = "paleta-caida";
-                    p.innerText = "🍭";
-                    p.style.left = Math.random() * 100 + "vw";
-                    p.style.animationDuration = (Math.random() * 2 + 1) + "s";
-                    document.body.appendChild(p);
-                    setTimeout(() => p.remove(), 3000);
-                }, i * 100);
+    // 🔍 BUSCADOR CORREGIDO: Filtra las tarjetas 'poster-card' por el atributo 'data-name'
+    function buscarTemporada() {
+        // Obtenemos el texto ingresado en el buscador y lo pasamos a minúsculas
+        let input = document.getElementById('inputBuscador').value.toLowerCase();
+        // Buscamos todas las tarjetas de temporada (los enlaces <a>)
+        let posters = document.querySelectorAll('.poster-card');
+        
+        posters.forEach(p => {
+            // Obtenemos el nombre guardado en data-name y lo pasamos a minúsculas
+            let nombre = p.getAttribute('data-name').toLowerCase();
+            // Mostramos ('block') si coincide, ocultamos ('none') si no
+            if (nombre.includes(input)) {
+                p.style.display = "block";
+            } else {
+                p.style.display = "none";
             }
+        });
+    }
 
+    // 📩 FUNCIÓN PARA MOSTRAR MENSAJES POP-UP (TEXTO O IMÁGENES)
+    function mostrarMensaje(texto, imagen = null) {
+        const m = document.createElement(imagen ? "img" : "div");
+        if (imagen) m.src = imagen; else m.innerText = texto;
+        m.className = "efecto-pop";
+        document.body.appendChild(m);
+        // Borramos el pop-up después de 2.5 segundos
+        setTimeout(() => m.remove(), 2500);
+    }
+
+    // 🔥 EFECTOS DE PERSONAJES: CORREGIDOS PARA QUE SOLO AFECTEN AL TÍTULO
+
+    function enojarBenson() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' como el título
+        document.body.style.backgroundColor = "#ff4757"; // Fondo rojo
+        t.innerText = "¡VUELVAN A TRABAJAR!"; // Solo actualizamos el título
+        mostrarMensaje("¡ESTÁN DESPEDIDOS!"); // Mostramos pop-up
+        setTimeout(() => { // Reseteamos después de 2 segundos
+            document.body.style.backgroundColor = "#0a0b10"; 
+            t.innerText = "Un Show Más"; 
+        }, 2000);
+    }
+
+    function retoHuevo() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' como el título
+        document.body.style.backgroundColor = "#ffd32a"; // Fondo amarillo
+        t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!"; // Solo actualizamos el título
+        mostrarMensaje(null, "gorra.png"); // Mostramos pop-up con imagen de gorra
+        setTimeout(() => { // Reseteamos después de 3 segundos
+            document.body.style.backgroundColor = "#0a0b10"; 
+            t.innerText = "Un Show Más"; 
+        }, 3000);
+    }
+
+    function festejoMordo() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' como el título
+        document.body.style.backgroundColor = "#1e90ff"; // Fondo azul
+        t.innerText = "¡OOOOOOOOOOH!"; // Solo actualizamos el título
+        mostrarMensaje("¡OOOOOOOOOOH!"); // Mostramos pop-up
+        setTimeout(() => { // Reseteamos después de 1.5 segundos
+            document.body.style.backgroundColor = "#0a0b10"; 
+            t.innerText = "Un Show Más"; 
+        }, 1500);
+    }
+
+    function sabiduriaSkips() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' as main-title
+        document.body.style.filter = "grayscale(1)"; // Fondo gris
+        t.innerText = "YA HE VISTO ESTO ANTES..."; // Solo actualizamos el título
+        mostrarMensaje("Ya he visto esto antes..."); // Mostramos pop-up
+        setTimeout(() => { // Reseteamos después de 2.5 segundos
+            document.body.style.filter = "none"; 
+            t.innerText = "Un Show Más"; 
+        }, 2500);
+    }
+
+    // 🍭 PAPALETA CORREGIDO: LLUVIA DE DULCES REAL
+    function regaloPapaleta() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' as main-title
+        document.body.style.backgroundColor = "#ff79ff"; // Fondo rosa
+        t.innerText = "¡QUÉ BUEN SHOW!"; // Solo actualizamos el título
+        mostrarMensaje("¡Qué buen show!"); // Mostramos pop-up
+
+        // Creamos la lluvia de dulces (20 paletas caen)
+        for (let i = 0; i < 20; i++) {
             setTimeout(() => {
-                document.body.style.backgroundColor = "#0a0b10";
-                t.innerText = "Un Show Más";
-            }, 3000);
+                const paleta = document.createElement("div");
+                paleta.className = "paleta-caida";
+                paleta.innerText = "🍭";
+                // Posición aleatoria
+                paleta.style.left = Math.random() * 100 + "vw";
+                // Velocidad aleatoria
+                paleta.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(paleta);
+                
+                // Limpiar dulces después de 3 segundos (después de que caen)
+                setTimeout(() => paleta.remove(), 3000);
+            }, i * 100);
         }
 
-        function bromaMusculoso() {
-            const t = document.getElementById('main-title'); document.body.classList.add("shake-effect");
-            t.innerText = "¿SABEN QUIÉN MÁS?"; mostrarMensaje("¡MI MAMI!");
-            setTimeout(() => { t.innerText = "Un Show Más"; document.body.classList.remove("shake-effect"); }, 3500);
-        }
-    </script>
+        setTimeout(() => { // Reseteamos después de 3 segundos
+            document.body.style.backgroundColor = "#0a0b10"; 
+            t.innerText = "Un Show Más"; 
+        }, 3000);
+    }
+
+    function bromaMusculoso() {
+        const t = document.getElementById('main-title'); // Solo definimos 't' as main-title
+        document.body.classList.add("shake-effect"); // Tiembla el cuerpo
+        t.innerText = "¿SABEN QUIÉN MÁS?"; // Solo actualizamos el título
+        mostrarMensaje("¡MI MAMI!"); // Mostramos pop-up
+        setTimeout(() => { // Reseteamos después de 3.5 segundos
+            t.innerText = "Un Show Más"; 
+            document.body.classList.remove("shake-effect"); 
+        }, 3500);
+    }
+</script>
+
 </body>
 </html>
