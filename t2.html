@@ -8,9 +8,11 @@
 </head>
 <body class="v-particles">
     <nav class="navbar">
-        <div class="logo">El<span>Parque26</span></div>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
+        </div>
         <ul class="nav-links">
-            <li><a href="index.html" style="color: var(--azul); font-weight: bold;">⬅ INICIO</a></li>
+            <li><a href="index.html" style="color: var(--azul); font-weight: bold; text-decoration: none;">⬅ INICIO</a></li>
         </ul>
     </nav>
 
@@ -42,7 +44,7 @@
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/10_iN2FBEogN0XPimFGNvrzH73LpCSaOW/preview')"><div class="thumb">🌌</div><h4>11. El Reino de los Unicornios</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC/preview')"><div class="thumb">🧊</div><h4>12. Aliento de hielo</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly/preview')"><div class="thumb">🦉</div><h4>13. El Búho</h4></div>
-            </div>
+        </div>
     </section>
 
     <script>
@@ -52,9 +54,9 @@
             frame.src = url;
             frame.style.display = "block";
             placeholder.style.display = "none";
-            // Scroll suave hacia arriba para ver el video
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
 </body>
 </html>
+
