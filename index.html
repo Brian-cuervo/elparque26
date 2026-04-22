@@ -3,28 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mantenimiento | ElParque26</title>
+    <title>Un Show Más Latino | ElParque26</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="v-particles">
-    <div class="maint-container">
-        <img src="benson.png" alt="Mantenimiento" class="maint-img">
-        
-        <h1 class="maint-title">¡VUELVAN MÁS TARDE!</h1>
-        
-        <div class="maint-card">
-            <p>Estamos remodelando el parque para que la experiencia sea <span>visual eyaculante</span>.</p>
-            <p>Mordecai y Rigby están configurando las nuevas temporadas en páginas independientes.</p>
+    <nav class="navbar">
+        <div class="logo">El<span>Parque26</span></div>
+        <div class="nav-links">
+            <a href="#buscador">Buscar</a>
         </div>
+    </nav>
 
-        <div class="loader"></div>
-        
-        <p class="maint-footer">Estimado de apertura: Muy pronto... o Benson nos despide.</p>
+    <header class="hero">
+        <div class="hero-content">
+            <h1 id="main-title">Un Show Más</h1>
+        </div>
+    </header>
+
+    <div class="search-container" id="buscador">
+        <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="🔍 ¿Qué temporada buscas?" class="search-input">
     </div>
 
+    <section class="container">
+        <h3 style="color: var(--azul); margin-bottom: 25px; text-align: center;">SELECCIONÁ UNA TEMPORADA</h3>
+        
+        <div class="poster-selector" style="justify-content: center;">
+            <a href="t1.html" class="poster-card" data-name="temporada 1">
+                <img src="t1.png" alt="T1">
+                <div class="poster-info">TEMPORADA 1</div>
+            </a>
+            <a href="t2.html" class="poster-card" data-name="temporada 2">
+                <img src="t2.png" alt="T2">
+                <div class="poster-info">TEMPORADA 2</div>
+            </a>
+            <a href="t3.html" class="poster-card" data-name="temporada 3">
+                <img src="t3.png" alt="T3">
+                <div class="poster-info">TEMPORADA 3</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="characters-mini" style="margin-top: 40px;">
+        <div class="char-row">
+            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
+            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
+            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
+            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
+            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
+            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem;">
+        ELPARQUE26 - 2026
+    </footer>
+
     <script>
-        // Si tenías algún script de partículas podés dejarlo, 
-        // pero para mantenimiento con esto basta.
+        function buscarTemporada() {
+            let input = document.getElementById('inputBuscador').value.toLowerCase();
+            let posters = document.querySelectorAll('.poster-card');
+            posters.forEach(p => {
+                let nombre = p.getAttribute('data-name');
+                p.style.display = nombre.includes(input) ? "block" : "none";
+            });
+        }
+
+        function mostrarMensaje(texto, imagen = null) {
+            const m = document.createElement(imagen ? "img" : "div");
+            if (imagen) m.src = imagen; else m.innerText = texto;
+            m.className = "efecto-pop";
+            document.body.appendChild(m);
+            setTimeout(() => m.remove(), 2500);
+        }
+
+        function enojarBenson() {
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff4757";
+            t.innerText = "¡VUELVAN A TRABAJAR!"; mostrarMensaje("¡ESTÁN DESPEDIDOS!");
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 2000);
+        }
+        function retoHuevo() {
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ffd32a";
+            t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!"; mostrarMensaje(null, "gorra.png");
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+        }
+        function festejoMordo() {
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#1e90ff";
+            t.innerText = "¡OOOOOOOOOOH!"; mostrarMensaje("¡OOOOOOOOOOH!");
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 1500);
+        }
+        function sabiduriaSkips() {
+            const t = document.getElementById('main-title'); document.body.style.filter = "grayscale(1)";
+            t.innerText = "YA HE VISTO ESTO ANTES..."; mostrarMensaje("Ya he visto esto antes...");
+            setTimeout(() => { document.body.style.filter = "none"; t.innerText = "Un Show Más"; }, 2500);
+        }
+        function regaloPapaleta() {
+            const t = document.getElementById('main-title'); document.body.style.backgroundColor = "#ff79ff";
+            t.innerText = "¡QUÉ BUEN SHOW!"; mostrarMensaje("¡Qué buen show!");
+            setTimeout(() => { document.body.style.backgroundColor = "#0a0b10"; t.innerText = "Un Show Más"; }, 3000);
+        }
+        function bromaMusculoso() {
+            const t = document.getElementById('main-title'); document.body.classList.add("shake-effect");
+            t.innerText = "¿SABEN QUIÉN MÁS?"; mostrarMensaje("¡MI MAMI!");
+            setTimeout(() => { t.innerText = "Un Show Más"; document.body.classList.remove("shake-effect"); }, 3500);
+        }
     </script>
 </body>
 </html>
