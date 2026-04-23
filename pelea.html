@@ -14,55 +14,42 @@
             position: relative; overflow: hidden;
         }
 
-        /* Aviso para girar el celu/tablet si está vertical */
-        @media screen and (orientation: portrait) {
-            #game-stage::after {
-                content: "GIRÁ EL DISPOSITIVO PARA JUGAR";
-                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.9); color: yellow; display: flex;
-                align-items: center; justify-content: center; z-index: 9999;
-                font-size: 24px; text-align: center; padding: 20px;
-            }
-        }
-
-        /* Personajes */
+        /* Personajes con tamaños ajustados al canon de la serie */
         .pj {
-            position: absolute; bottom: 15%; /* Ahora usa porcentaje para adaptarse a tablets */
-            height: 18vh; min-height: 120px; width: auto; /* Escala según la pantalla */
-            image-rendering: pixelated;
+            position: absolute; bottom: 15%; 
+            width: auto; image-rendering: pixelated;
             z-index: 10; transition: transform 0.1s linear;
         }
+        #mordecai { height: 35vh; min-height: 150px; left: 0; }
+        #rigby { height: 20vh; min-height: 90px; left: 0; }
+        
         .attack { width: auto; } 
-        #mordecai { left: 0; }
-        #rigby { left: 0; }
 
-        /* HUD: LA SOLUCIÓN DEL MARCO */
-        /* Ahora el wrapper es una caja fija con el ratio del HUD */
-        .hud-wrapper {
-            position: absolute; top: 2%; left: 50%; transform: translateX(-50%);
-            width: 90vw; max-width: 700px; aspect-ratio: 7 / 1; /* Proporción del diseño */
+        /* HUD PERFECTO: Caja maestra */
+        #hud-container {
+            position: absolute; top: 3%; left: 50%; transform: translateX(-50%);
+            width: 90vw; max-width: 700px; aspect-ratio: 6 / 1; /* Proporción del HUD */
             z-index: 100;
         }
         
+        /* Imagen del marco (Siempre encima) */
         .hud-frame {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: contain; z-index: 102; pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: fill; z-index: 102; pointer-events: none;
         }
 
-        /* Las barras reales van ADENTRO del wrapper con porcentajes */
+        /* Barras atrapadas en los huecos (Por detrás) */
         .hp-background {
-            position: absolute; top: 32%; height: 26%; /* Ajustado al "agujero" del marco */
-            width: 35%; 
+            position: absolute; top: 32%; height: 28%; width: 36%;
             background: rgba(255,0,0,0.8); z-index: 101;
         }
-        #bg-morde { left: 8.5%; }  /* Pegado al borde interno izquierdo */
-        #bg-rigby { right: 8.5%; } /* Pegado al borde interno derecho */
+        #bg-morde { left: 9.5%; }  /* Alineado al hueco izquierdo */
+        #bg-rigby { right: 9.5%; } /* Alineado al hueco derecho */
 
         .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s; }
         #hp-rigby-fill { float: right; }
 
-        .name-label { position: absolute; top: -150%; color: white; font-size: clamp(10px, 2vw, 16px); text-shadow: 2px 2px #000; z-index: 103; }
+        .name-label { position: absolute; top: -140%; color: white; font-size: clamp(12px, 2.5vw, 18px); text-shadow: 2px 2px #000; z-index: 103; }
 
         /* Pantallas de inicio y fin */
         #fight-screen, #win-screen {
@@ -71,38 +58,36 @@
             background: rgba(0,0,0,0.5); z-index: 200; flex-direction: column;
         }
         #win-screen { display: none; background: rgba(0,0,0,0.9); color: yellow; font-size: 32px; text-transform: uppercase; text-shadow: 3px 3px red; text-align: center; }
-        #fight-logo { width: 40vw; max-width: 300px; animation: bounceIn 0.6s; }
+        #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; }
         @keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
 
-        /* CONTROLES TÁCTILES */
+        /* CONTROLES MÁS ARRIBA Y FUNCIONALES */
         #controls {
-            position: absolute; bottom: 5%; width: 100%;
+            position: absolute; bottom: 8%; width: 100%; /* Más arriba */
             display: flex; justify-content: space-between; padding: 0 5%; z-index: 150;
         }
         
-        /* Analógico */
+        /* Analógico Real */
         #analog-container {
-            position: relative; width: 15vh; height: 15vh; min-width: 100px; min-height: 100px;
+            position: relative; width: 16vh; height: 16vh; min-width: 110px; min-height: 110px;
             background-image: url('control_analogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;
+            transition: transform 0.1s;
         }
-        .analog-btn { position: absolute; width: 50%; height: 100%; top: 0; }
-        #left { left: 0; }
-        #right { right: 0; }
 
         /* Botones de acción */
         .actions {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 2vh; align-items: center; justify-items: center;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2.5vh; align-items: center; justify-items: center;
         }
         .btn-action-img {
-            width: 8vh; height: 8vh; min-width: 50px; min-height: 50px; object-fit: contain;
+            width: 9vh; height: 9vh; min-width: 55px; min-height: 55px; object-fit: contain;
             transition: transform 0.1s;
         }
-        .btn-action-img:active { transform: scale(0.9); }
+        .btn-action-img:active { transform: scale(0.85); }
 
         /* Efectos */
         .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; }
-        .smoke { width: 5vw; min-width: 40px; animation: smokeOut 0.5s forwards; }
-        .hit-fx { width: 10vw; min-width: 80px; animation: hitPop 0.2s forwards; }
+        .smoke { width: 6vw; min-width: 45px; animation: smokeOut 0.5s forwards; }
+        .hit-fx { width: 12vw; min-width: 90px; animation: hitPop 0.2s forwards; }
         @keyframes smokeOut { to { transform: translateY(-20px) scale(1.5); opacity: 0; } }
         @keyframes hitPop { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 0; } }
     </style>
@@ -113,7 +98,7 @@
     <div id="fight-screen"><img id="fight-logo" src="cartel_fight.png"></div>
     <div id="win-screen"><span id="win-text"></span></div>
 
-    <div class="hud-wrapper">
+    <div id="hud-container">
         <img id="hud-img" class="hud-frame" src="">
         
         <div class="hp-background" id="bg-morde">
@@ -131,10 +116,7 @@
     <img id="rigby" class="pj" src="rigby_pose.png">
 
     <div id="controls">
-        <div id="analog-container">
-            <div class="analog-btn" id="left"></div>
-            <div class="analog-btn" id="right"></div>
-        </div>
+        <div id="analog-container"></div>
         <div class="actions">
             <img src="btn_y.png" class="btn-action-img" id="btn-y">
             <img src="btn_x.png" class="btn-action-img" id="btn-x">
@@ -145,18 +127,17 @@
 </div>
 
 <script>
+    // Configuración Inicial
     const escenarios = [
         'escenario_casa_noche.png', 'escenario_casa_dia.png', 
         'escenario_arbol_espacio.png', 'escenario_parque_espacio.png', 
         'escenario_parque.png', 'escenario_tiro.png'
     ];
     const stage = document.getElementById('game-stage');
-    const randomBg = escenarios[Math.floor(Math.random() * escenarios.length)];
-    stage.style.backgroundImage = `url('${randomBg}')`;
+    stage.style.backgroundImage = `url('${escenarios[Math.floor(Math.random() * escenarios.length)]}')`;
 
     const huds = ['hud_1.png', 'hud_2.png', 'hud_3.png', 'hud_4.png'];
-    const randomHud = huds[Math.floor(Math.random() * huds.length)];
-    document.getElementById('hud-img').src = randomHud;
+    document.getElementById('hud-img').src = huds[Math.floor(Math.random() * huds.length)];
 
     setTimeout(() => {
         document.getElementById('fight-screen').style.opacity = '0';
@@ -164,19 +145,24 @@
         startGame();
     }, 1500);
 
+    // Variables de Juego
     const morde = document.getElementById('mordecai');
     const rigby = document.getElementById('rigby');
     const hpMordeFill = document.getElementById('hp-morde-fill');
     const hpRigbyFill = document.getElementById('hp-rigby-fill');
 
     const screenW = window.innerWidth;
-    
     let mordeX = screenW * 0.15;
     let rigbyX = screenW * 0.70;
     let mordeHp = 100, rigbyHp = 100;
     let mordeAttacking = false, rigbyAttacking = false;
     let gameOver = false;
     let walkFrame = 1;
+
+    // Sistema de Movimiento Continuo (Más rápido y fluido)
+    let mordeMoving = false;
+    let mordeDir = null;
+    let moveLoop = null;
 
     function updatePositions() {
         morde.style.transform = `translateX(${mordeX}px) scaleX(${morde.dataset.scaleX || 1})`;
@@ -205,6 +191,7 @@
 
     function endGame(winner) {
         gameOver = true;
+        clearInterval(moveLoop);
         document.getElementById('win-screen').style.display = 'flex';
         document.getElementById('win-text').innerHTML = `${winner} WINS!<br><span style="font-size:20px; color:white;">Toca para reiniciar</span>`;
         document.getElementById('win-screen').onclick = () => location.reload();
@@ -220,18 +207,31 @@
         }
     }
 
-    function moveMorde(dir) {
-        if (mordeAttacking || gameOver) return;
-        morde.classList.remove('attack'); 
-        mordeX += (dir === 'right' ? 20 : -20);
-        morde.dataset.scaleX = dir === 'left' ? -1 : 1;
+    // Funciones del Jugador (Mordecai)
+    function startMove(dir) {
+        if (mordeMoving || mordeAttacking || gameOver) return;
+        mordeMoving = true;
+        mordeDir = dir;
+        morde.classList.remove('attack');
         
-        mordeX = Math.max(0, Math.min(mordeX, window.innerWidth - 120)); 
-        updatePositions();
+        moveLoop = setInterval(() => {
+            mordeX += (mordeDir === 'right' ? 25 : -25); // Velocidad aumentada
+            mordeX = Math.max(0, Math.min(mordeX, screenW - 120)); 
+            morde.dataset.scaleX = mordeDir === 'left' ? -1 : 1;
+            updatePositions();
 
-        walkFrame = walkFrame === 1 ? 2 : 1;
-        morde.src = `mordecai_caminar_${walkFrame}.png`;
-        spawnEffect('smoke', mordeX + (dir === 'right' ? 20 : 90), 100);
+            walkFrame = walkFrame === 1 ? 2 : 1;
+            morde.src = `mordecai_caminar_${walkFrame}.png`;
+            if(Math.random() > 0.5) spawnEffect('smoke', mordeX + (mordeDir === 'right' ? 20 : 90), 100);
+        }, 120); // Fluidez de paso
+    }
+
+    function stopMove() {
+        mordeMoving = false;
+        clearInterval(moveLoop);
+        if (!mordeAttacking && !gameOver) {
+            morde.src = 'mordecai_pose.png';
+        }
     }
 
     function attackMorde(type) {
@@ -243,7 +243,7 @@
         else morde.src = 'mordecai_ataque_fuerte.png';
         
         if (checkCollision()) {
-            rigbyHp -= (type === 'A' ? 10 : 15);
+            rigbyHp -= (type === 'A' || type === 'X' ? 10 : 15);
             rigbyHp = Math.max(0, rigbyHp);
             rigby.src = 'rigby_dolor.png';
             spawnEffect('hit', rigbyX + 20, 150);
@@ -254,23 +254,24 @@
         setTimeout(() => {
             if (!gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
             mordeAttacking = false;
-        }, 350);
+        }, 300); // Golpea más rápido
     }
 
+    // Inteligencia Artificial Agresiva (Rigby)
     function rigbyAI() {
         if (gameOver) return;
         const distance = mordeX - rigbyX;
         
-        if (Math.abs(distance) > 120) {
+        if (Math.abs(distance) > 110) {
             rigby.classList.remove('attack');
-            rigbyX += distance > 0 ? 15 : -15;
-            rigbyX = Math.max(0, Math.min(rigbyX, window.innerWidth - 120)); 
+            rigbyX += distance > 0 ? 30 : -30; // RIGBY ES MÁS RÁPIDO AHORA
+            rigbyX = Math.max(0, Math.min(rigbyX, screenW - 120)); 
             rigby.dataset.scaleX = distance < 0 ? -1 : 1; 
             updatePositions();
             walkFrame = walkFrame === 1 ? 2 : 1;
             rigby.src = `rigby_caminar_${walkFrame}.png`;
         } else {
-            if (!rigbyAttacking && Math.random() > 0.4) {
+            if (!rigbyAttacking && Math.random() > 0.3) {
                 rigbyAttacking = true;
                 rigby.classList.add('attack'); 
                 rigby.src = 'rigby_ataque.png';
@@ -285,40 +286,51 @@
                 setTimeout(() => {
                     if (!gameOver) { rigby.classList.remove('attack'); rigby.src = 'rigby_pose.png'; }
                     rigbyAttacking = false;
-                }, 400);
+                }, 350);
             }
         }
-        if (!rigbyAttacking && !gameOver) { setTimeout(() => { if(!rigbyAttacking) rigby.src = 'rigby_pose.png'; }, 200); }
+        if (!rigbyAttacking && !gameOver) { setTimeout(() => { if(!rigbyAttacking) rigby.src = 'rigby_pose.png'; }, 150); }
     }
 
     let aiInterval;
     function startGame() {
         if(aiInterval) clearInterval(aiInterval);
-        aiInterval = setInterval(rigbyAI, 700);
+        aiInterval = setInterval(rigbyAI, 300); // PIENSA EL DOBLE DE RÁPIDO
     }
 
-    document.getElementById('left').addEventListener('touchstart', (e) => { e.preventDefault(); moveMorde('left'); });
-    document.getElementById('right').addEventListener('touchstart', (e) => { e.preventDefault(); moveMorde('right'); });
+    // CONTROLES DE ANALÓGICO REAL (Deslizamiento)
+    const analog = document.getElementById('analog-container');
+    
+    function handleAnalog(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = analog.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const dir = touch.clientX < centerX ? 'left' : 'right';
+        
+        // Efecto visual de apretar el botón
+        analog.style.transform = dir === 'left' ? 'scale(0.9) translateX(-15px)' : 'scale(0.9) translateX(15px)';
+
+        if (mordeDir !== dir || !mordeMoving) {
+            stopMove();
+            startMove(dir);
+        }
+    }
+
+    analog.addEventListener('touchstart', handleAnalog);
+    analog.addEventListener('touchmove', handleAnalog); // Permite arrastrar el dedo
+    analog.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        analog.style.transform = 'scale(1) translateX(0)'; // Vuelve al centro
+        stopMove();
+    });
+
+    // BOTONES DE ATAQUE
     document.getElementById('btn-a').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('A'); });
     document.getElementById('btn-b').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('B'); });
     document.getElementById('btn-x').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('X'); });
     document.getElementById('btn-y').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('Y'); });
 
-    document.addEventListener('touchend', (e) => {
-        if (!mordeAttacking && !gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
-    });
-
-    window.addEventListener('keydown', (e) => {
-        const key = e.key.toLowerCase();
-        if (key === 'a' || key === 'arrowleft') moveMorde('left');
-        if (key === 'd' || key === 'arrowright') moveMorde('right');
-        if (key === 'j') attackMorde('A');
-        if (key === 'k') attackMorde('B');
-    });
-
-    window.addEventListener('keyup', () => {
-        if (!mordeAttacking && !gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
-    });
 </script>
 
 </body>
