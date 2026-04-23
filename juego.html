@@ -12,55 +12,59 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden; /* Evita que se pueda scrollear */
         }
 
-        /* Contenedor principal adaptable */
+        /* Contenedor principal que MANTIENE la proporción exacta de tu imagen */
         .interfaz {
             position: relative;
             width: 100vw;
             max-width: 1200px;
-            aspect-ratio: 1200 / 800; /* Mantiene la proporción de tu imagen de fondo */
+            aspect-ratio: 16 / 9; /* Proporción estándar de la imagen */
             background-image: url('fondo_seleccion.png');
-            background-size: contain;
+            background-size: 100% 100%; /* Obliga al fondo a encajar perfecto sin recortar */
             background-repeat: no-repeat;
             background-position: center;
         }
 
-        /* Renders de personajes */
+        /* Renders de personajes - Anclados a las esquinas */
         .render {
             position: absolute;
-            bottom: 20%;
-            height: 50%;
+            bottom: 22%; /* Apoyados justo arriba de las cajas de "LISTO" */
+            height: 50%; /* Alto máximo para que no se pasen de la caja */
+            max-width: 25%; /* Ancho máximo para que no se vengan al medio */
             object-fit: contain;
+            object-position: bottom center; /* Los ancla al piso de su área */
             z-index: 1;
-            transition: all 0.3s ease;
-            pointer-events: none; /* Para que no molesten al hacer clic en los iconos */
+            transition: all 0.2s ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+            pointer-events: none;
         }
 
-        #render-p1 { left: 5%; }
-        #render-p2 { right: 5%; transform: scaleX(-1); } /* Espeja al P2 para que mire al P1 */
+        #render-p1 { left: 4%; }
+        #render-p2 { right: 4%; transform: scaleX(-1); } /* Espeja a la Máquina */
 
-        /* Grilla de iconos con porcentajes para que no se mueva de los cuadritos */
+        /* Grilla de iconos adaptativa (Mantuve los porcentajes que te quedaron GOD) */
         .grilla-iconos {
             position: absolute;
             top: 29%; 
             left: 50%;
             transform: translateX(-50%);
+            width: 40%; /* Ajusta el ancho total de la grilla */
             display: grid;
-            grid-template-columns: repeat(4, 9vw); /* Tamaño relativo al ancho de pantalla */
-            grid-template-rows: repeat(2, 9vw);
-            gap: 1vw;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5%; /* Separación responsiva */
             z-index: 10;
         }
 
         .icono-personaje {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1 / 1; /* Mantiene los iconos siempre cuadrados */
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 2px solid transparent;
             transition: transform 0.1s, border-color 0.2s;
         }
 
@@ -70,49 +74,38 @@
             box-shadow: 0 0 10px #00ffff;
         }
 
+        /* Botón Aleatorio Invisible sobre el "?" */
+        .boton-aleatorio {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8%;
+            height: 12%;
+            cursor: pointer;
+            z-index: 20;
+            /* background-color: rgba(255, 0, 0, 0.5); /* Descomentá esta línea si querés ver dónde está el botón para ajustarlo */
+        }
+
         /* Nombres */
         .nombre-container {
             position: absolute;
-            bottom: 10%;
+            bottom: 6%;
             width: 25%;
             text-align: center;
             z-index: 5;
         }
 
-        #nombre-p1-container { left: 5%; }
-        #nombre-p2-container { right: 5%; }
+        #nombre-p1-container { left: 4%; }
+        #nombre-p2-container { right: 4%; }
 
         .nombre-label {
-            font-size: clamp(14px, 4vw, 32px); /* Tamaño de fuente adaptable */
+            font-size: clamp(14px, 2.5vw, 32px); /* Texto que se achica o agranda solo */
             color: white;
             text-shadow: 2px 2px #000;
             font-weight: bold;
             text-transform: uppercase;
             font-style: italic;
-        }
-
-        /* AJUSTES ESPECÍFICOS PARA CELULARES (Pantallas verticales o chicas) */
-        @media (max-width: 768px) {
-            .interfaz {
-                width: 100%;
-                aspect-ratio: auto;
-                height: 100vh;
-                background-size: cover;
-            }
-
-            .grilla-iconos {
-                grid-template-columns: repeat(4, 18vw); /* Iconos más grandes en el celu */
-                grid-template-rows: repeat(2, 18vw);
-                top: 35%;
-            }
-
-            .render {
-                height: 35%;
-                bottom: 5%;
-            }
-
-            #render-p1 { left: 2%; }
-            #render-p2 { right: 2%; }
         }
     </style>
 </head>
@@ -139,21 +132,43 @@
             <img src="icon_papaleta.png" class="icono-personaje" onclick="elegir('papaleta')">
             <img src="icon_la_muerte.png" class="icono-personaje" onclick="elegir('la_muerte')">
         </div>
+
+        <div class="boton-aleatorio" onclick="elegirAleatorio()"></div>
     </div>
 
     <script>
-        let turno = 1;
+        // Lista de todos los personajes disponibles
+        const personajes = ['mordecai', 'rigby', 'benson', 'skips', 'musculoso', 'fantasmin', 'papaleta', 'la_muerte'];
 
+        // Función cuando el Jugador 1 hace clic en un icono
         function elegir(personaje) {
-            if (turno === 1) {
-                document.getElementById('render-p1').src = `render_${personaje}.png`;
-                document.getElementById('nombre-p1').innerText = personaje.replace('_', ' ');
-                turno = 2; // Ahora le toca elegir al P2
-            } else {
-                document.getElementById('render-p2').src = `render_${personaje}.png`;
-                document.getElementById('nombre-p2').innerText = personaje.replace('_', ' ');
-                turno = 1; // Vuelve el turno al P1
-            }
+            // 1. Cambia el render y nombre del Jugador 1
+            document.getElementById('render-p1').src = `render_${personaje}.png`;
+            document.getElementById('nombre-p1').innerText = personaje.replace('_', ' ');
+
+            // 2. Automáticamente hace que la máquina elija su personaje
+            eleccionMaquina();
+        }
+
+        // Función para que la Máquina elija al azar
+        function eleccionMaquina() {
+            // Elige un número al azar basado en la cantidad de personajes
+            const indiceAzar = Math.floor(Math.random() * personajes.length);
+            const personajeMaquina = personajes[indiceAzar];
+
+            // Cambia el render y nombre de la Máquina
+            document.getElementById('render-p2').src = `render_${personajeMaquina}.png`;
+            document.getElementById('nombre-p2').innerText = personajeMaquina.replace('_', ' ');
+        }
+
+        // Función para el botón "?" (Aleatorio para el Jugador 1)
+        function elegirAleatorio() {
+            // Elige un personaje al azar para el jugador 1
+            const indiceAzarP1 = Math.floor(Math.random() * personajes.length);
+            const personajeElegido = personajes[indiceAzarP1];
+            
+            // Llama a la función elegir como si el jugador hubiera hecho clic
+            elegir(personajeElegido);
         }
     </script>
 
