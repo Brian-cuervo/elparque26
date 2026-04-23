@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Regular Show - Ultimate Fight</title>
     <style>
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: none; }
         body { margin: 0; overflow: hidden; background: #000; font-family: 'Arial Black', sans-serif; }
         
         #game-stage {
@@ -14,54 +14,75 @@
             position: relative; overflow: hidden;
         }
 
+        /* Personajes - Ajuste de alineación perfecto */
         .pj {
             position: absolute; bottom: 100px;
-            width: 150px; image-rendering: pixelated;
-            z-index: 10; transition: transform 0.1s;
+            height: 150px; width: auto; 
+            image-rendering: pixelated;
+            z-index: 10; transition: transform 0.1s linear;
         }
+        .attack { width: auto; } 
 
+        /* HUD: Barras de Vida Personalizadas */
         .hud {
             position: absolute; top: 20px; width: 100%;
-            display: flex; justify-content: space-around; padding: 0 10px; z-index: 100;
+            display: flex; justify-content: space-between; padding: 0 20px; z-index: 100;
         }
-        .bar-container { width: 45%; height: 30px; background: rgba(0,0,0,0.6); border: 3px solid #fff; position: relative; }
+        .player-hud {
+            position: relative; width: 40%; height: 40px;
+        }
+        /* La imagen del HUD que se elige al azar */
+        .hud-img {
+            position: absolute; top: -10px; left: -10px; width: calc(100% + 20px); height: 60px;
+            z-index: 102; pointer-events: none;
+        }
+        /* La barra verde que va por detrás del HUD */
+        .bar-container {
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8); position: relative; z-index: 101;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
         .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s, background-color 0.2s; }
-        .name-label { position: absolute; top: -20px; color: white; font-size: 12px; text-shadow: 2px 2px #000; }
+        .name-label { position: absolute; top: -25px; color: white; font-size: 16px; text-shadow: 2px 2px #000; z-index: 103; }
 
+        /* Pantallas de inicio y fin */
         #fight-screen, #win-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.4); z-index: 200; flex-direction: column;
+            background: rgba(0,0,0,0.5); z-index: 200; flex-direction: column;
         }
-        #win-screen { display: none; background: rgba(0,0,0,0.8); color: yellow; font-size: 40px; text-transform: uppercase; text-shadow: 3px 3px red; }
-        #fight-logo { width: 280px; animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        #win-screen { display: none; background: rgba(0,0,0,0.9); color: yellow; font-size: 32px; text-transform: uppercase; text-shadow: 3px 3px red; text-align: center; }
+        
+        #fight-placeholder { font-size: 60px; color: yellow; text-transform: uppercase; text-shadow: 4px 4px red, 8px 8px black; animation: bounceIn 0.6s; }
         @keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
 
+        /* CONTROLES TÁCTILES CON TUS IMÁGENES */
         #controls {
-            position: absolute; bottom: 30px; width: 100%;
-            display: flex; justify-content: space-between; padding: 0 40px; z-index: 150;
+            position: absolute; bottom: 20px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 30px; z-index: 150;
         }
-        .d-pad { position: relative; width: 120px; height: 120px; }
-        .btn-dir {
-            position: absolute; width: 50px; height: 50px;
-            background: rgba(255,255,255,0.2); border: 2px solid #fff;
-            display: flex; align-items: center; justify-content: center; color: white;
+        /* Analógico */
+        .joy-container {
+            position: relative; width: 120px; height: 120px;
+            background-image: url('control_analogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;
         }
-        #left { top: 35px; left: 0; border-radius: 10px 0 0 10px; }
-        #right { top: 35px; right: 0; border-radius: 0 10px 10px 0; }
+        /* Zonas invisibles para tocar izquierda y derecha en el analógico */
+        .btn-dir { position: absolute; width: 50%; height: 100%; top: 0; }
+        #left { left: 0; }
+        #right { right: 0; }
 
-        .actions { display: flex; gap: 20px; align-items: center; }
+        /* Botones de acción */
+        .actions {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; justify-items: center;
+        }
         .btn-action {
-            width: 70px; height: 70px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 24px; border: 4px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            width: 60px; height: 60px; border-radius: 50%;
+            object-fit: contain; /* Para que la imagen no se deforme */
         }
-        #btn-a { background: #e74c3c; } 
-        #btn-b { background: #3498db; }
+        .btn-action:active { transform: scale(0.9); } /* Efecto de hundirse al tocar */
 
-        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; }
-        .smoke { width: 40px; opacity: 0.6; animation: smokeOut 0.5s forwards; }
+        /* Efectos */
+        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; }
+        .smoke { width: 40px; animation: smokeOut 0.5s forwards; }
         .hit-fx { width: 80px; animation: hitPop 0.2s forwards; }
         @keyframes smokeOut { to { transform: translateY(-20px) scale(1.5); opacity: 0; } }
         @keyframes hitPop { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 0; } }
@@ -70,61 +91,92 @@
 <body>
 
 <div id="game-stage">
-    <div id="fight-screen"><img id="fight-logo" src="fight_logo.png"></div>
+    <div id="fight-screen"><span id="fight-placeholder">FIGHT!</span></div>
     <div id="win-screen"><span id="win-text"></span></div>
 
     <div class="hud">
-        <div class="bar-container">
+        <div class="player-hud">
             <span class="name-label">MORDECAI</span>
-            <div id="hp-morde" class="hp-fill"></div>
+            <img class="hud-img" id="hud-morde" src="">
+            <div class="bar-container"><div id="hp-fill-morde" class="hp-fill"></div></div>
         </div>
-        <div class="bar-container">
+        <div class="player-hud">
             <span class="name-label" style="right:0">RIGBY</span>
-            <div id="hp-rigby" class="hp-fill" style="float:right"></div>
+            <img class="hud-img" id="hud-rigby" src="" style="transform: scaleX(-1);">
+            <div class="bar-container"><div id="hp-fill-rigby" class="hp-fill" style="float:right"></div></div>
         </div>
     </div>
 
     <img id="mordecai" class="pj" src="mordecai_pose.png">
-    <img id="rigby" class="pj" src="rigby_pose.png" style="transform: scaleX(-1);">
+    <img id="rigby" class="pj" src="rigby_pose.png">
 
     <div id="controls">
-        <div class="d-pad">
-            <div class="btn-dir" id="left">←</div>
-            <div class="btn-dir" id="right">→</div>
+        <div class="joy-container">
+            <div class="btn-dir" id="left"></div>
+            <div class="btn-dir" id="right"></div>
         </div>
         <div class="actions">
-            <div class="btn-action" id="btn-a">A</div>
-            <div class="btn-action" id="btn-b">B</div>
+            <img src="btn_y.png" class="btn-action" id="btn-y">
+            <img src="btn_x.png" class="btn-action" id="btn-x">
+            <img src="btn_b.png" class="btn-action" id="btn-b">
+            <img src="btn_a.png" class="btn-action" id="btn-a">
         </div>
     </div>
 </div>
 
 <script>
-    const fondos = ['fondo_parque.png', 'fondo_casa.png', 'fondo_espacio.png'];
+    // 1. ESCENARIOS ALEATORIOS
+    const escenarios = [
+        'escenario_casa_noche.jpg', 'escenario_casa_dia.jpg', 
+        'escenario_arbol_espacio.jpg', 'escenario_parque_espacio.jpg', 
+        'escenario_parque.jpg', 'escenario_tiro.jpg'
+    ];
     const stage = document.getElementById('game-stage');
-    stage.style.backgroundImage = `url('${fondos[Math.floor(Math.random() * fondos.length)]}')`;
+    const randomBg = escenarios[Math.floor(Math.random() * escenarios.length)];
+    stage.style.backgroundImage = `url('${randomBg}')`;
+
+    // 2. HUDS ALEATORIOS
+    const huds = ['hud_1.png', 'hud_2.png', 'hud_3.png', 'hud_4.png'];
+    const randomHud = huds[Math.floor(Math.random() * huds.length)];
+    document.getElementById('hud-morde').src = randomHud;
+    document.getElementById('hud-rigby').src = randomHud;
+
+    // 3. CARTEL DE FIGHT
+    const fightPlaceholder = document.getElementById('fight-placeholder');
+    const fightImg = new Image();
+    fightImg.src = 'cartel_fight.png'; 
+    fightImg.onload = () => {
+        fightPlaceholder.innerHTML = '';
+        fightPlaceholder.appendChild(fightImg);
+        fightImg.style.width = '300px'; 
+    }
 
     setTimeout(() => {
         document.getElementById('fight-screen').style.opacity = '0';
         setTimeout(() => document.getElementById('fight-screen').style.display = 'none', 500);
-        startGame();
+        if(!gameOver) startGame();
     }, 1500);
 
+    // VARIABLES DEL JUEGO
     const morde = document.getElementById('mordecai');
     const rigby = document.getElementById('rigby');
-    const hpMordeBar = document.getElementById('hp-morde');
-    const hpRigbyBar = document.getElementById('hp-rigby');
+    const hpMordeFill = document.getElementById('hp-fill-morde');
+    const hpRigbyFill = document.getElementById('hp-fill-rigby');
 
-    let mordeX = window.innerWidth * 0.15;
-    let rigbyX = window.innerWidth * 0.70;
+    const screenW = window.innerWidth;
+    
+    let mordeX = screenW * 0.15;
+    let rigbyX = screenW * 0.70;
     let mordeHp = 100, rigbyHp = 100;
     let mordeAttacking = false, rigbyAttacking = false;
     let gameOver = false;
     let walkFrame = 1;
 
-    // Posiciones iniciales
-    morde.style.left = mordeX + 'px';
-    rigby.style.left = rigbyX + 'px';
+    function updatePositions() {
+        morde.style.transform = `translateX(${mordeX}px) scaleX(${morde.dataset.scaleX || 1})`;
+        rigby.style.transform = `translateX(${rigbyX}px) scaleX(${rigby.dataset.scaleX || -1})`;
+    }
+    updatePositions();
 
     function spawnEffect(type, x, y) {
         const fx = document.createElement('img');
@@ -136,22 +188,23 @@
         setTimeout(() => fx.remove(), type === 'smoke' ? 500 : 200);
     }
 
-    function checkCollision() {
-        return Math.abs(mordeX - rigbyX) < 140; // Distancia de impacto
-    }
+    function checkCollision() { return Math.abs(mordeX - rigbyX) < 140; }
 
     function updateBars() {
-        hpMordeBar.style.width = mordeHp + '%';
-        hpRigbyBar.style.width = rigbyHp + '%';
-        if (mordeHp < 30) hpMordeBar.style.background = 'red';
-        if (rigbyHp < 30) hpRigbyBar.style.background = 'red';
+        hpMordeFill.style.width = mordeHp + '%';
+        hpRigbyFill.style.width = rigbyHp + '%';
+        if (mordeHp < 30) hpMordeFill.style.background = 'red';
+        if (rigbyHp < 30) hpRigbyFill.style.background = 'red';
     }
 
     function endGame(winner) {
         gameOver = true;
         document.getElementById('win-screen').style.display = 'flex';
-        document.getElementById('win-text').innerText = winner + " WINS!";
+        document.getElementById('win-text').innerHTML = `${winner} WINS!<br><span style="font-size:20px; color:white;">Toca para reiniciar</span>`;
+        document.getElementById('win-screen').onclick = () => location.reload();
         
+        morde.classList.remove('attack');
+        rigby.classList.remove('attack');
         if (winner === 'MORDECAI') {
             morde.src = 'mordecai_ganar_2.png';
             rigby.src = 'rigby_dolor.png';
@@ -161,94 +214,109 @@
         }
     }
 
-    // --- LÓGICA DE MORDECAI (JUGADOR) ---
+    // LÓGICA DE MORDECAI
     function moveMorde(dir) {
         if (mordeAttacking || gameOver) return;
+        morde.classList.remove('attack'); 
         mordeX += (dir === 'right' ? 20 : -20);
-        if (mordeX < 0) mordeX = 0;
-        if (mordeX > window.innerWidth - 100) mordeX = window.innerWidth - 100;
+        morde.dataset.scaleX = dir === 'left' ? -1 : 1;
+        
+        mordeX = Math.max(0, Math.min(mordeX, screenW - 100)); 
+        updatePositions();
 
-        morde.style.left = mordeX + 'px';
-        morde.style.transform = dir === 'left' ? 'scaleX(-1)' : 'scaleX(1)';
         walkFrame = walkFrame === 1 ? 2 : 1;
         morde.src = `mordecai_caminar_${walkFrame}.png`;
-        spawnEffect('smoke', mordeX + 40, 100);
+        spawnEffect('smoke', mordeX + (dir === 'right' ? 20 : 90), 100);
     }
 
     function attackMorde(type) {
         if (mordeAttacking || gameOver) return;
         mordeAttacking = true;
-        morde.src = type === 'A' ? 'mordecai_ataque.png' : 'mordecai_ataque_fuerte.png';
+        morde.classList.add('attack'); 
         
-        if (checkCollision() && !rigbyAttacking) {
+        // Mapeamos los botones a los ataques
+        if (type === 'A' || type === 'X') morde.src = 'mordecai_ataque.png';
+        else morde.src = 'mordecai_ataque_fuerte.png';
+        
+        if (checkCollision()) {
             rigbyHp -= (type === 'A' ? 10 : 15);
+            rigbyHp = Math.max(0, rigbyHp);
             rigby.src = 'rigby_dolor.png';
-            spawnEffect('hit', rigbyX, 150);
+            spawnEffect('hit', rigbyX + 20, 150);
             updateBars();
             if (rigbyHp <= 0) { endGame('MORDECAI'); return; }
         }
         
         setTimeout(() => {
-            if (!gameOver) morde.src = 'mordecai_pose.png';
+            if (!gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
             mordeAttacking = false;
         }, 350);
     }
 
-    // --- LÓGICA DE RIGBY (IA BÁSICA) ---
+    // LÓGICA DE RIGBY (IA)
     function rigbyAI() {
         if (gameOver) return;
-        
         const distance = mordeX - rigbyX;
-        rigby.style.transform = distance < 0 ? 'scaleX(-1)' : 'scaleX(1)'; // Mirar a Morde
-
+        
         if (Math.abs(distance) > 130) {
-            // Acercarse
+            rigby.classList.remove('attack');
             rigbyX += distance > 0 ? 15 : -15;
-            rigby.style.left = rigbyX + 'px';
+            rigbyX = Math.max(0, Math.min(rigbyX, screenW - 100)); 
+            rigby.dataset.scaleX = distance < 0 ? -1 : 1; 
+            updatePositions();
+            walkFrame = walkFrame === 1 ? 2 : 1;
             rigby.src = `rigby_caminar_${walkFrame}.png`;
         } else {
-            // Atacar
-            if (!rigbyAttacking && Math.random() > 0.5) {
+            if (!rigbyAttacking && Math.random() > 0.4) {
                 rigbyAttacking = true;
+                rigby.classList.add('attack'); 
                 rigby.src = 'rigby_ataque.png';
                 if (!mordeAttacking) {
                     mordeHp -= 10;
+                    mordeHp = Math.max(0, mordeHp);
                     morde.src = 'mordecai_dolor.png';
                     spawnEffect('hit', mordeX + 50, 150);
                     updateBars();
                     if (mordeHp <= 0) { endGame('RIGBY'); return; }
                 }
                 setTimeout(() => {
-                    if (!gameOver) rigby.src = 'rigby_pose.png';
+                    if (!gameOver) { rigby.classList.remove('attack'); rigby.src = 'rigby_pose.png'; }
                     rigbyAttacking = false;
                 }, 400);
             }
         }
-        
-        if (!rigbyAttacking && !gameOver) {
-            setTimeout(() => { rigby.src = 'rigby_pose.png'; }, 200);
-        }
+        if (!rigbyAttacking && !gameOver) { setTimeout(() => { if(!rigbyAttacking) rigby.src = 'rigby_pose.png'; }, 200); }
     }
 
+    let aiInterval;
     function startGame() {
-        setInterval(rigbyAI, 800); // Rigby piensa cada 0.8 segundos
+        if(aiInterval) clearInterval(aiInterval);
+        aiInterval = setInterval(rigbyAI, 700);
     }
 
-    // Controles
+    // EVENTOS TÁCTILES
     document.getElementById('left').addEventListener('touchstart', (e) => { e.preventDefault(); moveMorde('left'); });
     document.getElementById('right').addEventListener('touchstart', (e) => { e.preventDefault(); moveMorde('right'); });
     document.getElementById('btn-a').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('A'); });
     document.getElementById('btn-b').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('B'); });
+    document.getElementById('btn-x').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('X'); });
+    document.getElementById('btn-y').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('Y'); });
 
+    document.addEventListener('touchend', (e) => {
+        if (!mordeAttacking && !gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
+    });
+
+    // TECLADO (PC)
     window.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 'a') moveMorde('left');
-        if (e.key.toLowerCase() === 'd') moveMorde('right');
-        if (e.key.toLowerCase() === 'j') attackMorde('A');
-        if (e.key.toLowerCase() === 'k') attackMorde('B');
+        const key = e.key.toLowerCase();
+        if (key === 'a' || key === 'arrowleft') moveMorde('left');
+        if (key === 'd' || key === 'arrowright') moveMorde('right');
+        if (key === 'j') attackMorde('A');
+        if (key === 'k') attackMorde('B');
     });
 
     window.addEventListener('keyup', () => {
-        if (!mordeAttacking && !gameOver) morde.src = 'mordecai_pose.png';
+        if (!mordeAttacking && !gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
     });
 </script>
 
