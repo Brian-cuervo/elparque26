@@ -14,55 +14,53 @@
             align-items: center;
             height: 100vh;
             font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Evita que se pueda scrollear */
+            overflow: hidden; 
         }
 
-        /* Contenedor principal que MANTIENE la proporción exacta de tu imagen */
         .interfaz {
             position: relative;
             width: 100vw;
             max-width: 1200px;
-            aspect-ratio: 16 / 9; /* Proporción estándar de la imagen */
+            aspect-ratio: 16 / 9; 
             background-image: url('fondo_seleccion.png');
-            background-size: 100% 100%; /* Obliga al fondo a encajar perfecto sin recortar */
+            background-size: 100% 100%; 
             background-repeat: no-repeat;
             background-position: center;
         }
 
-        /* Renders de personajes - Anclados a las esquinas */
+        /* RENDERS MOVIDOS HACIA ARRIBA (Al marco del parque) */
         .render {
             position: absolute;
-            bottom: 22%; /* Apoyados justo arriba de las cajas de "LISTO" */
-            height: 50%; /* Alto máximo para que no se pasen de la caja */
-            max-width: 25%; /* Ancho máximo para que no se vengan al medio */
+            bottom: 42%; /* Antes estaba en 22%, ahora subió a las pantallas */
+            height: 40%; 
+            max-width: 22%; 
             object-fit: contain;
-            object-position: bottom center; /* Los ancla al piso de su área */
+            object-position: bottom center; 
             z-index: 1;
             transition: all 0.2s ease-in-out;
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
             pointer-events: none;
         }
 
-        #render-p1 { left: 4%; }
-        #render-p2 { right: 4%; transform: scaleX(-1); } /* Espeja a la Máquina */
+        #render-p1 { left: 5%; }
+        #render-p2 { right: 5%; transform: scaleX(-1); } 
 
-        /* Grilla de iconos adaptativa (Mantuve los porcentajes que te quedaron GOD) */
         .grilla-iconos {
             position: absolute;
             top: 29%; 
             left: 50%;
             transform: translateX(-50%);
-            width: 40%; /* Ajusta el ancho total de la grilla */
+            width: 40%; 
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            gap: 1.5%; /* Separación responsiva */
+            gap: 1.5%; 
             z-index: 10;
         }
 
         .icono-personaje {
             width: 100%;
-            aspect-ratio: 1 / 1; /* Mantiene los iconos siempre cuadrados */
+            aspect-ratio: 1 / 1; 
             cursor: pointer;
             border: 2px solid transparent;
             transition: transform 0.1s, border-color 0.2s;
@@ -74,7 +72,6 @@
             box-shadow: 0 0 10px #00ffff;
         }
 
-        /* Botón Aleatorio Invisible sobre el "?" */
         .boton-aleatorio {
             position: absolute;
             bottom: 12%;
@@ -84,10 +81,8 @@
             height: 12%;
             cursor: pointer;
             z-index: 20;
-            /* background-color: rgba(255, 0, 0, 0.5); /* Descomentá esta línea si querés ver dónde está el botón para ajustarlo */
         }
 
-        /* Nombres */
         .nombre-container {
             position: absolute;
             bottom: 6%;
@@ -100,12 +95,41 @@
         #nombre-p2-container { right: 4%; }
 
         .nombre-label {
-            font-size: clamp(14px, 2.5vw, 32px); /* Texto que se achica o agranda solo */
+            font-size: clamp(14px, 2.5vw, 32px); 
             color: white;
             text-shadow: 2px 2px #000;
             font-weight: bold;
             text-transform: uppercase;
             font-style: italic;
+        }
+
+        /* --- NUEVO: BOTONES DE "LISTO" --- */
+        .boton-listo {
+            position: absolute;
+            bottom: 18%; /* Altura de las cajas de "LISTO" en la imagen */
+            width: 22%;
+            height: 10%;
+            cursor: pointer;
+            z-index: 20;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #btn-listo-p1 { left: 4.5%; }
+        /* La máquina no tiene cursor pointer porque se activa sola */
+        #btn-listo-p2 { right: 4.5%; cursor: default; } 
+
+        /* Clases de Neón que se activan con JavaScript */
+        .listo-blue {
+            box-shadow: 0 0 20px #00d4ff, inset 0 0 15px #00d4ff;
+            background-color: rgba(0, 212, 255, 0.2);
+            border: 2px solid #00d4ff;
+        }
+
+        .listo-red {
+            box-shadow: 0 0 20px #ff0000, inset 0 0 15px #ff0000;
+            background-color: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
         }
     </style>
 </head>
@@ -122,6 +146,9 @@
             <div class="nombre-label" id="nombre-p2">RIGBY</div>
         </div>
 
+        <div id="btn-listo-p1" class="boton-listo" onclick="confirmarPelea()"></div>
+        <div id="btn-listo-p2" class="boton-listo"></div>
+
         <div class="grilla-iconos">
             <img src="icon_mordecai.png" class="icono-personaje" onclick="elegir('mordecai')">
             <img src="icon_rigby.png" class="icono-personaje" onclick="elegir('rigby')">
@@ -137,38 +164,46 @@
     </div>
 
     <script>
-        // Lista de todos los personajes disponibles
         const personajes = ['mordecai', 'rigby', 'benson', 'skips', 'musculoso', 'fantasmin', 'papaleta', 'la_muerte'];
+        let peleaConfirmada = false;
 
-        // Función cuando el Jugador 1 hace clic en un icono
         function elegir(personaje) {
-            // 1. Cambia el render y nombre del Jugador 1
+            if(peleaConfirmada) return; // Si ya le diste a LISTO, no te deja cambiar
+            
             document.getElementById('render-p1').src = `render_${personaje}.png`;
             document.getElementById('nombre-p1').innerText = personaje.replace('_', ' ');
-
-            // 2. Automáticamente hace que la máquina elija su personaje
             eleccionMaquina();
         }
 
-        // Función para que la Máquina elija al azar
         function eleccionMaquina() {
-            // Elige un número al azar basado en la cantidad de personajes
             const indiceAzar = Math.floor(Math.random() * personajes.length);
             const personajeMaquina = personajes[indiceAzar];
-
-            // Cambia el render y nombre de la Máquina
             document.getElementById('render-p2').src = `render_${personajeMaquina}.png`;
             document.getElementById('nombre-p2').innerText = personajeMaquina.replace('_', ' ');
         }
 
-        // Función para el botón "?" (Aleatorio para el Jugador 1)
         function elegirAleatorio() {
-            // Elige un personaje al azar para el jugador 1
+            if(peleaConfirmada) return;
             const indiceAzarP1 = Math.floor(Math.random() * personajes.length);
-            const personajeElegido = personajes[indiceAzarP1];
-            
-            // Llama a la función elegir como si el jugador hubiera hecho clic
-            elegir(personajeElegido);
+            elegir(personajes[indiceAzarP1]);
+        }
+
+        // Lógica para los botones de LISTO
+        function confirmarPelea() {
+            if (!peleaConfirmada) {
+                peleaConfirmada = true; // Bloquea la selección de personajes
+                
+                // Prende el neón azul del jugador 1
+                document.getElementById('btn-listo-p1').classList.add('listo-blue');
+                
+                // Efecto dramático: La máquina espera 0.8 segundos y da el OK con rojo
+                setTimeout(() => {
+                    document.getElementById('btn-listo-p2').classList.add('listo-red');
+                    
+                    // Acá avisa que arranca. ¡Después lo cambiamos para que cargue el nivel!
+                    setTimeout(() => alert('¡PREPARADOS PARA LA PELEA!'), 600);
+                }, 800);
+            }
         }
     </script>
 
