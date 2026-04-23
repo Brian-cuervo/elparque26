@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Personaje - Un Show Más</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Para que no salgan barras de scroll */
+        }
+
+        /* El contenedor principal usa tu imagen de fondo */
+        .interfaz {
+            position: relative;
+            width: 1200px; /* Ajustalo al ancho real de tu imagen de fondo */
+            height: 800px; /* Ajustalo al alto real de tu imagen de fondo */
+            background-image: url('fondo_seleccion.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Posicionamos los renders gigantes donde están las luces azul y roja */
+        .render {
+            position: absolute;
+            bottom: 50px;
+            height: 600px;
+            object-fit: contain;
+            z-index: 1;
+            transition: all 0.2s ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.8)); /* Sombra para que resalte más */
+        }
+
+        #render-p1 { left: 50px; }
+        #render-p2 { right: 50px; }
+
+        /* La grilla de iconos centrada sobre los cuadritos de tu imagen */
+        .grilla-iconos {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: grid;
+            grid-template-columns: repeat(3, 100px); /* Ajusta el 100px al tamaño de tus cuadritos */
+            gap: 15px; /* Separación entre iconos */
+            z-index: 10;
+        }
+
+        .icono-personaje {
+            width: 100px; /* Mismo tamaño que arriba */
+            height: 100px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.1s;
+        }
+
+        .icono-personaje:hover {
+            transform: scale(1.1);
+            border-color: #00ffff;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        /* Nombres de los personajes */
+        .nombre-p1 { position: absolute; bottom: 80px; left: 100px; font-size: 40px; color: white; text-shadow: 2px 2px #000; z-index: 5; font-style: italic; font-weight: bold; }
+        .nombre-p2 { position: absolute; bottom: 80px; right: 100px; font-size: 40px; color: white; text-shadow: 2px 2px #000; z-index: 5; font-style: italic; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="interfaz">
+        <img id="render-p1" class="render" src="render_mordecai.png">
+        <img id="render-p2" class="render" src="render_rigby.png">
+
+        <div class="nombre-p1" id="nombre-p1">MORDECAI</div>
+        <div class="nombre-p2" id="nombre-p2">RIGBY</div>
+
+        <div class="grilla-iconos">
+            <img src="icon_mordecai.png" class="icono-personaje" onclick="elegir('mordecai')">
+            <img src="icon_rigby.png" class="icono-personaje" onclick="elegir('rigby')">
+            <img src="icon_papaleta.png" class="icono-personaje" onclick="elegir('papaleta')">
+            <img src="icon_musculoso.png" class="icono-personaje" onclick="elegir('musculoso')">
+            <img src="icon_la_muerte.png" class="icono-personaje" onclick="elegir('la_muerte')">
+            <img src="icon_fantasmin.png" class="icono-personaje" onclick="elegir('fantasmin')">
+            <img src="icon_benson.png" class="icono-personaje" onclick="elegir('benson')">
+            <img src="icon_skips.png" class="icono-personaje" onclick="elegir('skips')">
+        </div>
+    </div>
+
+    <script>
+        function elegir(personaje) {
+            // Cambia el render y el nombre del Jugador 1
+            document.getElementById('render-p1').src = `render_${personaje}.png`;
+            document.getElementById('nombre-p1').innerText = personaje.replace('_', ' ').toUpperCase();
+        }
+    </script>
+
+</body>
+</html>
