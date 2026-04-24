@@ -14,7 +14,7 @@
             position: relative; overflow: hidden;
         }
 
-        /* Personajes con tamaños ajustados al canon de la serie */
+        /* Personajes */
         .pj {
             position: absolute; bottom: 15%; 
             width: auto; image-rendering: pixelated;
@@ -28,53 +28,54 @@
         /* HUD PERFECTO: Caja maestra */
         #hud-container {
             position: absolute; top: 3%; left: 50%; transform: translateX(-50%);
-            width: 90vw; max-width: 700px; aspect-ratio: 6 / 1; /* Proporción del HUD */
+            width: 90vw; max-width: 700px; aspect-ratio: 6 / 1; 
             z-index: 100;
         }
         
-        /* Imagen del marco (Siempre encima) */
         .hud-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: fill; z-index: 102; pointer-events: none;
         }
 
-        /* Barras atrapadas en los huecos (Por detrás) */
         .hp-background {
             position: absolute; top: 32%; height: 28%; width: 36%;
             background: rgba(255,0,0,0.8); z-index: 101;
         }
-        #bg-morde { left: 9.5%; }  /* Alineado al hueco izquierdo */
-        #bg-rigby { right: 9.5%; } /* Alineado al hueco derecho */
+        #bg-morde { left: 9.5%; } 
+        #bg-rigby { right: 9.5%; }
 
         .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s; }
         #hp-rigby-fill { float: right; }
 
         .name-label { position: absolute; top: -140%; color: white; font-size: clamp(12px, 2.5vw, 18px); text-shadow: 2px 2px #000; z-index: 103; }
 
-        /* Pantallas de inicio y fin */
-        #fight-screen, #win-screen {
+        /* Pantallas */
+        #start-screen, #fight-screen, #win-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.5); z-index: 200; flex-direction: column;
+            background: rgba(0,0,0,0.8); z-index: 200; flex-direction: column;
         }
+        #start-screen { z-index: 300; background: #000; color: #fff; font-size: 24px; text-align: center; }
         #win-screen { display: none; background: rgba(0,0,0,0.9); color: yellow; font-size: 32px; text-transform: uppercase; text-shadow: 3px 3px red; text-align: center; }
         #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; }
         @keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
 
-        /* CONTROLES MÁS ARRIBA Y FUNCIONALES */
+        /* CONTROLES */
         #controls {
-            position: absolute; bottom: 8%; width: 100%; /* Más arriba */
+            position: absolute; bottom: 8%; width: 100%; 
             display: flex; justify-content: space-between; padding: 0 5%; z-index: 150;
         }
         
-        /* Analógico Real */
         #analog-container {
             position: relative; width: 16vh; height: 16vh; min-width: 110px; min-height: 110px;
             background-image: url('control_analogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;
             transition: transform 0.1s;
         }
+        
+        .analog-btn { position: absolute; width: 50%; height: 100%; top: 0; }
+        #left { left: 0; }
+        #right { right: 0; }
 
-        /* Botones de acción */
         .actions {
             display: grid; grid-template-columns: 1fr 1fr; gap: 2.5vh; align-items: center; justify-items: center;
         }
@@ -95,11 +96,12 @@
 <body>
 
 <div id="game-stage">
-    <div id="fight-screen"><img id="fight-logo" src="cartel_fight.png"></div>
+    <div id="start-screen"><h1 style="color:yellow; text-shadow: 2px 2px red;">TOCÁ LA PANTALLA<br>PARA EMPEZAR</h1></div>
+    <div id="fight-screen" style="display:none;"><img id="fight-logo" src="cartel_fight.png"></div>
     <div id="win-screen"><span id="win-text"></span></div>
 
     <div id="hud-container">
-        <img id="hud-img" class="hud-frame" src="">
+        <img id="hud-img" class="hud-frame" src="hud_1.png">
         
         <div class="hp-background" id="bg-morde">
             <span class="name-label" style="left:0;">MORDECAI</span>
@@ -116,7 +118,10 @@
     <img id="rigby" class="pj" src="rigby_pose.png">
 
     <div id="controls">
-        <div id="analog-container"></div>
+        <div id="analog-container">
+            <div class="analog-btn" id="left"></div>
+            <div class="analog-btn" id="right"></div>
+        </div>
         <div class="actions">
             <img src="btn_y.png" class="btn-action-img" id="btn-y">
             <img src="btn_x.png" class="btn-action-img" id="btn-x">
@@ -127,7 +132,18 @@
 </div>
 
 <script>
-    // Configuración Inicial
+    // CARGAR LOS AUDIOS
+    const sfxFight = new Audio('sonido_fight.mp3');
+    const sfxHit = new Audio('golpe.mp3');
+    const sfxHitFuerte = new Audio('golpe_fuerte.mp3');
+    const sfxWin = new Audio('sonido_win.mp3');
+
+    // Función para reproducir sonido rápido sin que se trabe
+    function playAudio(audioObj) {
+        audioObj.currentTime = 0; // Reinicia el audio por si estás apretando rápido
+        audioObj.play().catch(e => console.log("Audio bloqueado o no encontrado"));
+    }
+
     const escenarios = [
         'escenario_casa_noche.png', 'escenario_casa_dia.png', 
         'escenario_arbol_espacio.png', 'escenario_parque_espacio.png', 
@@ -136,16 +152,30 @@
     const stage = document.getElementById('game-stage');
     stage.style.backgroundImage = `url('${escenarios[Math.floor(Math.random() * escenarios.length)]}')`;
 
-    const huds = ['hud_1.png', 'hud_2.png', 'hud_3.png', 'hud_4.png'];
-    document.getElementById('hud-img').src = huds[Math.floor(Math.random() * huds.length)];
+    // INICIAR JUEGO CON PANTALLA DE TACTO
+    const startScreen = document.getElementById('start-screen');
+    const fightScreen = document.getElementById('fight-screen');
 
-    setTimeout(() => {
-        document.getElementById('fight-screen').style.opacity = '0';
-        setTimeout(() => document.getElementById('fight-screen').style.display = 'none', 500);
-        startGame();
-    }, 1500);
+    startScreen.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startScreen.style.display = 'none';
+        fightScreen.style.display = 'flex';
+        
+        // ¡SUENA EL GRITO DE FIGHT!
+        playAudio(sfxFight);
 
-    // Variables de Juego
+        setTimeout(() => {
+            fightScreen.style.opacity = '0';
+            setTimeout(() => fightScreen.style.display = 'none', 500);
+            startGame();
+        }, 1500);
+    });
+    
+    // Soporte para PC por si lo probás ahí
+    startScreen.addEventListener('mousedown', (e) => {
+        startScreen.dispatchEvent(new Event('touchstart'));
+    });
+
     const morde = document.getElementById('mordecai');
     const rigby = document.getElementById('rigby');
     const hpMordeFill = document.getElementById('hp-morde-fill');
@@ -158,8 +188,6 @@
     let mordeAttacking = false, rigbyAttacking = false;
     let gameOver = false;
     let walkFrame = 1;
-
-    // Sistema de Movimiento Continuo (Más rápido y fluido)
     let mordeMoving = false;
     let mordeDir = null;
     let moveLoop = null;
@@ -192,6 +220,10 @@
     function endGame(winner) {
         gameOver = true;
         clearInterval(moveLoop);
+        
+        // ¡SUENA LA VICTORIA!
+        playAudio(sfxWin);
+
         document.getElementById('win-screen').style.display = 'flex';
         document.getElementById('win-text').innerHTML = `${winner} WINS!<br><span style="font-size:20px; color:white;">Toca para reiniciar</span>`;
         document.getElementById('win-screen').onclick = () => location.reload();
@@ -207,7 +239,6 @@
         }
     }
 
-    // Funciones del Jugador (Mordecai)
     function startMove(dir) {
         if (mordeMoving || mordeAttacking || gameOver) return;
         mordeMoving = true;
@@ -215,7 +246,7 @@
         morde.classList.remove('attack');
         
         moveLoop = setInterval(() => {
-            mordeX += (mordeDir === 'right' ? 25 : -25); // Velocidad aumentada
+            mordeX += (mordeDir === 'right' ? 25 : -25); 
             mordeX = Math.max(0, Math.min(mordeX, screenW - 120)); 
             morde.dataset.scaleX = mordeDir === 'left' ? -1 : 1;
             updatePositions();
@@ -223,15 +254,13 @@
             walkFrame = walkFrame === 1 ? 2 : 1;
             morde.src = `mordecai_caminar_${walkFrame}.png`;
             if(Math.random() > 0.5) spawnEffect('smoke', mordeX + (mordeDir === 'right' ? 20 : 90), 100);
-        }, 120); // Fluidez de paso
+        }, 120); 
     }
 
     function stopMove() {
         mordeMoving = false;
         clearInterval(moveLoop);
-        if (!mordeAttacking && !gameOver) {
-            morde.src = 'mordecai_pose.png';
-        }
+        if (!mordeAttacking && !gameOver) morde.src = 'mordecai_pose.png';
     }
 
     function attackMorde(type) {
@@ -239,11 +268,22 @@
         mordeAttacking = true;
         morde.classList.add('attack'); 
         
-        if (type === 'A' || type === 'X') morde.src = 'mordecai_ataque.png';
-        else morde.src = 'mordecai_ataque_fuerte.png';
+        if (type === 'X' || type === 'Y') {
+            morde.src = 'mordecai_ataque_fuerte.png';
+        } else {
+            morde.src = 'mordecai_ataque.png';
+        }
         
         if (checkCollision()) {
-            rigbyHp -= (type === 'A' || type === 'X' ? 10 : 15);
+            // ¡SUENA EL GOLPE DEPENDIENDO DEL BOTÓN!
+            if (type === 'X' || type === 'Y') {
+                playAudio(sfxHitFuerte);
+                rigbyHp -= 15;
+            } else {
+                playAudio(sfxHit);
+                rigbyHp -= 10;
+            }
+
             rigbyHp = Math.max(0, rigbyHp);
             rigby.src = 'rigby_dolor.png';
             spawnEffect('hit', rigbyX + 20, 150);
@@ -254,17 +294,16 @@
         setTimeout(() => {
             if (!gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
             mordeAttacking = false;
-        }, 300); // Golpea más rápido
+        }, 300);
     }
 
-    // Inteligencia Artificial Agresiva (Rigby)
     function rigbyAI() {
         if (gameOver) return;
         const distance = mordeX - rigbyX;
         
         if (Math.abs(distance) > 110) {
             rigby.classList.remove('attack');
-            rigbyX += distance > 0 ? 30 : -30; // RIGBY ES MÁS RÁPIDO AHORA
+            rigbyX += distance > 0 ? 30 : -30; 
             rigbyX = Math.max(0, Math.min(rigbyX, screenW - 120)); 
             rigby.dataset.scaleX = distance < 0 ? -1 : 1; 
             updatePositions();
@@ -275,7 +314,11 @@
                 rigbyAttacking = true;
                 rigby.classList.add('attack'); 
                 rigby.src = 'rigby_ataque.png';
+                
                 if (!mordeAttacking) {
+                    // ¡SUENA EL GOLPE DE RIGBY!
+                    playAudio(sfxHit);
+
                     mordeHp -= 10;
                     mordeHp = Math.max(0, mordeHp);
                     morde.src = 'mordecai_dolor.png';
@@ -295,37 +338,19 @@
     let aiInterval;
     function startGame() {
         if(aiInterval) clearInterval(aiInterval);
-        aiInterval = setInterval(rigbyAI, 300); // PIENSA EL DOBLE DE RÁPIDO
+        aiInterval = setInterval(rigbyAI, 300); 
     }
 
-    // CONTROLES DE ANALÓGICO REAL (Deslizamiento)
     const analog = document.getElementById('analog-container');
+    const btnLeft = document.getElementById('left');
+    const btnRight = document.getElementById('right');
+
+    btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); startMove('left'); analog.style.transform = 'scale(0.9) translateX(-15px)'; });
+    btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
     
-    function handleAnalog(e) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const rect = analog.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const dir = touch.clientX < centerX ? 'left' : 'right';
-        
-        // Efecto visual de apretar el botón
-        analog.style.transform = dir === 'left' ? 'scale(0.9) translateX(-15px)' : 'scale(0.9) translateX(15px)';
+    btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); startMove('right'); analog.style.transform = 'scale(0.9) translateX(15px)'; });
+    btnRight.addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
 
-        if (mordeDir !== dir || !mordeMoving) {
-            stopMove();
-            startMove(dir);
-        }
-    }
-
-    analog.addEventListener('touchstart', handleAnalog);
-    analog.addEventListener('touchmove', handleAnalog); // Permite arrastrar el dedo
-    analog.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        analog.style.transform = 'scale(1) translateX(0)'; // Vuelve al centro
-        stopMove();
-    });
-
-    // BOTONES DE ATAQUE
     document.getElementById('btn-a').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('A'); });
     document.getElementById('btn-b').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('B'); });
     document.getElementById('btn-x').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('X'); });
