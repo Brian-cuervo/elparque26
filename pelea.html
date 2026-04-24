@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Regular Show - Ultimate Fight (Optimizado)</title>
+    <title>Regular Show - Ultimate Fight (Knockback Edition)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     
@@ -17,7 +17,6 @@
             position: relative; overflow: hidden;
         }
 
-        /* Personajes Optimizados (will-change le dice al celu que use la placa de video) */
         .pj {
             position: absolute; bottom: 15%; 
             width: auto; image-rendering: pixelated;
@@ -27,9 +26,6 @@
         #mordecai { height: 35vh; min-height: 150px; left: 0; }
         #rigby { height: 20vh; min-height: 90px; left: 0; }
         
-        .attack { width: auto; } 
-
-        /* HUD FIJO Y PERFECTO */
         #hud-container {
             position: absolute; top: 3%; left: 50%; transform: translateX(-50%);
             width: 90vw; max-width: 700px; aspect-ratio: 6 / 1; 
@@ -51,7 +47,6 @@
         .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s; will-change: width; }
         #hp-rigby-fill { float: right; }
 
-        /* Nombres KOF Style */
         .name-label { 
             position: absolute; top: -140%; 
             color: yellow; 
@@ -61,7 +56,6 @@
             z-index: 103; 
         }
 
-        /* Pantallas */
         #start-screen, #fight-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
@@ -71,10 +65,8 @@
         
         #win-screen { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; 
-            align-items: center; justify-content: center; 
-            z-index: 200; flex-direction: column; 
-            background: rgba(0,0,0,0); 
+            display: none; align-items: center; justify-content: center; 
+            z-index: 200; flex-direction: column; background: rgba(0,0,0,0); 
         }
         
         #win-text { 
@@ -83,13 +75,11 @@
             background: linear-gradient(180deg, rgba(235,39,18,1) 0%, rgba(253,208,0,1) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(4px 4px 0px black); letter-spacing: 4px;
-            will-change: transform;
         }
 
-        #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; will-change: transform; }
+        #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; }
         @keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
 
-        /* CONTROLES ARRIBA Y SIN LAG */
         #controls {
             position: absolute; bottom: 18%; 
             width: 100%; display: flex; justify-content: space-between; padding: 0 5%; z-index: 150;
@@ -98,7 +88,7 @@
         #analog-container {
             position: relative; width: 16vh; height: 16vh; min-width: 110px; min-height: 110px;
             background-image: url('control_analogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;
-            transition: transform 0.1s; will-change: transform;
+            transition: transform 0.1s;
         }
         
         .analog-btn { position: absolute; width: 50%; height: 100%; top: 0; }
@@ -108,18 +98,15 @@
         .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5vh; align-items: center; justify-items: center; }
         .btn-action-img {
             width: 9vh; height: 9vh; min-width: 55px; min-height: 55px; object-fit: contain;
-            transition: transform 0.1s; will-change: transform;
+            transition: transform 0.1s;
         }
         .btn-action-img:active { transform: scale(0.85); }
 
-        /* Efectos limitados para rendimiento */
-        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; will-change: transform, opacity; }
+        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; }
         .smoke { width: 6vw; min-width: 45px; animation: smokeOut 0.4s forwards; }
-        .hit-fx { width: 12vw; min-width: 90px; animation: hitPop 0.2s forwards; }
+        .hit-fx { width: 8vw; min-width: 60px; animation: hitPop 0.2s forwards; }
         @keyframes smokeOut { to { transform: translateY(-20px) scale(1.5); opacity: 0; } }
         @keyframes hitPop { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 0; } }
-        
-        /* Pre-carga oculta (EVITA EL LAG AL PEGAR POR 1RA VEZ) */
         #preload { display: none; }
     </style>
 </head>
@@ -128,7 +115,7 @@
 <div id="preload">
     <img src="mordecai_ataque.png"><img src="mordecai_ataque_fuerte.png"><img src="mordecai_dolor.png"><img src="mordecai_caminar_1.png"><img src="mordecai_caminar_2.png"><img src="mordecai_ganar_2.png">
     <img src="rigby_ataque.png"><img src="rigby_dolor.png"><img src="rigby_caminar_1.png"><img src="rigby_caminar_2.png"><img src="rigby_ganar_2.png">
-    <img src="efecto_golpe.png"><img src="efecto_humo.png">
+    <img src="efecto_golpe.png"><img src="efecto_humo.png"><img src="hud_1.png">
 </div>
 
 <div id="game-stage">
@@ -138,12 +125,10 @@
 
     <div id="hud-container">
         <img id="hud-img" class="hud-frame" src="hud_1.png">
-        
         <div class="hp-background" id="bg-morde">
             <span class="name-label" style="left:0;">MORDECAI</span>
             <div id="hp-morde-fill" class="hp-fill"></div>
         </div>
-        
         <div class="hp-background" id="bg-rigby">
             <span class="name-label" style="right:0;">RIGBY</span>
             <div id="hp-rigby-fill" class="hp-fill"></div>
@@ -168,22 +153,15 @@
 </div>
 
 <script>
-    // Fondos Aleatorios (.png)
-    const escenarios = [
-        'escenario_casa_noche.png', 'escenario_casa_dia.png', 
-        'escenario_arbol_espacio.png', 'escenario_parque_espacio.png', 
-        'escenario_parque.png', 'escenario_tiro.png'
-    ];
+    const escenarios = ['escenario_casa_noche.png', 'escenario_casa_dia.png', 'escenario_arbol_espacio.png', 'escenario_parque_espacio.png', 'escenario_parque.png', 'escenario_tiro.png'];
     const stage = document.getElementById('game-stage');
     stage.style.backgroundImage = `url('${escenarios[Math.floor(Math.random() * escenarios.length)]}')`;
 
-    // Audios Optimizados
     const sfxFight = new Audio('sonido_fight.mp3');
     const sfxHit = new Audio('golpe.mp3');
     const sfxHitFuerte = new Audio('golpe_fuerte.mp3');
     const sfxWin = new Audio('sonido_win.mp3');
 
-    // Reproducción optimizada para celular (No clona, solo rebobina para no ahogar la RAM)
     function playAudio(audioObj) {
         audioObj.currentTime = 0;
         audioObj.play().catch(e => {}); 
@@ -196,25 +174,21 @@
         e.preventDefault();
         startScreen.style.display = 'none';
         fightScreen.style.display = 'flex';
-        
         sfxFight.load(); sfxHit.load(); sfxHitFuerte.load(); sfxWin.load();
         playAudio(sfxFight);
-
         setTimeout(() => {
             fightScreen.style.opacity = '0';
             setTimeout(() => fightScreen.style.display = 'none', 500);
             startGame();
         }, 1500);
     });
-    
-    startScreen.addEventListener('mousedown', (e) => { startScreen.dispatchEvent(new Event('touchstart')); });
 
     const morde = document.getElementById('mordecai');
     const rigby = document.getElementById('rigby');
     const hpMordeFill = document.getElementById('hp-morde-fill');
     const hpRigbyFill = document.getElementById('hp-rigby-fill');
 
-    const screenW = window.innerWidth;
+    let screenW = window.innerWidth;
     let mordeX = screenW * 0.15;
     let rigbyX = screenW * 0.70;
     let mordeHp = 100, rigbyHp = 100;
@@ -225,30 +199,39 @@
     let mordeDir = null;
     let moveLoop = null;
 
-    // Límite de efectos para evitar LAG DOM
-    let activeEffects = 0; 
-
     function updatePositions() {
         morde.style.transform = `translateX(${mordeX}px) scaleX(${morde.dataset.scaleX || 1})`;
         rigby.style.transform = `translateX(${rigbyX}px) scaleX(${rigby.dataset.scaleX || -1})`;
     }
     updatePositions();
 
-    function spawnEffect(type, x, y) {
-        if (activeEffects > 4) return; // Protege contra exceso de DOM (evita lagazos)
-        activeEffects++;
-        
+    // 🔥 FUNCIÓN DE RETROCESO (KNOCKBACK) 🔥
+    function applyKnockback(target) {
+        const pushAmount = 30; // Cuánto se aleja
+        if (target === 'rigby') {
+            rigbyX += (mordeX < rigbyX) ? pushAmount : -pushAmount;
+        } else {
+            mordeX += (rigbyX < mordeX) ? pushAmount : -pushAmount;
+        }
+        // Evitar que salgan de la pantalla
+        mordeX = Math.max(0, Math.min(mordeX, window.innerWidth - 120));
+        rigbyX = Math.max(0, Math.min(rigbyX, window.innerWidth - 120));
+        updatePositions();
+    }
+
+    function spawnEffect(type) {
         const fx = document.createElement('img');
         fx.src = type === 'smoke' ? 'efecto_humo.png' : 'efecto_golpe.png';
         fx.className = type === 'smoke' ? 'smoke' : 'hit-fx';
-        fx.style.left = x + 'px';
-        fx.style.bottom = y + 'px';
+        if (type === 'hit') {
+            fx.style.left = ((mordeX + rigbyX) / 2) + 20 + 'px'; 
+            fx.style.bottom = '22%';
+        }
         stage.appendChild(fx);
-        
-        setTimeout(() => { fx.remove(); activeEffects--; }, type === 'smoke' ? 400 : 200);
+        setTimeout(() => fx.remove(), 400);
     }
 
-    function checkCollision() { return Math.abs(mordeX - rigbyX) < 130; }
+    function checkCollision() { return Math.abs(mordeX - rigbyX) < 80; }
 
     function updateBars() {
         hpMordeFill.style.width = mordeHp + '%';
@@ -261,125 +244,82 @@
         gameOver = true;
         clearInterval(moveLoop);
         playAudio(sfxWin);
-
         document.getElementById('win-screen').style.display = 'flex';
         document.getElementById('win-text').innerHTML = `${winner} WINS!<br><span style="font-size:24px; color:white; filter:drop-shadow(2px 2px black); font-family:sans-serif;">Toca para reiniciar</span>`;
         document.getElementById('win-screen').onclick = () => location.reload();
-        
-        morde.classList.remove('attack');
-        rigby.classList.remove('attack');
-        if (winner === 'MORDECAI') {
-            morde.src = 'mordecai_ganar_2.png';
-            rigby.src = 'rigby_dolor.png';
-        } else {
-            rigby.src = 'rigby_ganar_2.png';
-            morde.src = 'mordecai_dolor.png';
-        }
+        if (winner === 'MORDECAI') { morde.src = 'mordecai_ganar_2.png'; rigby.src = 'rigby_dolor.png'; } 
+        else { rigby.src = 'rigby_ganar_2.png'; morde.src = 'mordecai_dolor.png'; }
     }
 
     function startMove(dir) {
         if (mordeMoving || mordeAttacking || gameOver) return;
-        mordeMoving = true;
-        mordeDir = dir;
-        morde.classList.remove('attack');
-        
+        mordeMoving = true; mordeDir = dir;
         moveLoop = setInterval(() => {
-            mordeX += (mordeDir === 'right' ? 25 : -25); 
-            mordeX = Math.max(0, Math.min(mordeX, screenW - 120)); 
+            mordeX += (mordeDir === 'right' ? 18 : -18); 
+            mordeX = Math.max(0, Math.min(mordeX, window.innerWidth - 120)); 
             morde.dataset.scaleX = mordeDir === 'left' ? -1 : 1;
             updatePositions();
-
             walkFrame = walkFrame === 1 ? 2 : 1;
             morde.src = `mordecai_caminar_${walkFrame}.png`;
-            
-            // Reducimos las chances de humo a 20% para matar el lag de creación de imágenes
-            if(Math.random() > 0.8) spawnEffect('smoke', mordeX + (mordeDir === 'right' ? 20 : 90), 100);
-        }, 120); 
+        }, 80);
     }
 
-    function stopMove() {
-        mordeMoving = false;
-        clearInterval(moveLoop);
-        if (!mordeAttacking && !gameOver) morde.src = 'mordecai_pose.png';
-    }
+    function stopMove() { mordeMoving = false; clearInterval(moveLoop); if (!mordeAttacking && !gameOver) morde.src = 'mordecai_pose.png'; }
 
     function attackMorde(type) {
         if (mordeAttacking || gameOver) return;
         mordeAttacking = true;
-        morde.classList.add('attack'); 
-        
-        if (type === 'X' || type === 'Y') { morde.src = 'mordecai_ataque_fuerte.png'; } 
-        else { morde.src = 'mordecai_ataque.png'; }
-        
+        morde.src = (type === 'X' || type === 'Y') ? 'mordecai_ataque_fuerte.png' : 'mordecai_ataque.png';
         if (checkCollision()) {
-            if (type === 'X' || type === 'Y') { playAudio(sfxHitFuerte); rigbyHp -= 15; } 
-            else { playAudio(sfxHit); rigbyHp -= 10; }
-
+            if (type === 'X' || type === 'Y') { playAudio(sfxHitFuerte); rigbyHp -= 8; } else { playAudio(sfxHit); rigbyHp -= 5; }
             rigbyHp = Math.max(0, rigbyHp);
             rigby.src = 'rigby_dolor.png';
-            spawnEffect('hit', rigbyX + 20, 150);
+            spawnEffect('hit');
+            applyKnockback('rigby'); // Empuja a Rigby
             updateBars();
             if (rigbyHp <= 0) { endGame('MORDECAI'); return; }
         }
-        
-        setTimeout(() => {
-            if (!gameOver) { morde.classList.remove('attack'); morde.src = 'mordecai_pose.png'; }
-            mordeAttacking = false;
-        }, 300);
+        setTimeout(() => { if (!gameOver) morde.src = 'mordecai_pose.png'; mordeAttacking = false; }, 300);
     }
 
     function rigbyAI() {
         if (gameOver) return;
         const distance = mordeX - rigbyX;
-        
-        if (Math.abs(distance) > 110) {
-            rigby.classList.remove('attack');
-            rigbyX += distance > 0 ? 30 : -30; 
-            rigbyX = Math.max(0, Math.min(rigbyX, screenW - 120)); 
+        if (Math.abs(distance) > 80) {
+            rigbyX += distance > 0 ? 20 : -20; 
             rigby.dataset.scaleX = distance < 0 ? -1 : 1; 
             updatePositions();
             walkFrame = walkFrame === 1 ? 2 : 1;
             rigby.src = `rigby_caminar_${walkFrame}.png`;
         } else {
-            if (!rigbyAttacking && Math.random() > 0.3) {
+            if (!rigbyAttacking && Math.random() > 0.4) {
                 rigbyAttacking = true;
-                rigby.classList.add('attack'); 
                 rigby.src = 'rigby_ataque.png';
                 if (!mordeAttacking) {
                     playAudio(sfxHit);
-                    mordeHp -= 10; mordeHp = Math.max(0, mordeHp);
+                    mordeHp -= 5; mordeHp = Math.max(0, mordeHp);
                     morde.src = 'mordecai_dolor.png';
-                    spawnEffect('hit', mordeX + 50, 150);
+                    spawnEffect('hit');
+                    applyKnockback('mordecai'); // Empuja a Mordecai
                     updateBars();
                     if (mordeHp <= 0) { endGame('RIGBY'); return; }
                 }
-                setTimeout(() => {
-                    if (!gameOver) { rigby.classList.remove('attack'); rigby.src = 'rigby_pose.png'; }
-                    rigbyAttacking = false;
-                }, 350);
+                setTimeout(() => { if (!gameOver) rigby.src = 'rigby_pose.png'; rigbyAttacking = false; }, 350);
             }
         }
-        if (!rigbyAttacking && !gameOver) { setTimeout(() => { if(!rigbyAttacking) rigby.src = 'rigby_pose.png'; }, 150); }
     }
 
-    let aiInterval;
-    function startGame() { if(aiInterval) clearInterval(aiInterval); aiInterval = setInterval(rigbyAI, 300); }
+    function startGame() { setInterval(rigbyAI, 300); }
 
     const analog = document.getElementById('analog-container');
-    const btnLeft = document.getElementById('left');
-    const btnRight = document.getElementById('right');
-
-    btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); startMove('left'); analog.style.transform = 'scale(0.9) translateX(-15px)'; });
-    btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
-    
-    btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); startMove('right'); analog.style.transform = 'scale(0.9) translateX(15px)'; });
-    btnRight.addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
-
+    document.getElementById('left').addEventListener('touchstart', (e) => { e.preventDefault(); startMove('left'); analog.style.transform = 'scale(0.9) translateX(-15px)'; });
+    document.getElementById('left').addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
+    document.getElementById('right').addEventListener('touchstart', (e) => { e.preventDefault(); startMove('right'); analog.style.transform = 'scale(0.9) translateX(15px)'; });
+    document.getElementById('right').addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
     document.getElementById('btn-a').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('A'); });
     document.getElementById('btn-b').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('B'); });
     document.getElementById('btn-x').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('X'); });
     document.getElementById('btn-y').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('Y'); });
-
 </script>
 
 </body>
