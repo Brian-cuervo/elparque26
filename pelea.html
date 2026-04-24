@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Regular Show - Ultimate Fight (KOF Style)</title>
+    <title>Regular Show - Ultimate Fight (Optimizado)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     
     <style>
         * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: none; }
-        body { margin: 0; overflow: hidden; background: #000; font-family: 'Anton', sans-serif; /* Usamos la fuente KOF por defecto */ }
+        body { margin: 0; overflow: hidden; background: #000; font-family: 'Anton', sans-serif; }
         
         #game-stage {
             width: 100vw; height: 100vh;
@@ -17,18 +17,19 @@
             position: relative; overflow: hidden;
         }
 
-        /* Personajes */
+        /* Personajes Optimizados (will-change le dice al celu que use la placa de video) */
         .pj {
             position: absolute; bottom: 15%; 
             width: auto; image-rendering: pixelated;
             z-index: 10; transition: transform 0.1s linear;
+            will-change: transform; 
         }
         #mordecai { height: 35vh; min-height: 150px; left: 0; }
         #rigby { height: 20vh; min-height: 90px; left: 0; }
         
         .attack { width: auto; } 
 
-        /* HUD MILIMÉTRICO (Con tipografía KOF) */
+        /* HUD FIJO Y PERFECTO */
         #hud-container {
             position: absolute; top: 3%; left: 50%; transform: translateX(-50%);
             width: 90vw; max-width: 700px; aspect-ratio: 6 / 1; 
@@ -47,15 +48,15 @@
         #bg-morde { left: 9.5%; } 
         #bg-rigby { right: 9.5%; }
 
-        .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s; }
+        .hp-fill { width: 100%; height: 100%; background: #0f0; transition: width 0.2s; will-change: width; }
         #hp-rigby-fill { float: right; }
 
-        /* Estilo para los nombres de los personajes arriba (KOF Style) */
+        /* Nombres KOF Style */
         .name-label { 
             position: absolute; top: -140%; 
-            color: yellow; /* Color base KOF */
+            color: yellow; 
             font-size: clamp(14px, 3vw, 22px); 
-            text-shadow: 2px 2px 0px rgba(0,0,0,1), 4px 4px 0px rgba(255,0,0,0.8); /* Doble sombra para efecto agresivo */
+            text-shadow: 2px 2px 0px rgba(0,0,0,1), 4px 4px 0px rgba(255,0,0,0.8); 
             letter-spacing: 2px;
             z-index: 103; 
         }
@@ -68,68 +69,67 @@
         }
         #start-screen { z-index: 300; background: #000; color: #fff; font-size: 24px; text-align: center; }
         
-        /* 🔥 PANTALLA DE VICTORIA TRANSPARENTE (KOF Style) 🔥 */
         #win-screen { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; /* Se activa al ganar */
+            display: none; 
             align-items: center; justify-content: center; 
             z-index: 200; flex-direction: column; 
-            background: rgba(0,0,0,0); /* !!! TRANSPARENTE, NO OSCURECE !!! */
+            background: rgba(0,0,0,0); 
         }
         
-        /* El texto gigante de victoria con estilo KOF total */
         #win-text { 
             font-size: clamp(32px, 8vw, 60px); 
-            text-align: center;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            /* Gradiente de KOF (Rojo a Amarillo) */
+            text-align: center; line-height: 1.1; margin-bottom: 20px;
             background: linear-gradient(180deg, rgba(235,39,18,1) 0%, rgba(253,208,0,1) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* Sombra negra súper agresiva por detrás */
-            filter: drop-shadow(4px 4px 0px black);
-            letter-spacing: 4px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(4px 4px 0px black); letter-spacing: 4px;
+            will-change: transform;
         }
 
-        #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; }
+        #fight-logo { width: 45vw; max-width: 350px; animation: bounceIn 0.6s; will-change: transform; }
         @keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
 
-        /* 🔥 CONTROLES MÁS ARRIBA (BOTTOM 18%) 🔥 */
+        /* CONTROLES ARRIBA Y SIN LAG */
         #controls {
-            position: absolute; bottom: 18%; /* !!! SUBIDOS !!! */
-            width: 100%; 
-            display: flex; justify-content: space-between; padding: 0 5%; z-index: 150;
+            position: absolute; bottom: 18%; 
+            width: 100%; display: flex; justify-content: space-between; padding: 0 5%; z-index: 150;
         }
         
         #analog-container {
             position: relative; width: 16vh; height: 16vh; min-width: 110px; min-height: 110px;
             background-image: url('control_analogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;
-            transition: transform 0.1s;
+            transition: transform 0.1s; will-change: transform;
         }
         
         .analog-btn { position: absolute; width: 50%; height: 100%; top: 0; }
         #left { left: 0; }
         #right { right: 0; }
 
-        .actions {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 2.5vh; align-items: center; justify-items: center;
-        }
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5vh; align-items: center; justify-items: center; }
         .btn-action-img {
             width: 9vh; height: 9vh; min-width: 55px; min-height: 55px; object-fit: contain;
-            transition: transform 0.1s;
+            transition: transform 0.1s; will-change: transform;
         }
         .btn-action-img:active { transform: scale(0.85); }
 
-        /* Efectos */
-        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; }
-        .smoke { width: 6vw; min-width: 45px; animation: smokeOut 0.5s forwards; }
+        /* Efectos limitados para rendimiento */
+        .smoke, .hit-fx { position: absolute; z-index: 15; image-rendering: pixelated; pointer-events: none; will-change: transform, opacity; }
+        .smoke { width: 6vw; min-width: 45px; animation: smokeOut 0.4s forwards; }
         .hit-fx { width: 12vw; min-width: 90px; animation: hitPop 0.2s forwards; }
         @keyframes smokeOut { to { transform: translateY(-20px) scale(1.5); opacity: 0; } }
         @keyframes hitPop { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 0; } }
+        
+        /* Pre-carga oculta (EVITA EL LAG AL PEGAR POR 1RA VEZ) */
+        #preload { display: none; }
     </style>
 </head>
 <body>
+
+<div id="preload">
+    <img src="mordecai_ataque.png"><img src="mordecai_ataque_fuerte.png"><img src="mordecai_dolor.png"><img src="mordecai_caminar_1.png"><img src="mordecai_caminar_2.png"><img src="mordecai_ganar_2.png">
+    <img src="rigby_ataque.png"><img src="rigby_dolor.png"><img src="rigby_caminar_1.png"><img src="rigby_caminar_2.png"><img src="rigby_ganar_2.png">
+    <img src="efecto_golpe.png"><img src="efecto_humo.png">
+</div>
 
 <div id="game-stage">
     <div id="start-screen"><h1 style="color:yellow; text-shadow: 2px 2px red;">TOCÁ LA PANTALLA<br>PARA EMPEZAR</h1></div>
@@ -137,7 +137,7 @@
     <div id="win-screen"><span id="win-text"></span></div>
 
     <div id="hud-container">
-        <img id="hud-img" class="hud-frame" src="">
+        <img id="hud-img" class="hud-frame" src="hud_1.png">
         
         <div class="hp-background" id="bg-morde">
             <span class="name-label" style="left:0;">MORDECAI</span>
@@ -168,7 +168,7 @@
 </div>
 
 <script>
-    // ⚠️ RESTAURADO: Lógica para cargar escenarios y HUDS aleatorios en .png
+    // Fondos Aleatorios (.png)
     const escenarios = [
         'escenario_casa_noche.png', 'escenario_casa_dia.png', 
         'escenario_arbol_espacio.png', 'escenario_parque_espacio.png', 
@@ -177,23 +177,18 @@
     const stage = document.getElementById('game-stage');
     stage.style.backgroundImage = `url('${escenarios[Math.floor(Math.random() * escenarios.length)]}')`;
 
-    const huds = ['hud_1.png', 'hud_2.png', 'hud_3.png', 'hud_4.png'];
-    document.getElementById('hud-img').src = huds[Math.floor(Math.random() * huds.length)];
-
-    // Cargar los Audios
+    // Audios Optimizados
     const sfxFight = new Audio('sonido_fight.mp3');
     const sfxHit = new Audio('golpe.mp3');
     const sfxHitFuerte = new Audio('golpe_fuerte.mp3');
     const sfxWin = new Audio('sonido_win.mp3');
 
-    // SOLUCIÓN AL "QUILOMBO": Clona el audio en vez de cortarlo
+    // Reproducción optimizada para celular (No clona, solo rebobina para no ahogar la RAM)
     function playAudio(audioObj) {
-        let sonidoClon = audioObj.cloneNode();
-        sonidoClon.volume = 1.0;
-        sonidoClon.play().catch(e => console.log("Audio bloqueado"));
+        audioObj.currentTime = 0;
+        audioObj.play().catch(e => {}); 
     }
 
-    // INICIAR JUEGO CON PANTALLA DE TACTO (DESBLOQUEO DE AUDIO)
     const startScreen = document.getElementById('start-screen');
     const fightScreen = document.getElementById('fight-screen');
 
@@ -202,10 +197,7 @@
         startScreen.style.display = 'none';
         fightScreen.style.display = 'flex';
         
-        // Forzamos al celu a descargar todo el audio para que no haya lag
         sfxFight.load(); sfxHit.load(); sfxHitFuerte.load(); sfxWin.load();
-        
-        // ¡SUENA EL GRITO DE FIGHT!
         playAudio(sfxFight);
 
         setTimeout(() => {
@@ -215,10 +207,8 @@
         }, 1500);
     });
     
-    // Soporte PC
     startScreen.addEventListener('mousedown', (e) => { startScreen.dispatchEvent(new Event('touchstart')); });
 
-    // Variables de Juego
     const morde = document.getElementById('mordecai');
     const rigby = document.getElementById('rigby');
     const hpMordeFill = document.getElementById('hp-morde-fill');
@@ -235,6 +225,9 @@
     let mordeDir = null;
     let moveLoop = null;
 
+    // Límite de efectos para evitar LAG DOM
+    let activeEffects = 0; 
+
     function updatePositions() {
         morde.style.transform = `translateX(${mordeX}px) scaleX(${morde.dataset.scaleX || 1})`;
         rigby.style.transform = `translateX(${rigbyX}px) scaleX(${rigby.dataset.scaleX || -1})`;
@@ -242,13 +235,17 @@
     updatePositions();
 
     function spawnEffect(type, x, y) {
+        if (activeEffects > 4) return; // Protege contra exceso de DOM (evita lagazos)
+        activeEffects++;
+        
         const fx = document.createElement('img');
         fx.src = type === 'smoke' ? 'efecto_humo.png' : 'efecto_golpe.png';
         fx.className = type === 'smoke' ? 'smoke' : 'hit-fx';
         fx.style.left = x + 'px';
         fx.style.bottom = y + 'px';
         stage.appendChild(fx);
-        setTimeout(() => fx.remove(), type === 'smoke' ? 500 : 200);
+        
+        setTimeout(() => { fx.remove(); activeEffects--; }, type === 'smoke' ? 400 : 200);
     }
 
     function checkCollision() { return Math.abs(mordeX - rigbyX) < 130; }
@@ -263,13 +260,9 @@
     function endGame(winner) {
         gameOver = true;
         clearInterval(moveLoop);
-        
-        // ¡SUENA LA VICTORIA!
         playAudio(sfxWin);
 
-        // 🔥 ACTIVA LA PANTALLA TRANSPARENTE 🔥
         document.getElementById('win-screen').style.display = 'flex';
-        // Cartel gigante con estilo agresivo KOF
         document.getElementById('win-text').innerHTML = `${winner} WINS!<br><span style="font-size:24px; color:white; filter:drop-shadow(2px 2px black); font-family:sans-serif;">Toca para reiniciar</span>`;
         document.getElementById('win-screen').onclick = () => location.reload();
         
@@ -284,7 +277,6 @@
         }
     }
 
-    // Movimiento
     function startMove(dir) {
         if (mordeMoving || mordeAttacking || gameOver) return;
         mordeMoving = true;
@@ -299,7 +291,9 @@
 
             walkFrame = walkFrame === 1 ? 2 : 1;
             morde.src = `mordecai_caminar_${walkFrame}.png`;
-            if(Math.random() > 0.5) spawnEffect('smoke', mordeX + (mordeDir === 'right' ? 20 : 90), 100);
+            
+            // Reducimos las chances de humo a 20% para matar el lag de creación de imágenes
+            if(Math.random() > 0.8) spawnEffect('smoke', mordeX + (mordeDir === 'right' ? 20 : 90), 100);
         }, 120); 
     }
 
@@ -309,18 +303,17 @@
         if (!mordeAttacking && !gameOver) morde.src = 'mordecai_pose.png';
     }
 
-    // Ataque
     function attackMorde(type) {
         if (mordeAttacking || gameOver) return;
         mordeAttacking = true;
         morde.classList.add('attack'); 
         
-        if (type === 'X' || type === 'Y') { morde.src = 'mordecai_ataque_fuerte.png';
-        } else { morde.src = 'mordecai_ataque.png'; }
+        if (type === 'X' || type === 'Y') { morde.src = 'mordecai_ataque_fuerte.png'; } 
+        else { morde.src = 'mordecai_ataque.png'; }
         
         if (checkCollision()) {
-            if (type === 'X' || type === 'Y') { playAudio(sfxHitFuerte); rigbyHp -= 15;
-            } else { playAudio(sfxHit); rigbyHp -= 10; }
+            if (type === 'X' || type === 'Y') { playAudio(sfxHitFuerte); rigbyHp -= 15; } 
+            else { playAudio(sfxHit); rigbyHp -= 10; }
 
             rigbyHp = Math.max(0, rigbyHp);
             rigby.src = 'rigby_dolor.png';
@@ -335,7 +328,6 @@
         }, 300);
     }
 
-    // IA
     function rigbyAI() {
         if (gameOver) return;
         const distance = mordeX - rigbyX;
@@ -373,7 +365,6 @@
     let aiInterval;
     function startGame() { if(aiInterval) clearInterval(aiInterval); aiInterval = setInterval(rigbyAI, 300); }
 
-    // ANALÓGICO SIMPLE
     const analog = document.getElementById('analog-container');
     const btnLeft = document.getElementById('left');
     const btnRight = document.getElementById('right');
@@ -384,7 +375,6 @@
     btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); startMove('right'); analog.style.transform = 'scale(0.9) translateX(15px)'; });
     btnRight.addEventListener('touchend', (e) => { e.preventDefault(); stopMove(); analog.style.transform = 'scale(1) translateX(0)'; });
 
-    // Botones de Ataque
     document.getElementById('btn-a').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('A'); });
     document.getElementById('btn-b').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('B'); });
     document.getElementById('btn-x').addEventListener('touchstart', (e) => { e.preventDefault(); attackMorde('X'); });
