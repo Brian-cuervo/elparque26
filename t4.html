@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporada 4 - ElParque26</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="v-particles">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: var(--azul); font-weight: bold; text-decoration: none;">⬅ INICIO</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" style="height: 12vh; background: linear-gradient(rgba(0,0,0,0.8), #0a0b10);">
+        <h1 style="font-size: 2rem;">Temporada 4</h1>
+    </header>
+
+    <section class="video-section">
+        <div class="video-wrapper">
+            <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+            <div id="video-placeholder">
+                <p>🍿 Seleccioná un capítulo de la T4 abajo</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="movie-carousel" style="flex-wrap: wrap; justify-content: center; overflow: visible;">
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1sgIGlVHrfcgG2cBkSOs8dac_vwgzESlV/view?usp=drivesdk')"><div class="thumb">🛣️</div><h4>1. Salida 9B</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1FYWaw2rt6htxKbOmUSRoygJqP6ukS-PP/view?usp=drivesdk')"><div class="thumb">🪣</div><h4>2. La novatada</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LcW6pPJv5A0wTOIZrPbUiLroU_lemBam/view?usp=drivesdk')"><div class="thumb">🎃</div><h4>3. Cuentos de terror del parque ll</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1dlVKNHFSNShb-1srOM-GAGCeOmkih-vD/view?usp=drivesdk')"><div class="thumb">🥧</div><h4>4. Concurso de pays</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1uC-gySasXG-Nhd_X8fVcmy_QcHFZaq5F/view?usp=drivesdk')"><div class="thumb">🥁</div><h4>5. Batería de 150 piezas</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1jM4fC7pLAOv9JKSjp0yed4qCqQDUoEhB/view?usp=drivesdk')"><div class="thumb">👨‍🦲</div><h4>6. Calvo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1FYxwm4V_4TezGFqtO4ANYB8dLLyl7gVt/view?usp=drivesdk')"><div class="thumb">🍕</div><h4>7. Noche de chicos</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/18Ejn2wPK8cihn51j6AOKQli9HjGtFTqA/view?usp=drivesdk')"><div class="thumb">🏋️</div><h4>8. La barra fija</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1QJD9QkTlFP7keBMX2eT1n_5frvrDITPe/view?usp=drivesdk')"><div class="thumb">🎄</div><h4>9. Especial de Navidad</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1cr-jqW2lF3_xrMGbdgL3KUKMODLs6ivn/view?usp=drivesdk')"><div class="thumb"> taco</div><h4>10. Gracias a dios es martes</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/13Mlwj2PDmV_p4CBRIxltzudElZjneshg/view?usp=drivesdk')"><div class="thumb">🎆</div><h4>11. Carrera de los fuegos artificiales</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1sE8Z7Vlx2hjaQMsCNUB2Bf2sb4_BlBJt/view?usp=drivesdk')"><div class="thumb">⏳</div><h4>12. El más largo fin de semana</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/186NColfGsY0IzB3j4CmQaolpva6-eZx2/view?usp=drivesdk')"><div class="thumb">🥪</div><h4>13. El sándwich de la muerte</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1H1iC-00DBpFbwd4Eqbaai7UX6Px_L5_w/view?usp=drivesdk')"><div class="thumb">🎸</div><h4>14. Ace Balthazar vive</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1r-P6R24U5X9QgYRL-1YppwUdVSArUAHV/view?usp=drivesdk')"><div class="thumb">💋</div><h4>15. Beso o pañal</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1e8zsNBxcIoxjK9bDFa81brXmG5Txg5kg/view?usp=drivesdk')"><div class="thumb">🃏</div><h4>16. El primo Quips</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1NGCTsp90l2OKpvJ_3XJsVcB7vEMF268v/view?usp=drivesdk')"><div class="thumb">🍖</div><h4>17. El cavernicola</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/18CFvOe28iAHHSOpjpI7HVGhMlDfousEO/view?usp=drivesdk')"><div class="thumb">📺</div><h4>18. Ese es mi televisión</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1tn9a0ydDSlq8w44Pgwo51VZDzB7qRtNG/view?usp=drivesdk')"><div class="thumb">🦢</div><h4>19. Un montón de ganzos adultos</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/111q7i9hmMMDXmKt4neBTsHKMnOC8DFDJ/view?usp=drivesdk')"><div class="thumb">🎭</div><h4>20. Engañame dos veces</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1Sn8DwIcFTkY6CrM13_1rC7YD1Px3Jfm_/view?usp=drivesdk')"><div class="thumb">🚗</div><h4>21. Almorzar en la limusina</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1t5nOqcp2PfrFnOLxi52zopJUIa0zHBPM/view?usp=drivesdk')"><div class="thumb">🚁</div><h4>22. Pasando por Margarita</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1xovWria3tfT-7AugJxHuUz-Qp4dfPH83/view?usp=drivesdk')"><div class="thumb">📻</div><h4>23. Radio M.Á.T.A.L.O</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1OuLYufFZeakJPX69a9qo5QMha0HBdSNn/view?usp=drivesdk')"><div class="thumb">🚓</div><h4>24. Carter y Briggs</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1xTCayYKDTF_CQGQdnpBMRDI_ZyTgw2pO/view?usp=drivesdk')"><div class="thumb">🌋</div><h4>25. El estrés de Skips</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1si8ilsCxWfyxYsNI9GgOYZWeBP1_hY_R/view?usp=drivesdk')"><div class="thumb">🥶</div><h4>26. Ultra frío</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1fS7I8l_Pg7X4wLY9St9uwuVQFGEzbu7b/view?usp=drivesdk')"><div class="thumb">🏚️</div><h4>27. Trailer chatarra</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1atQ5S8Mj8YBr-XsEUEjMncVcxS3j_kcP/view?usp=drivesdk')"><div class="thumb">🌠</div><h4>28. Lluvia de meteoros</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1_k6tsHTMxmGQ7VpfFWQACD9Bpy-nWplc/view?usp=drivesdk')"><div class="thumb">🥩</div><h4>29. Parrillada familiar</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1g9VtfB4o-_uTUY2tgC28gCDibXoN6cxG/view?usp=drivesdk')"><div class="thumb">💿</div><h4>30. El último reproductor de Láserdisc</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/16EXsohggl0TfCBuJ0hbok7x7Fa8pT9mQ/view?usp=drivesdk')"><div class="thumb">⛳</div><h4>31. Club campestre</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1RHiQ61oOCC28xbpNJbbdmytRshD_-HUW/view?usp=drivesdk')"><div class="thumb">👁️‍🗨️</div><h4>32. Fe ciega</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1853eA1Ozn4qlySD1uSQr4rAUV4kx__fF/view?usp=drivesdk')"><div class="thumb">☕</div><h4>33. El mejor jefe del mundo</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1sruXzwjZKorhKQIRyBBtBnAyYK3A5qkx/view?usp=drivesdk')"><div class="thumb">🍽️</div><h4>34. La última cena</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1kf2Y0fRkl0aFUXt6fwkvGC2v-468KdEd/view?usp=drivesdk')"><div class="thumb">💤</div><h4>35. Luchando contra un sueño</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1DGtuwWQ1wtub6kYUOJDztsZqgB57ehNV/view?usp=drivesdk')"><div class="thumb">🎈</div><h4>36. El regreso de Beto Bullicio</h4></div>
+            <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1uzLqtna_gNfqt1CTpPUf6Bljx-XfBxwH/view?usp=drivesdk')"><div class="thumb">💵</div><h4>37. La carne de Amadeus</h4></div>
+        </div>
+    </section>
+
+    <script>
+        function cargarVideo(url) {
+            let linkLimpio = url;
+            // Si el link tiene /view, lo limpia a /preview automáticamente
+            if (url.includes('/view')) {
+                linkLimpio = url.split('/view')[0] + '/preview';
+            }
+
+            const frame = document.getElementById('video-frame');
+            const placeholder = document.getElementById('video-placeholder');
+            frame.src = linkLimpio;
+            frame.style.display = "block";
+            placeholder.style.display = "none";
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
