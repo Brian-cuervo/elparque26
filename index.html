@@ -29,7 +29,7 @@
     <section class="container">
         <h3 style="color: var(--azul); margin-bottom: 25px; text-align: center;">SELECCIONÁ UNA TEMPORADA</h3>
         
-        <div class="poster-selector" style="justify-content: center;">
+        <div class="poster-selector" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 20px;">
             <a href="t1.html" class="poster-card" data-name="temporada 1">
                 <img src="t1.png" alt="T1">
                 <div class="poster-info">TEMPORADA 1</div>
@@ -41,6 +41,10 @@
             <a href="t3.html" class="poster-card" data-name="temporada 3">
                 <img src="t3.png" alt="T3">
                 <div class="poster-info">TEMPORADA 3</div>
+            </a>
+            <a href="t4.html" class="poster-card" data-name="temporada 4">
+                <img src="t4.png" alt="T4">
+                <div class="poster-info">TEMPORADA 4</div>
             </a>
         </div>
     </section>
@@ -83,12 +87,10 @@
         setTimeout(() => m.remove(), 2500);
     }
 
-    // FUNCIONES SIN DOBLE TEXTO
     function enojarBenson() {
         const t = document.getElementById('main-title');
         document.body.style.backgroundColor = "#ff4757";
         t.innerText = "¡VUELVAN A TRABAJAR!";
-        // mostrarMensaje eliminado para evitar doble texto
         setTimeout(() => {
             document.body.style.backgroundColor = "#0a0b10"; 
             t.innerText = "Un Show Más"; 
@@ -99,7 +101,7 @@
         const t = document.getElementById('main-title');
         document.body.style.backgroundColor = "#ffd32a";
         t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
-        mostrarMensaje(null, "gorra.png"); // Se deja porque es imagen
+        mostrarMensaje(null, "gorra.png"); 
         setTimeout(() => {
             document.body.style.backgroundColor = "#0a0b10"; 
             t.innerText = "Un Show Más"; 
@@ -153,7 +155,7 @@
         const t = document.getElementById('main-title');
         document.body.classList.add("shake-effect");
         t.innerText = "¿SABEN QUIÉN MÁS?";
-        mostrarMensaje("¡MI MAMI!"); // Este se queda por el remate del chiste
+        mostrarMensaje("¡MI MAMI!"); 
         setTimeout(() => {
             t.innerText = "Un Show Más"; 
             document.body.classList.remove("shake-effect"); 
