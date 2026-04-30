@@ -79,8 +79,7 @@ body {
 .video-wrapper { 
     width: 100%; 
     position: relative; 
-    padding-bottom: 56.25%; 
-    height: 0; 
+    aspect-ratio: 16 / 9; /* ESTA ES LA MAGIA NUEVA */
     background: #000; 
     border-radius: 12px; 
     border: 2px solid #222; 
