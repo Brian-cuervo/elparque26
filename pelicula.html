@@ -5,6 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Show Más: La Película | ElParque26</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Importamos fuentes copadas para la peli */
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&display=swap');
+
+        .titulo-peli {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            color: #ffd32a; /* Amarillo */
+            text-shadow: 3px 3px 0px #ff4757, 6px 6px 0px rgba(0,0,0,0.6); /* Sombra roja y negra 3D */
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        /* Ajuste del header */
+        .hero-peli {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), #0a0b10);
+        }
+
+        /* --- NUEVO: ESTILOS PARA LOS POCHOCLOS --- */
+        .pochoclos-container {
+            text-align: center;
+            font-size: 4rem; /* Bien grandes */
+            margin-top: 10px;
+            margin-bottom: -15px; /* Los acerca al reproductor */
+            filter: drop-shadow(0px 0px 10px rgba(255, 211, 42, 0.5)); /* Brillo amarillo */
+            animation: flotar 3s ease-in-out infinite; /* Animación de flote */
+        }
+
+        /* Animación suave de flote */
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- FIN ESTILOS POCHOCLOS --- */
+
+        .subtitulo-peli {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            color: #1e90ff; /* Azul Mordecai */
+            text-shadow: 2px 2px 0px #000;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .desc-peli {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px; 
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body class="v-particles">
     <nav class="navbar">
@@ -16,20 +72,23 @@
         </ul>
     </nav>
 
-    <header class="hero" style="height: 15vh; background: linear-gradient(rgba(0,0,0,0.8), #0a0b10);">
-        <h1 style="font-size: 2rem;">Un Show Más: La Película</h1>
+    <header class="hero-peli">
+        <h1 class="titulo-peli">UN SHOW MÁS: LA PELÍCULA</h1>
     </header>
 
+    <div class="pochoclos-container">
+        🍿🥤🍿🥤
+    </div>
     <section class="video-section">
         <div class="video-wrapper">
             <iframe id="video-frame" src="https://drive.google.com/file/d/1qOmSnwkqGjdbODXS9HGB7RwmuDn-b9Kj/preview" frameborder="0" allowfullscreen style="display: block;"></iframe>
         </div>
     </section>
 
-    <section class="container" style="text-align: center; margin-top: 20px;">
-        <h2 style="color: white;">¡Disfrutá del gran especial!</h2>
-        <p style="color: #888; max-width: 600px; margin: 10px auto;">
-            Mordecai y Rigby viajan en el tiempo para salvar el universo y su amistad de un entrenador de voleibol loco.
+    <section class="container" style="text-align: center; margin-top: 30px;">
+        <h2 class="subtitulo-peli">¡DISFRUTÁ DEL GRAN ESPECIAL!</h2>
+        <p class="desc-peli">
+            Mordecai y Rigby viajan en el tiempo para salvar el universo y su amistad de un entrenador de voleibol loco. ¡Preparate para la batalla más épica de sus vidas!
         </p>
     </section>
 
