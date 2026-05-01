@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Show Más Latino | ElParque26</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0b10">
+    <link rel="apple-touch-icon" href="icon.png">
 </head>
 <body class="v-particles">
     <nav class="navbar">
@@ -85,6 +89,17 @@
     </footer>
 
     <script>
+    // Registro del Service Worker para que funcione como PWA (App instalable)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                console.log('Service worker registrado con éxito.');
+            }).catch(err => {
+                console.warn('Error al registrar Service Worker:', err);
+            });
+        });
+    }
+
     function buscarTemporada() {
         let input = document.getElementById('inputBuscador').value.toLowerCase();
         let posters = document.querySelectorAll('.poster-card');
@@ -181,6 +196,6 @@
             document.body.classList.remove("shake-effect"); 
         }, 3500);
     }
-</script>
+    </script>
 </body>
 </html>
