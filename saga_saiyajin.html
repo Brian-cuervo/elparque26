@@ -4,93 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saga Saiyajin | ElParque26</title>
+    
     <link rel="stylesheet" href="style.css">
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+        /* Reemplazamos el celeste y la letra de Un Show Más por los de DBZ */
         :root {
-            --naranja-dbz: #ff7f00; 
-            --gris-oscuro: #1a1a1a;
-            --fondo-dbz: #0a0b10;
+            --azul: #ff7f00; /* Ahora tu variable 'azul' es Naranja Goku */
+            --fuente-serie: 'Bangers', cursive; /* Nueva fuente shonen */
         }
 
+        /* Le damos un toque más oscuro al fondo */
         body {
-            background-color: var(--fondo-dbz);
-            color: white;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1f2235 0%, #0a0b10 80%);
         }
 
+        /* El título épico */
         .hero-dbz {
             text-align: center;
-            padding: 50px 20px;
-            background: radial-gradient(circle, #333333 0%, var(--fondo-dbz) 100%);
-            border-bottom: 2px solid var(--naranja-dbz);
+            padding: 40px 20px;
+            border-bottom: 4px solid #d32f2f;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(211, 47, 47, 0.4);
         }
 
         .hero-dbz h1 {
-            font-size: 3rem;
-            color: var(--naranja-dbz);
-            text-shadow: 2px 2px 0px #fff, 4px 4px 0px #000;
-            text-transform: uppercase;
+            font-family: var(--fuente-serie);
+            font-size: 4rem;
+            color: #ffeb3b;
+            -webkit-text-stroke: 2px #d32f2f;
+            text-shadow: 4px 4px 0px #000;
+            letter-spacing: 3px;
             margin: 0;
+            line-height: 1;
         }
 
         .hero-dbz p {
+            font-family: sans-serif;
             font-size: 1.2rem;
-            color: #cccccc;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
             margin-top: 10px;
         }
 
-        .zona-reproductor {
-            text-align: center;
-            padding: 30px;
-            display: none;
-        }
-
-        .zona-reproductor iframe {
-            width: 90%;
-            max-width: 800px;
-            height: 50vh;
-            border: 4px solid var(--naranja-dbz);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 127, 0, 0.3);
-        }
-
-        .grilla-capitulos {
+        /* Grilla envolvente para los 36 caps (mejor que scroll horizontal) */
+        .grilla-dbz {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .card-dbz {
-            background-color: var(--gris-oscuro);
-            border: 2px solid #444;
+            background: linear-gradient(145deg, #14151a, #1a1c23);
+            border: 2px solid #333;
+            border-left: 5px solid var(--azul);
             border-radius: 8px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: 0.3s;
-            width: 220px;
+            transition: all 0.2s ease;
+            width: 200px;
+            transform: skewX(-3deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
         }
 
         .card-dbz:hover {
-            border-color: var(--naranja-dbz);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 127, 0, 0.5);
+            border-color: var(--azul);
+            transform: skewX(-3deg) scale(1.05) translateY(-5px);
+            box-shadow: 8px 8px 0px var(--azul);
+            z-index: 10;
         }
 
         .card-dbz h3 {
-            color: var(--naranja-dbz);
+            font-family: var(--fuente-serie);
+            color: #ffeb3b;
+            font-size: 1.5rem;
             margin-bottom: 5px;
-            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #000;
         }
 
         .card-dbz p {
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            color: #ccc;
             margin: 0;
-            font-size: 0.9rem;
-            color: #aaa;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -101,7 +107,7 @@
             <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
         </div>
         <div class="nav-links">
-            <a href="index.html" style="color: var(--naranja-dbz); font-weight: bold; text-decoration: none;">⬅ VOLVER AL INICIO</a>
+            <a href="index.html">⬅ VOLVER AL INICIO</a>
         </div>
     </nav>
 
@@ -110,197 +116,160 @@
         <p>El inicio de la leyenda de los guerreros del espacio</p>
     </header>
 
-    <section class="zona-reproductor" id="contenedor-pantalla">
-        <iframe id="pantalla-principal" src="" frameborder="0" allowfullscreen></iframe>
+    <section class="video-section" id="contenedor-pantalla" style="display: none;">
+        <div class="video-wrapper" style="box-shadow: 0 4px 30px rgba(255,127,0,0.5);">
+            <iframe id="pantalla-principal" src="" allowfullscreen></iframe>
+        </div>
     </section>
 
-    <section class="grilla-capitulos">
+    <section class="grilla-dbz">
         
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/HkoSgYiY#Ns1IaLhGflAdf510dJdVYtS9tdV_Y13f_IbtaaDLsHM')">
             <h3>Episodio 1</h3>
-            <p>Aparece un mini Goku, su nombre es Gohan</p>
+            <p>Aparece un mini Goku</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/u5hG2QBD#ynOw4wNyCbl2v_FqLHG07xrYJVBYYgzM9uRogm3613E')">
             <h3>Episodio 2</h3>
-            <p>Un guerrero muy fuerte con antecedentes históricos, el hermano mayor de Goku</p>
+            <p>El hermano mayor de Goku</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/m8wm0YRQ#S-OziWpCct8UWDU7zlrgkP6eOuBEsbnowFBl4XVTKEQ')">
             <h3>Episodio 3</h3>
-            <p>La combinación mas fuerte de este mundo</p>
+            <p>La combinación más fuerte</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/f1wSEa7I#hK5TljOxZYDVCxQ87Tex-a44aaAdpAA04W3gnDRx6qk')">
             <h3>Episodio 4</h3>
-            <p>Piccoro saca su mejor carta, Gohan es un niño llorón</p>
+            <p>Gohan es un niño llorón</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/WlhinYaK#a_QPdMhgip5ZbFWxfl07Yvx5HriaovoTHxH50GN-Qzo')">
             <h3>Episodio 5</h3>
-            <p>Goku muere ¡Solo hay una oportunidad!</p>
+            <p>Goku muere</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/i8hwwKqT#Bi9uehJkK4xXseRCLwwxJUt12mcTznsrRmRSk6Zx9Gg')">
             <h3>Episodio 6</h3>
-            <p>King se sorprende ¿habrá que luchar en el otro mundo?</p>
+            <p>¿Luchar en el otro mundo?</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/y1xQkKgb#zbaQpLt_DpU-BZ4vFuprT9zeYaIIRf3sdozlG4JK-jg')">
             <h3>Episodio 7</h3>
-            <p>Hay que sobrevivir a los dinosaurios, el duro entrenamiento de Gohan</p>
+            <p>El duro entrenamiento</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/qpw2UYwI#qcxa_VHdBRKA7R_IwUFTVQgktfEITRvC0w4CLt6sST0')">
             <h3>Episodio 8</h3>
-            <p>Una transformación a causa de la luna, el poder secreto de Gohan</p>
+            <p>El poder secreto de Gohan</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/P9RzTaQQ#_07X6DAL8SRjhgC2t9HOgcSEo0yxbPUl3jYRK_Bu-fU')">
             <h3>Episodio 9</h3>
-            <p>Perdóneme señor doctor, lagrimas que desaparecen en el desierto</p>
+            <p>Lagrimas en el desierto</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/79hkUKjZ#9KPBT3Vdjouo1typ_eCBhRoCJB8qA_K_HI6IBPlc2Z0')">
             <h3>Episodio 10</h3>
-            <p>No llores Gohan, es la primera batalla</p>
+            <p>La primera batalla</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/Xw5mlSjb#sw2V4BeFNyJlZzYJvQ1KqJ0J4cbTUcHpfSC-QyYkSOU')">
             <h3>Episodio 11</h3>
-            <p>Los guerreros mas fuertes del universo, el despertar de los Saiyajin</p>
+            <p>El despertar de los Saiyajin</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/S5gkmKJL#n8Y_j1O1neTS1ggEojqlJuf6NYcmy7c_qqZEUShdS98')">
             <h3>Episodio 12</h3>
-            <p>Una pequeña siesta, Goku cae del camino de la serpiente</p>
+            <p>El camino de la serpiente</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/L54GiQCB#JGT7n7L3Bbjt-DXg9jf8xYZOIHjBlLBfaiZ5dJ8Kbeo')">
             <h3>Episodio 13</h3>
-            <p>No toques eso! La fruta de Enma Daio Sama</p>
+            <p>La fruta de Enma Daio Sama</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/G95AkYzS#Nrzks6jtAPiHcI7ZO9Fl3GKlHPkyWQxcJ6xWXJiX8ms')">
             <h3>Episodio 14</h3>
-            <p>Una dulce tentación. La hospitalidad de la princesa serpiente</p>
+            <p>La princesa serpiente</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/W0hyGSSY#gFT981_EnZ-wUhJtcFSq5M3LLLZive_pub9wtVwEAZc')">
             <h3>Episodio 15</h3>
-            <p>Escape de Piccoro! Gohan llama una tormenta</p>
+            <p>Escape de Piccoro!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/j9wglSqR#8-bdZZw98yUKgfVwBqfuFHfv_2cWxZmQ9bAOX1s9hXI')">
             <h3>Episodio 16</h3>
-            <p>Corre Gohan! Milk te espera en la montaña Pao</p>
+            <p>Milk te espera</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/XwpwXA5a#IpKsqR7zQC8eNdsw90VQVSchu0ZTPSAlSO2ya1dZgL0')">
             <h3>Episodio 17</h3>
-            <p>Una ciudad sin futuro! Un largo camino hacía la victoria</p>
+            <p>Una ciudad sin futuro</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/noo01ahA#CXMDOo4K8iF7nm-fLFUPtMvlsCniAjVPIa6yUEHgN3o')">
             <h3>Episodio 18</h3>
-            <p>El final del camino de la serpiente ¿Tú eres Kaio Sama?</p>
+            <p>¿Tú eres Kaio Sama?</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/HpoA3YCK#AULPa9TsDL7nlfLYgynrdZGsKHBNcNKor7ZcODD_vLo')">
             <h3>Episodio 19</h3>
-            <p>Domina tu fuerza de gravedad! Atrapa a Bubbles</p>
+            <p>Atrapa a Bubbles</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/zghEyAIC#L64UxEz1O3zzzc1MD3oPhQoeEnhSaXA5f1JE1SfC-Zs')">
             <h3>Episodio 20</h3>
-            <p>La leyenda revive! Los antepasados de Goku</p>
+            <p>Los antepasados de Goku</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/vtgiRI6a#ubFrOhmSbBEb8zvd7h-eFVmRTzUgKnhGtA3JqdDBsu8')">
             <h3>Episodio 21</h3>
-            <p>Sal de ahi Shen Long! Los Saiyajin han llegado a la tierra</p>
+            <p>Los Saiyajin han llegado</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/PxxEGAZT#lYnH1rXPtEh9FQbp-Bix_BrTRVSnYo3y83UzqDLPWRk')">
             <h3>Episodio 22</h3>
-            <p>Imposible ¿Saibamans nacidos en la tierra?</p>
+            <p>¿Saibamans en la tierra?</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/CxxiXCAS#zMYdYm86foc_Nfvn5C576cAuc6tqpQSO2hG2H3GpJHw')">
             <h3>Episodio 23</h3>
-            <p>Yamcha muere! Los temibles Saibamans</p>
+            <p>Yamcha muere!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/S0hWQIrB#NGqEK-1SnOZ4QxqSz0qRYSFeltK5JvL11hT-v0-XjqU')">
             <h3>Episodio 24</h3>
-            <p>Adiós Ten! La tecnica de sacrificio de Chaoz</p>
+            <p>Adiós Ten!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/O5wgXYaJ#FLSurkHWaemXbO5YzY3NjvrCOFGU7ChkARnDNo3P1Yw')">
             <h3>Episodio 25</h3>
-            <p>El sacrificio de Ten Shin Han! El último Kikouhou</p>
+            <p>El último Kikouhou</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/no5wiIBT#LnnbvsXPdKu7Y02uX1wchjsEKtBvrOR2j-_IPl92cpc')">
             <h3>Episodio 26</h3>
-            <p>Solo nos quedan 3 horas de vida! Apresúrate Goku!</p>
+            <p>Apresúrate Goku!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/D9h2VCSL#JSxMJzzZ5SWHu33NjTKP8NpXtv90xmR5KeZXT2sset4')">
             <h3>Episodio 27</h3>
-            <p>La furia de Gohan estalla</p>
+            <p>La furia de Gohan</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/HkxQGYLD#dSULtclnC2Zd6NN4Xc1fQQ4P_Ev-QSlrtxWmzzlp5sM')">
             <h3>Episodio 28</h3>
-            <p>El ataque de los Saiyajin. Kami Sama y Picoro mueren</p>
+            <p>Kami Sama y Picoro mueren</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/m1AlXaRL#WtVdhCNvcef1UGXb5aEsk-6iybRj9A0fE8iW6JhbNx4')">
             <h3>Episodio 29</h3>
-            <p>Papá eres increíble! Una tecnica mortal llamada Kaio Ken</p>
+            <p>Kaio Ken</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/ux5U0CJC#vCvHvv2YzIwiuunrsPUIOkaVC3SXA2fuYXjFyIMUK5c')">
             <h3>Episodio 30</h3>
-            <p>Una pelea fuera de limite. Goku contra Vegeta</p>
+            <p>Goku contra Vegeta</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/a8oG3KBL#7XDxCsv23zCoesnlBJa413mWe7Dr1lVlc8r70XNCkwI')">
             <h3>Episodio 31</h3>
-            <p>Arriesga tu vida Goku! La última opción</p>
+            <p>La última opción</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/iwZlWaaT#njX-QiPOWkbfI9vLoz4c2xo7UHmvR-fuCz4DVo5JQqg')">
             <h3>Episodio 32</h3>
-            <p>Poder de pelea x10! La gran transformación de Vegeta</p>
+            <p>Poder x10!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/WooSwYoQ#j1P26jRwJgt8v3hV7A6NaGNb_0fVakV1n5dw_rDX2Yk')">
             <h3>Episodio 33</h3>
-            <p>No te mueras Papá! El poder escondido de Gohan</p>
+            <p>El poder escondido de Gohan</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/TohWRS5b#JuZ-cMREG4CbGGemO_qM68LwaCLrSitPx6IZV0djFFw')">
             <h3>Episodio 34</h3>
-            <p>Pégale Krillin! La Genkidama de Goku</p>
+            <p>La Genkidama de Goku</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/Xhgg0I5R#6C5F_3rP6cLmH6t7AZ4Zt-j2WmMft4-JaezdH_A1WqA')">
             <h3>Episodio 35</h3>
-            <p>Ocurre un milagro! La transformación de Gohan</p>
+            <p>Ocurre un milagro!</p>
         </div>
-
         <div class="card-dbz" onclick="reproducirEpisodio('https://mega.nz/embed/fsoiVIxI#bW0lSM3uK8JgkHvE3dv2PS9LZDDENw7K1QEm7VXa9sU')">
             <h3>Episodio 36</h3>
             <p>Vayamos al planeta de Piccoro!</p>
         </div>
 
     </section>
-
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem;">
-        ELPARQUE26 - 2026
-    </footer>
 
     <script>
         function reproducirEpisodio(url) {
@@ -309,6 +278,8 @@
             
             pantalla.src = url;
             contenedor.style.display = "block";
+            
+            // Subimos la pantalla suavemente respetando tu barra de navegación
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
