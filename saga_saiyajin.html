@@ -118,7 +118,7 @@
 
     <section class="video-section" id="contenedor-pantalla" style="display: none;">
         <div class="video-wrapper" style="box-shadow: 0 4px 30px rgba(255,127,0,0.5);">
-            <iframe id="pantalla-principal" src="" allowfullscreen></iframe>
+            <iframe id="video-frame" src="" allowfullscreen></iframe>
         </div>
     </section>
 
@@ -273,7 +273,8 @@
 
     <script>
         function reproducirEpisodio(url) {
-            const pantalla = document.getElementById('pantalla-principal');
+            // Y acá también lo agarramos por el ID correcto
+            const pantalla = document.getElementById('video-frame');
             const contenedor = document.getElementById('contenedor-pantalla');
             
             pantalla.src = url;
