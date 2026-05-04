@@ -83,32 +83,26 @@
             transform: scale(1.05);
         }
 
-        /* --- REPRODUCTOR --- */
+        /* --- REPRODUCTOR ARREGLADO PARA DRIVE --- */
         .video-section {
             padding: 20px 5%;
             background-color: #0a0b10;
+            display: flex;
+            justify-content: center;
         }
 
         .video-wrapper {
-            position: relative;
             width: 100%;
             max-width: 900px;
-            margin: 0 auto;
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             display: none; /* Oculto por defecto, se muestra al hacer clic */
         }
 
         .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
+            height: 500px; /* Altura fija para que Drive no recorte los controles */
             border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         /* --- GRILLA DE EPISODIOS ORIGINAL --- */
@@ -120,7 +114,7 @@
         .titulo-lista {
             font-size: 1.5rem;
             margin-bottom: 25px;
-            border-left: 4px solid var(--azul, #00c3ff); /* Usa tu variable azul o celeste */
+            border-left: 4px solid var(--azul, #00c3ff);
             padding-left: 15px;
         }
 
