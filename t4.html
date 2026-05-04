@@ -3,34 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temporada 4 - ElParque26</title>
+    <title>Temporada 4 | Un Show Más | ElParque26</title>
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a0b10;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        /* --- ESTILO HBO MAX - EL BANNER GIGANTE --- */
+        .hero-hbo {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background: url('banner_generico_usm.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #0a0b10 10%, rgba(10, 11, 16, 0.8) 30%, transparent 80%),
+                        linear-gradient(to top, #0a0b10 5%, transparent 40%);
+        }
+
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 40px 5%;
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero-meta {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-play-hbo:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        /* --- REPRODUCTOR ARREGLADO PARA DRIVE --- */
+        .video-section {
+            padding: 20px 5%;
+            background-color: #0a0b10;
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 900px;
+            display: none;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* --- GRILLA DE EPISODIOS ORIGINAL --- */
+        .seccion-episodios {
+            padding: 20px 5% 50px 5%;
+            background-color: #0a0b10;
+        }
+
+        .titulo-lista {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--azul, #00c3ff);
+            padding-left: 15px;
+        }
+
+        .movie-carousel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card-mini {
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background: #1a1c23;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .card-mini:hover {
+            transform: scale(1.05);
+            border-color: #00c3ff;
+        }
+        
+        .card-mini .thumb {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-mini h4 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+    </style>
 </head>
-<body class="v-particles">
+<body>
+
     <nav class="navbar">
         <div class="logo">
             <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html" style="color: var(--azul); font-weight: bold; text-decoration: none;">⬅ INICIO</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">⬅ VOLVER AL INICIO</a>
+        </div>
     </nav>
 
-    <header class="hero" style="height: 12vh; background: linear-gradient(rgba(0,0,0,0.8), #0a0b10);">
-        <h1 style="font-size: 2rem;">Temporada 4</h1>
-    </header>
+    <div class="hero-hbo">
+        <div class="hero-gradient"></div>
+        <div class="hero-content-hbo">
+            <h1 class="hero-title">TEMPORADA 4</h1>
+            <div class="hero-meta">
+                <span>2012 - 2013</span>
+                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-PG</span>
+                <span>37 Episodios</span>
+            </div>
+            <p class="hero-desc">
+                Un sándwich de la muerte, lluvias de meteoritos, un montón de gansos adultos y la temible salida 9B. El parque sigue siendo un imán para el caos absoluto y Mordecai y Rigby están listos para arruinar el día.
+            </p>
+            <button class="btn-play-hbo" onclick="cargarVideo('https://drive.google.com/file/d/1sgIGlVHrfcgG2cBkSOs8dac_vwgzESlV/view?usp=drivesdk')">▶ VER EPISODIO 1</button>
+        </div>
+    </div>
 
     <section class="video-section">
-        <div class="video-wrapper">
-            <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
-            <div id="video-placeholder">
-                <p>🍿 Seleccioná un capítulo de la T4 abajo</p>
-            </div>
+        <div class="video-wrapper" id="contenedor-video">
+            <iframe id="video-frame" src="" allowfullscreen></iframe>
         </div>
     </section>
 
-    <section class="container">
-        <div class="movie-carousel" style="flex-wrap: wrap; justify-content: center; overflow: visible;">
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Episodios</h2>
+        <div class="movie-carousel">
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1sgIGlVHrfcgG2cBkSOs8dac_vwgzESlV/view?usp=drivesdk')"><div class="thumb">🛣️</div><h4>1. Salida 9B</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1FYWaw2rt6htxKbOmUSRoygJqP6ukS-PP/view?usp=drivesdk')"><div class="thumb">🪣</div><h4>2. La novatada</h4></div>
             <div class="card-mini" onclick="cargarVideo('https://drive.google.com/file/d/1LcW6pPJv5A0wTOIZrPbUiLroU_lemBam/view?usp=drivesdk')"><div class="thumb">🎃</div><h4>3. Cuentos de terror del parque ll</h4></div>
@@ -74,17 +232,19 @@
     <script>
         function cargarVideo(url) {
             let linkLimpio = url;
-            // Si el link tiene /view, lo limpia a /preview automáticamente
+            // Limpiador automático de links de Drive hecho por el jefe
             if (url.includes('/view')) {
                 linkLimpio = url.split('/view')[0] + '/preview';
             }
 
             const frame = document.getElementById('video-frame');
-            const placeholder = document.getElementById('video-placeholder');
+            const contenedor = document.getElementById('contenedor-video');
+            
             frame.src = linkLimpio;
-            frame.style.display = "block";
-            placeholder.style.display = "none";
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            contenedor.style.display = "block"; // Muestra el reproductor
+            
+            // Hace scroll suave hasta el reproductor
+            contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     </script>
 </body>
