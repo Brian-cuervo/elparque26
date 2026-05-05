@@ -12,14 +12,14 @@
             background-color: #0a0b10;
             color: white;
             font-family: sans-serif;
+            overflow-x: hidden;
         }
 
-        /* --- ESTILO HBO MAX - EL BANNER GIGANTE --- */
+        /* --- ESTILO ESTILO HBO MAX --- */
         .hero-hbo {
             position: relative;
             width: 100%;
             height: 70vh;
-            /* ACÁ ESTÁ TU BANNER EXACTO */
             background: url('banner_jim.png') center/cover no-repeat; 
             background-color: #1a1c23; 
             display: flex;
@@ -45,8 +45,8 @@
             margin: 0 0 10px 0;
             font-weight: 900;
             text-transform: uppercase;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
             color: #00c3ff; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
         .hero-meta {
@@ -56,7 +56,6 @@
             font-weight: bold;
             display: flex;
             gap: 15px;
-            align-items: center;
         }
 
         .hero-desc {
@@ -64,7 +63,6 @@
             color: #ddd;
             margin-bottom: 25px;
             line-height: 1.5;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
 
         .btn-play-hbo {
@@ -74,30 +72,27 @@
             border-radius: 4px;
             font-size: 1.1rem;
             font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.2s;
             cursor: pointer;
             border: none;
+            transition: 0.2s;
         }
 
         .btn-play-hbo:hover {
-            background-color: #e0e0e0;
             transform: scale(1.05);
+            background-color: #e0e0e0;
         }
 
         /* --- REPRODUCTOR --- */
         .video-section {
             padding: 20px 5%;
             background-color: #0a0b10;
-            display: flex;
+            display: none; /* Se oculta hasta que hacés clic */
             justify-content: center;
         }
 
         .video-wrapper {
             width: 100%;
             max-width: 900px;
-            display: none;
         }
 
         .video-wrapper iframe {
@@ -108,16 +103,16 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        /* --- GRILLA DE EPISODIOS --- */
+        /* --- LISTA DE EPISODIOS --- */
         .seccion-episodios {
-            padding: 20px 5% 50px 5%;
+            padding: 40px 5%;
             background-color: #0a0b10;
         }
 
         .titulo-lista {
             font-size: 1.5rem;
             margin-bottom: 25px;
-            border-left: 4px solid var(--azul, #00c3ff);
+            border-left: 4px solid #00c3ff;
             padding-left: 15px;
         }
 
@@ -129,11 +124,11 @@
         }
 
         .card-mini {
-            width: 200px;
+            width: 220px;
             cursor: pointer;
             transition: transform 0.2s;
             background: #1a1c23;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 15px;
             text-align: center;
             border: 1px solid #333;
@@ -151,7 +146,7 @@
         
         .card-mini h4 {
             margin: 0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #fff;
         }
     </style>
@@ -162,9 +157,6 @@
         <div class="logo">
             <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
         </div>
-        <div class="nav-links">
-            <a href="index.html" style="text-decoration: none; color: #00c3ff; font-weight: bold;">⬅ VOLVER AL INICIO</a>
-        </div>
     </nav>
 
     <div class="hero-hbo">
@@ -172,19 +164,24 @@
         <div class="hero-content-hbo">
             <h1 class="hero-title">EL SUBMARINO DE JIM</h1>
             <div class="hero-meta">
-                <span>ESTRENO 2026</span>
-                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-Y7</span>
-                <span>Temporada 1 - 13 Episodios</span>
+                <span>2026</span>
+                <span>Temporada 1</span>
             </div>
             <p class="hero-desc">
-                Jim, un joven e ingenuo delfín, termina al mando del primer submarino invertido (lleno de agua por dentro) para viajar por tierra. Junto a la valiente orca Bianca y la pequeña anchoa Cyril, emprenderán una aventura épica para llegar a las cristalinas aguas de Las Vegas.
+                Jim, un delfín muy ingenuo, comanda un submarino lleno de agua para viajar por tierra firme. Acompañalo en su loca misión para llegar a Las Vegas.
             </p>
-            <button class="btn-play-hbo" onclick="VerVideo('https://mega.nz/embed/s7VwQLBI#0ooN8J_ZlBTpUPe2UhNTnU05m8M-wDIsEQb1OBgW5g8')">▶ VER EPISODIO 1</button>
+            <button class="btn-play-hbo" onclick="VerVideo('https://mega.nz/embed/Um1GkBoC#pnGJH7s4TZ4E97imhXv6wi6-yifQSLyVsCSUMgHVR0U')">▶ VER AHORA</button>
         </div>
     </div>
 
-        <section class="seccion-episodios">
-        <h2 class="titulo-lista">Episodios Temporada 1</h2>
+    <section class="video-section" id="seccion-reproductor">
+        <div class="video-wrapper">
+            <iframe id="video-frame" src="" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Episodios</h2>
         <div class="movie-carousel">
             <div class="card-mini" onclick="VerVideo('https://mega.nz/embed/Um1GkBoC#pnGJH7s4TZ4E97imhXv6wi6-yifQSLyVsCSUMgHVR0U')"><div class="thumb">🐟</div><h4>1. Rescatando al soldado sardina</h4></div>
             <div class="card-mini" onclick="VerVideo('https://mega.nz/embed/QuFXWQjK#tfjKt9sJshdb-OMU2e0UbkUswnXiAl13PfHX2nONaM0')"><div class="thumb">🫧</div><h4>2. Bob</h4></div>
@@ -202,17 +199,19 @@
         </div>
     </section>
 
-
     <script>
         function VerVideo(link) {
             const frame = document.getElementById('video-frame');
-            const contenedor = document.getElementById('contenedor-video');
+            const seccion = document.getElementById('seccion-reproductor');
             
+            // Ponemos el link en el iframe
             frame.src = link;
-            contenedor.style.display = "block"; // Muestra el reproductor
             
-            // Hace scroll suave hasta el reproductor
-            contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Hacemos que la sección sea visible
+            seccion.style.display = "flex";
+            
+            // Scroll suave hacia el video
+            seccion.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 </body>
