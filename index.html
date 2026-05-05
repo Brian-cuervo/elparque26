@@ -11,16 +11,37 @@
     <link rel="apple-touch-icon" href="icon.png">
 
     <style>
-        /* Estilos del Menú Lateral (Sidebar) */
+        body {
+            margin: 0;
+            background-color: #0a0b10;
+            color: white;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN FLOTANTE --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            position: absolute; /* Flota sobre la imagen gigante */
+            top: 0;
+            left: 0;
+            width: 90%;
+            z-index: 1000;
+        }
+
+        /* --- MENÚ LATERAL (TUYO) --- */
         .menu-lateral {
             height: 100%;
-            width: 0; /* Arranca oculto */
+            width: 0;
             position: fixed;
             z-index: 2000;
             top: 0;
             left: 0;
             background-color: #111;
-            border-right: 2px solid var(--azul);
+            border-right: 2px solid var(--azul, #00c3ff);
             overflow-x: hidden;
             transition: 0.4s;
             padding-top: 60px;
@@ -49,7 +70,6 @@
             background-color: #222;
         }
 
-        /* El botón de la X para cerrar */
         .menu-lateral .boton-cerrar {
             position: absolute;
             top: 0;
@@ -60,21 +80,178 @@
             width: auto;
         }
 
-        /* Estilo de la lista desplegable de DBZ */
         .submenu-lateral {
-            display: none; /* Arranca cerrado */
+            display: none;
             background-color: #0a0b10;
         }
 
         .submenu-lateral a {
             font-size: 1rem;
-            padding-left: 50px; /* Un poco más a la derecha para que parezca submenú */
-            color: #ff7f00; /* Naranja para identificar DBZ */
+            padding-left: 50px;
+            color: #ff7f00;
         }
 
         .submenu-lateral a:hover {
             color: #fff;
             background-color: #1a1a1a;
+        }
+
+        /* --- ESTILO HBO MAX - EL BANNER GIGANTE --- */
+        .hero-hbo {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            background: url('banner_generico_usm.jpg') center/cover no-repeat; /* ACÁ VA LA FOTO ÉPICA DE FONDO */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #0a0b10 5%, rgba(10, 11, 16, 0.8) 40%, transparent 80%),
+                        linear-gradient(to top, #0a0b10 5%, transparent 40%);
+        }
+
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 60px 5%;
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            transition: color 0.3s; /* Para los easter eggs */
+        }
+
+        .badge-exclusivo {
+            background-color: #00c3ff;
+            color: #0a0b10;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-play-hbo:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        /* --- BUSCADOR PREMIUM --- */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: -20px 0 30px 0;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .search-input {
+            width: 80%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            border: 2px solid #333;
+            background-color: rgba(26, 28, 35, 0.9);
+            color: white;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--azul, #00c3ff);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
+        }
+
+        /* --- PÓSTERS 3D ESTILO MAX --- */
+        .poster-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 5%;
+        }
+
+        .poster-card {
+            width: 160px;
+            height: 240px;
+            background-color: #1a1c23;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .poster-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--azul, #00c3ff);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            z-index: 5;
+        }
+
+        .poster-card:hover img {
+            filter: brightness(0.4);
+        }
+
+        .poster-info {
+            position: absolute;
+            bottom: 15px;
+            left: 10px;
+            right: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0,0,0,1);
+            opacity: 0;
+            transition: 0.3s;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .poster-card:hover .poster-info {
+            opacity: 1;
         }
     </style>
 </head>
@@ -83,42 +260,48 @@
     <div id="miMenuLateral" class="menu-lateral">
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
-        <a href="index.html" style="color: var(--azul);">Un Show Más</a>
+        <a href="index.html" style="color: var(--azul, #00c3ff);">Un Show Más</a>
         
         <button class="boton-desplegable" onclick="toggleSubMenu()">Dragon Ball Z <span style="float:right; margin-right:20px;">&#9660;</span></button>
         
         <div class="submenu-lateral" id="submenuDBZ">
             <a href="saga_saiyajin.html">🐉 Saga Saiyajin</a>
-            </div>
+        </div>
     </div>
 
     <nav class="navbar">
         <div style="display: flex; align-items: center;">
-            <span style="font-size:25px; cursor:pointer; color: var(--azul); margin-right: 15px;" onclick="abrirMenu()">&#9776;</span>
+            <span style="font-size:25px; cursor:pointer; color: var(--azul, #00c3ff); margin-right: 15px; text-shadow: 1px 1px 3px black;" onclick="abrirMenu()">&#9776;</span>
             
             <div class="logo">
-                <a href="index.html" style="text-decoration: none; color: inherit;">El<span>Parque26</span></a>
+                <a href="index.html" style="text-decoration: none; color: white; text-shadow: 1px 1px 3px black; font-size: 1.5rem; font-weight: bold;">El<span style="color: #00c3ff;">Parque26</span></a>
             </div>
         </div>
         <div class="nav-links">
-            <a href="#buscador">Buscar</a>
+            <a href="#buscador" style="text-decoration: none; color: white; font-weight: bold; text-shadow: 1px 1px 3px black;">🔍 Buscar</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1 id="main-title">Un Show Más</h1>
+    <header class="hero-hbo">
+        <div class="hero-gradient"></div>
+        <div class="hero-content-hbo">
+            <span class="badge-exclusivo">SERIE COMPLETA</span>
+            <h1 id="main-title" class="hero-title">UN SHOW MÁS</h1>
+            <p class="hero-desc">
+                Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas y la película en un solo lugar.
+            </p>
+            <a href="t1.html" class="btn-play-hbo">▶ REPRODUCIR T1</a>
         </div>
     </header>
 
-    <section class="characters-mini" style="margin-top: 20px; margin-bottom: 20px;">
-        <div class="char-row">
-            <div class="c-item" onclick="festejoMordo()"><img src="mordecai.png"></div>
-            <div class="c-item" onclick="retoHuevo()"><img src="rigby.png"></div>
-            <div class="c-item" onclick="enojarBenson()"><img src="benson.png"></div>
-            <div class="c-item" onclick="sabiduriaSkips()"><img src="skips.png"></div>
-            <div class="c-item" onclick="regaloPapaleta()"><img src="papaleta.png"></div>
-            <div class="c-item" onclick="bromaMusculoso()"><img src="musculoso.png"></div>
+    <section class="characters-mini" style="margin-top: 20px; margin-bottom: 20px; position: relative; z-index: 20;">
+        <div class="char-row" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <div class="c-item" onclick="festejoMordo()" style="cursor: pointer;"><img src="mordecai.png" width="50" alt="Mordecai"></div>
+            <div class="c-item" onclick="retoHuevo()" style="cursor: pointer;"><img src="rigby.png" width="50" alt="Rigby"></div>
+            <div class="c-item" onclick="enojarBenson()" style="cursor: pointer;"><img src="benson.png" width="50" alt="Benson"></div>
+            <div class="c-item" onclick="sabiduriaSkips()" style="cursor: pointer;"><img src="skips.png" width="50" alt="Skips"></div>
+            <div class="c-item" onclick="regaloPapaleta()" style="cursor: pointer;"><img src="papaleta.png" width="50" alt="Papaleta"></div>
+            <div class="c-item" onclick="bromaMusculoso()" style="cursor: pointer;"><img src="musculoso.png" width="50" alt="Musculoso"></div>
         </div>
     </section>
 
@@ -127,9 +310,9 @@
     </div>
 
     <section class="container">
-        <h3 style="color: var(--azul); margin-bottom: 25px; text-align: center;">SELECCIONÁ UN TÍTULO</h3>
+        <h3 style="color: var(--azul, #00c3ff); margin-bottom: 25px; text-align: center; font-family: sans-serif;">SELECCIONÁ UN TÍTULO</h3>
         
-        <div class="poster-selector" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="poster-selector">
             <a href="t1.html" class="poster-card" data-name="temporada 1">
                 <img src="t1.png" alt="T1">
                 <div class="poster-info">TEMPORADA 1</div>
@@ -169,7 +352,7 @@
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem;">
+    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem; font-family: sans-serif;">
         ELPARQUE26 - 2026
     </footer>
 
@@ -184,7 +367,6 @@
         });
     }
 
-    /* Funciones para abrir y cerrar el menú lateral */
     function abrirMenu() {
         document.getElementById("miMenuLateral").style.width = "250px";
     }
@@ -193,7 +375,6 @@
         document.getElementById("miMenuLateral").style.width = "0";
     }
 
-    /* Función para desplegar/ocultar las sagas de DBZ */
     function toggleSubMenu() {
         let submenu = document.getElementById("submenuDBZ");
         if (submenu.style.display === "block") {
@@ -227,34 +408,41 @@
         setTimeout(() => m.remove(), 2500);
     }
 
+    /* Modificado levemente el color de fondo en los easter eggs para que resalte más sobre lo oscuro */
     function enojarBenson() {
         const t = document.getElementById('main-title');
-        document.body.style.backgroundColor = "#ff4757";
+        const hero = document.querySelector('.hero-hbo');
+        const fondoOriginal = hero.style.background;
+        hero.style.background = "#ff4757";
         t.innerText = "¡VUELVAN A TRABAJAR!";
         setTimeout(() => {
-            document.body.style.backgroundColor = "#0a0b10"; 
-            t.innerText = "Un Show Más"; 
+            hero.style.background = fondoOriginal; 
+            t.innerText = "UN SHOW MÁS"; 
         }, 2000);
     }
 
     function retoHuevo() {
         const t = document.getElementById('main-title');
-        document.body.style.backgroundColor = "#ffd32a";
+        const hero = document.querySelector('.hero-hbo');
+        const fondoOriginal = hero.style.background;
+        hero.style.background = "#ffd32a";
         t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
         mostrarMensaje(null, "gorra.png"); 
         setTimeout(() => {
-            document.body.style.backgroundColor = "#0a0b10"; 
-            t.innerText = "Un Show Más"; 
+            hero.style.background = fondoOriginal; 
+            t.innerText = "UN SHOW MÁS"; 
         }, 3000);
     }
 
     function festejoMordo() {
         const t = document.getElementById('main-title');
-        document.body.style.backgroundColor = "#1e90ff";
+        const hero = document.querySelector('.hero-hbo');
+        const fondoOriginal = hero.style.background;
+        hero.style.background = "#1e90ff";
         t.innerText = "¡OOOOOOOOOOH!";
         setTimeout(() => {
-            document.body.style.backgroundColor = "#0a0b10"; 
-            t.innerText = "Un Show Más"; 
+            hero.style.background = fondoOriginal; 
+            t.innerText = "UN SHOW MÁS"; 
         }, 1500);
     }
 
@@ -264,13 +452,15 @@
         t.innerText = "YA HE VISTO ESTO ANTES...";
         setTimeout(() => {
             document.body.style.filter = "none"; 
-            t.innerText = "Un Show Más"; 
+            t.innerText = "UN SHOW MÁS"; 
         }, 2500);
     }
 
     function regaloPapaleta() {
         const t = document.getElementById('main-title');
-        document.body.style.backgroundColor = "#ff79ff";
+        const hero = document.querySelector('.hero-hbo');
+        const fondoOriginal = hero.style.background;
+        hero.style.background = "#ff79ff";
         t.innerText = "¡QUÉ BUEN SHOW!";
 
         for (let i = 0; i < 20; i++) {
@@ -286,8 +476,8 @@
         }
 
         setTimeout(() => {
-            document.body.style.backgroundColor = "#0a0b10"; 
-            t.innerText = "Un Show Más"; 
+            hero.style.background = fondoOriginal; 
+            t.innerText = "UN SHOW MÁS"; 
         }, 3000);
     }
 
@@ -297,7 +487,7 @@
         t.innerText = "¿SABEN QUIÉN MÁS?";
         mostrarMensaje("¡MI MAMI!"); 
         setTimeout(() => {
-            t.innerText = "Un Show Más"; 
+            t.innerText = "UN SHOW MÁS"; 
             document.body.classList.remove("shake-effect"); 
         }, 3500);
     }
