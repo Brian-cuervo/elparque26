@@ -261,6 +261,23 @@
             color: black;
             transform: translateX(-50%) scale(1.05);
         }
+
+        /* --- NUEVO: ETIQUETA DE ESTRENO --- */
+        .badge-estreno {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #ff0055; /* Rojo neón para que resalte */
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            border-radius: 4px;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body class="v-particles">
@@ -269,6 +286,7 @@
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
         <a href="index.html" style="color: var(--azul, #00c3ff);">Un Show Más</a>
+        <a href="jim.html">El Submarino de Jim</a>
         
         <button class="boton-desplegable" onclick="toggleSubMenu()">Dragon Ball Z <span style="float:right; margin-right:20px;">&#9660;</span></button>
         
@@ -321,39 +339,46 @@
         <h3 style="color: var(--azul, #00c3ff); margin-bottom: 25px; text-align: center; font-family: sans-serif;">SELECCIONÁ UN TÍTULO</h3>
         
         <div class="poster-selector">
-            <a href="t1.html" class="poster-card" data-name="temporada 1">
+            
+            <a href="jim.html" class="poster-card" data-name="el submarino de jim">
+                <div class="badge-estreno">¡ESTRENO!</div>
+                <img src="jim.png" alt="El submarino de Jim">
+                <div class="poster-btn">▶ VER AHORA</div>
+            </a>
+
+            <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas">
                 <img src="t1.png" alt="T1">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t2.html" class="poster-card" data-name="temporada 2">
+            <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas">
                 <img src="t2.png" alt="T2">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t3.html" class="poster-card" data-name="temporada 3">
+            <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas">
                 <img src="t3.png" alt="T3">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t4.html" class="poster-card" data-name="temporada 4">
+            <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas">
                 <img src="t4.png" alt="T4">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t5.html" class="poster-card" data-name="temporada 5">
+            <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas">
                 <img src="t5.png" alt="T5">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t6.html" class="poster-card" data-name="temporada 6">
+            <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas">
                 <img src="t6.png" alt="T6">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t7.html" class="poster-card" data-name="temporada 7">
+            <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas">
                 <img src="t7.png" alt="T7">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="t8.html" class="poster-card" data-name="temporada 8">
+            <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas">
                 <img src="t8.png" alt="T8">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
-            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula">
+            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas">
                 <img src="pelicula.png" alt="Pelicula">
                 <div class="poster-btn">▶ VER AHORA</div>
             </a>
