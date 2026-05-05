@@ -25,7 +25,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 5%;
-            position: absolute; /* Flota sobre la imagen gigante */
+            position: absolute;
             top: 0;
             left: 0;
             width: 90%;
@@ -101,7 +101,7 @@
             position: relative;
             width: 100%;
             height: 80vh;
-            background: url('banner_generico_usm.jpg') center/cover no-repeat; /* ACÁ VA LA FOTO ÉPICA DE FONDO */
+            background: url('banner_generico_usm.jpg') center/cover no-repeat;
             display: flex;
             align-items: flex-end;
         }
@@ -126,7 +126,7 @@
             font-weight: 900;
             text-transform: uppercase;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-            transition: color 0.3s; /* Para los easter eggs */
+            transition: color 0.3s;
         }
 
         .badge-exclusivo {
@@ -194,7 +194,7 @@
             box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
         }
 
-        /* --- PÓSTERS 3D ESTILO MAX --- */
+        /* --- PÓSTERS 3D Y BOTONES --- */
         .poster-selector {
             display: flex;
             flex-wrap: wrap;
@@ -235,23 +235,31 @@
             filter: brightness(0.4);
         }
 
-        .poster-info {
+        /* Botón VER AHORA sobre la tarjeta */
+        .poster-btn {
             position: absolute;
-            bottom: 15px;
-            left: 10px;
-            right: 10px;
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 5px rgba(0,0,0,1);
-            opacity: 0;
-            transition: 0.3s;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            background-color: var(--azul, #00c3ff);
+            color: #0a0b10;
+            padding: 8px 0;
             text-align: center;
+            font-weight: 900;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            transition: 0.3s;
             font-family: sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
         }
 
-        .poster-card:hover .poster-info {
-            opacity: 1;
+        /* Efecto de luz al pasar el mouse por la tarjeta */
+        .poster-card:hover .poster-btn {
+            box-shadow: 0 0 15px var(--azul, #00c3ff), 0 0 25px var(--azul, #00c3ff);
+            background-color: white;
+            color: black;
+            transform: translateX(-50%) scale(1.05);
         }
     </style>
 </head>
@@ -315,39 +323,39 @@
         <div class="poster-selector">
             <a href="t1.html" class="poster-card" data-name="temporada 1">
                 <img src="t1.png" alt="T1">
-                <div class="poster-info">TEMPORADA 1</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t2.html" class="poster-card" data-name="temporada 2">
                 <img src="t2.png" alt="T2">
-                <div class="poster-info">TEMPORADA 2</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t3.html" class="poster-card" data-name="temporada 3">
                 <img src="t3.png" alt="T3">
-                <div class="poster-info">TEMPORADA 3</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t4.html" class="poster-card" data-name="temporada 4">
                 <img src="t4.png" alt="T4">
-                <div class="poster-info">TEMPORADA 4</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t5.html" class="poster-card" data-name="temporada 5">
                 <img src="t5.png" alt="T5">
-                <div class="poster-info">TEMPORADA 5</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t6.html" class="poster-card" data-name="temporada 6">
                 <img src="t6.png" alt="T6">
-                <div class="poster-info">TEMPORADA 6</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t7.html" class="poster-card" data-name="temporada 7">
                 <img src="t7.png" alt="T7">
-                <div class="poster-info">TEMPORADA 7</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="t8.html" class="poster-card" data-name="temporada 8">
                 <img src="t8.png" alt="T8">
-                <div class="poster-info">TEMPORADA 8</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
             <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula">
                 <img src="pelicula.png" alt="Pelicula">
-                <div class="poster-info">LA PELÍCULA</div>
+                <div class="poster-btn">▶ VER AHORA</div>
             </a>
         </div>
     </section>
@@ -408,7 +416,6 @@
         setTimeout(() => m.remove(), 2500);
     }
 
-    /* Modificado levemente el color de fondo en los easter eggs para que resalte más sobre lo oscuro */
     function enojarBenson() {
         const t = document.getElementById('main-title');
         const hero = document.querySelector('.hero-hbo');
