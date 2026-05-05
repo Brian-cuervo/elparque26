@@ -15,34 +15,45 @@
             overflow-x: hidden;
         }
 
-        /* --- NAVEGACIÓN Y LOGO --- */
+        /* --- NAVEGACIÓN Y LOGO (ESTILO UN SHOW MÁS) --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
-            background-color: #0a0b10;
+            background-color: transparent; /* Para que se mezcle con el banner */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 100;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
             letter-spacing: 1px;
         }
 
-        .logo-parque {
+        .logo span {
             color: #00c3ff;
-            text-shadow: 0 0 10px #00c3ff; /* Efecto brillante al título */
+            text-shadow: 0 0 15px #00c3ff, 0 0 30px #00c3ff; /* El brillo neón calcado */
         }
 
         .btn-volver {
             text-decoration: none;
-            color: #00c3ff;
+            color: #fff;
+            font-size: 0.8rem;
             font-weight: bold;
-            background: rgba(0, 195, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid #00c3ff;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 8px 20px;
+            border-radius: 5px;
+            border: 2px solid #00c3ff;
+            text-transform: uppercase;
             transition: 0.3s;
         }
 
@@ -81,7 +92,7 @@
             margin: 0 0 10px 0;
             font-weight: 900;
             text-transform: uppercase;
-            color: #00c3ff; 
+            color: #fff; 
             text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
@@ -101,15 +112,20 @@
             line-height: 1.5;
         }
 
+        /* --- BOTÓN VER EPISODIO 1 (ESTILO UN SHOW MÁS) --- */
         .btn-play-hbo {
             background-color: white;
             color: black;
-            padding: 12px 35px;
-            border-radius: 4px;
-            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
             transition: 0.2s;
         }
 
@@ -190,12 +206,8 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">
-            <a href="index.html" style="text-decoration: none; color: white;">El<span class="logo-parque">Parque26</span></a>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="btn-volver">⬅ VOLVER AL INICIO</a>
-        </div>
+        <a href="index.html" class="logo">EL<span>PARQUE26</span></a>
+        <a href="index.html" class="btn-volver">← VOLVER AL INICIO</a>
     </nav>
 
     <div class="hero-hbo">
@@ -209,7 +221,9 @@
             <p class="hero-desc">
                 Jim, un delfín muy ingenuo, comanda un submarino lleno de agua para viajar por tierra firme. Acompañalo en su loca misión para llegar a Las Vegas.
             </p>
-            <button class="btn-play-hbo" onclick="VerVideo('https://mega.nz/embed/Um1GkBoC#pnGJH7s4TZ4E97imhXv6wi6-yifQSLyVsCSUMgHVR0U')">▶ VER EPISODIO 1</button>
+            <button class="btn-play-hbo" onclick="VerVideo('https://mega.nz/embed/Um1GkBoC#pnGJH7s4TZ4E97imhXv6wi6-yifQSLyVsCSUMgHVR0U')">
+                <span style="font-size: 1.2rem;">▶</span> VER EPISODIO 1
+            </button>
         </div>
     </div>
 
