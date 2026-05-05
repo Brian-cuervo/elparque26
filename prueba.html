@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Premium | ElParque26</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a0b10;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más limpia para la interfaz */
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN MEJORADA --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: absolute; /* Flota sobre el banner */
+            top: 0;
+            width: 90%;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10, 11, 16, 0.9), transparent);
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span {
+            color: #00c3ff; /* El celeste de tu marca */
+        }
+
+        /* --- HERO PRINCIPAL (Destacado) --- */
+        .hero-principal {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            background: url('banner_generico_usm.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding-left: 5%;
+        }
+
+        .hero-gradient-main {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #0a0b10 5%, rgba(10, 11, 16, 0.7) 40%, transparent 80%),
+                        linear-gradient(to top, #0a0b10 2%, transparent 30%);
+        }
+
+        .hero-content-main {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .badge-exclusivo {
+            background-color: #00c3ff;
+            color: #0a0b10;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title-main {
+            font-size: 4rem;
+            margin: 0 0 15px 0;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 15px rgba(0,0,0,1);
+        }
+
+        .hero-desc-main {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 5px rgba(0,0,0,1);
+        }
+
+        .btn-main {
+            background-color: white;
+            color: black;
+            padding: 15px 40px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-main:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        /* --- FILAS DE CATÁLOGO --- */
+        .catalogo {
+            padding: 20px 5% 60px 5%;
+            position: relative;
+            z-index: 20;
+            margin-top: -60px;
+        }
+
+        .fila-seccion {
+            margin-bottom: 40px;
+        }
+
+        .fila-titulo {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #fff;
+            border-left: 4px solid #00c3ff;
+            padding-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .carrusel-tarjetas {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .carrusel-tarjetas::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Tarjeta tipo Póster (Vertical) */
+        .card-poster {
+            min-width: 160px;
+            width: 160px;
+            height: 240px;
+            background-color: #1a1c23;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .card-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+            filter: brightness(0.8);
+        }
+
+        .card-poster:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #00c3ff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            z-index: 5;
+        }
+
+        .card-poster:hover img {
+            filter: brightness(0.4);
+        }
+
+        .card-titulo {
+            position: absolute;
+            bottom: 15px;
+            left: 10px;
+            right: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0,0,0,1);
+            opacity: 0;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .card-poster:hover .card-titulo {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="prueba.html">El<span>Parque26</span></a>
+        </div>
+    </nav>
+
+    <header class="hero-principal">
+        <div class="hero-gradient-main"></div>
+        <div class="hero-content-main">
+            <span class="badge-exclusivo">SERIE COMPLETA</span>
+            <h1 class="hero-title-main">UN SHOW MÁS</h1>
+            <p class="hero-desc-main">
+                Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas completas y la película en un solo lugar.
+            </p>
+            <a href="t1.html" class="btn-main">▶ REPRODUCIR T1</a>
+        </div>
+    </header>
+
+    <div class="catalogo">
+        
+        <section class="fila-seccion">
+            <h2 class="fila-titulo">Un Show Más - Temporadas</h2>
+            <div class="carrusel-tarjetas">
+                <a href="t1.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 1">
+                    <span class="card-titulo">Temporada 1</span>
+                </a>
+                <a href="t2.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 2">
+                    <span class="card-titulo">Temporada 2</span>
+                </a>
+                <a href="t3.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 3">
+                    <span class="card-titulo">Temporada 3</span>
+                </a>
+                <a href="t4.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 4">
+                    <span class="card-titulo">Temporada 4</span>
+                </a>
+                <a href="t5.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 5">
+                    <span class="card-titulo">Temporada 5</span>
+                </a>
+                <a href="t6.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 6">
+                    <span class="card-titulo">Temporada 6</span>
+                </a>
+                <a href="t7.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 7">
+                    <span class="card-titulo">Temporada 7</span>
+                </a>
+                <a href="t8.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="Temporada 8">
+                    <span class="card-titulo">Temporada 8</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="fila-seccion">
+            <h2 class="fila-titulo">Películas y Especiales</h2>
+            <div class="carrusel-tarjetas">
+                <a href="pelicula.html" class="card-poster">
+                    <img src="banner_generico_usm.jpg" alt="La Película">
+                    <span class="card-titulo">La Película</span>
+                </a>
+                </div>
+        </section>
+
+        <section class="fila-seccion">
+            <h2 class="fila-titulo">Anime</h2>
+            <div class="carrusel-tarjetas">
+                <a href="#" class="card-poster" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                    <img src="banner_generico_usm.jpg" alt="Próximamente" style="filter: brightness(0.2);">
+                    <span class="card-titulo" style="opacity: 1; color: #00c3ff;">PRÓXIMAMENTE DBZ</span>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
