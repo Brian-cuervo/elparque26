@@ -134,6 +134,44 @@
         .card-mini:hover {
             transform: scale(1.05);
         }
+
+                /* =========================================
+           MODO CELULAR (RESPONSIVE)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* Achicamos la barra de navegación */
+            .navbar { padding: 15px 5%; }
+            .logo a { font-size: 1.2rem !important; }
+            .nav-links a, .btn-volver { font-size: 0.7rem !important; padding: 6px 12px; }
+
+            /* Achicamos el título gigante y los textos del banner */
+            .hero-hbo { height: 65vh; }
+            .hero-content-hbo { padding-bottom: 30px; }
+            .hero-title { font-size: 2.2rem !important; }
+            .hero-desc { font-size: 0.9rem; margin-bottom: 15px; }
+            .btn-play-hbo { font-size: 0.9rem; padding: 10px 20px; }
+            .badge-exclusivo, .badge-estreno { font-size: 0.65rem; padding: 3px 6px; }
+
+            /* Acomodamos los pósters en el Index (2 columnas prolijas) */
+            .poster-selector { gap: 10px; justify-content: space-around; }
+            .poster-card { width: 45%; max-width: 160px; height: 220px; }
+            .poster-btn { font-size: 0.7rem; padding: 6px 0; }
+
+            /* Acomodamos los personajes redonditos */
+            .char-row { gap: 10px; }
+            .characters-mini img { width: 40px; }
+            
+            /* Achicamos el buscador */
+            .search-input { width: 90%; font-size: 1rem; padding: 12px 15px; }
+
+            /* Acomodamos las tarjetitas de los Episodios (2 columnas) */
+            .movie-carousel { gap: 10px; justify-content: space-between; }
+            .card-mini { width: 46%; padding: 10px; box-sizing: border-box; }
+            .card-mini .thumb { font-size: 2rem; margin-bottom: 5px; }
+            .card-mini h4 { font-size: 0.75rem; }
+            .titulo-lista { font-size: 1.2rem; }
+        }
+
     </style>
 </head>
 <body>
