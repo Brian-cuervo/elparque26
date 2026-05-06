@@ -167,6 +167,25 @@
             transform: scale(1.05);
         }
 
+        /* --- PERSONAJES REDONDOS CENTRADOS --- */
+        .characters-mini {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+            z-index: 20;
+        }
+
+        .char-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
         /* --- BUSCADOR PREMIUM --- */
         .search-container {
             display: flex;
@@ -296,7 +315,9 @@
             }
             .poster-btn { font-size: 0.7rem; width: 90%; }
             
-            /* Acomoda los personajes y buscador */
+            /* Acomoda los personajes y buscador al centro */
+            .characters-mini { width: 100%; display: flex; justify-content: center; }
+            .char-row { gap: 10px; justify-content: center; }
             .characters-mini img { width: 40px; }
             .search-input { width: 90%; font-size: 1rem; padding: 12px 15px; }
         }
@@ -342,8 +363,8 @@
         </div>
     </header>
 
-    <section class="characters-mini" style="margin-top: 20px; margin-bottom: 20px; position: relative; z-index: 20;">
-        <div class="char-row" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+    <section class="characters-mini">
+        <div class="char-row">
             <div class="c-item" onclick="festejoMordo()" style="cursor: pointer;"><img src="mordecai.png" width="50" alt="Mordecai"></div>
             <div class="c-item" onclick="retoHuevo()" style="cursor: pointer;"><img src="rigby.png" width="50" alt="Rigby"></div>
             <div class="c-item" onclick="enojarBenson()" style="cursor: pointer;"><img src="benson.png" width="50" alt="Benson"></div>
