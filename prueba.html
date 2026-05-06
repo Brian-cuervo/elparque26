@@ -5,141 +5,135 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Un Show Más Latino | ElParque26</title>
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0b10">
+<link rel="apple-touch-icon" href="icon.png">
+
 <style>
-:root {
-    --azul: #00c3ff;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
-    background: #0a0b10;
+    background-color: #0a0b10;
     color: white;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
-/* NAV */
+/* NAV MEJORADO */
 .navbar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 15px 5%;
+    padding: 20px 5%;
     position: fixed;
+    top: 0;
     width: 90%;
-    z-index: 100;
-}
-
-.logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-.logo span {
-    color: var(--azul);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(10,11,16,0.5);
 }
 
 /* HERO */
-.hero {
+.hero-hbo {
+    position: relative;
+    width: 100%;
     height: 80vh;
-    background: url('banner_generico_usm.jpg') center/cover;
+    background: url('banner_generico_usm.jpg') center/cover no-repeat;
     display: flex;
     align-items: flex-end;
+    transition: background 0.5s ease;
 }
 
-.hero-content {
-    padding: 40px 5%;
-    max-width: 600px;
+.hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #0a0b10 5%, rgba(10,11,16,0.8) 40%, transparent 80%),
+                linear-gradient(to top, #0a0b10 5%, transparent 40%);
 }
 
-.hero h1 {
-    font-size: 3rem;
-    margin: 0;
+.hero-content-hbo {
+    position: relative;
+    z-index: 10;
+    padding: 0 5% 60px 5%;
+    max-width: 700px;
 }
 
-.hero p {
-    color: #ccc;
-}
-
-.btn {
-    background: white;
-    color: black;
-    padding: 10px 25px;
-    font-weight: bold;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 15px;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    transform: scale(1.05);
+.hero-title {
+    font-size: 4rem;
+    font-weight: 900;
 }
 
 /* BUSCADOR */
-.search {
+.search-container {
     display: flex;
     justify-content: center;
     margin: 20px;
 }
 
-.search input {
+.search-input {
     width: 80%;
-    max-width: 400px;
-    padding: 12px;
-    border-radius: 25px;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 30px;
     border: none;
 }
 
-/* GRID */
-.grid {
+/* CARDS */
+.poster-selector {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
 }
 
-.card {
+.poster-card {
     width: 160px;
     height: 240px;
+    border-radius: 8px;
     overflow: hidden;
-    border-radius: 10px;
     position: relative;
-    cursor: pointer;
     transition: 0.3s;
+    will-change: transform;
 }
 
-.card img {
+.poster-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: 0.3s;
 }
 
-.card:hover {
+.poster-card:hover {
     transform: translateY(-8px) scale(1.05);
 }
 
-.card:hover img {
-    filter: brightness(0.5);
+.poster-card:hover img {
+    filter: brightness(0.4);
 }
 
-/* BOTÓN CARD */
-.card-btn {
+.poster-btn {
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--azul);
+    background: #00c3ff;
     color: black;
-    padding: 8px 15px;
+    padding: 8px 12px;
     border-radius: 20px;
     font-weight: bold;
-    font-size: 0.8rem;
+    letter-spacing: 0.5px;
 }
 
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #555;
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #00c3ff;
+    border-radius: 10px;
 }
 </style>
 </head>
@@ -147,88 +141,88 @@ footer {
 <body>
 
 <nav class="navbar">
-    <div class="logo">El<span>Parque26</span></div>
+    <div>El<span style="color:#00c3ff;">Parque26</span></div>
 </nav>
 
-<header class="hero">
-    <div class="hero-content">
-        <h1>UN SHOW MÁS</h1>
+<header class="hero-hbo">
+    <div class="hero-gradient"></div>
+    <div class="hero-content-hbo">
+        <h1 id="main-title">UN SHOW MÁS</h1>
         <p>Mordecai y Rigby en una locura total.</p>
-        <a href="t1.html" class="btn">▶ Ver Temporada 1</a>
+        <a href="t1.html">▶ Ver Temporada 1</a>
     </div>
 </header>
 
-<div class="search">
-    <input type="text" id="buscador" placeholder="Buscar temporada...">
+<div class="search-container">
+    <input type="text" id="inputBuscador" placeholder="Buscar temporada...">
 </div>
 
-<section class="grid" id="grid">
+<div class="poster-selector">
 
-<a href="t1.html" class="card" data-name="temporada 1">
-    <img src="t1.png">
-    <div class="card-btn">Ver T1</div>
+<a href="t1.html" class="poster-card" data-name="temporada 1">
+<img src="t1.png" alt="Temporada 1" loading="lazy">
+<div class="poster-btn">Ver T1</div>
 </a>
 
-<a href="t2.html" class="card" data-name="temporada 2">
-    <img src="t2.png">
-    <div class="card-btn">Ver T2</div>
+<a href="t2.html" class="poster-card" data-name="temporada 2">
+<img src="t2.png" loading="lazy">
+<div class="poster-btn">Ver T2</div>
 </a>
 
-<a href="t3.html" class="card" data-name="temporada 3">
-    <img src="t3.png">
-    <div class="card-btn">Ver T3</div>
+<a href="t3.html" class="poster-card" data-name="temporada 3">
+<img src="t3.png" loading="lazy">
+<div class="poster-btn">Ver T3</div>
 </a>
 
-<a href="t4.html" class="card" data-name="temporada 4">
-    <img src="t4.png">
-    <div class="card-btn">Ver T4</div>
+<a href="t4.html" class="poster-card" data-name="temporada 4">
+<img src="t4.png" loading="lazy">
+<div class="poster-btn">Ver T4</div>
 </a>
 
-<a href="t5.html" class="card" data-name="temporada 5">
-    <img src="t5.png">
-    <div class="card-btn">Ver T5</div>
+<a href="t5.html" class="poster-card" data-name="temporada 5">
+<img src="t5.png" loading="lazy">
+<div class="poster-btn">Ver T5</div>
 </a>
 
-<a href="t6.html" class="card" data-name="temporada 6">
-    <img src="t6.png">
-    <div class="card-btn">Ver T6</div>
+<a href="t6.html" class="poster-card" data-name="temporada 6">
+<img src="t6.png" loading="lazy">
+<div class="poster-btn">Ver T6</div>
 </a>
 
-<a href="t7.html" class="card" data-name="temporada 7">
-    <img src="t7.png">
-    <div class="card-btn">Ver T7</div>
+<a href="t7.html" class="poster-card" data-name="temporada 7">
+<img src="t7.png" loading="lazy">
+<div class="poster-btn">Ver T7</div>
 </a>
 
-<a href="t8.html" class="card" data-name="temporada 8">
-    <img src="t8.png">
-    <div class="card-btn">Ver T8</div>
+<a href="t8.html" class="poster-card" data-name="temporada 8">
+<img src="t8.png" loading="lazy">
+<div class="poster-btn">Ver T8</div>
 </a>
 
-<a href="pelicula.html" class="card" data-name="pelicula">
-    <img src="pelicula.png">
-    <div class="card-btn">Ver Película</div>
+<a href="pelicula.html" class="poster-card" data-name="pelicula">
+<img src="pelicula.png" loading="lazy">
+<div class="poster-btn">Ver Película</div>
 </a>
 
-</section>
+</div>
 
-<footer>
+<footer style="text-align:center;padding:30px;color:#555;">
 ELPARQUE26 - 2026
 </footer>
 
 <script>
-const input = document.getElementById("buscador");
-const cards = document.querySelectorAll(".card");
+let input = document.getElementById('inputBuscador');
+let posters = document.querySelectorAll('.poster-card');
 
 input.addEventListener("keyup", () => {
-    const texto = input.value.toLowerCase();
+    let texto = input.value.toLowerCase();
 
-    cards.forEach(card => {
-        const nombre = card.getAttribute("data-name");
-
-        if(nombre.includes(texto)) {
-            card.style.display = "";
+    posters.forEach(p => {
+        let nombre = p.getAttribute('data-name');
+        if (nombre.includes(texto)) {
+            p.style.display = "";
         } else {
-            card.style.display = "none";
+            p.style.display = "none";
         }
     });
 });
