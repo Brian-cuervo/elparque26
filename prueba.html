@@ -1,1 +1,195 @@
-<iframe width="100%" height="400" frameborder="0" src="https://mega.nz/embed/uaJjhJQD#CT7xE2IRrAyvcQNMMLwB7SNZS8dWNAKPoC-sxczzOHQ" allowfullscreen></iframe>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben 10 Clásico | ElParque26</title>
+    <style>
+        :root {
+            --verde-ben: #a2ff00; /* Verde Omnitrix */
+            --negro-fondo: #050505;
+            --gris-tarjeta: #121212;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            background-image: radial-gradient(circle at center, #102500 0%, #050505 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER ESTILO OMNITRIX --- */
+        .hero-ben {
+            height: 60vh;
+            background: linear-gradient(to top, var(--negro-fondo), transparent), 
+                        url('https://images7.alphacoders.com/611/611091.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 50px;
+            border-bottom: 3px solid var(--verde-ben);
+            box-shadow: 0 0 20px rgba(162, 255, 0, 0.3);
+        }
+
+        .hero-ben h1 {
+            font-size: 4rem;
+            margin: 0;
+            color: var(--verde-ben);
+            text-shadow: 0 0 20px var(--verde-ben), 2px 2px 5px black;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* --- CONTENEDOR DE EPISODIOS --- */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .grid-episodios {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card-episodio {
+            background-color: var(--gris-tarjeta);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card-episodio:hover {
+            transform: translateY(-10px);
+            border-color: var(--verde-ben);
+            box-shadow: 0 0 25px rgba(162, 255, 0, 0.2);
+        }
+
+        .card-episodio img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            filter: grayscale(0.5);
+            transition: 0.3s;
+        }
+
+        .card-episodio:hover img {
+            filter: grayscale(0);
+        }
+
+        .info-episodio {
+            padding: 20px;
+        }
+
+        .info-episodio h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            color: var(--verde-ben);
+        }
+
+        /* --- BOTONES DOBLES --- */
+        .botones-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-ver {
+            background-color: var(--verde-ben);
+            color: black;
+        }
+
+        .btn-descargar {
+            background-color: transparent;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        .btn:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
+        }
+
+        .btn-descargar:hover {
+            border-color: white;
+            background-color: #222;
+        }
+
+        /* --- MODO CELULAR --- */
+        @media (max-width: 600px) {
+            .hero-ben h1 { font-size: 2.2rem; }
+            .grid-episodios { grid-template-columns: 1fr; }
+            .card-episodio { max-width: 350px; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-ben">
+        <span style="color: white; letter-spacing: 2px; font-weight: bold;">TEMPORADA 1</span>
+        <h1>BEN 10</h1>
+    </header>
+
+    <div class="container">
+        <h2 class="titulo-seccion">EPISODIOS DISPONIBLES</h2>
+
+        <div class="grid-episodios">
+            
+            <div class="card-episodio">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/019df7701469e38e6783f06c117d65377507119020921071239c4a8f94628ec2.jpg" alt="E1">
+                <div class="info-episodio">
+                    <h3>1. Y fueron diez</h3>
+                    <div class="botones-row">
+                        <a href="reproductor_drive.html?id=TU_ID_DRIVE" class="btn btn-ver">▶ VER ONLINE</a>
+                        <a href="https://mega.nz/file/uaJjhJQD#..." target="_blank" class="btn btn-descargar">💾 MEGA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-episodio">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/594897f1f0e8f3b1a8d0e5f6e6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6.jpg" alt="E2">
+                <div class="info-episodio">
+                    <h3>2. El Washington Prehistórico</h3>
+                    <div class="botones-row">
+                        <a href="#" class="btn btn-ver">▶ VER ONLINE</a>
+                        <a href="#" class="btn btn-descargar">💾 MEGA</a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+    </div>
+
+    <footer style="text-align: center; padding: 50px; color: #444; font-size: 0.8rem;">
+        ELPARQUE26 - PROYECTO OMNITRIX 2026
+    </footer>
+
+</body>
+</html>
