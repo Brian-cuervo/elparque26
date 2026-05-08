@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben 10 - Temporada 4 | ElParque26</title>
+    <style>
+        :root {
+            --verde-ben: #a2ff00;
+            --negro-fondo: #050505;
+            --gris-tarjeta: #121212;
+            --celeste-logo: #00d4ff;
+        }
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- NAVBAR OFICIAL ELPARQUE26 --- */
+        .navbar {
+            background-color: var(--negro-fondo);
+            width: 100%;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        .logo-nav {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            text-decoration: none;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 1px;
+        }
+        .logo-nav span { 
+            color: var(--celeste-logo); 
+        }
+        .btn-volver-nav {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        .btn-volver-nav:hover {
+            color: gray;
+        }
+
+        /* --- HEADER TEMPORADA --- */
+        .header-t4 {
+            text-align: center;
+            padding: 30px;
+            border-bottom: 2px solid var(--verde-ben);
+            background-color: #0a1400;
+        }
+        .header-t4 h1 { color: var(--verde-ben); margin: 0; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px;}
+
+        /* --- GRILLA DE EPISODIOS --- */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid-episodios { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card-episodio {
+            background-color: var(--gris-tarjeta);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #222;
+            text-align: center;
+        }
+        .card-episodio h3 { color: white; font-size: 1.1rem; margin-top: 0; }
+        
+        .btn-ver {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            background-color: var(--verde-ben);
+            color: black;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        .btn-ver:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(162, 255, 0, 0.4);
+        }
+
+        /* --- REPRODUCTOR (MODAL) --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9); 
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border: 2px solid var(--verde-ben);
+            box-shadow: 0 0 30px rgba(162, 255, 0, 0.5);
+            border-radius: 10px;
+        }
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .cerrar {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--verde-ben);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .navbar { padding: 15px 20px; }
+            .logo-nav { font-size: 1.2rem; }
+            .btn-volver-nav { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo-nav">EL<span>PARQUE</span>26</a>
+        <a href="ben10.html" class="btn-volver-nav">← VOLVER A TEMPORADAS</a>
+    </nav>
+
+    <div class="header-t4">
+        <h1>TEMPORADA 4</h1>
+    </div>
+
+    <div class="container">
+        <div class="grid-episodios">
+            
+            <div class="card-episodio">
+                <h3>1. Perfect Day</h3>
+                <button onclick="abrirModal('1R_-BeYKSbM5fYhvXhjEuc-CLeD3gc3lS')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>2. Don't Drink the Water</h3>
+                <button onclick="abrirModal('1QQWlh08GtgdM4mHNAJvzakESX_kggADo')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>3. Big Fat Alien Wedding</h3>
+                <button onclick="abrirModal('1RGVlIYLoHc10svpTR9xB4wxjyQkgvL0T')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>4. Ben 4 Good Buddy</h3>
+                <button onclick="abrirModal('1qOErVgN4emP8rxNAohuqMnO-WWX-IuDT')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>5. Ready to Rumble</h3>
+                <button onclick="abrirModal('1vhtBa01UepSuhamoFPoBlhfVZhEJT2P4')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>6. Ken 10</h3>
+                <button onclick="abrirModal('1IyzSm5D6zvD752GvabAV47dTlAnuxLVD')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>7. Goodbye and Good Riddance</h3>
+                <button onclick="abrirModal('19X5bP5LNwXaNPyzeZq-4VUXaW0-UK3sQ')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>8. Ben 10 vs. The Negative 10 (Parte 1)</h3>
+                <button onclick="abrirModal('1mHAKObMTfjS7mHoz7Sgzp4jWAJBEXqz9')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>9. Ben 10 vs. The Negative 10 (Parte 2)</h3>
+                <button onclick="abrirModal('1t1TjX3coscd-1fXO78WxoB4YYUKOl5R0')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+            <div class="card-episodio">
+                <h3>10. Grudge Match</h3>
+                <button onclick="abrirModal('1ML1oeoyLdQHd1qGKRfNbIo_ek_uTb7jH')" class="btn-ver">▶ VER ONLINE</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">×</span>
+            <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(idVideo) {
+            document.getElementById('videoFrame').src = "https://drive.google.com/file/d/" + idVideo + "/preview";
+            document.getElementById('videoModal').style.display = "block";
+        }
+        function cerrarModal() {
+            document.getElementById('videoModal').style.display = "none";
+            document.getElementById('videoFrame').src = "";
+        }
+    </script>
+
+</body>
+</html>
