@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ben 10 Clásico | Temporadas | ElParque26</title>
+    <title>Temporada 1 | Un Show Más | ElParque26</title>
     <style>
         :root {
-            --verde-ben: #a2ff00;
-            --negro-fondo: #050505;
-            --gris-tarjeta: #121212;
-            --celeste-logo: #00d4ff;
+            --azul-usm: #00c3ff;
+            --negro-fondo: #0a0b10;
+            --gris-tarjeta: #1a1c23;
         }
         body {
             margin: 0;
@@ -19,210 +18,302 @@
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR OFICIAL ELPARQUE26 --- */
+        /* --- NAVBAR --- */
         .navbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 40px;
-            box-sizing: border-box;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background-color: rgba(10, 11, 16, 0.9);
+            border-bottom: 1px solid #222;
         }
-        .logo-nav {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: white;
-            text-decoration: none;
-            font-family: 'Arial Black', sans-serif;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 5px black;
+        .logo a {
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: bold;
         }
-        .logo-nav span { 
-            color: var(--celeste-logo); 
-        }
-        .btn-volver-nav {
+        .logo span { color: var(--azul-usm); }
+        .nav-links a {
             color: white;
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.2s;
-            text-shadow: 1px 1px 3px black;
+            transition: 0.3s;
         }
-        .btn-volver-nav:hover {
-            color: gray;
-        }
+        .nav-links a:hover { color: var(--azul-usm); }
 
-        /* --- HEADER Y BANNER ESTILO JIM (PREMIUM) --- */
-        .hero-ben {
+        /* --- HERO BANNER --- */
+        .hero-hbo {
             position: relative;
             width: 100%;
-            height: 70vh; /* Un poco más alto para que entre el texto */
-            background: url('banner_ben10.png') center/cover no-repeat;
+            height: 60vh;
+            background: url('banner_generico_usm.jpg') center/cover no-repeat;
             display: flex;
             align-items: flex-end;
-            border-bottom: 3px solid var(--verde-ben);
         }
         .hero-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, var(--negro-fondo) 2%, rgba(5, 5, 5, 0.8) 40%, transparent 80%),
-                        linear-gradient(to top, var(--negro-fondo) 5%, transparent 50%);
+            background: linear-gradient(to right, var(--negro-fondo) 10%, rgba(10, 11, 16, 0.6) 40%, transparent 80%),
+                        linear-gradient(to top, var(--negro-fondo) 5%, transparent 40%);
         }
-        .hero-content {
+        .hero-content-hbo {
             position: relative;
             z-index: 10;
             padding: 0 5% 40px 5%;
-            max-width: 800px;
-            text-align: left;
+            max-width: 700px;
         }
         .hero-title {
             font-size: 3.5rem;
             margin: 0 0 10px 0;
             font-weight: 900;
             text-transform: uppercase;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
-        
-        /* --- METADATA (Año, Edad, Temporadas) --- */
-        .hero-metadata {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-weight: bold;
+        .hero-meta {
+            font-size: 0.9rem;
             color: #ccc;
-            text-shadow: 1px 1px 3px black;
-        }
-        .badge-age {
-            border: 1px solid #ccc;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            font-weight: bold;
         }
         .hero-desc {
             font-size: 1.1rem;
             color: #ddd;
             margin-bottom: 25px;
             line-height: 1.5;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.9);
         }
-
-        /* --- BOTÓN BLANCO PRINCIPAL --- */
-        .btn-play-hero {
+        .btn-play-hbo {
             background-color: white;
             color: black;
-            padding: 12px 30px;
+            padding: 12px 35px;
             border-radius: 4px;
             font-size: 1.1rem;
             font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
+            border: none;
+            cursor: pointer;
             transition: 0.2s;
         }
-        .btn-play-hero:hover {
-            background-color: #e0e0e0;
-            transform: scale(1.05);
-        }
+        .btn-play-hbo:hover { transform: scale(1.05); background-color: #e0e0e0; }
 
-        /* --- GRILLA DE TEMPORADAS --- */
-        .seccion-titulo {
-            text-align: left;
-            margin: 40px 5% 10px 5%;
-            color: var(--verde-ben);
-            font-size: 1.2rem;
-            border-left: 4px solid var(--verde-ben);
-            padding-left: 10px;
+        /* --- GRILLA DE EPISODIOS --- */
+        .seccion-episodios { padding: 40px 5%; }
+        .titulo-lista {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--azul-usm);
+            padding-left: 15px;
+            text-transform: uppercase;
         }
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto 60px auto; 
-            padding: 0 5%; 
-        }
-        .grid-temporadas {
+        .movie-carousel {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
         }
-        .btn-temporada {
+        .card-mini {
             background-color: var(--gris-tarjeta);
-            border: 2px solid #333;
-            color: white;
-            padding: 30px 20px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
             transition: 0.3s;
-            text-transform: uppercase;
+            border: 1px solid #333;
+        }
+        .card-mini:hover {
+            transform: translateY(-5px);
+            border-color: var(--azul-usm);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .thumb { position: relative; height: 130px; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.3s; }
+        .card-mini:hover img { filter: brightness(0.4); }
+        .card-mini h4 {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
             text-align: center;
+            margin: 0;
+            font-size: 0.9rem;
+            text-shadow: 2px 2px 4px #000;
         }
-        .btn-temporada:hover {
-            border-color: var(--verde-ben);
-            color: var(--verde-ben);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(162, 255, 0, 0.2);
+
+        /* --- REPRODUCTOR MODAL (CINE) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            backdrop-filter: blur(8px);
         }
-        .btn-peli { border-color: #ffaa00; color: #ffaa00; }
-        .btn-peli:hover { 
-            color: #ffaa00; 
-            border-color: #ffaa00; 
-            box-shadow: 0 0 20px rgba(255, 170, 0, 0.3); 
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 1000px;
+            aspect-ratio: 16 / 9;
+            border: 2px solid var(--azul-usm);
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 195, 255, 0.4);
         }
-        
-        @media (max-width: 600px) {
-            .navbar { padding: 15px 20px; }
-            .logo-nav { font-size: 1.2rem; }
-            .btn-volver-nav { font-size: 0.7rem; }
+        .modal-content iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
+        .cerrar {
+            position: absolute;
+            top: -45px; right: 0;
+            color: var(--azul-usm);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
-            .hero-ben { height: auto; padding-top: 80px; }
+            .hero-hbo { height: 50vh; }
+            .movie-carousel { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .thumb { height: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR PRO ESTILO JIM -->
     <nav class="navbar">
-        <a href="index.html" class="logo-nav">EL<span>PARQUE</span>26</a>
-        <a href="index.html" class="btn-volver-nav">← VOLVER AL INICIO</a>
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">⬅ VOLVER AL INICIO</a></div>
     </nav>
 
-    <!-- HEADER PREMIUM CON INFO -->
-    <header class="hero-ben">
+    <div class="hero-hbo">
         <div class="hero-gradient"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">BEN 10</h1>
-            
-            <div class="hero-metadata">
-                <span>2005</span>
-                <span class="badge-age">TV-Y7</span>
-                <span>4 Temporadas</span>
+        <div class="hero-content-hbo">
+            <h1 class="hero-title">TEMPORADA 1</h1>
+            <div class="hero-meta">
+                <span>2010</span>
+                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-PG</span>
+                <span>12 Episodios</span>
             </div>
-            
             <p class="hero-desc">
-                Durante unas vacaciones de verano con su abuelo Max y su prima Gwen, Ben Tennyson, un chico de 10 años, descubre un dispositivo alienígena mágico llamado Omnitrix. ¡Ahora tiene el poder de transformarse en 10 héroes alienígenas diferentes y salvar el mundo de las fuerzas del mal!
+                Conocé a Mordecai y Rigby. Su trabajo es cuidar el parque, pero su verdadera vocación es meterse en problemas surrealistas y sacar de quicio a Benson.
             </p>
-            
-            <a href="ben10t1.html" class="btn-play-hero">▶ VER EPISODIO 1</a>
-        </div>
-    </header>
-
-    <h3 class="seccion-titulo">Temporadas y Películas</h3>
-
-    <div class="container">
-        <div class="grid-temporadas">
-            <a href="ben10t1.html" class="btn-temporada">Temporada 1</a>
-            <a href="ben10t2.html" class="btn-temporada">Temporada 2</a>
-            <a href="ben10t3.html" class="btn-temporada">Temporada 3</a>
-            <a href="ben10t4.html" class="btn-temporada">Temporada 4</a>
-            <a href="ben10peli.html" class="btn-temporada btn-peli">Película: El Secreto del Omnitrix</a>
+            <button class="btn-play-hbo" onclick="abrirModal('15Xn178mK05xpnsr4JWP6czSApq9cCGYo')">▶ VER EPISODIO 1</button>
         </div>
     </div>
 
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Episodios</h2>
+        <div class="movie-carousel">
+            
+            <div class="card-mini" onclick="abrirModal('15Xn178mK05xpnsr4JWP6czSApq9cCGYo')">
+                <div class="thumb">
+                    <img src="t1_1.jpg">
+                    <h4>1. El Poder</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1MG6DvDnDPEwfwZ4VPjtUXSGYIo1zKcng')">
+                <div class="thumb">
+                    <img src="t1_2.jpg">
+                    <h4>2. Solo acomoden las sillas</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1HHWivqG2OKypS010BqGZXJoIGsNPOgPY')">
+                <div class="thumb">
+                    <img src="t1_3.jpg">
+                    <h4>3. Boletos con cafeína</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1boCAvhqFcjx-g9ZYxCL3YpRShwShna60')">
+                <div class="thumb">
+                    <img src="t1_4.jpg">
+                    <h4>4. Golpes mortales</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('16J4NiBaFrv78W7pts0DXipokz5JIGkEu')">
+                <div class="thumb">
+                    <img src="t1_5.jpg">
+                    <h4>5. Pastel gratis</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1TksMOxY1PLCVKDRfg8nNEk7rE4BfQxxe')">
+                <div class="thumb">
+                    <img src="t1_6.jpg">
+                    <h4>6. Parrillada</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1SERS4ehO7YESKXHThn8dpw5nACEJk0sI')">
+                <div class="thumb">
+                    <img src="t1_7.jpg">
+                    <h4>7. Queso derretido</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1tMWkWReut_pfZY_IFzz6wu-YHjLXGFM3')">
+                <div class="thumb">
+                    <img src="t1_8.jpg">
+                    <h4>8. Los Unicornios deben irse</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1pQ1Uf6RIls7jcKrRT35OIvpLeHj0sUKp')">
+                <div class="thumb">
+                    <img src="t1_9.jpg">
+                    <h4>9. Bromistas</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('10_iN2FBEogN0XPimFGNvrzH73LpCSaOW')">
+                <div class="thumb">
+                    <img src="t1_10.jpg">
+                    <h4>10. Don</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1OExfrxAp-NeXfrn6hjHweAmUAeXWQZjC')">
+                <div class="thumb">
+                    <img src="t1_11.jpg">
+                    <h4>11. El cuerpo de Rigby</h4>
+                </div>
+            </div>
+
+            <div class="card-mini" onclick="abrirModal('1LZS4xd3NLkm2HwOEN2khPOVTnTV5b_ly')">
+                <div class="thumb">
+                    <img src="t1_12.jpg">
+                    <h4>12. Mordecai y los Rigby's</h4>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL DE CINE -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(idVideo) {
+            const frame = document.getElementById('videoFrame');
+            frame.src = "https://drive.google.com/file/d/" + idVideo + "/preview";
+            document.getElementById('videoModal').style.display = "block";
+            document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
+        }
+
+        function cerrarModal() {
+            const frame = document.getElementById('videoFrame');
+            document.getElementById('videoModal').style.display = "none";
+            frame.src = ""; // Corta el video al cerrar
+            document.body.style.overflow = "auto"; // Libera el scroll
+        }
+    </script>
 </body>
 </html>
