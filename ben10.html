@@ -9,52 +9,50 @@
             --verde-ben: #a2ff00;
             --negro-fondo: #050505;
             --gris-tarjeta: #121212;
+            --celeste-logo: #00d4ff; /* El color de ElParque26 */
         }
         body {
             margin: 0;
             background-color: var(--negro-fondo);
             color: white;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR OFICIAL ELPARQUE26 --- */
         .navbar {
-            position: absolute;
-            top: 0;
-            left: 0;
+            background-color: var(--negro-fondo); /* Fondo negro sólido */
             width: 100%;
             padding: 20px 40px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 10;
         }
         .logo-nav {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 900;
             color: white;
             text-decoration: none;
-            letter-spacing: 2px;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 1px;
         }
-        .logo-nav span { color: var(--verde-ben); }
+        .logo-nav span { 
+            color: var(--celeste-logo); /* El celeste de tu logo original */
+        }
         .btn-volver-nav {
             color: white;
             text-decoration: none;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 8px 20px;
-            border-radius: 20px;
-            transition: 0.3s;
+            font-size: 0.8rem;
+            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
         .btn-volver-nav:hover {
-            border-color: var(--verde-ben);
-            color: var(--verde-ben);
-            background-color: rgba(162, 255, 0, 0.1);
+            color: gray;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER Y BANNER --- */
         .hero-ben {
             height: 50vh;
             background: linear-gradient(to top, var(--negro-fondo), transparent), 
@@ -111,9 +109,10 @@
 </head>
 <body>
 
+    <!-- NAVBAR PRO ESTILO JIM -->
     <nav class="navbar">
-        <a href="index.html" class="logo-nav">ELPARQUE<span>26</span></a>
-        <a href="index.html" class="btn-volver-nav">Volver al Inicio</a>
+        <a href="index.html" class="logo-nav">EL<span>PARQUE</span>26</a>
+        <a href="index.html" class="btn-volver-nav">← VOLVER AL INICIO</a>
     </nav>
 
     <header class="hero-ben">
