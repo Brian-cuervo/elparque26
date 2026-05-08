@@ -45,6 +45,59 @@
             background-color: var(--verde-ben);
             color: black;
             text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        .btn-ver:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
+        }
+
+        /* --- ESTILOS DEL REPRODUCTOR (CINE) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9); /* Fondo re oscuro */
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border: 2px solid var(--verde-ben);
+            box-shadow: 0 0 30px rgba(162, 255, 0, 0.5);
+            border-radius: 10px;
+        }
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .cerrar {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--verde-ben);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover {
+            color: white;
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -60,71 +113,96 @@
             
             <div class="card-episodio">
                 <h3>1. Y fueron diez</h3>
-                <a href="https://drive.google.com/file/d/1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>2. Aprendiendo a ser héroe</h3>
-                <a href="https://drive.google.com/file/d/1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>3. El Krakken</h3>
-                <a href="https://drive.google.com/file/d/1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>4. Jubilados con actitud</h3>
-                <a href="https://drive.google.com/file/d/1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>5. Perseguido</h3>
-                <a href="https://drive.google.com/file/d/1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>6. Trampa para turistas</h3>
-                <a href="https://drive.google.com/file/d/145yQGy1PamYGRNs5NMFLCqsvtq9iviiN/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('145yQGy1PamYGRNs5NMFLCqsvtq9iviiN')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>7. Kevin 11</h3>
-                <a href="https://drive.google.com/file/d/1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>8. La Alianza</h3>
-                <a href="https://drive.google.com/file/d/1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>9. El último en reír</h3>
-                <a href="https://drive.google.com/file/d/13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>10. La chica de la suerte</h3>
-                <a href="https://drive.google.com/file/d/18RR9h942rHEZFfSOR73VHUBnZdNqxKQh/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('18RR9h942rHEZFfSOR73VHUBnZdNqxKQh')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>11. Un pequeño problema</h3>
-                <a href="https://drive.google.com/file/d/1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>12. Efectos secundarios</h3>
-                <a href="https://drive.google.com/file/d/16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
             <div class="card-episodio">
                 <h3>13. Los secretos</h3>
-                <a href="https://drive.google.com/file/d/1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x/preview" target="_blank" class="btn-ver">▶ VER ONLINE</a>
+                <button onclick="abrirModal('1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x')" class="btn-ver">▶ VER ONLINE</button>
             </div>
 
         </div>
     </div>
+
+    <!-- EL REPRODUCTOR OCULTO -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">×</span>
+            <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- LOS SCRIPTS PARA QUE FUNCIONE -->
+    <script>
+        function abrirModal(idVideo) {
+            // Le metemos el ID de Drive al iframe
+            document.getElementById('videoFrame').src = "https://drive.google.com/file/d/" + idVideo + "/preview";
+            // Mostramos la pantalla negra gigante
+            document.getElementById('videoModal').style.display = "block";
+        }
+
+        function cerrarModal() {
+            // Ocultamos la pantalla negra
+            document.getElementById('videoModal').style.display = "none";
+            // Le borramos el link al iframe para que se corte el sonido del video
+            document.getElementById('videoFrame').src = "";
+        }
+    </script>
 
 </body>
 </html>
