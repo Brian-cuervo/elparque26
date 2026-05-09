@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortos | Gravity Falls | ElParque26</title>
+    <style>
+        :root {
+            --amarillo-gf: #f1c40f;
+            --cian-dipper: #00c3ff;
+            --negro-fondo: #0a0b10;
+            --gris-tarjeta: #1a1c23;
+        }
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background-color: rgba(10, 11, 16, 0.9);
+            border-bottom: 1px solid #222;
+        }
+        .logo a {
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+        }
+        .logo span { color: var(--cian-dipper); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover { color: var(--amarillo-gf); }
+
+        /* --- HERO BANNER --- */
+        .hero-hbo {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            background: url('banner_gf.png') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+        }
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--negro-fondo) 10%, rgba(10, 11, 16, 0.6) 40%, transparent 80%),
+                        linear-gradient(to top, var(--negro-fondo) 5%, transparent 40%);
+        }
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 40px 5%;
+            max-width: 700px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--cian-dipper); /* Cambiamos a cian para diferenciar los cortos */
+        }
+        .hero-meta {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            font-weight: bold;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-play-hbo:hover { transform: scale(1.05); background-color: #e0e0e0; }
+
+        /* --- LISTA DE EPISODIOS MINIMALISTA --- */
+        .seccion-episodios { padding: 40px 5%; }
+        .titulo-lista {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--cian-dipper);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+        .lista-episodios {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 800px;
+        }
+        .item-episodio {
+            background-color: var(--gris-tarjeta);
+            border-radius: 8px;
+            padding: 18px 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .item-episodio:hover {
+            transform: translateX(10px);
+            border-color: var(--cian-dipper);
+            background-color: #22252e;
+            box-shadow: -5px 5px 15px rgba(0, 195, 255, 0.1);
+        }
+        .ep-numero {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--amarillo-gf);
+            opacity: 0.7;
+            min-width: 40px;
+            text-align: right;
+        }
+        .ep-titulo {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: white;
+            margin: 0;
+        }
+
+        /* --- REPRODUCTOR MODAL (CINE DRIVE) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.98);
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 1000px;
+            background: #000;
+            border: 2px solid var(--cian-dipper);
+            border-radius: 12px;
+            overflow: visible;
+            box-shadow: 0 0 40px rgba(0, 195, 255, 0.4);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+            color-scheme: dark;
+        }
+        .cerrar {
+            position: absolute;
+            top: -45px; right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover { color: var(--cian-dipper); }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-hbo { height: 50vh; }
+            .item-episodio { padding: 15px; }
+            .ep-numero { font-size: 1.3rem; min-width: 30px; }
+            .ep-titulo { font-size: 0.95rem; }
+            .modal-content { width: 98%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="gravityfalls.html">⬅ VOLVER A TEMPORADAS</a></div>
+    </nav>
+
+    <div class="hero-hbo">
+        <div class="hero-gradient"></div>
+        <div class="hero-content-hbo">
+            <h1 class="hero-title">CORTOS</h1>
+            <div class="hero-meta">
+                <span>2013</span>
+                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-Y7</span>
+                <span>17 Episodios</span>
+            </div>
+            <p class="hero-desc">
+                Pequeños misterios, grandes locuras. Acompañá a Dipper en su guía de lo inexplicable, los consejos de vida de Mabel y los arreglos extraños de Soos en estos cortos especiales.
+            </p>
+            <button class="btn-play-hbo" onclick="abrirModal('10xJLfPBXOZ_rdP3JbXQQgo1onHTkFZZs')">▶ VER CORTO 1</button>
+        </div>
+    </div>
+
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Minisodios</h2>
+        <div class="lista-episodios">
+            
+            <div class="item-episodio" onclick="abrirModal('10xJLfPBXOZ_rdP3JbXQQgo1onHTkFZZs')">
+                <div class="ep-numero">1</div><h4 class="ep-titulo">Corto 1</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1Agh-bpLCz58dpt8Sq-zh_JcgDgZAD9cU')">
+                <div class="ep-numero">2</div><h4 class="ep-titulo">Corto 2</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1ztBccizoYLha49q7N27LaihcHMKJEIaj')">
+                <div class="ep-numero">3</div><h4 class="ep-titulo">Corto 3</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1EkpbPqk8AwwwA_0mG_Q8DVaL1PXrjqnj')">
+                <div class="ep-numero">4</div><h4 class="ep-titulo">Corto 4</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1FOXtQu9Ypp5djOR-r6GqXsngJMOf-izx')">
+                <div class="ep-numero">5</div><h4 class="ep-titulo">Corto 5</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1OJX3wbmQ8FuToxhvQ60fSr7R0ki_M7J8')">
+                <div class="ep-numero">6</div><h4 class="ep-titulo">Corto 6</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1Op-d9rlnl3jEjezQbW66kUQARfzgY5vq')">
+                <div class="ep-numero">7</div><h4 class="ep-titulo">Corto 7</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1fPg5xLnz9ZiZUjW_HtAxMxFgMtG8gWI4')">
+                <div class="ep-numero">8</div><h4 class="ep-titulo">Corto 8</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1v2O1mIndv6Z7qXOfENnmPewmrloGeNWh')">
+                <div class="ep-numero">9</div><h4 class="ep-titulo">Corto 9</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('16ZhyE8vBxW7_3WCVmIEOfM5ju7zHuG3f')">
+                <div class="ep-numero">10</div><h4 class="ep-titulo">Corto 10</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1KF5HLfFLXOcjX_FvDBDRqIUFsm4OQ_eN')">
+                <div class="ep-numero">11</div><h4 class="ep-titulo">Corto 11</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1gP4W0TGis6UTbIjsSp16wjOTZYGTiH_g')">
+                <div class="ep-numero">12</div><h4 class="ep-titulo">Corto 12</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1hAZce1TZl1Tjfa8K-u3p4at5T8ZcqYPK')">
+                <div class="ep-numero">13</div><h4 class="ep-titulo">Corto 13</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1ZofvZkE5q03LDRoV2rBDViZDHCV3dLt8')">
+                <div class="ep-numero">14</div><h4 class="ep-titulo">Corto 14</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1ou89I2f2Abyczw8GJ6nzj0XI6llquc_W')">
+                <div class="ep-numero">15</div><h4 class="ep-titulo">Corto 15</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1FgoZM24xtQM5ICV0GQJse6dq5E1A74Ii')">
+                <div class="ep-numero">16</div><h4 class="ep-titulo">Corto 16</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('1iK_2Qe3gCvUCMoZf7XVaIA0TFQP_49-C')">
+                <div class="ep-numero">17</div><h4 class="ep-titulo">Corto 17</h4>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL DE CINE (VERSIÓN DRIVE) -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(idVideo) {
+            const frame = document.getElementById('videoFrame');
+            // Enlace formateado para Google Drive
+            frame.src = "https://drive.google.com/file/d/" + idVideo + "/preview";
+            document.getElementById('videoModal').style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function cerrarModal() {
+            const frame = document.getElementById('videoFrame');
+            document.getElementById('videoModal').style.display = "none";
+            frame.src = ""; 
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+</body>
+</html>
