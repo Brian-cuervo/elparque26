@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporada 2 | Gravity Falls | ElParque26</title>
+    <style>
+        :root {
+            --amarillo-gf: #f1c40f;
+            --cian-dipper: #00c3ff;
+            --negro-fondo: #0a0b10;
+            --gris-tarjeta: #1a1c23;
+        }
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background-color: rgba(10, 11, 16, 0.9);
+            border-bottom: 1px solid #222;
+        }
+        .logo a {
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+        }
+        .logo span { color: var(--cian-dipper); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover { color: var(--amarillo-gf); }
+
+        /* --- HERO BANNER --- */
+        .hero-hbo {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            background: url('banner_gf.png') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+        }
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--negro-fondo) 10%, rgba(10, 11, 16, 0.6) 40%, transparent 80%),
+                        linear-gradient(to top, var(--negro-fondo) 5%, transparent 40%);
+        }
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 40px 5%;
+            max-width: 700px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--amarillo-gf);
+        }
+        .hero-meta {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            font-weight: bold;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-play-hbo:hover { transform: scale(1.05); background-color: #e0e0e0; }
+
+        /* --- LISTA DE EPISODIOS MINIMALISTA --- */
+        .seccion-episodios { padding: 40px 5%; }
+        .titulo-lista {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--amarillo-gf);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+        .lista-episodios {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 800px;
+        }
+        .item-episodio {
+            background-color: var(--gris-tarjeta);
+            border-radius: 8px;
+            padding: 18px 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .item-episodio:hover {
+            transform: translateX(10px);
+            border-color: var(--amarillo-gf);
+            background-color: #22252e;
+            box-shadow: -5px 5px 15px rgba(241, 196, 15, 0.1);
+        }
+        .ep-numero {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--cian-dipper);
+            opacity: 0.7;
+            min-width: 40px;
+            text-align: right;
+        }
+        .ep-titulo {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: white;
+            margin: 0;
+        }
+
+        /* --- REPRODUCTOR MODAL (CINE MEGA) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.98);
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 1000px;
+            background: #000;
+            border: 2px solid var(--amarillo-gf);
+            border-radius: 12px;
+            overflow: visible;
+            box-shadow: 0 0 40px rgba(241, 196, 15, 0.4);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .cerrar {
+            position: absolute;
+            top: -45px; right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover { color: var(--amarillo-gf); }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-hbo { height: 50vh; }
+            .item-episodio { padding: 15px; }
+            .ep-numero { font-size: 1.3rem; min-width: 30px; }
+            .ep-titulo { font-size: 0.95rem; }
+            .modal-content { width: 98%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="gravityfalls.html">⬅ VOLVER A TEMPORADAS</a></div>
+    </nav>
+
+    <div class="hero-hbo">
+        <div class="hero-gradient"></div>
+        <div class="hero-content-hbo">
+            <h1 class="hero-title">TEMPORADA 2</h1>
+            <div class="hero-meta">
+                <span>2014</span>
+                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-Y7</span>
+                <span>20 Episodios</span>
+            </div>
+            <p class="hero-desc">
+                Bill Cipher ha regresado y el misterio del autor de los diarios está a punto de revelarse. Dipper y Mabel enfrentan su mayor desafío mientras el Raromagedón se acerca a Gravity Falls.
+            </p>
+            <button class="btn-play-hbo" onclick="abrirModal('iDoS3Jia#CJF1wzQSQ6ZcItGbOtLM_8keIFplCdhVrYYYx6R1y3o')">▶ VER EPISODIO 1</button>
+        </div>
+    </div>
+
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Episodios</h2>
+        <div class="lista-episodios">
+            
+            <div class="item-episodio" onclick="abrirModal('iDoS3Jia#CJF1wzQSQ6ZcItGbOtLM_8keIFplCdhVrYYYx6R1y3o')">
+                <div class="ep-numero">1</div><h4 class="ep-titulo">Juego de Sombras</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('WSYlkY6S#772hBliedgnvrbz36fPcR3AISaPxy6aParUnasPmfYc')">
+                <div class="ep-numero">2</div><h4 class="ep-titulo">Visita al Refugio</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('fbYl1I5b#WsjsOgxdxO-yc8RC9I5GGvTq3FH9i4O7uwNiT6G1nno')">
+                <div class="ep-numero">3</div><h4 class="ep-titulo">La Guerra del Golf</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('PfBwTKbS#DklFJOaMr7IfYLHtDVbfuhFbut5k2WGfuZq8EYxU_ug')">
+                <div class="ep-numero">4</div><h4 class="ep-titulo">Teatro de Calcetines</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('XTQz0J4a#SJ6jSXkqob3j3sq-ux6mrxi_gJdZ00mUvzlHfsJwQno')">
+                <div class="ep-numero">5</div><h4 class="ep-titulo">Soos y la Chica de Verdad</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('HTwWkKzK#leF9z5gzflEIf1vZUoY6PYk-6mqYGWhC99W3eRbbOM4')">
+                <div class="ep-numero">6</div><h4 class="ep-titulo">La Tienda de Regalos de los Horrores</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('bfIyFKhT#iZPyorDWdNPcpV6_LC45CwsHYCOWsj9yEVHo3ksDxmk')">
+                <div class="ep-numero">7</div><h4 class="ep-titulo">La Sociedad del Ojo Ciego</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('COAkgbjL#OFS1WcKpFYfLIvS5UHxmewA_8g3W6nbFn2PQn_1MPWs')">
+                <div class="ep-numero">8</div><h4 class="ep-titulo">El Juego de Blendin</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('KHI1ALqZ#BFxx_0jgsO9wTCFdMRqNjeZB_uoNiBM1GAEOIYVNK98')">
+                <div class="ep-numero">9</div><h4 class="ep-titulo">Cupido</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('SbRBzT6C#4Omo2RWuW7DqITKof2CmhitcAdoWn6sk2JxOeuh4QgY')">
+                <div class="ep-numero">10</div><h4 class="ep-titulo">El Misterio de la Mansión Northwest</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('2W4FnDZQ#6EGOA2Or30i8MURNJykaIP5mFpyMDi4InJmgiVqDK0o')">
+                <div class="ep-numero">11</div><h4 class="ep-titulo">No es lo que Parece</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('Deol3AYA#xU5LPxuqdjCGHNnzdDQ5Lm_ZEWHMzDdmkQTpSfVTIMk')">
+                <div class="ep-numero">12</div><h4 class="ep-titulo">Historia de dos Stans</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('zPBHXDqK#kxOUTIfZTH6H09A_lUnOFow39y5eHBaWXW161qJomBY')">
+                <div class="ep-numero">13</div><h4 class="ep-titulo">Calabozos, Calabozos y más Calabozos</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('WPhxCazQ#drnOvICna71Pren0xLt7AhgBUjnlFh0I5Ei-mdZ4NcQ')">
+                <div class="ep-numero">14</div><h4 class="ep-titulo">El Candidato</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('aKojCYZA#6nOSLOXDFrbR6jCNNOXX0KCPpqmUVEakpaOFiaBx0Ws')">
+                <div class="ep-numero">15</div><h4 class="ep-titulo">El Último Mabelcornio</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('TD412ILT#cHvgCnGQfX_DXqlsmcJPT9NNmYkwmu-FVP3O9hCYqbY')">
+                <div class="ep-numero">16</div><h4 class="ep-titulo">Atracción por la Carretera</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('Wfh3GIDR#hVKohRBuPVvN1XJvBX-1IBJuADedu51RcjMd2j4cTp0')">
+                <div class="ep-numero">17</div><h4 class="ep-titulo">Dipper y Mabel contra el Futuro</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('fPhQHDoR#yGsOxfx-rAhwylxDjzaiyseO_fCsRSCK8nvkS4R08x0')">
+                <div class="ep-numero">18</div><h4 class="ep-titulo">Raromagedón: Parte 1</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('mXB3TJRD#-8EuncBgLu8z0JVwqCqLoYF4uyIl0Ysm-DuUj_SyRqQ')">
+                <div class="ep-numero">19</div><h4 class="ep-titulo">Raromagedón 2: Escapando de la Realidad</h4>
+            </div>
+            <div class="item-episodio" onclick="abrirModal('uTQX3JCT#MqnwHex5GGd_sheiKHWqRo4B8pPVu-ClozXkShRgF7o')">
+                <div class="ep-numero">20</div><h4 class="ep-titulo">Raromagedón 3: Recuperar Gravity Falls</h4>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(idVideo) {
+            const frame = document.getElementById('videoFrame');
+            frame.src = "https://mega.nz/embed/" + idVideo;
+            document.getElementById('videoModal').style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function cerrarModal() {
+            const frame = document.getElementById('videoFrame');
+            document.getElementById('videoModal').style.display = "none";
+            frame.src = ""; 
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+</body>
+</html>
