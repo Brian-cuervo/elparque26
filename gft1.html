@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporada 1 | Gravity Falls | ElParque26</title>
+    <style>
+        :root {
+            --amarillo-gf: #f1c40f;
+            --cian-dipper: #00c3ff;
+            --negro-fondo: #0a0b10;
+            --gris-tarjeta: #1a1c23;
+        }
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background-color: rgba(10, 11, 16, 0.9);
+            border-bottom: 1px solid #222;
+        }
+        .logo a {
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+        }
+        .logo span { color: var(--cian-dipper); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover { color: var(--amarillo-gf); }
+
+        /* --- HERO BANNER --- */
+        .hero-hbo {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            /* Subí un banner para la T1 si querés, o usa el general */
+            background: url('banner_gf.png') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+        }
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--negro-fondo) 10%, rgba(10, 11, 16, 0.6) 40%, transparent 80%),
+                        linear-gradient(to top, var(--negro-fondo) 5%, transparent 40%);
+        }
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 40px 5%;
+            max-width: 700px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--amarillo-gf);
+        }
+        .hero-meta {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            font-weight: bold;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-play-hbo:hover { transform: scale(1.05); background-color: #e0e0e0; }
+
+        /* --- GRILLA DE EPISODIOS --- */
+        .seccion-episodios { padding: 40px 5%; }
+        .titulo-lista {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--amarillo-gf);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+        .movie-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .card-mini {
+            background-color: var(--gris-tarjeta);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+        .card-mini:hover {
+            transform: translateY(-5px);
+            border-color: var(--amarillo-gf);
+            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+        }
+        .thumb { position: relative; height: 130px; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.3s; }
+        .card-mini:hover img { filter: brightness(0.4); }
+        .card-mini h4 {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            text-align: center;
+            margin: 0;
+            font-size: 0.9rem;
+            text-shadow: 2px 2px 4px #000;
+            pointer-events: none;
+        }
+
+        /* --- REPRODUCTOR MODAL (CINE MEGA) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.98);
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 1000px;
+            background: #000;
+            border: 2px solid var(--amarillo-gf);
+            border-radius: 12px;
+            overflow: visible;
+            box-shadow: 0 0 40px rgba(241, 196, 15, 0.4);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: -45px; right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover { color: var(--amarillo-gf); }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-hbo { height: 50vh; }
+            .movie-carousel { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .thumb { height: 100px; }
+            .modal-content { width: 98%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="gravityfalls.html">⬅ VOLVER A TEMPORADAS</a></div>
+    </nav>
+
+    <div class="hero-hbo">
+        <div class="hero-gradient"></div>
+        <div class="hero-content-hbo">
+            <h1 class="hero-title">TEMPORADA 1</h1>
+            <div class="hero-meta">
+                <span>2012</span>
+                <span style="border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">TV-Y7</span>
+                <span>20 Episodios</span>
+            </div>
+            <p class="hero-desc">
+                El verano de Dipper y Mabel apenas comienza. Entre gnomos, monstruos marinos y un misterioso diario número 3, Gravity Falls esconde mucho más de lo que aparenta.
+            </p>
+            <button class="btn-play-hbo" onclick="abrirModal('mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')">▶ VER EPISODIO 1</button>
+        </div>
+    </div>
+
+    <section class="seccion-episodios">
+        <h2 class="titulo-lista">Episodios</h2>
+        <div class="movie-carousel">
+            
+            <!-- EPISODIOS 1 AL 20 -->
+            <div class="card-mini" onclick="abrirModal('mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')">
+                <div class="thumb"><img src="gft1_1.jpg"><h4>1. Turista Atrapado</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('iSQS1DbA#4SSmt7APU9rZw1b6Jofr28B6iXD9AaGP4gRrG0ork-I')">
+                <div class="thumb"><img src="gft1_2.jpg"><h4>2. El Monstruo del Lago</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('COoTkAJR#tM91qcrFeFEIPGFHepXOQYokbCCLOBkgvHgeAD8igzg')">
+                <div class="thumb"><img src="gft1_3.jpg"><h4>3. Cazadores de Cabezas</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('6LowXSTZ#v-hS51Cr_PqO8rqgUqk71v0tlRXx7J7ftXUX2Nabxeg')">
+                <div class="thumb"><img src="gft1_4.jpg"><h4>4. Dipper y los Clones</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('OD4xWA5A#mkS6XV-vCiU-svApGcDekBRvgP366dnZGrqNrJnWlO8')">
+                <div class="thumb"><img src="gft1_5.jpg"><h4>5. La Tienda Embrujada</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('SS4xwA4D#ShlmXJMbZ4ijkwqsLX0dO3xWjneSs3hcW-wmeQ8HsoM')">
+                <div class="thumb"><img src="gft1_6.jpg"><h4>6. Dipper vs. Hombría</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('XCJTjCqA#48j83okwKxEtNMEX1gsFBuotb5OQtIQJK4AOLdMaoBk')">
+                <div class="thumb"><img src="gft1_7.jpg"><h4>7. Doble Dipper</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('DSh2XTLQ#sy5tmWXYS3hMBPqtdC6Xz8m6ht4DoJO9Rw9Er-6e6VM')">
+                <div class="thumb"><img src="gft1_8.jpg"><h4>8. Tesoro Irracional</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('rDwiFAJA#k-lJag7LbwCybvca5nhiEtLTIhdrak0MTlmkICspc0Q')">
+                <div class="thumb"><img src="gft1_9.jpg"><h4>9. El Cerdito del Viajero</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('3Pp1zD4Q#9nKmOmzbyWTS8xvS89HQD6uNe4_ZT-k37HqKPnBuWMw')">
+                <div class="thumb"><img src="gft1_10.jpg"><h4>10. Peleas de Luchadores</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('WDZAjbiZ#lnCrZ3OhbzRkUQSllakHdh1wmiqCPvvEfvuEvAJcavY')">
+                <div class="thumb"><img src="gft1_11.jpg"><h4>11. Pequeño Dipper</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('PCIHyb7K#Q-tfXzbf_tBG8fklCAUiy3LN2CRQWI4cLk0A_TiphWk')">
+                <div class="thumb"><img src="gft1_12.jpg"><h4>12. Súper Halloween</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('TLYDiQJZ#1Feul8YpV0Yd9yLNFdc5bIVr7hP7p0YvJ26r3graL5s')">
+                <div class="thumb"><img src="gft1_13.jpg"><h4>13. La Jefa Mabel</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('rWY2GDbS#qg9vcFPgsGs2jRMhA-UVIW6Dd7uMzFYqYcsf1iMPi-E')">
+                <div class="thumb"><img src="gft1_14.jpg"><h4>14. Pozo Sin Fondo</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('vKpAgLjI#fk_YSuuWLxM573kbdncs4vxk_OOnbfVysorJ3p42vWM')">
+                <div class="thumb"><img src="gft1_15.jpg"><h4>15. En lo Profundo</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('XHJjBDaT#or1l8XnrAWDFaUlC-_TwsY5hLQygZxxi79VQknaC2aY')">
+                <div class="thumb"><img src="gft1_16.jpg"><h4>16. Cambiando de Cuerpo</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('DGRDhT4L#tDXoBYd5cGpTgqjzEzvgTpsOd_B3FKXu9fCLR8XsMhU')">
+                <div class="thumb"><img src="gft1_17.jpg"><h4>17. Chicos Locos</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('vDJnXCLB#7fEMCyv0UtIdjirzJKobcRf5_5UCBdrsp4JnTktINKk')">
+                <div class="thumb"><img src="gft1_18.jpg"><h4>18. Aprovecha a la Adolecente</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('jCZhkSYD#FgnAAuWwom3_M3XWvAFU_7tAPj5VQ4Q8dmo9QZzpOVs')">
+                <div class="thumb"><img src="gft1_19.jpg"><h4>19. Escapa de los Sueños</h4></div>
+            </div>
+            <div class="card-mini" onclick="abrirModal('jeplxLTK#-TlddhV9GfonfI17tkR3zjaAN8VwC5MK7WWTO9vUTiA')">
+                <div class="thumb"><img src="gft1_20.jpg"><h4>20. Gedeón se Levanta</h4></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL DE CINE -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(idVideo) {
+            const frame = document.getElementById('videoFrame');
+            // Acá armamos el link especial de MEGA
+            frame.src = "https://mega.nz/embed/" + idVideo;
+            document.getElementById('videoModal').style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function cerrarModal() {
+            const frame = document.getElementById('videoFrame');
+            document.getElementById('videoModal').style.display = "none";
+            frame.src = ""; 
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+</body>
+</html>
