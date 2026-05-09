@@ -50,7 +50,6 @@
             position: relative;
             width: 100%;
             height: 60vh;
-            /* Subí un banner para la T1 si querés, o usa el general */
             background: url('banner_gf.png') center/cover no-repeat;
             display: flex;
             align-items: flex-end;
@@ -101,7 +100,7 @@
         }
         .btn-play-hbo:hover { transform: scale(1.05); background-color: #e0e0e0; }
 
-        /* --- GRILLA DE EPISODIOS --- */
+        /* --- LISTA DE EPISODIOS MINIMALISTA (SIN IMÁGENES) --- */
         .seccion-episodios { padding: 40px 5%; }
         .titulo-lista {
             font-size: 1.5rem;
@@ -110,37 +109,42 @@
             padding-left: 15px;
             text-transform: uppercase;
         }
-        .movie-carousel {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+        .lista-episodios {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 800px; /* Limitamos el ancho para que no se estiren demasiado en PC */
         }
-        .card-mini {
+        .item-episodio {
             background-color: var(--gris-tarjeta);
             border-radius: 8px;
-            overflow: hidden;
+            padding: 20px 25px;
             cursor: pointer;
             transition: 0.3s;
             border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
-        .card-mini:hover {
-            transform: translateY(-5px);
+        .item-episodio:hover {
+            transform: translateX(10px); /* Efecto de moverse un poquito a la derecha */
             border-color: var(--amarillo-gf);
-            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+            background-color: #22252e;
+            box-shadow: -5px 5px 15px rgba(241, 196, 15, 0.1);
         }
-        .thumb { position: relative; height: 130px; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: 0.3s; }
-        .card-mini:hover img { filter: brightness(0.4); }
-        .card-mini h4 {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            text-align: center;
+        .ep-numero {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--cian-dipper);
+            opacity: 0.7;
+            min-width: 40px; /* Para que todos los números ocupen el mismo espacio */
+            text-align: right;
+        }
+        .ep-titulo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
             margin: 0;
-            font-size: 0.9rem;
-            text-shadow: 2px 2px 4px #000;
-            pointer-events: none;
         }
 
         /* --- REPRODUCTOR MODAL (CINE MEGA) --- */
@@ -195,8 +199,9 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .hero-hbo { height: 50vh; }
-            .movie-carousel { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .thumb { height: 100px; }
+            .item-episodio { padding: 15px; }
+            .ep-numero { font-size: 1.4rem; min-width: 30px; }
+            .ep-titulo { font-size: 1rem; }
             .modal-content { width: 98%; }
         }
     </style>
@@ -226,68 +231,87 @@
 
     <section class="seccion-episodios">
         <h2 class="titulo-lista">Episodios</h2>
-        <div class="movie-carousel">
+        <div class="lista-episodios">
             
-            <!-- EPISODIOS 1 AL 20 -->
-            <div class="card-mini" onclick="abrirModal('mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')">
-                <div class="thumb"><img src="gft1_1.jpg"><h4>1. Turista Atrapado</h4></div>
+            <div class="item-episodio" onclick="abrirModal('mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')">
+                <div class="ep-numero">1</div>
+                <h4 class="ep-titulo">Turista Atrapado</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('iSQS1DbA#4SSmt7APU9rZw1b6Jofr28B6iXD9AaGP4gRrG0ork-I')">
-                <div class="thumb"><img src="gft1_2.jpg"><h4>2. El Monstruo del Lago</h4></div>
+            <div class="item-episodio" onclick="abrirModal('iSQS1DbA#4SSmt7APU9rZw1b6Jofr28B6iXD9AaGP4gRrG0ork-I')">
+                <div class="ep-numero">2</div>
+                <h4 class="ep-titulo">El Monstruo del Lago</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('COoTkAJR#tM91qcrFeFEIPGFHepXOQYokbCCLOBkgvHgeAD8igzg')">
-                <div class="thumb"><img src="gft1_3.jpg"><h4>3. Cazadores de Cabezas</h4></div>
+            <div class="item-episodio" onclick="abrirModal('COoTkAJR#tM91qcrFeFEIPGFHepXOQYokbCCLOBkgvHgeAD8igzg')">
+                <div class="ep-numero">3</div>
+                <h4 class="ep-titulo">Cazadores de Cabezas</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('6LowXSTZ#v-hS51Cr_PqO8rqgUqk71v0tlRXx7J7ftXUX2Nabxeg')">
-                <div class="thumb"><img src="gft1_4.jpg"><h4>4. Dipper y los Clones</h4></div>
+            <div class="item-episodio" onclick="abrirModal('6LowXSTZ#v-hS51Cr_PqO8rqgUqk71v0tlRXx7J7ftXUX2Nabxeg')">
+                <div class="ep-numero">4</div>
+                <h4 class="ep-titulo">Dipper y los Clones</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('OD4xWA5A#mkS6XV-vCiU-svApGcDekBRvgP366dnZGrqNrJnWlO8')">
-                <div class="thumb"><img src="gft1_5.jpg"><h4>5. La Tienda Embrujada</h4></div>
+            <div class="item-episodio" onclick="abrirModal('OD4xWA5A#mkS6XV-vCiU-svApGcDekBRvgP366dnZGrqNrJnWlO8')">
+                <div class="ep-numero">5</div>
+                <h4 class="ep-titulo">La Tienda Embrujada</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('SS4xwA4D#ShlmXJMbZ4ijkwqsLX0dO3xWjneSs3hcW-wmeQ8HsoM')">
-                <div class="thumb"><img src="gft1_6.jpg"><h4>6. Dipper vs. Hombría</h4></div>
+            <div class="item-episodio" onclick="abrirModal('SS4xwA4D#ShlmXJMbZ4ijkwqsLX0dO3xWjneSs3hcW-wmeQ8HsoM')">
+                <div class="ep-numero">6</div>
+                <h4 class="ep-titulo">Dipper vs. Hombría</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('XCJTjCqA#48j83okwKxEtNMEX1gsFBuotb5OQtIQJK4AOLdMaoBk')">
-                <div class="thumb"><img src="gft1_7.jpg"><h4>7. Doble Dipper</h4></div>
+            <div class="item-episodio" onclick="abrirModal('XCJTjCqA#48j83okwKxEtNMEX1gsFBuotb5OQtIQJK4AOLdMaoBk')">
+                <div class="ep-numero">7</div>
+                <h4 class="ep-titulo">Doble Dipper</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('DSh2XTLQ#sy5tmWXYS3hMBPqtdC6Xz8m6ht4DoJO9Rw9Er-6e6VM')">
-                <div class="thumb"><img src="gft1_8.jpg"><h4>8. Tesoro Irracional</h4></div>
+            <div class="item-episodio" onclick="abrirModal('DSh2XTLQ#sy5tmWXYS3hMBPqtdC6Xz8m6ht4DoJO9Rw9Er-6e6VM')">
+                <div class="ep-numero">8</div>
+                <h4 class="ep-titulo">Tesoro Irracional</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('rDwiFAJA#k-lJag7LbwCybvca5nhiEtLTIhdrak0MTlmkICspc0Q')">
-                <div class="thumb"><img src="gft1_9.jpg"><h4>9. El Cerdito del Viajero</h4></div>
+            <div class="item-episodio" onclick="abrirModal('rDwiFAJA#k-lJag7LbwCybvca5nhiEtLTIhdrak0MTlmkICspc0Q')">
+                <div class="ep-numero">9</div>
+                <h4 class="ep-titulo">El Cerdito del Viajero</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('3Pp1zD4Q#9nKmOmzbyWTS8xvS89HQD6uNe4_ZT-k37HqKPnBuWMw')">
-                <div class="thumb"><img src="gft1_10.jpg"><h4>10. Peleas de Luchadores</h4></div>
+            <div class="item-episodio" onclick="abrirModal('3Pp1zD4Q#9nKmOmzbyWTS8xvS89HQD6uNe4_ZT-k37HqKPnBuWMw')">
+                <div class="ep-numero">10</div>
+                <h4 class="ep-titulo">Peleas de Luchadores</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('WDZAjbiZ#lnCrZ3OhbzRkUQSllakHdh1wmiqCPvvEfvuEvAJcavY')">
-                <div class="thumb"><img src="gft1_11.jpg"><h4>11. Pequeño Dipper</h4></div>
+            <div class="item-episodio" onclick="abrirModal('WDZAjbiZ#lnCrZ3OhbzRkUQSllakHdh1wmiqCPvvEfvuEvAJcavY')">
+                <div class="ep-numero">11</div>
+                <h4 class="ep-titulo">Pequeño Dipper</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('PCIHyb7K#Q-tfXzbf_tBG8fklCAUiy3LN2CRQWI4cLk0A_TiphWk')">
-                <div class="thumb"><img src="gft1_12.jpg"><h4>12. Súper Halloween</h4></div>
+            <div class="item-episodio" onclick="abrirModal('PCIHyb7K#Q-tfXzbf_tBG8fklCAUiy3LN2CRQWI4cLk0A_TiphWk')">
+                <div class="ep-numero">12</div>
+                <h4 class="ep-titulo">Súper Halloween</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('TLYDiQJZ#1Feul8YpV0Yd9yLNFdc5bIVr7hP7p0YvJ26r3graL5s')">
-                <div class="thumb"><img src="gft1_13.jpg"><h4>13. La Jefa Mabel</h4></div>
+            <div class="item-episodio" onclick="abrirModal('TLYDiQJZ#1Feul8YpV0Yd9yLNFdc5bIVr7hP7p0YvJ26r3graL5s')">
+                <div class="ep-numero">13</div>
+                <h4 class="ep-titulo">La Jefa Mabel</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('rWY2GDbS#qg9vcFPgsGs2jRMhA-UVIW6Dd7uMzFYqYcsf1iMPi-E')">
-                <div class="thumb"><img src="gft1_14.jpg"><h4>14. Pozo Sin Fondo</h4></div>
+            <div class="item-episodio" onclick="abrirModal('rWY2GDbS#qg9vcFPgsGs2jRMhA-UVIW6Dd7uMzFYqYcsf1iMPi-E')">
+                <div class="ep-numero">14</div>
+                <h4 class="ep-titulo">Pozo Sin Fondo</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('vKpAgLjI#fk_YSuuWLxM573kbdncs4vxk_OOnbfVysorJ3p42vWM')">
-                <div class="thumb"><img src="gft1_15.jpg"><h4>15. En lo Profundo</h4></div>
+            <div class="item-episodio" onclick="abrirModal('vKpAgLjI#fk_YSuuWLxM573kbdncs4vxk_OOnbfVysorJ3p42vWM')">
+                <div class="ep-numero">15</div>
+                <h4 class="ep-titulo">En lo Profundo</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('XHJjBDaT#or1l8XnrAWDFaUlC-_TwsY5hLQygZxxi79VQknaC2aY')">
-                <div class="thumb"><img src="gft1_16.jpg"><h4>16. Cambiando de Cuerpo</h4></div>
+            <div class="item-episodio" onclick="abrirModal('XHJjBDaT#or1l8XnrAWDFaUlC-_TwsY5hLQygZxxi79VQknaC2aY')">
+                <div class="ep-numero">16</div>
+                <h4 class="ep-titulo">Cambiando de Cuerpo</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('DGRDhT4L#tDXoBYd5cGpTgqjzEzvgTpsOd_B3FKXu9fCLR8XsMhU')">
-                <div class="thumb"><img src="gft1_17.jpg"><h4>17. Chicos Locos</h4></div>
+            <div class="item-episodio" onclick="abrirModal('DGRDhT4L#tDXoBYd5cGpTgqjzEzvgTpsOd_B3FKXu9fCLR8XsMhU')">
+                <div class="ep-numero">17</div>
+                <h4 class="ep-titulo">Chicos Locos</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('vDJnXCLB#7fEMCyv0UtIdjirzJKobcRf5_5UCBdrsp4JnTktINKk')">
-                <div class="thumb"><img src="gft1_18.jpg"><h4>18. Aprovecha a la Adolecente</h4></div>
+            <div class="item-episodio" onclick="abrirModal('vDJnXCLB#7fEMCyv0UtIdjirzJKobcRf5_5UCBdrsp4JnTktINKk')">
+                <div class="ep-numero">18</div>
+                <h4 class="ep-titulo">Aprovecha a la Adolecente</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('jCZhkSYD#FgnAAuWwom3_M3XWvAFU_7tAPj5VQ4Q8dmo9QZzpOVs')">
-                <div class="thumb"><img src="gft1_19.jpg"><h4>19. Escapa de los Sueños</h4></div>
+            <div class="item-episodio" onclick="abrirModal('jCZhkSYD#FgnAAuWwom3_M3XWvAFU_7tAPj5VQ4Q8dmo9QZzpOVs')">
+                <div class="ep-numero">19</div>
+                <h4 class="ep-titulo">Escapa de los Sueños</h4>
             </div>
-            <div class="card-mini" onclick="abrirModal('jeplxLTK#-TlddhV9GfonfI17tkR3zjaAN8VwC5MK7WWTO9vUTiA')">
-                <div class="thumb"><img src="gft1_20.jpg"><h4>20. Gedeón se Levanta</h4></div>
+            <div class="item-episodio" onclick="abrirModal('jeplxLTK#-TlddhV9GfonfI17tkR3zjaAN8VwC5MK7WWTO9vUTiA')">
+                <div class="ep-numero">20</div>
+                <h4 class="ep-titulo">Gedeón se Levanta</h4>
             </div>
 
         </div>
@@ -306,7 +330,6 @@
     <script>
         function abrirModal(idVideo) {
             const frame = document.getElementById('videoFrame');
-            // Acá armamos el link especial de MEGA
             frame.src = "https://mega.nz/embed/" + idVideo;
             document.getElementById('videoModal').style.display = "block";
             document.body.style.overflow = "hidden";
@@ -328,3 +351,4 @@
     </script>
 </body>
 </html>
+
