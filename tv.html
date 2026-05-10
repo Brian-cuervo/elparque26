@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV en Vivo | ElParque26</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <style>
+        :root {
+            --azul-sitio: #00c3ff;
+            --negro-fondo: #0a0b10;
+        }
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Para que la TV ocupe toda la pantalla sin scroll */
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background-color: rgba(10, 11, 16, 0.9);
+            border-bottom: 1px solid #222;
+            position: absolute;
+            width: 90%;
+            z-index: 1000;
+        }
+        .logo a {
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+        }
+        .logo span { color: var(--azul-sitio); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover { color: var(--azul-sitio); }
+
+        /* --- CONTENEDOR DE LA TV --- */
+        .tv-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background: radial-gradient(circle at center, #1a1c23 0%, var(--negro-fondo) 100%);
+        }
+
+        .tv-marco {
+            width: 90%;
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            background: black;
+            border: 4px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(0, 195, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Etiqueta de EN VIVO */
+        .badge-live {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: red;
+            color: white;
+            padding: 5px 12px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            z-index: 10;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px red;
+            animation: titilar 2s infinite;
+        }
+
+        @keyframes titilar {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Reproductor de Video */
+        #video-player {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .tv-marco {
+                width: 100%;
+                border-radius: 0;
+                border: none;
+                border-top: 2px solid #333;
+                border-bottom: 2px solid #333;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">⬅ VOLVER AL INICIO</a></div>
+    </nav>
+
+    <div class="tv-container">
+        <div class="tv-marco">
+            <div class="badge-live">🔴 EN VIVO</div>
+            <video id="video-player" controls autoplay></video>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById('video-player');
+        
+        // ACÁ PONÉS EL LINK QUE ENCUENTRES (Tiene que terminar en .m3u8)
+        var videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'; 
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        }
+        // Soporte para Safari (que lee los m3u8 de forma nativa)
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
+
+</body>
+</html>
