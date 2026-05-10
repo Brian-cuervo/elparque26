@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV en Vivo | ElParque26</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     
     <style>
         :root {
@@ -28,6 +27,8 @@
             background-color: rgba(10, 11, 16, 0.9);
             border-bottom: 1px solid #222;
             position: absolute;
+            top: 0;
+            left: 0;
             width: 90%;
             z-index: 1000;
         }
@@ -85,6 +86,7 @@
             letter-spacing: 1px;
             box-shadow: 0 0 10px red;
             animation: titilar 2s infinite;
+            pointer-events: none; /* Para que el cartel no tape los clicks del video */
         }
 
         @keyframes titilar {
@@ -93,12 +95,11 @@
             100% { opacity: 1; }
         }
 
-        /* Reproductor de Video */
-        #video-player {
+        /* Reproductor de YouTube ocultando los bordes extra */
+        .tv-marco iframe {
             width: 100%;
             height: 100%;
-            background-color: black;
-            outline: none;
+            border: none;
         }
 
         @media (max-width: 768px) {
@@ -122,32 +123,9 @@
     <div class="tv-container">
         <div class="tv-marco">
             <div class="badge-live">🔴 EN VIVO</div>
-            <video id="video-player" controls autoplay></video>
+            <iframe src="https://www.youtube.com/embed/HJwbv1nCEJs?autoplay=1&live=1&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
-
-    <script>
-        var video = document.getElementById('video-player');
-        
-        // ACÁ PONÉS EL LINK QUE ENCUENTRES (Tiene que terminar en .m3u8)
-        var videoSrc = 'https://list.iptvcat.com/my_list/s/0561541493899aeb62565a2fb1e9dc65.m3u8';
-
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-        }
-        // Soporte para Safari (que lee los m3u8 de forma nativa)
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
-    </script>
 
 </body>
 </html>
