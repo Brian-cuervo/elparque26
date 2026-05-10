@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV en Vivo | ElParque26</title>
+    <title>TV Retro | ElParque26</title>
     
     <style>
         :root {
             --azul-sitio: #00c3ff;
             --negro-fondo: #0a0b10;
+            --gris-panel: #1a1c23;
         }
         body {
             margin: 0;
             background-color: var(--negro-fondo);
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Para que la TV ocupe toda la pantalla sin scroll */
+            overflow-x: hidden;
         }
 
         /* --- NAVBAR --- */
@@ -26,11 +27,6 @@
             padding: 20px 5%;
             background-color: rgba(10, 11, 16, 0.9);
             border-bottom: 1px solid #222;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 90%;
-            z-index: 1000;
         }
         .logo a {
             text-decoration: none; 
@@ -49,44 +45,43 @@
         }
         .nav-links a:hover { color: var(--azul-sitio); }
 
-        /* --- CONTENEDOR DE LA TV --- */
-        .tv-container {
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .tv-wrapper {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            width: 100vw;
-            background: radial-gradient(circle at center, #1a1c23 0%, var(--negro-fondo) 100%);
+            padding: 20px 5%;
         }
 
+        /* --- LA TELE --- */
         .tv-marco {
-            width: 90%;
-            max-width: 1100px;
+            width: 100%;
+            max-width: 900px;
             aspect-ratio: 16 / 9;
             background: black;
             border: 4px solid #333;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(0, 195, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 195, 255, 0.1);
             position: relative;
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
-        /* Etiqueta de EN VIVO */
         .badge-live {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background-color: red;
             color: white;
-            padding: 5px 12px;
+            padding: 5px 10px;
             font-weight: 900;
-            font-size: 0.9rem;
-            border-radius: 5px;
+            font-size: 0.8rem;
+            border-radius: 4px;
             z-index: 10;
             letter-spacing: 1px;
             box-shadow: 0 0 10px red;
             animation: titilar 2s infinite;
-            pointer-events: none; /* Para que el cartel no tape los clicks del video */
+            pointer-events: none;
         }
 
         @keyframes titilar {
@@ -95,21 +90,70 @@
             100% { opacity: 1; }
         }
 
-        /* Reproductor de YouTube ocultando los bordes extra */
-        .tv-marco iframe {
+        /* Reproductor nativo */
+        video {
             width: 100%;
             height: 100%;
-            border: none;
+            background-color: black;
+            outline: none;
+        }
+
+        /* --- GUÍA DE CANALES (ZAPPING) --- */
+        .panel-canales {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--gris-panel);
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #333;
+        }
+
+        .panel-titulo {
+            margin: 0 0 15px 0;
+            color: var(--azul-sitio);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .lista-canales {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .lista-canales::-webkit-scrollbar { height: 8px; }
+        .lista-canales::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
+        .btn-canal {
+            background-color: #222;
+            color: white;
+            border: 2px solid #444;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            white-space: nowrap;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-canal:hover, .btn-canal.activo {
+            background-color: var(--azul-sitio);
+            color: black;
+            border-color: var(--azul-sitio);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 195, 255, 0.3);
         }
 
         @media (max-width: 768px) {
-            .tv-marco {
-                width: 100%;
-                border-radius: 0;
-                border: none;
-                border-top: 2px solid #333;
-                border-bottom: 2px solid #333;
-            }
+            .tv-marco { border-radius: 0; border: none; border-top: 2px solid #333; border-bottom: 2px solid #333; }
+            .tv-wrapper { padding: 0 0 20px 0; }
+            .panel-canales { border-radius: 0; border-left: none; border-right: none; }
         }
     </style>
 </head>
@@ -120,12 +164,81 @@
         <div class="nav-links"><a href="index.html">⬅ VOLVER AL INICIO</a></div>
     </nav>
 
-    <div class="tv-container">
+    <div class="tv-wrapper">
         <div class="tv-marco">
             <div class="badge-live">🔴 EN VIVO</div>
-            <iframe src="https://www.youtube.com/embed/HJwbv1nCEJs?autoplay=1&live=1&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <video id="reproductor-tv" controls autoplay></video>
+        </div>
+
+        <div class="panel-canales">
+            <h3 class="panel-titulo">📡 Guía de Canales Retro</h3>
+            <div class="lista-canales">
+                <button class="btn-canal activo" onclick="cambiarCanal('mario', this)">
+                    🍄 Ch 1 - Mario Bros
+                </button>
+                <button class="btn-canal" onclick="cambiarCanal('donald', this)">
+                    🦆 Ch 2 - Pato Donald
+                </button>
+                <button class="btn-canal" onclick="cambiarCanal('mrbean', this)">
+                    🧸 Ch 3 - Mr. Bean
+                </button>
+            </div>
         </div>
     </div>
+
+    <script>
+        // ACÁ ADENTRO VAN TODOS LOS LINKS QUE ENCONTRASTE SEPARADOS POR COMAS Y ENTRE COMILLAS
+        const canales = {
+            mario: [
+                "https://archive.org/download/las-aventuras-de-los-super-hermanos-mario/Super%20Mario%20Bros%203%20-%2001%20-%20Reptiles%20En%20El%20Jard%C3%ADn%20De%20Las%20Rosas.mp4",
+                "https://archive.org/download/las-aventuras-de-los-super-hermanos-mario/Super%20Mario%20Bros%203%20-%2002%20-%20Los%20Tramposos%20Mentirosos%20Intrigantes%20Koopas%20Ninjas%20Gig.mp4",
+                "https://archive.org/download/las-aventuras-de-los-super-hermanos-mario/Super%20Mario%20Bros%203%20-%2003%20-%20Peque%C3%B1os%20Diablillos%20Viajan%20Por%20El%20Tiempo.mp4"
+            ],
+            donald: [
+                "https://archive.org/download/pato-donald_202301/Pato%20Donald%20-%20Abeja%20guardiana.MP4",
+                "https://archive.org/download/pato-donald_202301/Pato%20Donald%20-%20Arbol%20va.MP4",
+                "https://archive.org/download/pato-donald_202301/Pato%20Donald%20-%20Autocontrol.mp4"
+            ],
+            mrbean: [
+                "https://archive.org/download/mrbeanespanol/Ataque%20de%20rana_%20_%20Mr%20Bean%20Animado%20_%20Episodios%20Completos%20_%20Viva%20Mr%20Bean%28240P%29.mp4",
+                "https://archive.org/download/mrbeanespanol/Atrapado%20en%20el%20ascensor_%20_%20Mr%20Bean%20Animado%20_%20Episodios%20Completos%20_%20Viva%20Mr%20Bean%28240P%29.mp4"
+            ]
+        };
+
+        const reproductor = document.getElementById('reproductor-tv');
+        let canalActual = 'mario'; // El canal que arranca por defecto
+
+        // Función para elegir un capítulo al azar y reproducirlo
+        function reproducirEpisodioRandom() {
+            const lista = canales[canalActual];
+            const indiceRandom = Math.floor(Math.random() * lista.length); // Elige un número al azar
+            
+            reproductor.src = lista[indiceRandom];
+            reproductor.play();
+        }
+
+        // Función que se ejecuta cuando el usuario hace clic en un botón de canal
+        function cambiarCanal(nombreCanal, botonPresionado) {
+            canalActual = nombreCanal; // Actualizamos el canal
+            
+            // Pintar los botones
+            const botones = document.querySelectorAll('.btn-canal');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            botonPresionado.classList.add('activo');
+
+            // Cargar nueva transmisión
+            reproductor.pause();
+            reproducirEpisodioRandom();
+        }
+
+        // ¡EL DETALLE MÁS IMPORTANTE! 
+        // Cuando termina un video, arranca el siguiente solo
+        reproductor.addEventListener('ended', reproducirEpisodioRandom);
+
+        // Arrancamos la tele apenas entra a la página
+        window.onload = reproducirEpisodioRandom;
+
+    </script>
 
 </body>
 </html>
