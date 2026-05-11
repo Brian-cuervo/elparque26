@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Show Más: Las Cintas Perdidas | ElParque26</title>
+    
+    <style>
+        :root {
+            --azul-sitio: #00c3ff;
+            --negro-fondo: #0a0b10;
+            --gris-panel: #1a1c23;
+            --glow-cyan: 0 0 20px rgba(0, 195, 255, 0.4);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--negro-fondo);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 5%;
+            background-color: rgba(10, 11, 16, 0.95);
+            border-bottom: 2px solid var(--azul-sitio);
+            box-shadow: var(--glow-cyan);
+            position: relative;
+            z-index: 10;
+        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: bold; }
+        .logo span { color: var(--azul-sitio); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-banner {
+            width: 100%;
+            height: 60vh;
+            background-image: linear-gradient(to bottom, rgba(10,11,16,0) 50%, rgba(10,11,16,1) 100%), url('cintas_banner.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5% 5% 5%;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 0 var(--azul-sitio);
+            margin: 0;
+        }
+
+        /* --- DETALLE Y REPRODUCTOR --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 20px 5% 50px 5%;
+            align-items: start;
+        }
+
+        /* --- REPRODUCTOR (ESPERANDO SEÑAL) --- */
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: black;
+            border: 4px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- DETALLE LATERAL --- */
+        .details-panel {
+            background-color: var(--gris-panel);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .poster-wrapper {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #444;
+            box-shadow: var(--glow-cyan);
+            transition: 0.3s;
+        }
+        .poster-wrapper:hover { transform: scale(1.02); }
+        .poster-wrapper img { width: 100%; display: block; }
+
+        .info-header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .info-title { font-size: 1.2rem; color: var(--azul-sitio); margin: 0 0 5px 0; text-transform: uppercase; }
+        .info-subtitle { color: #aaa; font-size: 0.9rem; margin: 0; }
+
+        .info-synopsis { font-size: 0.9rem; color: #ccc; line-height: 1.6; margin: 0 0 20px 0; }
+
+        /* --- EXTRAS / TEMPORADAS --- */
+        .extras-section { padding: 0 5% 50px 5%; }
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .extra-card {
+            background: var(--gris-panel);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #333;
+            text-align: center;
+            transition: 0.3s;
+            cursor: not-allowed; 
+        }
+        .extra-card:hover { border-color: var(--azul-sitio); }
+        .extra-title { color: #aaa; font-weight: bold; font-size: 0.9rem; margin: 10px 0 0 0; }
+
+        /* --- ANIMACIONES --- */
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2rem; }
+            .hero-banner { height: 40vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">⬅ VOLVER AL INICIO</a></div>
+    </nav>
+
+    <header class="hero-banner">
+        <h1 class="hero-title">LAS CINTAS PERDIDAS</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="player-wrapper">
+            <div class="player-container">
+                
+                <div style="text-align: center; color: white; padding: 60px 20px; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: repeating-linear-gradient(0deg, #111, #111 2px, #000 2px, #000 4px);">
+                    <h2 style="color: red; margin-bottom: 10px; font-size: 2rem; letter-spacing: 2px; text-shadow: 0 0 10px red; animation: blink 1.5s infinite;">🔴 ESPERANDO SEÑAL 🔴</h2>
+                    <p style="font-size: 1.2rem; margin: 0; max-width: 80%;">El capítulo estreno se habilitará en breve, apenas finalice su emisión oficial. Prepará los pochoclos.</p>
+                    <div style="margin-top: 30px; width: 50px; height: 50px; border: 4px solid #333; border-top: 4px solid var(--azul-sitio); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <aside class="details-panel">
+            <div class="poster-wrapper">
+                <img src="cintas_poster.png" alt="Póster Un Show Más: Las Cintas Perdidas">
+            </div>
+            
+            <div class="info-wrapper">
+                <div class="info-header">
+                    <h2 class="info-title">Un Show Más</h2>
+                    <p class="info-subtitle">Especial: Las Cintas Perdidas (Capítulo 1)</p>
+                </div>
+                <p class="info-synopsis">Mordecai y Rigby encuentran una vieja caja llena de cintas de VHS que contienen recuerdos vergonzosos y secretos olvidados. Lo que parecía un viaje de nostalgia se convierte en un desastre cósmico cuando Skips advierte que ver las cintas altera la línea temporal. Una premiere mundial que no te podés perder en ElParque26.</p>
+            </div>
+        </aside>
+    </div>
+
+    <section class="extras-section">
+        <h3 class="info-title">📡 MÁS CAPÍTULOS PRÓXIMAMENTE</h3>
+        <div class="extras-grid">
+            <div class="extra-card">
+                <p class="extra-title">Temporada 2 - Completa</p>
+            </div>
+            <div class="extra-card">
+                <p class="extra-title">Capítulo 2 - Estreno (Pronto)</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
