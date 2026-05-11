@@ -64,6 +64,7 @@
             width: 100%;
             height: 100%;
             display: block;
+            background-color: #000;
         }
 
         .badge-live {
@@ -107,6 +108,10 @@
             padding-bottom: 10px;
         }
 
+        /* Scrollbar para los canales */
+        .lista-botones::-webkit-scrollbar { height: 8px; }
+        .lista-botones::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
         .btn-ch {
             background: #222;
             color: white;
@@ -141,8 +146,7 @@
     <div class="main-container">
         <div class="tv-marco">
             <div class="badge-live">🔴 EN VIVO</div>
-            <video id="video" controls autoplay></video>
-        </div>
+            <video id="video" controls autoplay muted></video> </div>
 
         <div class="panel-canales">
             <h3 class="guia-titulo">📡 ZAPPING ELPARQUE26</h3>
@@ -160,28 +164,37 @@
         var hls = new Hls();
 
         function playM3U8(url, btn) {
-            // Cambiar estado visual de botones
+            // 1. Cambiar el color de los botones
             document.querySelectorAll('.btn-ch').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
+            // 2. Aplicar el truco del Proxy para saltar el CORS
+            var urlConProxy = 'https://corsproxy.io/?' + encodeURIComponent(url);
+
+            // 3. Cargar el video
             if (Hls.isSupported()) {
-                hls.destroy(); // Limpiar el canal anterior
+                hls.destroy(); // Limpiar canal viejo
                 hls = new Hls();
-                hls.loadSource(url);
+                hls.loadSource(urlConProxy);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play();
+                    video.play().catch(function(error) {
+                        console.log("Autoplay bloqueado, esperando interacción del usuario.");
+                    });
                 });
             } 
             else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
+                // Para los que usan iPhone / Safari
+                video.src = urlConProxy;
                 video.addEventListener('loadedmetadata', function() {
-                    video.play();
+                    video.play().catch(function(error) {
+                        console.log("Autoplay bloqueado en Apple.");
+                    });
                 });
             }
         }
 
-        // Cargar el primer canal al abrir
+        // Cargar el primer canal (Cartoon Network) ni bien se abre la página
         window.onload = function() {
             const firstBtn = document.querySelector('.btn-ch');
             playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6430336219f864000859546b/master.m3u8?appName=web&deviceType=web', firstBtn);
