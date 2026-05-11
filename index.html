@@ -334,7 +334,8 @@
     <div id="miMenuLateral" class="menu-lateral">
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
-        <a href="index.html" style="color: var(--azul, #00c3ff);">Un Show Más</a>
+        <a href="cintas.html" style="color: #ff0000; text-shadow: 0 0 5px red; animation: blink 1.5s infinite;">🔴LAS CINTAS PERDIDAS</a>
+        <a href="index.html" style="color: var(--azul, #00c3ff);">Un Show Más Clásico</a>
         <a href="jim.html">El Submarino de Jim</a>
         <a href="ben10.html">Ben 10 Clásico</a>
         <a href="gravityfalls.html">Gravity Falls</a>
@@ -359,11 +360,19 @@
         </div>
     </nav>
 
-    <!-- SLIDER HERO AUTOMÁTICO -->
     <div class="slider-wrapper">
         
-        <!-- Slide 1: Un Show Más -->
-        <header class="slide active" style="background-image: url('banner_generico_usm.jpg');">
+        <header class="slide active" style="background-image: url('cintas_banner.png');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo" style="background-color: #ff0000; color: white; box-shadow: 0 0 10px red;">ESTRENO MUNDIAL</span>
+                <h1 class="hero-title" style="color: white; text-shadow: 0 0 15px red;">LAS CINTAS PERDIDAS</h1>
+                <p class="hero-desc">Mordecai y Rigby regresan al parque con nuevas aventuras. ¡No te pierdas el primer capítulo exclusivo de esta nueva etapa!</p>
+                <a href="cintas.html" class="btn-play-hbo" style="background-color: #ff0000; color: white; box-shadow: 0 0 15px red;">🔴 VER ESTRENO AHORA</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('banner_generico_usm.jpg');">
             <div class="hero-gradient"></div>
             <div class="hero-content-hbo">
                 <span class="badge-exclusivo">SERIE COMPLETA</span>
@@ -373,7 +382,6 @@
             </div>
         </header>
 
-        <!-- Slide 2: Gravity Falls -->
         <header class="slide" style="background-image: url('banner_gf.png');">
             <div class="hero-gradient"></div>
             <div class="hero-content-hbo">
@@ -384,7 +392,6 @@
             </div>
         </header>
 
-        <!-- Slide 3: Ben 10 -->
         <header class="slide" style="background-image: url('banner_ben10.png');">
             <div class="hero-gradient"></div>
             <div class="hero-content-hbo">
@@ -395,7 +402,6 @@
             </div>
         </header>
 
-        <!-- Slide 4: Jim -->
         <header class="slide" style="background-image: url('jim.png');"> 
             <div class="hero-gradient"></div>
             <div class="hero-content-hbo">
@@ -406,16 +412,10 @@
             </div>
         </header>
 
-        <!-- Puntos indicadores del slider -->
         <div class="slider-indicators">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
-        </div>
+            <div class="dot active" onclick="goToSlide(0)"></div> <div class="dot" onclick="goToSlide(1)"></div> <div class="dot" onclick="goToSlide(2)"></div> <div class="dot" onclick="goToSlide(3)"></div> <div class="dot" onclick="goToSlide(4)"></div> </div>
     </div>
 
-    <!-- BOTONES DE PERSONAJES (EASTER EGGS) -->
     <section class="characters-mini" style="margin-top: 20px; margin-bottom: 20px; position: relative; z-index: 20;">
         <div class="char-row" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
             <div class="c-item" onclick="festejoMordo()" style="cursor: pointer;"><img src="mordecai.png" width="50" alt="Mordecai"></div>
@@ -427,17 +427,21 @@
         </div>
     </section>
 
-    <!-- BUSCADOR -->
     <div class="search-container" id="buscador">
         <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="🔍 ¿Qué serie o temporada buscas?" class="search-input">
     </div>
 
-    <!-- GRILLA DE PÓSTERS -->
     <section class="container">
         <h3 style="color: var(--azul, #00c3ff); margin-bottom: 25px; text-align: center; font-family: sans-serif;">SELECCIONÁ UN TÍTULO</h3>
         
         <div class="poster-selector">
             
+            <a href="cintas.html" class="poster-card" style="border-color: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5);" data-name="las cintas perdidas un show mas estreno">
+                <div class="badge-estreno" style="background-color: #ff0000;">🔴 ESTRENO</div>
+                <img src="cintas_poster.png" alt="Las Cintas Perdidas">
+                <div class="poster-btn" style="background-color: #ff0000; color: white;">▶ VER AHORA</div>
+            </a>
+
             <a href="jim.html" class="poster-card" data-name="el submarino de jim">
                 <div class="badge-estreno">¡ESTRENO!</div>
                 <img src="jim.png" alt="El submarino de Jim">
@@ -517,11 +521,12 @@
         slides[slideIndex].classList.add('active');
         dots[slideIndex].classList.add('active');
         
-        // Cambiar el color de los puntos según el slide activo
+        // Cambiar el color de los puntos según el slide activo (AGREGADO EL COLOR ROJO PARA EL ESTRENO)
         const currentDot = dots[slideIndex];
-        if(slideIndex === 0) { currentDot.style.backgroundColor = "#00c3ff"; currentDot.style.boxShadow = "0 0 10px #00c3ff"; } // USM
-        else if(slideIndex === 1) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } // GF
-        else if(slideIndex === 2) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } // Ben 10
+        if(slideIndex === 0) { currentDot.style.backgroundColor = "#ff0000"; currentDot.style.boxShadow = "0 0 10px #ff0000"; } // Cintas Perdidas
+        else if(slideIndex === 1) { currentDot.style.backgroundColor = "#00c3ff"; currentDot.style.boxShadow = "0 0 10px #00c3ff"; } // USM
+        else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } // GF
+        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } // Ben 10
         else { currentDot.style.backgroundColor = "#ff0055"; currentDot.style.boxShadow = "0 0 10px #ff0055"; } // Jim
     }
 
@@ -530,10 +535,9 @@
     function goToSlide(n) {
         showSlide(n);
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 5000); // Reiniciar el contador si haces click
+        slideInterval = setInterval(nextSlide, 5000); 
     }
 
-    // Iniciar el slider (cambia cada 5 segundos)
     slideInterval = setInterval(nextSlide, 5000); 
 
     // --- LÓGICA DEL MENÚ Y EXTRAS ---
