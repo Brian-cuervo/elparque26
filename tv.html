@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV EN VIVO | ElParque26</title>
     
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
     <style>
         :root {
             --azul-sitio: #00c3ff;
@@ -19,6 +17,7 @@
             background-color: var(--negro-fondo);
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
 
         /* --- NAVBAR --- */
@@ -60,10 +59,10 @@
             box-shadow: 0 0 30px rgba(0, 195, 255, 0.1);
         }
 
-        video {
+        .tv-marco iframe {
             width: 100%;
             height: 100%;
-            display: block;
+            border: none;
             background-color: #000;
         }
 
@@ -79,6 +78,7 @@
             border-radius: 4px;
             z-index: 10;
             animation: blink 2s infinite;
+            pointer-events: none;
         }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
@@ -108,7 +108,6 @@
             padding-bottom: 10px;
         }
 
-        /* Scrollbar para los canales */
         .lista-botones::-webkit-scrollbar { height: 8px; }
         .lista-botones::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
 
@@ -146,59 +145,29 @@
     <div class="main-container">
         <div class="tv-marco">
             <div class="badge-live">🔴 EN VIVO</div>
-            <video id="video" controls autoplay muted></video> </div>
+            <iframe id="reproductor-tv" src="https://www.youtube.com/embed/idH90-KyaMk?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
 
         <div class="panel-canales">
             <h3 class="guia-titulo">📡 ZAPPING ELPARQUE26</h3>
             <div class="lista-botones">
-                <button class="btn-ch active" onclick="playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6430336219f864000859546b/master.m3u8?appName=web&deviceType=web', this)">Cartoon Network</button>
-                <button class="btn-ch" onclick="playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5f624976766432000787e9e8/master.m3u8?appName=web&deviceType=web', this)">Nick Clásico</button>
-                <button class="btn-ch" onclick="playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5f1f0b09337b5800076a0864/master.m3u8?appName=web&deviceType=web', this)">Pluto Anime</button>
-                <button class="btn-ch" onclick="playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e6287f33966950007090b85/master.m3u8?appName=web&deviceType=web', this)">South Park</button>
+                <button class="btn-ch active" onclick="cambiarCanal('idH90-KyaMk', this)">🦝 Un Show Más</button>
+                <button class="btn-ch" onclick="cambiarCanal('FTcWYPGa51g', this)">🐉 Dragon Ball Z</button>
+                <button class="btn-ch" onclick="cambiarCanal('J11zAreQcp0', this)">🧽 Bob Esponja</button>
+                <button class="btn-ch" onclick="cambiarCanal('jfKfPfyJRdk', this)">📻 Lofi Radio 24/7</button>
             </div>
         </div>
     </div>
 
     <script>
-        var video = document.getElementById('video');
-        var hls = new Hls();
-
-        function playM3U8(url, btn) {
-            // 1. Cambiar el color de los botones
+        function cambiarCanal(idVideo, btn) {
+            // 1. Cambiar color de botones
             document.querySelectorAll('.btn-ch').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            // 2. Aplicar el truco del Proxy para saltar el CORS
-            var urlConProxy = 'https://corsproxy.io/?' + encodeURIComponent(url);
-
-            // 3. Cargar el video
-            if (Hls.isSupported()) {
-                hls.destroy(); // Limpiar canal viejo
-                hls = new Hls();
-                hls.loadSource(urlConProxy);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play().catch(function(error) {
-                        console.log("Autoplay bloqueado, esperando interacción del usuario.");
-                    });
-                });
-            } 
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                // Para los que usan iPhone / Safari
-                video.src = urlConProxy;
-                video.addEventListener('loadedmetadata', function() {
-                    video.play().catch(function(error) {
-                        console.log("Autoplay bloqueado en Apple.");
-                    });
-                });
-            }
+            // 2. Cambiar el video en la tele
+            document.getElementById('reproductor-tv').src = "https://www.youtube.com/embed/" + idVideo + "?autoplay=1";
         }
-
-        // Cargar el primer canal (Cartoon Network) ni bien se abre la página
-        window.onload = function() {
-            const firstBtn = document.querySelector('.btn-ch');
-            playM3U8('https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6430336219f864000859546b/master.m3u8?appName=web&deviceType=web', firstBtn);
-        };
     </script>
 
 </body>
