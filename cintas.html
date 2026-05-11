@@ -35,13 +35,7 @@
         }
         .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: bold; }
         .logo span { color: var(--azul-sitio); }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
         /* --- HERO SECTION --- */
         .hero-banner {
@@ -56,25 +50,20 @@
             position: relative;
         }
         
-        .hero-title {
-            font-size: 3rem;
-            text-transform: uppercase;
-            font-weight: 900;
-            color: white;
-            text-shadow: 2px 2px 0 var(--azul-sitio);
-            margin: 0;
-        }
+        .hero-title { font-size: 3rem; text-transform: uppercase; font-weight: 900; color: white; text-shadow: 2px 2px 0 var(--azul-sitio); margin: 0; }
 
         /* --- DETALLE Y REPRODUCTOR --- */
         .main-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
-            padding: 20px 5% 50px 5%;
+            padding: 20px 5% 30px 5%;
             align-items: start;
         }
 
-        /* --- REPRODUCTOR (ESPERANDO SEÑAL) --- */
+        /* --- REPRODUCTOR ACTIVO --- */
+        .player-wrapper { scroll-margin-top: 100px; }
+        
         .player-container {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -84,9 +73,14 @@
             overflow: hidden;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+        
+        /* OJO: Para Drive, usamos un iframe en vez de etiqueta video */
+        iframe.drive-player {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
         }
 
         /* --- DETALLE LATERAL --- */
@@ -97,58 +91,53 @@
             border: 1px solid #333;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .poster-wrapper {
-            width: 100%;
-            max-width: 250px;
-            margin: 0 auto 20px auto;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #444;
-            box-shadow: var(--glow-cyan);
-            transition: 0.3s;
-        }
+        .poster-wrapper { width: 100%; max-width: 250px; margin: 0 auto 20px auto; border-radius: 8px; overflow: hidden; border: 2px solid #444; box-shadow: var(--glow-cyan); transition: 0.3s; }
         .poster-wrapper:hover { transform: scale(1.02); }
         .poster-wrapper img { width: 100%; display: block; }
 
-        .info-header {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
+        .info-header { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .info-title { font-size: 1.2rem; color: var(--azul-sitio); margin: 0 0 5px 0; text-transform: uppercase; }
         .info-subtitle { color: #aaa; font-size: 0.9rem; margin: 0; }
-
         .info-synopsis { font-size: 0.9rem; color: #ccc; line-height: 1.6; margin: 0 0 20px 0; }
 
-        /* --- EXTRAS / TEMPORADAS --- */
-        .extras-section { padding: 0 5% 50px 5%; }
-        .extras-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .extra-card {
-            background: var(--gris-panel);
+        /* --- LISTA DE EPISODIOS (ESTILO HBO - PROLIJO) --- */
+        .episode-list-section { padding: 0 5% 50px 5%; }
+        .section-heading { font-size: 1.3rem; margin-bottom: 20px; color: white; border-bottom: 2px solid #333; padding-bottom: 10px; text-transform: uppercase; }
+        
+        .episodes-grid { display: flex; flex-direction: column; gap: 15px; }
+
+        .episode-card {
+            display: flex;
+            background-color: var(--gris-panel);
             border-radius: 8px;
-            padding: 15px;
+            overflow: hidden;
             border: 1px solid #333;
-            text-align: center;
-            transition: 0.3s;
-            cursor: not-allowed; 
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
         }
-        .extra-card:hover { border-color: var(--azul-sitio); }
-        .extra-title { color: #aaa; font-weight: bold; font-size: 0.9rem; margin: 10px 0 0 0; }
+        .episode-card:hover:not(.locked) { background-color: #242730; border-color: var(--azul-sitio); }
+        .episode-card.active { border-left: 4px solid var(--azul-sitio); background-color: #1f222b; }
+        
+        .episode-thumb { width: 220px; min-width: 220px; background-color: #000; display: flex; align-items: center; justify-content: center; position: relative; }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.3s; }
+        .episode-card:hover:not(.locked) .episode-thumb img { opacity: 0.9; }
+        .play-icon { position: absolute; font-size: 2rem; text-shadow: 0 0 10px black; }
 
-        /* --- ANIMACIONES --- */
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .episode-info { padding: 15px 20px; display: flex; flex-direction: column; justify-content: center; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1.1rem; color: white; }
+        .ep-desc { margin: 0; font-size: 0.9rem; color: #aaa; line-height: 1.4; }
 
-        /* --- RESPONSIVE --- */
+        .episode-card.locked { opacity: 0.5; cursor: not-allowed; }
+        .badge-locked { background-color: #333; color: #aaa; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 8px; align-self: flex-start; }
+
         @media (max-width: 900px) {
             .main-content { grid-template-columns: 1fr; }
             .hero-title { font-size: 2rem; }
             .hero-banner { height: 40vh; }
+            .episode-card { flex-direction: column; }
+            .episode-thumb { width: 100%; height: 140px; }
         }
     </style>
 </head>
@@ -164,15 +153,9 @@
     </header>
 
     <div class="main-content">
-        <div class="player-wrapper">
+        <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
-                
-                <div style="text-align: center; color: white; padding: 60px 20px; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: repeating-linear-gradient(0deg, #111, #111 2px, #000 2px, #000 4px);">
-                    <h2 style="color: red; margin-bottom: 10px; font-size: 2rem; letter-spacing: 2px; text-shadow: 0 0 10px red; animation: blink 1.5s infinite;">🔴 ESPERANDO SEÑAL 🔴</h2>
-                    <p style="font-size: 1.2rem; margin: 0; max-width: 80%;">El capítulo estreno se habilitará en breve, apenas finalice su emisión oficial. Prepará los pochoclos.</p>
-                    <div style="margin-top: 30px; width: 50px; height: 50px; border: 4px solid #333; border-top: 4px solid var(--azul-sitio); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                </div>
-
+                <iframe id="videoPlayer" class="drive-player" src="https://drive.google.com/file/d/1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU/preview" allow="autoplay"></iframe>
             </div>
         </div>
 
@@ -191,14 +174,85 @@
         </aside>
     </div>
 
-    <section class="extras-section">
-        <h3 class="info-title">📡 MÁS CAPÍTULOS PRÓXIMAMENTE</h3>
-        <div class="extras-grid">
-            <div class="extra-card">
-                <p class="extra-title">Capítulo 1 - Estreno (Pronto)</p>
+    <section class="episode-list-section">
+        <h3 class="section-heading">EPISODIOS DISPONIBLES</h3>
+        
+        <div class="episodes-grid">
+            
+            <div class="episode-card active" id="tarjeta-cap1" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU/preview')">
+                <div class="episode-thumb">
+                    <img src="cintas_banner.png" alt="Episodio 1">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1A. Arregla la cinta</h4>
+                    <p class="ep-desc">Una cinta VHS rota necesita que la reparen.</p>
+                </div>
             </div>
+
+            <div class="episode-card" id="tarjeta-cap2" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1j1it8iFCOMdY-Dem9Dgm_wya-Qs1ywzt/preview')">
+                <div class="episode-thumb">
+                    <img src="cintas_banner.png" alt="Episodio 2">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1B. El luau de Skips</h4>
+                    <p class="ep-desc">Skips organiza un luau que se sale de control.</p>
+                </div>
+            </div>
+
+            <div class="episode-card locked">
+                <div class="episode-thumb" style="background: #111;">
+                    <div class="play-icon" style="color: #444;">🔒</div>
+                </div>
+                <div class="episode-info">
+                    <span class="badge-locked">Próximamente</span>
+                    <h4 class="ep-title" style="color: #888;">2. Filojuegos</h4>
+                    <p class="ep-desc">Benson aprende una mejor manera de motivar a los empleados del parque.</p>
+                </div>
+            </div>
+
+            <div class="episode-card locked">
+                <div class="episode-thumb" style="background: #111;">
+                    <div class="play-icon" style="color: #444;">🔒</div>
+                </div>
+                <div class="episode-info">
+                    <span class="badge-locked">Próximamente</span>
+                    <h4 class="ep-title" style="color: #888;">3. Lugar de siesta</h4>
+                    <p class="ep-desc">Un lugar secreto para siestas causa grandes problemas.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
+    <script>
+        function cambiarVideo(tarjeta, nuevoLink) {
+            // Sacarle la clase 'active' a todas las tarjetas
+            let tarjetas = document.querySelectorAll('.episode-card');
+            tarjetas.forEach(t => t.classList.remove('active'));
+            
+            // Ponerle 'active' a la que clickeaste
+            tarjeta.classList.add('active');
+
+            // Cambiar el iframe por el nuevo link de Drive
+            let reproductor = document.getElementById('videoPlayer');
+            reproductor.src = nuevoLink;
+
+            // Hacer scroll suave hacia arriba para ver el video
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // AUTO-PLAY ENTRE CAP 1A Y 1B
+        // (Nota: Drive en iframe a veces bloquea el auto-detect de final, 
+        // pero le agregamos un timer de seguridad basado en 11 min aprox)
+        setTimeout(function() {
+            let reproductor = document.getElementById('videoPlayer');
+            if(reproductor.src.includes('1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU')) {
+                let tarjeta2 = document.getElementById('tarjeta-cap2');
+                cambiarVideo(tarjeta2, 'https://drive.google.com/file/d/1j1it8iFCOMdY-Dem9Dgm_wya-Qs1ywzt/preview');
+            }
+        }, 660000); // 660,000 ms = 11 minutos (duración estándar de 1 cap)
+    </script>
 </body>
 </html>
