@@ -10,9 +10,7 @@
         /* --- ESTILO HBO PREMIUM --- */
         :root {
             --azul: #00c3ff;
-            --fondo-main: #030407; 
-            --fondo-secundario: #0b0c10;
-            --hover-card: #151821;
+            --fondo-main: #000000; /* Fondo negro profundo como la app */
             --texto-muted: #a3a3a3;
         }
 
@@ -39,7 +37,6 @@
         .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
         .logo span { color: var(--azul); }
         .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--azul); }
 
         /* --- HERO BANNER --- */
         .hero-hbo {
@@ -54,7 +51,7 @@
         .hero-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, var(--fondo-main) 0%, rgba(3, 4, 7, 0.7) 50%, transparent 100%),
+            background: linear-gradient(to right, var(--fondo-main) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%),
                         linear-gradient(to top, var(--fondo-main) 0%, transparent 40%);
             z-index: 3;
         }
@@ -66,85 +63,80 @@
             max-width: 800px;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            margin: 0 0 10px 0;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-            color: var(--azul);
-        }
-
-        .hero-meta {
-            font-size: 0.95rem;
-            color: var(--texto-muted);
-            margin-bottom: 20px;
-            font-weight: bold;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+        .hero-title { font-size: 3.5rem; margin: 0 0 10px 0; font-weight: 900; text-transform: uppercase; }
         
+        .hero-meta { font-size: 0.95rem; color: var(--texto-muted); margin-bottom: 20px; font-weight: bold; display: flex; gap: 15px; align-items: center; }
         .badge-tv { border: 1px solid var(--texto-muted); padding: 2px 8px; border-radius: 4px; color: white; }
 
-        .hero-desc {
-            font-size: 1.1rem;
-            color: #d1d1d1;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
+        .hero-desc { font-size: 1rem; color: #d1d1d1; margin-bottom: 30px; line-height: 1.5; }
 
-        /* --- REPRODUCTOR PREMIUM --- */
-        .player-section {
-            padding: 0 5% 40px 5%;
-            scroll-margin-top: 80px;
-        }
-        
-        .player-container {
-            width: 100%;
-            max-width: 1000px;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin: 0 auto;
-        }
-        
+        /* --- REPRODUCTOR --- */
+        .player-section { padding: 0 5% 40px 5%; scroll-margin-top: 80px; }
+        .player-container { width: 100%; max-width: 1000px; aspect-ratio: 16 / 9; background: #111; border-radius: 8px; overflow: hidden; margin: 0 auto; }
         iframe.mega-player { width: 100%; height: 100%; border: none; outline: none; }
 
-        /* --- GRILLA DE EPISODIOS HBO --- */
+        /* --- SECCIÓN EPISODIOS HBO CLON --- */
         .seccion-episodios { padding: 0 5% 60px 5%; }
-        .titulo-lista { font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; color: white; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--azul); padding-left: 10px; }
         
+        .episodes-header-hbo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+            border-bottom: none;
+        }
+
+        .hbo-section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        /* Selector de Temporada integrado */
+        .hbo-season-selector {
+            background: transparent;
+            color: #d1d1d1;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-weight: 500;
+            appearance: none; /* Saca la flecha fea por defecto */
+            padding-right: 15px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 10px auto;
+        }
+        .hbo-season-selector option { background: #111; color: white; }
+
+        /* --- GRILLA VERTICAL (Idéntico a la captura) --- */
         .episodes-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-            gap: 15px; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Desktop: varias columnas */
+            gap: 20px; 
         }
 
         .episode-card {
             display: flex;
-            background-color: transparent;
-            border-radius: 6px;
+            flex-direction: column; /* IMAGEN ARRIBA, TEXTO ABAJO */
+            background-color: transparent; /* Sin fondo feo */
             overflow: hidden;
-            transition: background-color 0.2s, transform 0.2s;
             text-decoration: none;
             color: white;
             cursor: pointer;
-            padding: 10px;
+            transition: transform 0.2s;
         }
         
-        .episode-card:hover { background-color: var(--hover-card); }
-        .episode-card.active { background-color: var(--fondo-secundario); border-left: 3px solid var(--azul); border-radius: 0 6px 6px 0; }
+        .episode-card:hover { transform: scale(1.03); }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--azul); border-radius: 4px; }
         
         .episode-thumb { 
-            width: 180px; 
-            min-width: 180px; 
+            width: 100%; 
             aspect-ratio: 16/9;
-            background-color: #111; 
+            background-color: #1a1c23; 
             border-radius: 4px;
             overflow: hidden;
             display: flex; 
@@ -153,24 +145,36 @@
             position: relative; 
         }
         
-        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
-        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: opacity 0.3s, transform 0.3s; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
         
-        .episode-card:hover .episode-thumb img { opacity: 0.5; }
-        .episode-card:hover .play-icon { opacity: 1; transform: scale(1.1); }
+        .episode-card:hover .episode-thumb img { opacity: 0.6; }
+        .episode-card:hover .play-icon { opacity: 1; }
 
-        .episode-info { padding: 10px 20px; display: flex; flex-direction: column; justify-content: center; }
-        .ep-title { margin: 0 0 8px 0; font-size: 1.05rem; font-weight: 600; color: white; letter-spacing: 0.5px; }
+        .episode-info { padding: 12px 0; text-align: left; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
+        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        @media (max-width: 900px) {
-            .hero-title { font-size: 2.2rem; }
+        /* =========================================
+           CELULAR - LA CLAVE ESTÁ ACÁ (2 COLUMNAS)
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
             .hero-hbo { height: 50vh; }
-            .hero-content-hbo { padding-bottom: 20px; }
-            .episodes-grid { grid-template-columns: 1fr; gap: 10px; }
-            .episode-card { flex-direction: column; padding: 0; margin-bottom: 10px; }
-            .episode-card.active { border-left: none; border-bottom: 3px solid var(--azul); border-radius: 6px; }
-            .episode-thumb { width: 100%; min-width: 100%; aspect-ratio: 16/9; border-radius: 6px 6px 0 0; }
-            .episode-info { padding: 15px; }
+            
+            .episodes-header-hbo { margin-bottom: 15px; }
+            .hbo-section-title { font-size: 1.4rem; }
+            .hbo-season-selector { font-size: 0.95rem; }
+
+            /* GRILLA DE 2 COLUMNAS EN CELULAR (COMO LA CAPTURA) */
+            .episodes-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 15px 10px; /* Separación horizontal y vertical */
+            }
+            
+            .episode-info { padding: 8px 0; }
+            .ep-title { font-size: 0.85rem; }
+            .ep-desc { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -188,9 +192,8 @@
             <div class="hero-meta">
                 <span>ESTRENO</span>
                 <span class="badge-tv">TV-Y7</span>
-                <span>Temporada 1 • 13 Episodios</span>
             </div>
-            <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo. En su travesía por todos los continentes lo acompañan sus mejores amigos Bianca y Cyril. Juntos atravesarán aventuras marcadas por la amistad y el autodescubrimiento.</p>
+            <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo. Acompañalo en esta aventura marcada por la amistad.</p>
         </div>
     </div>
 
@@ -201,75 +204,122 @@
         </div>
     </section>
 
-    <!-- LISTA DE EPISODIOS -->
+    <!-- LISTA DE EPISODIOS ESTILO HBO APP -->
     <section class="seccion-episodios">
-        <h2 class="titulo-lista">Episodios</h2>
         
+        <!-- CABEZAL CON SELECTOR DE TEMPORADA -->
+        <div class="episodes-header-hbo">
+            <h2 class="hbo-section-title">Episodios</h2>
+            <select class="hbo-season-selector">
+                <option value="1">Temporada 1</option>
+            </select>
+        </div>
+        
+        <!-- GRILLA (2 COLUMNAS EN CELU) -->
         <div class="episodes-grid">
             
             <div class="episode-card active" onclick="cambiarVideo(this, 'https://mega.nz/embed/Um1GkBoC#pnGJH7s4TZ4E97imhXv6wi6-yifQSLyVsCSUMgHVR0U')">
                 <div class="episode-thumb"><img src="jimt1c1.jpg" alt="Episodio 1"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">1. Rescatando al soldado sardina</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1. Rescatando al soldado sardina</h4>
+                    <p class="ep-desc">Jim y sus amigos inician su travesía submarina.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/QuFXWQjK#tfjKt9sJshdb-OMU2e0UbkUswnXiAl13PfHX2nONaM0')">
                 <div class="episode-thumb"><img src="jimt1c2.jpg" alt="Episodio 2"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">2. Bob</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">2. Bob</h4>
+                    <p class="ep-desc">Un nuevo desafío se presenta en el camino de la tripulación.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/0y1miT5Z#wnP7AEl71hiInNkpNRH7X0BEgC_2EKoy1OlQ1Jt_40M')">
                 <div class="episode-thumb"><img src="jimt1c3.jpg" alt="Episodio 3"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">3. Como comprar</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">3. Como comprar</h4>
+                    <p class="ep-desc">Jim aprende una valiosa lección en la superficie.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/0qdSkSKb#m1i2K0b8Ywq_CWrAXnRKdKE1w9TKhMbS0FkKab_1NUM')">
                 <div class="episode-thumb"><img src="jimt1c4.jpg" alt="Episodio 4"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">4. Parada técnica</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">4. Parada técnica</h4>
+                    <p class="ep-desc">El submarino necesita reparaciones urgentes.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/dmFkiBKY#KOQbdkvR2vz7kaTno35YbpU3WphRJ6CNTnUhrAipu-0')">
                 <div class="episode-thumb"><img src="jimt1c5.jpg" alt="Episodio 5"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">5. Fiesta de espuma</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">5. Fiesta de espuma</h4>
+                    <p class="ep-desc">Un accidente en la limpieza causa estragos a bordo.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/YuczWIrI#ctWv5f9LKrSO-v9DCloRQ-XIax0MVZ_aOyOt3E1-LzM')">
                 <div class="episode-thumb"><img src="jimt1c6.jpg" alt="Episodio 6"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">6. El Loco día de Bianca</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">6. El Loco día de Bianca</h4>
+                    <p class="ep-desc">Bianca se enfrenta a una jornada fuera de lo común.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/pu93VDBR#S41fWhR7-X1CbY7ROMnTJ3V8JiGD6YsADz6DYzUS_YQ')">
                 <div class="episode-thumb"><img src="jimt1c7.jpg" alt="Episodio 7"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">7. King Pong</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">7. King Pong</h4>
+                    <p class="ep-desc">Un campeonato de ping pong define el liderazgo.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/Mit2hCxA#s5-Eamk17boX961qFdXpHRNSypgiuCx3-_Qnw6H7oIc')">
                 <div class="episode-thumb"><img src="jimt1c8.jpg" alt="Episodio 8"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">8. Pantalones de adulto</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">8. Pantalones de adulto</h4>
+                    <p class="ep-desc">Cyril intenta demostrar que ya no es un niño.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/Nz9ihBQR#hzr__lOjykKUd3eyIeUVzglubEa3i7lVsEPHepJSy2w')">
                 <div class="episode-thumb"><img src="jimt1c9.jpg" alt="Episodio 9"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">9. La experta</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">9. La experta</h4>
+                    <p class="ep-desc">Alguien intenta sabotear los planes de Jim.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/8i9EBCLS#dFTY7J148cQHvjqjGSpRCfKENCYtB1j022JBAUAt5A0')">
                 <div class="episode-thumb"><img src="jimt1c10.jpg" alt="Episodio 10"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">10. Retrato de un capitán</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">10. Retrato de un capitán</h4>
+                    <p class="ep-desc">Un artista a bordo pinta la realidad del submarino.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/V3kCxDQR#8aONn_JYcUOhxUnGDLAPbRuLeWchunfq93JrSOc6r68')">
                 <div class="episode-thumb"><img src="jimt1c11.jpg" alt="Episodio 11"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">11. Fuera del radar</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">11. Fuera del radar</h4>
+                    <p class="ep-desc">La tripulación se pierde en aguas desconocidas.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/V68gAL4D#s8y0YNwVb4D1TgjedOVDxvFISCISkTcK9pG_-gDHGCU')">
                 <div class="episode-thumb"><img src="jimt1c12.jpg" alt="Episodio 12"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">12. El profesor submarino</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">12. El profesor submarino</h4>
+                    <p class="ep-desc">Una clase magistral sobre supervivencia en el fondo del mar.</p>
+                </div>
             </div>
 
             <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/B7t33SwQ#I415T8fGUMfmkMnIz4ThI9fiqT5s1OArWH-x9ARHC7M')">
                 <div class="episode-thumb"><img src="jimt1c13.jpg" alt="Episodio 13"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">13. Descanso en el lago</h4></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">13. Descanso en el lago</h4>
+                    <p class="ep-desc">Un merecido descanso tras un largo viaje submarino.</p>
+                </div>
             </div>
 
         </div>
@@ -277,18 +327,13 @@
 
     <script>
         function cambiarVideo(tarjeta, nuevoLink) {
-            // Sacar clase activa a todas
             let tarjetas = document.querySelectorAll('.episode-card');
             tarjetas.forEach(t => t.classList.remove('active'));
-            
-            // Poner activa a la clickeada
             tarjeta.classList.add('active');
 
-            // Cambiar iframe
             let reproductor = document.getElementById('videoPlayer');
             reproductor.src = nuevoLink;
 
-            // Scroll suave hacia arriba
             document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
