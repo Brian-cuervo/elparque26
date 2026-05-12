@@ -6,138 +6,143 @@
     <title>Un Show Más: Las Cintas Perdidas | ElParque26</title>
     
     <style>
+        /* --- ESTILO HBO PREMIUM --- */
         :root {
             --azul-sitio: #00c3ff;
-            --negro-fondo: #0a0b10;
-            --gris-panel: #1a1c23;
-            --glow-cyan: 0 0 20px rgba(0, 195, 255, 0.4);
+            --fondo-principal: #030407; /* Más oscuro, súper premium */
+            --fondo-secundario: #0b0c10;
+            --hover-card: #151821;
+            --texto-secundario: #a3a3a3;
         }
 
         body {
             margin: 0;
-            background-color: var(--negro-fondo);
+            background-color: var(--fondo-principal);
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR MINIMALISTA --- */
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 5%;
-            background-color: rgba(10, 11, 16, 0.95);
-            border-bottom: 2px solid var(--azul-sitio);
-            box-shadow: var(--glow-cyan);
-            position: relative;
-            z-index: 10;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            top: 0;
+            width: 90%;
+            z-index: 100;
         }
-        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: bold; }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
         .logo span { color: var(--azul-sitio); }
-        .nav-links a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--azul-sitio); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO BANNER --- */
         .hero-banner {
             width: 100%;
-            height: 60vh;
-            background-image: linear-gradient(to bottom, rgba(10,11,16,0) 50%, rgba(10,11,16,1) 100%), url('cintas_banner.png');
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('cintas_banner.png');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             display: flex;
             align-items: flex-end;
-            padding: 0 5% 5% 5%;
-            position: relative;
+            padding: 0 5% 40px 5%;
+            box-sizing: border-box;
         }
-        
-        .hero-title { font-size: 3rem; text-transform: uppercase; font-weight: 900; color: white; text-shadow: 2px 2px 0 var(--azul-sitio); margin: 0; }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
 
-        /* --- DETALLE Y REPRODUCTOR --- */
+        /* --- LAYOUT PRINCIPAL --- */
         .main-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            padding: 20px 5% 30px 5%;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
             align-items: start;
         }
 
-        /* --- REPRODUCTOR ACTIVO --- */
-        .player-wrapper { scroll-margin-top: 100px; }
-        
+        /* --- REPRODUCTOR PREMIUM --- */
+        .player-wrapper { scroll-margin-top: 80px; }
         .player-container {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: black;
-            border: 4px solid #333;
-            border-radius: 12px;
+            background: #000;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
-        
-        /* OJO: Para Drive, usamos un iframe en vez de etiqueta video */
-        iframe.drive-player {
-            width: 100%;
-            height: 100%;
-            border: none;
-            outline: none;
-        }
+        iframe.drive-player { width: 100%; height: 100%; border: none; outline: none; }
 
-        /* --- DETALLE LATERAL --- */
+        /* --- SINOPSIS LATERAL --- */
         .details-panel {
-            background-color: var(--gris-panel);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding-top: 10px;
         }
-        .poster-wrapper { width: 100%; max-width: 250px; margin: 0 auto 20px auto; border-radius: 8px; overflow: hidden; border: 2px solid #444; box-shadow: var(--glow-cyan); transition: 0.3s; }
-        .poster-wrapper:hover { transform: scale(1.02); }
+        .poster-wrapper { 
+            width: 100%; 
+            max-width: 220px; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+            margin-bottom: 25px;
+        }
         .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
 
-        .info-header { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .info-title { font-size: 1.2rem; color: var(--azul-sitio); margin: 0 0 5px 0; text-transform: uppercase; }
-        .info-subtitle { color: #aaa; font-size: 0.9rem; margin: 0; }
-        .info-synopsis { font-size: 0.9rem; color: #ccc; line-height: 1.6; margin: 0 0 20px 0; }
-
-        /* --- LISTA DE EPISODIOS (ESTILO HBO - PROLIJO) --- */
-        .episode-list-section { padding: 0 5% 50px 5%; }
-        .section-heading { font-size: 1.3rem; margin-bottom: 20px; color: white; border-bottom: 2px solid #333; padding-bottom: 10px; text-transform: uppercase; }
+        /* --- LISTA DE EPISODIOS HBO --- */
+        .episode-list-section { padding: 0 5% 60px 5%; }
+        .section-heading { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; color: white; text-transform: uppercase; letter-spacing: 1px; }
         
-        .episodes-grid { display: flex; flex-direction: column; gap: 15px; }
+        .episodes-grid { display: flex; flex-direction: column; gap: 10px; }
 
         .episode-card {
             display: flex;
-            background-color: var(--gris-panel);
-            border-radius: 8px;
+            background-color: transparent;
+            border-radius: 6px;
             overflow: hidden;
-            border: 1px solid #333;
-            transition: 0.2s;
+            transition: background-color 0.2s, transform 0.2s;
             text-decoration: none;
             color: white;
             cursor: pointer;
+            padding: 10px;
         }
-        .episode-card:hover:not(.locked) { background-color: #242730; border-color: var(--azul-sitio); }
-        .episode-card.active { border-left: 4px solid var(--azul-sitio); background-color: #1f222b; }
+        .episode-card:hover { background-color: var(--hover-card); }
+        .episode-card.active { background-color: var(--fondo-secundario); border-left: 3px solid var(--azul-sitio); border-radius: 0 6px 6px 0; }
         
-        .episode-thumb { width: 220px; min-width: 220px; background-color: #000; display: flex; align-items: center; justify-content: center; position: relative; }
-        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.3s; }
-        .episode-card:hover:not(.locked) .episode-thumb img { opacity: 0.9; }
-        .play-icon { position: absolute; font-size: 2rem; text-shadow: 0 0 10px black; }
+        .episode-thumb { 
+            width: 240px; 
+            min-width: 240px; 
+            aspect-ratio: 16/9;
+            background-color: #111; 
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+        }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+        .play-icon { position: absolute; font-size: 2.5rem; color: white; opacity: 0; transition: opacity 0.3s, transform 0.3s; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        
+        /* Efecto al pasar el mouse por la miniatura */
+        .episode-card:hover .episode-thumb img { opacity: 0.5; }
+        .episode-card:hover .play-icon { opacity: 1; transform: scale(1.1); }
 
-        .episode-info { padding: 15px 20px; display: flex; flex-direction: column; justify-content: center; }
-        .ep-title { margin: 0 0 5px 0; font-size: 1.1rem; color: white; }
-        .ep-desc { margin: 0; font-size: 0.9rem; color: #aaa; line-height: 1.4; }
-
-        .episode-card.locked { opacity: 0.5; cursor: not-allowed; }
-        .badge-locked { background-color: #333; color: #aaa; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 8px; align-self: flex-start; }
+        .episode-info { padding: 10px 25px; display: flex; flex-direction: column; justify-content: center; }
+        .ep-title { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 600; color: white; letter-spacing: 0.5px; }
+        .ep-desc { margin: 0; font-size: 0.95rem; color: var(--texto-secundario); line-height: 1.5; }
 
         @media (max-width: 900px) {
-            .main-content { grid-template-columns: 1fr; }
-            .hero-title { font-size: 2rem; }
-            .hero-banner { height: 40vh; }
-            .episode-card { flex-direction: column; }
-            .episode-thumb { width: 100%; height: 140px; }
+            .main-content { grid-template-columns: 1fr; gap: 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-banner { height: 40vh; padding-bottom: 20px; }
+            .episode-card { flex-direction: column; padding: 0; margin-bottom: 20px; }
+            .episode-card.active { border-left: none; border-bottom: 3px solid var(--azul-sitio); border-radius: 6px; }
+            .episode-thumb { width: 100%; min-width: 100%; aspect-ratio: 16/9; border-radius: 6px 6px 0 0; }
+            .episode-info { padding: 15px; }
         }
     </style>
 </head>
@@ -145,7 +150,7 @@
 
     <nav class="navbar">
         <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
-        <div class="nav-links"><a href="index.html">⬅ VOLVER AL INICIO</a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
     </nav>
 
     <header class="hero-banner">
@@ -155,71 +160,77 @@
     <div class="main-content">
         <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
-                <iframe id="videoPlayer" class="drive-player" src="https://drive.google.com/file/d/1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU/preview" allow="autoplay"></iframe>
+                <iframe id="videoPlayer" class="drive-player" src="https://drive.google.com/file/d/15Hccc7ITCdLz4eF0kuYxMt5A-S2JbgI9/preview" allow="autoplay; fullscreen"></iframe>
             </div>
         </div>
 
         <aside class="details-panel">
             <div class="poster-wrapper">
-                <img src="cintas_poster.png" alt="Póster Un Show Más: Las Cintas Perdidas">
+                <img src="cintas_poster.png" alt="Un Show Más">
             </div>
-            
-            <div class="info-wrapper">
-                <div class="info-header">
-                    <h2 class="info-title">Un Show Más</h2>
-                    <p class="info-subtitle">Sinopsis:</p>
-                </div>
-                <p class="info-synopsis">Mordecai y Rigby regresan al parque para vivir las historias nunca antes contadas. Nuevas aventuras, viejos amigos y el mismo caos surrealista de siempre en esta nueva serie que funciona como una expansión directa del universo clásico de Un Show Más.</p>
-            </div>
+            <h2 class="info-title">Un Show Más</h2>
+            <p class="info-subtitle">Serie Original • Temporada Estreno</p>
+            <p class="info-synopsis">Mordecai y Rigby regresan al parque para vivir las historias nunca antes contadas. Nuevas aventuras, viejos amigos y el mismo caos surrealista de siempre en esta nueva etapa que funciona como una expansión directa del universo clásico.</p>
         </aside>
     </div>
 
     <section class="episode-list-section">
-        <h3 class="section-heading">EPISODIOS DISPONIBLES</h3>
+        <h3 class="section-heading">Episodios</h3>
         
         <div class="episodes-grid">
             
-            <div class="episode-card active" id="tarjeta-cap1" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU/preview')">
+            <div class="episode-card active" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/15Hccc7ITCdLz4eF0kuYxMt5A-S2JbgI9/preview')">
                 <div class="episode-thumb">
-                    <img src="cintas_banner.png" alt="Episodio 1">
+                    <img src="usmcpc1.jpg" alt="Episodio 1">
                     <div class="play-icon">▶</div>
                 </div>
                 <div class="episode-info">
-                    <h4 class="ep-title">1A. Arregla la cinta</h4>
-                    <p class="ep-desc">Una cinta VHS rota necesita que la reparen.</p>
+                    <h4 class="ep-title">1. Arregla la cinta / El luau de Skips</h4>
+                    <p class="ep-desc">Una cinta VHS rota necesita que la reparen. Además, Skips organiza un luau que rápidamente se sale de control.</p>
                 </div>
             </div>
 
-            <div class="episode-card" id="tarjeta-cap2" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1j1it8iFCOMdY-Dem9Dgm_wya-Qs1ywzt/preview')">
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1RotZ1WhLobaZtx13QyDrJPWrKY9_-sPp/preview')">
                 <div class="episode-thumb">
-                    <img src="cintas_banner.png" alt="Episodio 2">
+                    <img src="usmcpc2.jpg" alt="Episodio 2">
                     <div class="play-icon">▶</div>
                 </div>
                 <div class="episode-info">
-                    <h4 class="ep-title">1B. El luau de Skips</h4>
-                    <p class="ep-desc">Skips organiza un luau que se sale de control.</p>
+                    <h4 class="ep-title">2. Filojuegos</h4>
+                    <p class="ep-desc">Benson aprende una nueva y mejor manera de motivar a los empleados del parque a trabajar.</p>
                 </div>
             </div>
 
-            <div class="episode-card locked">
-                <div class="episode-thumb" style="background: #111;">
-                    <div class="play-icon" style="color: #444;">🔒</div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1pm1vpLNqS7su2v_itbQ70O6t6fG9zYhL/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc3.jpg" alt="Episodio 3">
+                    <div class="play-icon">▶</div>
                 </div>
                 <div class="episode-info">
-                    <span class="badge-locked">Próximamente</span>
-                    <h4 class="ep-title" style="color: #888;">2. Filojuegos</h4>
-                    <p class="ep-desc">Benson aprende una mejor manera de motivar a los empleados del parque.</p>
+                    <h4 class="ep-title">3. Lugar de siesta</h4>
+                    <p class="ep-desc">El descubrimiento de un lugar secreto para tomar siestas termina causando grandes problemas en el parque.</p>
                 </div>
             </div>
 
-            <div class="episode-card locked">
-                <div class="episode-thumb" style="background: #111;">
-                    <div class="play-icon" style="color: #444;">🔒</div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1sRkUFNhog7OD-SMOM-69xGTIg0KbFr6v/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc4.jpg" alt="Episodio 4">
+                    <div class="play-icon">▶</div>
                 </div>
                 <div class="episode-info">
-                    <span class="badge-locked">Próximamente</span>
-                    <h4 class="ep-title" style="color: #888;">3. Lugar de siesta</h4>
-                    <p class="ep-desc">Un lugar secreto para siestas causa grandes problemas.</p>
+                    <h4 class="ep-title">4. Guerra de cafeterías</h4>
+                    <p class="ep-desc">La tensión estalla y la competencia se vuelve feroz cuando una cafetería rival se muda a la ciudad.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1RWpg-AOxmML55CPVamzeUPhUGYmKeYUf/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc5.jpg" alt="Episodio 5">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">5. Boba o nada</h4>
+                    <p class="ep-desc">Un simple té de burbujas (Boba) desata una cadena de eventos caóticos que solo Mordecai y Rigby pueden empeorar.</p>
                 </div>
             </div>
 
@@ -228,31 +239,20 @@
 
     <script>
         function cambiarVideo(tarjeta, nuevoLink) {
-            // Sacarle la clase 'active' a todas las tarjetas
+            // Remover la clase activa de todos
             let tarjetas = document.querySelectorAll('.episode-card');
             tarjetas.forEach(t => t.classList.remove('active'));
             
-            // Ponerle 'active' a la que clickeaste
+            // Poner activa la tarjeta clickeada
             tarjeta.classList.add('active');
 
-            // Cambiar el iframe por el nuevo link de Drive
+            // Cambiar el link del iframe
             let reproductor = document.getElementById('videoPlayer');
             reproductor.src = nuevoLink;
 
-            // Hacer scroll suave hacia arriba para ver el video
+            // Scroll suave hacia el video
             document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
-
-        // AUTO-PLAY ENTRE CAP 1A Y 1B
-        // (Nota: Drive en iframe a veces bloquea el auto-detect de final, 
-        // pero le agregamos un timer de seguridad basado en 11 min aprox)
-        setTimeout(function() {
-            let reproductor = document.getElementById('videoPlayer');
-            if(reproductor.src.includes('1Mh2up8Hwm5htoB4pMNkOJBaidpAtGsnU')) {
-                let tarjeta2 = document.getElementById('tarjeta-cap2');
-                cambiarVideo(tarjeta2, 'https://drive.google.com/file/d/1j1it8iFCOMdY-Dem9Dgm_wya-Qs1ywzt/preview');
-            }
-        }, 660000); // 660,000 ms = 11 minutos (duración estándar de 1 cap)
     </script>
 </body>
 </html>
