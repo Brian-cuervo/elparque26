@@ -111,7 +111,7 @@
         .slider-wrapper {
             position: relative;
             width: 100%;
-            height: 85vh; /* Un poco más alto para verse majestuoso */
+            height: 85vh; 
             overflow: hidden;
             background-color: var(--fondo-main);
         }
@@ -204,7 +204,7 @@
         .slider-indicators {
             position: absolute;
             bottom: 25px;
-            left: 5%; /* Alineados a la izquierda estilo HBO */
+            left: 5%; 
             display: flex;
             gap: 10px;
             z-index: 20;
@@ -212,7 +212,7 @@
 
         .dot {
             width: 30px;
-            height: 4px; /* Rayitas en vez de círculos */
+            height: 4px; 
             border-radius: 2px;
             background-color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
@@ -272,11 +272,11 @@
         .poster-row {
             display: flex;
             gap: 20px;
-            overflow-x: auto; /* Permite scrollear horizontalmente si hay muchos */
+            overflow-x: auto; 
             padding-bottom: 20px;
-            scrollbar-width: none; /* Oculta scrollbar en Firefox */
+            scrollbar-width: none; 
         }
-        .poster-row::-webkit-scrollbar { display: none; /* Oculta scrollbar en Chrome/Safari */ }
+        .poster-row::-webkit-scrollbar { display: none; }
 
         .poster-card {
             width: 180px;
@@ -300,7 +300,6 @@
             transition: 0.3s;
         }
 
-        /* --- HOVER PREMIUM EN PÓSTERS --- */
         .poster-overlay {
             position: absolute;
             inset: 0;
@@ -324,7 +323,7 @@
             font-size: 1.5rem;
             transform: scale(0.8);
             transition: transform 0.3s;
-            padding-left: 5px; /* Centra el triangulito */
+            padding-left: 5px; 
         }
 
         .poster-card:hover {
@@ -364,6 +363,7 @@
 </head>
 <body class="v-particles">
 
+    <!-- MENÚ LATERAL -->
     <div id="miMenuLateral" class="menu-lateral">
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
@@ -379,6 +379,7 @@
         </div>
     </div>
 
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div style="display: flex; align-items: center;">
             <span style="font-size:25px; cursor:pointer; color: white; margin-right: 20px; transition: 0.2s;" onclick="abrirMenu()" onmouseover="this.style.color='var(--azul)'" onmouseout="this.style.color='white'">&#9776;</span>
@@ -392,6 +393,7 @@
         </div>
     </nav>
 
+    <!-- SLIDER PREMIUM -->
     <div class="slider-wrapper">
         
         <header class="slide active" style="background-image: url('cintas_banner.png');">
@@ -453,6 +455,7 @@
         </div>
     </div>
 
+    <!-- EASTER EGGS PERSONAJES -->
     <section class="characters-mini" style="margin-top: 20px; position: relative; z-index: 20;">
         <div class="char-row" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
             <div class="c-item" onclick="festejoMordo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="mordecai.png" width="45" alt="Mordecai"></div>
@@ -464,10 +467,12 @@
         </div>
     </section>
 
+    <!-- BUSCADOR -->
     <div class="search-container" id="buscador">
         <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="¿Qué querés ver hoy?" class="search-input">
     </div>
 
+    <!-- SECCIÓN: ESTRENOS -->
     <section class="categoria-section">
         <h3 class="categoria-titulo">Estrenos Exclusivos</h3>
         <div class="poster-row" id="fila-estrenos">
@@ -487,6 +492,7 @@
         </div>
     </section>
 
+    <!-- SECCIÓN: UN SHOW MÁS CLÁSICO -->
     <section class="categoria-section">
         <h3 class="categoria-titulo">Un Show Más: Serie Clásica</h3>
         <div class="poster-row" id="fila-clasico">
@@ -531,6 +537,7 @@
         </div>
     </section>
 
+    <!-- SECCIÓN: MÁS CATÁLOGO -->
     <section class="categoria-section">
         <h3 class="categoria-titulo">Explorar el Catálogo</h3>
         <div class="poster-row" id="fila-catalogo">
@@ -571,7 +578,6 @@
         slides[slideIndex].classList.add('active');
         dots[slideIndex].classList.add('active');
         
-        // Colores de los indicadores adaptados al estilo limpio
         const currentDot = dots[slideIndex];
         if(slideIndex === 0) { currentDot.style.backgroundColor = "#e50914"; currentDot.style.boxShadow = "0 0 10px #e50914"; } 
         else if(slideIndex === 1) { currentDot.style.backgroundColor = "white"; currentDot.style.boxShadow = "0 0 10px white"; } 
@@ -598,7 +604,6 @@
         submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
     }
 
-    // Buscador actualizado para no romper la grilla
     function buscarTemporada() {
         let input = document.getElementById('inputBuscador').value.toLowerCase();
         let posters = document.querySelectorAll('.poster-card');
@@ -619,36 +624,61 @@
         setTimeout(() => m.remove(), 2500);
     }
 
-    // --- EASTER EGGS (Intactos) ---
+    // --- EASTER EGGS (CORREGIDOS PARA EL FONDO) ---
     function enojarBenson() {
         const activeSlide = document.querySelector('.slide.active');
         const t = activeSlide.querySelector('.hero-title');
-        const fondoOriginal = activeSlide.style.background;
-        activeSlide.style.background = "#ff4757";
+        
+        const imgOriginal = activeSlide.style.backgroundImage; 
         const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ff4757";
         t.innerText = "¡VUELVAN A TRABAJAR!";
-        setTimeout(() => { activeSlide.style.background = fondoOriginal; t.innerText = textoOriginal; }, 2000);
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 2000);
     }
 
     function retoHuevo() {
         const activeSlide = document.querySelector('.slide.active');
         const t = activeSlide.querySelector('.hero-title');
-        const fondoOriginal = activeSlide.style.background;
-        activeSlide.style.background = "#ffd32a";
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
         const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ffd32a";
         t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
+        
         mostrarMensaje(null, "gorra.png"); 
-        setTimeout(() => { activeSlide.style.background = fondoOriginal; t.innerText = textoOriginal; }, 3000);
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 3000);
     }
 
     function festejoMordo() {
         const activeSlide = document.querySelector('.slide.active');
         const t = activeSlide.querySelector('.hero-title');
-        const fondoOriginal = activeSlide.style.background;
-        activeSlide.style.background = "#1e90ff";
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
         const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#1e90ff";
         t.innerText = "¡OOOOOOOOOOH!";
-        setTimeout(() => { activeSlide.style.background = fondoOriginal; t.innerText = textoOriginal; }, 1500);
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 1500);
     }
 
     function sabiduriaSkips() {
@@ -663,9 +693,12 @@
     function regaloPapaleta() {
         const activeSlide = document.querySelector('.slide.active');
         const t = activeSlide.querySelector('.hero-title');
-        const fondoOriginal = activeSlide.style.background;
-        activeSlide.style.background = "#ff79ff";
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
         const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ff79ff";
         t.innerText = "¡QUÉ BUEN SHOW!";
 
         for (let i = 0; i < 20; i++) {
@@ -680,7 +713,11 @@
             }, i * 100);
         }
 
-        setTimeout(() => { activeSlide.style.background = fondoOriginal; t.innerText = textoOriginal; }, 3000);
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 3000);
     }
 
     function bromaMusculoso() {
