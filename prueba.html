@@ -3,49 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gravity Falls | ElParque26</title>
+    <title>Gravity Falls | Temporadas | ElParque26</title>
+    
     <style>
-        :root { --color-p: #f1c40f; --color-s: #00c3ff; --fondo-p: #030407; --fondo-s: #0b0c10; --hover: #151821; --texto: #a3a3a3; }
-        body { margin: 0; background-color: var(--fondo-p); color: white; font-family: 'Helvetica Neue', Arial, sans-serif; overflow-x: hidden; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 5%; background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); position: absolute; top: 0; width: 90%; z-index: 100; }
-        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; }
-        .logo span { color: var(--color-s); }
-        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
-        .hero-banner { width: 100%; height: 55vh; background: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-p) 100%), url('banner_gf.png') center/cover; display: flex; align-items: flex-end; padding: 0 5% 40px 5%; box-sizing: border-box; }
-        .hero-title { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; margin: 0; }
-        .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; padding: 0 5% 40px 5%; }
+        /* --- ESTILO HBO PREMIUM - GRAVITY FALLS --- */
+        :root {
+            --color-principal: #f1c40f; 
+            --color-secundario: #00c3ff; 
+            --fondo-principal: #030407;
+            --fondo-secundario: #0b0c10;
+            --hover-card: #151821;
+            --texto-secundario: #a3a3a3;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fondo-principal);
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            top: 0;
+            width: 90%;
+            z-index: 100;
+        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--color-secundario); }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-principal); }
+
+        .hero-banner {
+            width: 100%;
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('banner_gf.png');
+            background-size: cover;
+            background-position: center top;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5% 40px 5%;
+            box-sizing: border-box;
+        }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white; }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
+            align-items: start;
+        }
+
         .player-wrapper { scroll-margin-top: 80px; }
-        .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        iframe.video-player { width: 100%; height: 100%; border: none; outline: none; }
+
         .details-panel { padding-top: 10px; }
-        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; margin-bottom: 25px; }
+        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 25px; }
         .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
+
         .episode-list-section { padding: 0 5% 60px 5%; }
-        .hbo-season-selector { background: transparent; color: white; font-size: 1.1rem; border: 1px solid #444; padding: 5px 15px; border-radius: 5px; cursor: pointer; }
-        .season-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .active-grid { display: grid; }
-        .episode-card { display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; }
+        
+        .episodes-header-hbo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+        }
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
+
+        .hbo-season-selector {
+            background: transparent;
+            color: #d1d1d1;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-weight: 500;
+            appearance: none;
+            padding-right: 15px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 10px auto;
+        }
+        .hbo-season-selector option { background: #111; color: white; }
+
+        .season-grid { 
+            display: none; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .season-grid.active-grid { display: grid; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .episode-card {
+            display: flex;
+            flex-direction: column; 
+            background-color: transparent; 
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
         .episode-card:hover { transform: scale(1.03); }
-        .episode-thumb { width: 100%; aspect-ratio: 16/9; background: #111; border-radius: 4px; overflow: hidden; position: relative; }
-        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .ep-title { font-size: 1rem; font-weight: bold; margin: 10px 0 5px; }
-        .ep-desc { font-size: 0.8rem; color: var(--texto); -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
-        @media (max-width: 900px) { .main-content { grid-template-columns: 1fr; } .season-grid { grid-template-columns: repeat(2, 1fr); } }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--color-principal); border-radius: 4px; }
+        
+        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #1a1c23; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
+        
+        .episode-card:hover .episode-thumb img { opacity: 0.6; }
+        .episode-card:hover .play-icon { opacity: 1; }
+
+        .episode-info { padding: 12px 0; text-align: left; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
+        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; gap: 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-banner { height: 40vh; padding-bottom: 20px; }
+            .episodes-header-hbo { margin-bottom: 15px; }
+            .hbo-section-title { font-size: 1.4rem; }
+            .hbo-season-selector { font-size: 0.95rem; }
+
+            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+            .episode-info { padding: 8px 0; }
+            .ep-title { font-size: 0.85rem; }
+            .ep-desc { font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar"><div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div><div class="nav-links"><a href="index.html">Inicio</a></div></nav>
-    <header class="hero-banner"><h1 class="hero-title">GRAVITY FALLS</h1></header>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
+    </nav>
+
+    <header class="hero-banner">
+        <h1 class="hero-title">GRAVITY FALLS</h1>
+    </header>
+
     <div class="main-content">
-        <div class="player-wrapper" id="reproductor-ancla"><div class="player-container"><iframe id="videoPlayer" src="https://mega.nz/embed/mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang" allowfullscreen></iframe></div></div>
+        <div class="player-wrapper" id="reproductor-ancla">
+            <div class="player-container">
+                <!-- Se coloca el episodio 1 por defecto para que no salga el error de Vercel -->
+                <iframe id="videoPlayer" class="video-player" src="https://mega.nz/embed/mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang" allowfullscreen></iframe>
+            </div>
+        </div>
+
         <aside class="details-panel">
-            <div class="poster-wrapper"><img src="gravity_poster.png"></div>
+            <div class="poster-wrapper">
+                <img src="gravity_poster.png" alt="Gravity Falls Póster">
+            </div>
             <h2 class="info-title">Gravity Falls</h2>
-            <p class="info-synopsis">Los mellizos Pines descubren secretos paranormales en Oregón.</p>
+            <p class="info-subtitle">Serie Original • 2 Temporadas</p>
+            <p class="info-synopsis">Los mellizos Dipper y Mabel Pines pasan el verano en el misterioso pueblo de Gravity Falls, Oregón, trabajando en la Cabaña del Misterio. Pronto descubren que el pueblo está lleno de secretos paranormales y criaturas extrañas.</p>
         </aside>
     </div>
+
     <section class="episode-list-section">
-        <div style="display:flex; justify-content:space-between; margin-bottom: 25px;">
+        
+        <div class="episodes-header-hbo">
             <h2 class="hbo-section-title">Episodios</h2>
             <select class="hbo-season-selector" id="seasonSelector" onchange="cambiarTemporada()">
                 <option value="t1">Temporada 1</option>
@@ -53,83 +194,101 @@
                 <option value="cortos">Cortos</option>
             </select>
         </div>
+        
+        <!-- ================= TEMPORADA 1 (20 Caps) ================= -->
         <div id="grid-t1" class="season-grid active-grid">
-            <!-- T1: 20 episodios -->
-            <div class="episode-card" onclick="setVid('mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')"><div class="episode-thumb"><img src="gft1c1.jpg"></div><h4 class="ep-title">1. Turista Atrapado</h4></div>
-            <div class="episode-card" onclick="setVid('iSQS1DbA#4SSmt7APU9rZw1b6Jofr28B6iXD9AaGP4gRrG0ork-I')"><div class="episode-thumb"><img src="gft1c2.jpg"></div><h4 class="ep-title">2. Monstruo del Lago</h4></div>
-            <div class="episode-card" onclick="setVid('COoTkAJR#tM91qcrFeFEIPGFHepXOQYokbCCLOBkgvHgeAD8igzg')"><div class="episode-thumb"><img src="gft1c3.jpg"></div><h4 class="ep-title">3. Cazadores Cabezas</h4></div>
-            <div class="episode-card" onclick="setVid('6LowXSTZ#v-hS51Cr_PqO8rqgUqk71v0tlRXx7J7ftXUX2Nabxeg')"><div class="episode-thumb"><img src="gft1c4.jpg"></div><h4 class="ep-title">4. Dipper y Clones</h4></div>
-            <div class="episode-card" onclick="setVid('OD4xWA5A#mkS6XV-vCiU-svApGcDekBRvgP366dnZGrqNrJnWlO8')"><div class="episode-thumb"><img src="gft1c5.jpg"></div><h4 class="ep-title">5. Tienda Embrujada</h4></div>
-            <div class="episode-card" onclick="setVid('SS4xwA4D#ShlmXJMbZ4ijkwqsLX0dO3xWjneSs3hcW-wmeQ8HsoM')"><div class="episode-thumb"><img src="gft1c6.jpg"></div><h4 class="ep-title">6. Dipper vs Hombría</h4></div>
-            <div class="episode-card" onclick="setVid('XCJTjCqA#48j83okwKxEtNMEX1gsFBuotb5OQtIQJK4AOLdMaoBk')"><div class="episode-thumb"><img src="gft1c7.jpg"></div><h4 class="ep-title">7. Doble Dipper</h4></div>
-            <div class="episode-card" onclick="setVid('DSh2XTLQ#sy5tmWXYS3hMBPqtdC6Xz8m6ht4DoJO9Rw9Er-6e6VM')"><div class="episode-thumb"><img src="gft1c8.jpg"></div><h4 class="ep-title">8. Tesoro Irracional</h4></div>
-            <div class="episode-card" onclick="setVid('rDwiFAJA#k-lJag7LbwCybvca5nhiEtLTIhdrak0MTlmkICspc0Q')"><div class="episode-thumb"><img src="gft1c9.jpg"></div><h4 class="ep-title">9. Cerdito Viajero</h4></div>
-            <div class="episode-card" onclick="setVid('3Pp1zD4Q#9nKmOmzbyWTS8xvS89HQD6uNe4_ZT-k37HqKPnBuWMw')"><div class="episode-thumb"><img src="gft1c10.jpg"></div><h4 class="ep-title">10. Peleas Luchadores</h4></div>
-            <div class="episode-card" onclick="setVid('WDZAjbiZ#lnCrZ3OhbzRkUQSllakHdh1wmiqCPvvEfvuEvAJcavY')"><div class="episode-thumb"><img src="gft1c11.jpg"></div><h4 class="ep-title">11. Pequeño Dipper</h4></div>
-            <div class="episode-card" onclick="setVid('PCIHyb7K#Q-tfXzbf_tBG8fklCAUiy3LN2CRQWI4cLk0A_TiphWk')"><div class="episode-thumb"><img src="gft1c12.jpg"></div><h4 class="ep-title">12. Súper Halloween</h4></div>
-            <div class="episode-card" onclick="setVid('TLYDiQJZ#1Feul8YpV0Yd9yLNFdc5bIVr7hP7p0YvJ26r3graL5s')"><div class="episode-thumb"><img src="gft1c13.jpg"></div><h4 class="ep-title">13. Jefa Mabel</h4></div>
-            <div class="episode-card" onclick="setVid('rWY2GDbS#qg9vcFPgsGs2jRMhA-UVIW6Dd7uMzFYqYcsf1iMPi-E')"><div class="episode-thumb"><img src="gft1c14.jpg"></div><h4 class="ep-title">14. Pozo Sin Fondo</h4></div>
-            <div class="episode-card" onclick="setVid('vKpAgLjI#fk_YSuuWLxM573kbdncs4vxk_OOnbfVysorJ3p42vWM')"><div class="episode-thumb"><img src="gft1c15.jpg"></div><h4 class="ep-title">15. En lo Profundo</h4></div>
-            <div class="episode-card" onclick="setVid('XHJjBDaT#or1l8XnrAWDFaUlC-_TwsY5hLQygZxxi79VQknaC2aY')"><div class="episode-thumb"><img src="gft1c16.jpg"></div><h4 class="ep-title">16. Cambiando Cuerpo</h4></div>
-            <div class="episode-card" onclick="setVid('DGRDhT4L#tDXoBYd5cGpTgqjzEzvgTpsOd_B3FKXu9fCLR8XsMhU')"><div class="episode-thumb"><img src="gft1c17.jpg"></div><h4 class="ep-title">17. Chicos Locos</h4></div>
-            <div class="episode-card" onclick="setVid('vDJnXCLB#7fEMCyv0UtIdjirzJKobcRf5_5UCBdrsp4JnTktINKk')"><div class="episode-thumb"><img src="gft1c18.jpg"></div><h4 class="ep-title">18. Aprovecha Adolescente</h4></div>
-            <div class="episode-card" onclick="setVid('jCZhkSYD#FgnAAuWwom3_M3XWvAFU_7tAPj5VQ4Q8dmo9QZzpOVs')"><div class="episode-thumb"><img src="gft1c19.jpg"></div><h4 class="ep-title">19. Escapa Sueños</h4></div>
-            <div class="episode-card" onclick="setVid('jeplxLTK#-TlddhV9GfonfI17tkR3zjaAN8VwC5MK7WWTO9vUTiA')"><div class="episode-thumb"><img src="gft1c20.jpg"></div><h4 class="ep-title">20. Gedeón se Levanta</h4></div>
+            <div class="episode-card active" onclick="cambiarVideo(this, 'https://mega.nz/embed/mGRmmKzI#AnoYH3y5-17LLg7PHMAik2s8IFFhXpQLU85VnI6kang')"><div class="episode-thumb"><img src="gft1c1.jpg" alt="Ep 1"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">1. Turista Atrapado</h4><p class="ep-desc">Dipper y Mabel llegan a Gravity Falls. Dipper encuentra un misterioso diario en el bosque.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/iSQS1DbA#4SSmt7APU9rZw1b6Jofr28B6iXD9AaGP4gRrG0ork-I')"><div class="episode-thumb"><img src="gft1c2.jpg" alt="Ep 2"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">2. La Leyenda del Monstruo...</h4><p class="ep-desc">Dipper y Mabel salen de pesca para atrapar al legendario monstruo del lago.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/COoTkAJR#tM91qcrFeFEIPGFHepXOQYokbCCLOBkgvHgeAD8igzg')"><div class="episode-thumb"><img src="gft1c3.jpg" alt="Ep 3"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">3. Cazadores de Cabezas</h4><p class="ep-desc">Mabel remodela a Stan de cera, pero alguien le corta la cabeza en la noche.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/6LowXSTZ#v-hS51Cr_PqO8rqgUqk71v0tlRXx7J7ftXUX2Nabxeg')"><div class="episode-thumb"><img src="gft1c4.jpg" alt="Ep 4"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">4. Gideon y Mabel</h4><p class="ep-desc">El carismático niño psíquico del pueblo, Gideon, se enamora perdidamente de Mabel.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/OD4xWA5A#mkS6XV-vCiU-svApGcDekBRvgP366dnZGrqNrJnWlO8')"><div class="episode-thumb"><img src="gft1c5.jpg" alt="Ep 5"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">5. La Tienda de los Fantasmas</h4><p class="ep-desc">Dipper intenta impresionar a Wendy entrando a una tienda abandonada llena de fantasmas.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/SS4xwA4D#ShlmXJMbZ4ijkwqsLX0dO3xWjneSs3hcW-wmeQ8HsoM')"><div class="episode-thumb"><img src="gft1c6.jpg" alt="Ep 6"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">6. Dipper vs. Hombría</h4><p class="ep-desc">Dipper busca a los Manotauros para que le enseñen a ser un verdadero hombre.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/XCJTjCqA#48j83okwKxEtNMEX1gsFBuotb5OQtIQJK4AOLdMaoBk')"><div class="episode-thumb"><img src="gft1c7.jpg" alt="Ep 7"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">7. Doble Dipper</h4><p class="ep-desc">Dipper usa una fotocopiadora mágica para clonarse y organizar el plan perfecto con Wendy.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/DSh2XTLQ#sy5tmWXYS3hMBPqtdC6Xz8m6ht4DoJO9Rw9Er-6e6VM')"><div class="episode-thumb"><img src="gft1c8.jpg" alt="Ep 8"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">8. Tesoro Irracional</h4><p class="ep-desc">Los gemelos descubren un complot histórico sobre el verdadero fundador de Gravity Falls.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/rDwiFAJA#k-lJag7LbwCybvca5nhiEtLTIhdrak0MTlmkICspc0Q')"><div class="episode-thumb"><img src="gft1c9.jpg" alt="Ep 9"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">9. El Cerdito Viajero del Tiempo</h4><p class="ep-desc">Dipper usa una máquina del tiempo para evitar golpear a Wendy, pero afecta a Mabel y a Pato.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/3Pp1zD4Q#9nKmOmzbyWTS8xvS89HQD6uNe4_ZT-k37HqKPnBuWMw')"><div class="episode-thumb"><img src="gft1c10.jpg" alt="Ep 10"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">10. Peleas de Luchadores</h4><p class="ep-desc">Dipper trae a la vida a un personaje de un juego de arcade para defenderse de Robbie.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/WDZAjbiZ#lnCrZ3OhbzRkUQSllakHdh1wmiqCPvvEfvuEvAJcavY')"><div class="episode-thumb"><img src="gft1c11.jpg" alt="Ep 11"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">11. Pequeño Dipper</h4><p class="ep-desc">Dipper y Mabel encuentran un cristal que encoge y agranda cosas. Gideon se aprovecha de ello.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/PCIHyb7K#Q-tfXzbf_tBG8fklCAUiy3LN2CRQWI4cLk0A_TiphWk')"><div class="episode-thumb"><img src="gft1c12.jpg" alt="Ep 12"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">12. Súper Halloween</h4><p class="ep-desc">Gravity Falls celebra su propio Halloween de verano, pero un monstruo amenaza a los gemelos.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/TLYDiQJZ#1Feul8YpV0Yd9yLNFdc5bIVr7hP7p0YvJ26r3graL5s')"><div class="episode-thumb"><img src="gft1c13.jpg" alt="Ep 13"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">13. La Jefa Mabel</h4><p class="ep-desc">Mabel hace una apuesta con Stan y se convierte en la jefa de la Cabaña del Misterio.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/rWY2GDbS#qg9vcFPgsGs2jRMhA-UVIW6Dd7uMzFYqYcsf1iMPi-E')"><div class="episode-thumb"><img src="gft1c14.jpg" alt="Ep 14"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">14. Pozo sin Fondo</h4><p class="ep-desc">Mientras caen por un pozo, Dipper, Mabel, Stan y Soos cuentan historias para pasar el tiempo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/vKpAgLjI#fk_YSuuWLxM573kbdncs4vxk_OOnbfVysorJ3p42vWM')"><div class="episode-thumb"><img src="gft1c15.jpg" alt="Ep 15"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">15. Un Profundo Final</h4><p class="ep-desc">Mabel se hace amiga de un tritón en la piscina pública y Dipper trabaja como salvavidas.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/XHJjBDaT#or1l8XnrAWDFaUlC-_TwsY5hLQygZxxi79VQknaC2aY')"><div class="episode-thumb"><img src="gft1c16.jpg" alt="Ep 16"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">16. Aprovecha la Alfombra</h4><p class="ep-desc">Los gemelos descubren una alfombra con el poder de intercambiar mentes.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/DGRDhT4L#tDXoBYd5cGpTgqjzEzvgTpsOd_B3FKXu9fCLR8XsMhU')"><div class="episode-thumb"><img src="gft1c17.jpg" alt="Ep 17"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">17. Locura de Chicos</h4><p class="ep-desc">Mabel rescata a los miembros de su banda de chicos favorita, que resultan ser clones.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/vDJnXCLB#7fEMCyv0UtIdjirzJKobcRf5_5UCBdrsp4JnTktINKk')"><div class="episode-thumb"><img src="gft1c18.jpg" alt="Ep 18"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">18. Cerdito en la Tierra de los Cerdos</h4><p class="ep-desc">Stan pierde a Pato y los gemelos deben enfrentarse a un pterodáctilo para recuperarlo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/jCZhkSYD#FgnAAuWwom3_M3XWvAFU_7tAPj5VQ4Q8dmo9QZzpOVs')"><div class="episode-thumb"><img src="gft1c19.jpg" alt="Ep 19"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">19. Escapando de los Sueños</h4><p class="ep-desc">Gideon invoca al peligroso demonio Bill Cipher para invadir la mente de Stan.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/jeplxLTK#-TlddhV9GfonfI17tkR3zjaAN8VwC5MK7WWTO9vUTiA')"><div class="episode-thumb"><img src="gft1c20.jpg" alt="Ep 20"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">20. Gideon se Alza</h4><p class="ep-desc">Gideon toma el control de la Cabaña del Misterio. Dipper y Mabel deben recuperar su hogar.</p></div></div>
         </div>
 
+        <!-- ================= TEMPORADA 2 (20 Caps) ================= -->
         <div id="grid-t2" class="season-grid">
-            <!-- T2: 20 episodios -->
-            <div class="episode-card" onclick="setVid('iDoS3Jia#CJF1wzQSQ6ZcItGbOtLM_8keIFplCdhVrYYYx6R1y3o')"><div class="episode-thumb"><img src="gft2c1.jpg"></div><h4 class="ep-title">1. Juego Sombras</h4></div>
-            <div class="episode-card" onclick="setVid('WSYlkY6S#772hBliedgnvrbz36fPcR3AISaPxy6aParUnasPmfYc')"><div class="episode-thumb"><img src="gft2c2.jpg"></div><h4 class="ep-title">2. Visita Refugio</h4></div>
-            <div class="episode-card" onclick="setVid('fbYl1I5b#WsjsOgxdxO-yc8RC9I5GGvTq3FH9i4O7uwNiT6G1nno')"><div class="episode-thumb"><img src="gft2c3.jpg"></div><h4 class="ep-title">3. Guerra Golf</h4></div>
-            <div class="episode-card" onclick="setVid('PfBwTKbS#DklFJOaMr7IfYLHtDVbfuhFbut5k2WGfuZq8EYxU_ug')"><div class="episode-thumb"><img src="gft2c4.jpg"></div><h4 class="ep-title">4. Teatro Calcetines</h4></div>
-            <div class="episode-card" onclick="setVid('XTQz0J4a#SJ6jSXkqob3j3sq-ux6mrxi_gJdZ00mUvzlHfsJwQno')"><div class="episode-thumb"><img src="gft2c5.jpg"></div><h4 class="ep-title">5. Soos Chica Verdad</h4></div>
-            <div class="episode-card" onclick="setVid('HTwWkKzK#leF9z5gzflEIf1vZUoY6PYk-6mqYGWhC99W3eRbbOM4')"><div class="episode-thumb"><img src="gft2c6.jpg"></div><h4 class="ep-title">6. Tienda Horrores</h4></div>
-            <div class="episode-card" onclick="setVid('bfIyFKhT#iZPyorDWdNPcpV6_LC45CwsHYCOWsj9yEVHo3ksDxmk')"><div class="episode-thumb"><img src="gft2c7.jpg"></div><h4 class="ep-title">7. Sociedad Ojo Ciego</h4></div>
-            <div class="episode-card" onclick="setVid('COAkgbjL#OFS1WcKpFYfLIvS5UHxmewA_8g3W6nbFn2PQn_1MPWs')"><div class="episode-thumb"><img src="gft2c8.jpg"></div><h4 class="ep-title">8. Juego Blendin</h4></div>
-            <div class="episode-card" onclick="setVid('KHI1ALqZ#BFxx_0jgsO9wTCFdMRqNjeZB_uoNiBM1GAEOIYVNK98')"><div class="episode-thumb"><img src="gft2c9.jpg"></div><h4 class="ep-title">9. Cupido</h4></div>
-            <div class="episode-card" onclick="setVid('SbRBzT6C#4Omo2RWuW7DqITKof2CmhitcAdoWn6sk2JxOeuh4QgY')"><div class="episode-thumb"><img src="gft2c10.jpg"></div><h4 class="ep-title">10. Mansión Northwest</h4></div>
-            <div class="episode-card" onclick="setVid('2W4FnDZQ#6EGOA2Or30i8MURNJykaIP5mFpyMDi4InJmgiVqDK0o')"><div class="episode-thumb"><img src="gft2c11.jpg"></div><h4 class="ep-title">11. No es lo que Parece</h4></div>
-            <div class="episode-card" onclick="setVid('Deol3AYA#xU5LPxuqdjCGHNnzdDQ5Lm_ZEWHMzDdmkQTpSfVTIMk')"><div class="episode-thumb"><img src="gft2c12.jpg"></div><h4 class="ep-title">12. Historia dos Stans</h4></div>
-            <div class="episode-card" onclick="setVid('zPBHXDqK#kxOUTIfZTH6H09A_lUnOFow39y5eHBaWXW161qJomBY')"><div class="episode-thumb"><img src="gft2c13.jpg"></div><h4 class="ep-title">13. Calabozos</h4></div>
-            <div class="episode-card" onclick="setVid('WPhxCazQ#drnOvICna71Pren0xLt7AhgBUjnlFh0I5Ei-mdZ4NcQ')"><div class="episode-thumb"><img src="gft2c14.jpg"></div><h4 class="ep-title">14. Candidato</h4></div>
-            <div class="episode-card" onclick="setVid('aKojCYZA#6nOSLOXDFrbR6jCNNOXX0KCPpqmUVEakpaOFiaBx0Ws')"><div class="episode-thumb"><img src="gft2c15.jpg"></div><h4 class="ep-title">15. Último Mabelcornio</h4></div>
-            <div class="episode-card" onclick="setVid('TD412ILT#cHvgCnGQfX_DXqlsmcJPT9NNmYkwmu-FVP3O9hCYqbY')"><div class="episode-thumb"><img src="gft2c16.jpg"></div><h4 class="ep-title">16. Atracción Carretera</h4></div>
-            <div class="episode-card" onclick="setVid('Wfh3GIDR#hVKohRBuPVvN1XJvBX-1IBJuADedu51RcjMd2j4cTp0')"><div class="episode-thumb"><img src="gft2c17.jpg"></div><h4 class="ep-title">17. Contra el Futuro</h4></div>
-            <div class="episode-card" onclick="setVid('fPhQHDoR#yGsOxfx-rAhwylxDjzaiyseO_fCsRSCK8nvkS4R08x0')"><div class="episode-thumb"><img src="gft2c18.jpg"></div><h4 class="ep-title">18. Raromagedón 1</h4></div>
-            <div class="episode-card" onclick="setVid('mXB3TJRD#-8EuncBgLu8z0JVwqCqLoYF4uyIl0Ysm-DuUj_SyRqQ')"><div class="episode-thumb"><img src="gft2c19.jpg"></div><h4 class="ep-title">19. Raromagedón 2</h4></div>
-            <div class="episode-card" onclick="setVid('uTQX3JCT#MqnwHex5GGd_sheiKHWqRo4B8pPVu-ClozXkShRgF7o')"><div class="episode-thumb"><img src="gft2c20.jpg"></div><h4 class="ep-title">20. Raromagedón 3</h4></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/iDoS3Jia#CJF1wzQSQ6ZcItGbOtLM_8keIFplCdhVrYYYx6R1y3o')"><div class="episode-thumb"><img src="gft2c1.jpg" alt="Ep 1"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">1. Espantajo-oke</h4><p class="ep-desc">Stan organiza una fiesta para celebrar, pero Dipper invoca accidentalmente a unos zombis.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/WSYlkY6S#772hBliedgnvrbz36fPcR3AISaPxy6aParUnasPmfYc')"><div class="episode-thumb"><img src="gft2c2.jpg" alt="Ep 2"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">2. Visita al refugio</h4><p class="ep-desc">Siguiendo pistas del diario, el equipo encuentra un búnker oculto bajo tierra lleno de peligros.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/fbYl1I5b#WsjsOgxdxO-yc8RC9I5GGvTq3FH9i4O7uwNiT6G1nno')"><div class="episode-thumb"><img src="gft2c3.jpg" alt="Ep 3"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">3. La guerra del mini-golf</h4><p class="ep-desc">Mabel compite contra Pacifica en un campo de mini-golf controlado por pequeñas criaturas.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/PfBwTKbS#DklFJOaMr7IfYLHtDVbfuhFbut5k2WGfuZq8EYxU_ug')"><div class="episode-thumb"><img src="gft2c4.jpg" alt="Ep 4"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">4. Operación calcetín</h4><p class="ep-desc">Mabel monta una obra de teatro de títeres, mientras Dipper hace un trato oscuro con Bill Cipher.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/XTQz0J4a#SJ6jSXkqob3j3sq-ux6mrxi_gJdZ00mUvzlHfsJwQno')"><div class="episode-thumb"><img src="gft2c5.jpg" alt="Ep 5"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">5. Soos y la chica de verdad</h4><p class="ep-desc">Soos compra un juego de simulación de citas, pero el personaje virtual se obsesiona con él.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/HTwWkKzK#leF9z5gzflEIf1vZUoY6PYk-6mqYGWhC99W3eRbbOM4')"><div class="episode-thumb"><img src="gft2c6.jpg" alt="Ep 6"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">6. La casita de los horrores</h4><p class="ep-desc">Stan cuenta tres historias terroríficas a un misterioso viajero para intentar venderle algo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/bfIyFKhT#iZPyorDWdNPcpV6_LC45CwsHYCOWsj9yEVHo3ksDxmk')"><div class="episode-thumb"><img src="gft2c7.jpg" alt="Ep 7"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">7. La Sociedad del Ojo Ciego</h4><p class="ep-desc">Dipper y Mabel descubren una sociedad secreta que borra los recuerdos de los habitantes del pueblo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/COAkgbjL#OFS1WcKpFYfLIvS5UHxmewA_8g3W6nbFn2PQn_1MPWs')"><div class="episode-thumb"><img src="gft2c8.jpg" alt="Ep 8"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">8. El juego de Blendin</h4><p class="ep-desc">Blendin Blandin regresa del futuro para vengarse de Dipper y Mabel en un duelo de gladiadores temporales.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/KHI1ALqZ#BFxx_0jgsO9wTCFdMRqNjeZB_uoNiBM1GAEOIYVNK98')"><div class="episode-thumb"><img src="gft2c9.jpg" alt="Ep 9"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">9. Cupido</h4><p class="ep-desc">Mabel roba pociones de un Dios del Amor para forzar un romance, causando un desastre.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/SbRBzT6C#4Omo2RWuW7DqITKof2CmhitcAdoWn6sk2JxOeuh4QgY')"><div class="episode-thumb"><img src="gft2c10.jpg" alt="Ep 10"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">10. El misterio de la Mansión Noroeste</h4><p class="ep-desc">Pacifica le pide ayuda a Dipper para deshacerse de un fantasma vengativo en su mansión.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/2W4FnDZQ#6EGOA2Or30i8MURNJykaIP5mFpyMDi4InJmgiVqDK0o')"><div class="episode-thumb"><img src="gft2c11.jpg" alt="Ep 11"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">11. Él no es lo que parece</h4><p class="ep-desc">Stan es arrestado por el gobierno y los gemelos deben descubrir qué está ocultando en el sótano.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/Deol3AYA#xU5LPxuqdjCGHNnzdDQ5Lm_ZEWHMzDdmkQTpSfVTIMk')"><div class="episode-thumb"><img src="gft2c12.jpg" alt="Ep 12"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">12. Una historia de dos Stans</h4><p class="ep-desc">El autor de los diarios revela su identidad y cuenta la verdadera historia de su pasado con Stan.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/zPBHXDqK#kxOUTIfZTH6H09A_lUnOFow39y5eHBaWXW161qJomBY')"><div class="episode-thumb"><img src="gft2c13.jpg" alt="Ep 13"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">13. Calabozos, calabozos y más calabozos</h4><p class="ep-desc">Dipper y el tío Ford juegan a un juego de rol de mesa que repentinamente cobra vida.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/WPhxCazQ#drnOvICna71Pren0xLt7AhgBUjnlFh0I5Ei-mdZ4NcQ')"><div class="episode-thumb"><img src="gft2c14.jpg" alt="Ep 14"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">14. El candidato</h4><p class="ep-desc">Stan decide postularse para alcalde de Gravity Falls, pero Dipper y Mabel interfieren en su campaña.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/aKojCYZA#6nOSLOXDFrbR6jCNNOXX0KCPpqmUVEakpaOFiaBx0Ws')"><div class="episode-thumb"><img src="gft2c15.jpg" alt="Ep 15"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">15. El último Mabelcornio</h4><p class="ep-desc">Mabel inicia una misión épica para conseguir pelo de unicornio para proteger la Cabaña.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/TD412ILT#cHvgCnGQfX_DXqlsmcJPT9NNmYkwmu-FVP3O9hCYqbY')"><div class="episode-thumb"><img src="gft2c16.jpg" alt="Ep 16"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">16. Atracción por la carretera</h4><p class="ep-desc">Stan lleva a los chicos en un viaje por carretera para sabotear otras trampas para turistas.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/Wfh3GIDR#hVKohRBuPVvN1XJvBX-1IBJuADedu51RcjMd2j4cTp0')"><div class="episode-thumb"><img src="gft2c17.jpg" alt="Ep 17"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">17. Dipper y Mabel contra el futuro</h4><p class="ep-desc">Mabel lidia con el inminente fin del verano y su cumpleaños, mientras Dipper ayuda a Ford.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/fPhQHDoR#yGsOxfx-rAhwylxDjzaiyseO_fCsRSCK8nvkS4R08x0')"><div class="episode-thumb"><img src="gft2c18.jpg" alt="Ep 18"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">18. Raromagedón: Parte 1</h4><p class="ep-desc">Bill Cipher toma el control físico del pueblo, desatando un caos apocalíptico absoluto.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/mXB3TJRD#-8EuncBgLu8z0JVwqCqLoYF4uyIl0Ysm-DuUj_SyRqQ')"><div class="episode-thumb"><img src="gft2c19.jpg" alt="Ep 19"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">19. Raromagedón 2: Escapando de la realidad</h4><p class="ep-desc">Dipper, Wendy y Soos se aventuran en la burbuja de Mabel para intentar rescatarla de una fantasía.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://mega.nz/embed/uTQX3JCT#MqnwHex5GGd_sheiKHWqRo4B8pPVu-ClozXkShRgF7o')"><div class="episode-thumb"><img src="gft2c20.jpg" alt="Ep 20"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">20. Raromagedón 3: Recuperar el pueblo</h4><p class="ep-desc">El épico enfrentamiento final. Todos los habitantes de Gravity Falls se unen para derrotar a Bill Cipher.</p></div></div>
         </div>
 
+        <!-- ================= CORTOS (17 Cortos) ================= -->
         <div id="grid-cortos" class="season-grid">
-            <!-- Cortos: 17 -->
-            <div class="episode-card" onclick="setDrive('10xJLfPBXOZ_rdP3JbXQQgo1onHTkFZZs')"><div class="episode-thumb"><img src="gfct1.jpg"></div><h4 class="ep-title">Corto 1</h4></div>
-            <div class="episode-card" onclick="setDrive('1Agh-bpLCz58dpt8Sq-zh_JcgDgZAD9cU')"><div class="episode-thumb"><img src="gfct2.jpg"></div><h4 class="ep-title">Corto 2</h4></div>
-            <div class="episode-card" onclick="setDrive('1ztBccizoYLha49q7N27LaihcHMKJEIaj')"><div class="episode-thumb"><img src="gfct3.jpg"></div><h4 class="ep-title">Corto 3</h4></div>
-            <div class="episode-card" onclick="setDrive('1EkpbPqk8AwwwA_0mG_Q8DVaL1PXrjqnj')"><div class="episode-thumb"><img src="gfct4.jpg"></div><h4 class="ep-title">Corto 4</h4></div>
-            <div class="episode-card" onclick="setDrive('1FOXtQu9Ypp5djOR-r6GqXsngJMOf-izx')"><div class="episode-thumb"><img src="gfct5.jpg"></div><h4 class="ep-title">Corto 5</h4></div>
-            <div class="episode-card" onclick="setDrive('1OJX3wbmQ8FuToxhvQ60fSr7R0ki_M7J8')"><div class="episode-thumb"><img src="gfct6.jpg"></div><h4 class="ep-title">Corto 6</h4></div>
-            <div class="episode-card" onclick="setDrive('1Op-d9rlnl3jEjezQbW66kUQARfzgY5vq')"><div class="episode-thumb"><img src="gfct7.jpg"></div><h4 class="ep-title">Corto 7</h4></div>
-            <div class="episode-card" onclick="setDrive('1fPg5xLnz9ZiZUjW_HtAxMxFgMtG8gWI4')"><div class="episode-thumb"><img src="gfct8.jpg"></div><h4 class="ep-title">Corto 8</h4></div>
-            <div class="episode-card" onclick="setDrive('1v2O1mIndv6Z7qXOfENnmPewmrloGeNWh')"><div class="episode-thumb"><img src="gfct9.jpg"></div><h4 class="ep-title">Corto 9</h4></div>
-            <div class="episode-card" onclick="setDrive('16ZhyE8vBxW7_3WCVmIEOfM5ju7zHuG3f')"><div class="episode-thumb"><img src="gfct10.jpg"></div><h4 class="ep-title">Corto 10</h4></div>
-            <div class="episode-card" onclick="setDrive('1KF5HLfFLXOcjX_FvDBDRqIUFsm4OQ_eN')"><div class="episode-thumb"><img src="gfct11.jpg"></div><h4 class="ep-title">Corto 11</h4></div>
-            <div class="episode-card" onclick="setDrive('1gP4W0TGis6UTbIjsSp16wjOTZYGTiH_g')"><div class="episode-thumb"><img src="gfct12.jpg"></div><h4 class="ep-title">Corto 12</h4></div>
-            <div class="episode-card" onclick="setDrive('1hAZce1TZl1Tjfa8K-u3p4at5T8ZcqYPK')"><div class="episode-thumb"><img src="gfct13.jpg"></div><h4 class="ep-title">Corto 13</h4></div>
-            <div class="episode-card" onclick="setDrive('1ZofvZkE5q03LDRoV2rBDViZDHCV3dLt8')"><div class="episode-thumb"><img src="gfct14.jpg"></div><h4 class="ep-title">Corto 14</h4></div>
-            <div class="episode-card" onclick="setDrive('1ou89I2f2Abyczw8GJ6nzj0XI6llquc_W')"><div class="episode-thumb"><img src="gfct15.jpg"></div><h4 class="ep-title">Corto 15</h4></div>
-            <div class="episode-card" onclick="setDrive('1FgoZM24xtQM5ICV0GQJse6dq5E1A74Ii')"><div class="episode-thumb"><img src="gfct16.jpg"></div><h4 class="ep-title">Corto 16</h4></div>
-            <div class="episode-card" onclick="setDrive('1iK_2Qe3gCvUCMoZf7XVaIA0TFQP_49-C')"><div class="episode-thumb"><img src="gfct17.jpg"></div><h4 class="ep-title">Corto 17</h4></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/10xJLfPBXOZ_rdP3JbXQQgo1onHTkFZZs/preview')"><div class="episode-thumb"><img src="gfct1.jpg" alt="Corto 1"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">1. El monstruo de los dulces</h4><p class="ep-desc">Dipper investiga una extraña anomalía en la tienda de dulces del pueblo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Agh-bpLCz58dpt8Sq-zh_JcgDgZAD9cU/preview')"><div class="episode-thumb"><img src="gfct2.jpg" alt="Corto 2"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">2. El tatuaje de Stan</h4><p class="ep-desc">Dipper intenta descubrir el misterioso secreto detrás del tatuaje oculto de su tío.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1ztBccizoYLha49q7N27LaihcHMKJEIaj/preview')"><div class="episode-thumb"><img src="gfct3.jpg" alt="Corto 3"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">3. Buzón misterioso</h4><p class="ep-desc">Los gemelos descubren un buzón en el bosque que parece saberlo absolutamente todo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1EkpbPqk8AwwwA_0mG_Q8DVaL1PXrjqnj/preview')"><div class="episode-thumb"><img src="gfct4.jpg" alt="Corto 4"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">4. El hombre izquierdo</h4><p class="ep-desc">Dipper busca a un hombre extraño que, según él, solo mira hacia el lado izquierdo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1FOXtQu9Ypp5djOR-r6GqXsngJMOf-izx/preview')"><div class="episode-thumb"><img src="gfct5.jpg" alt="Corto 5"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">5. El diente</h4><p class="ep-desc">Dipper documenta la aparición de un diente gigante flotando a la orilla del lago.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1OJX3wbmQ8FuToxhvQ60fSr7R0ki_M7J8/preview')"><div class="episode-thumb"><img src="gfct6.jpg" alt="Corto 6"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">6. El oculta-detrás</h4><p class="ep-desc">El diario habla sobre una criatura imposible de ver porque siempre se esconde a tus espaldas.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Op-d9rlnl3jEjezQbW66kUQARfzgY5vq/preview')"><div class="episode-thumb"><img src="gfct7.jpg" alt="Corto 7"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">7. Guía de Mabel para las citas</h4><p class="ep-desc">Mabel organiza un peculiar cuestionario para enseñar los secretos del romance.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1fPg5xLnz9ZiZUjW_HtAxMxFgMtG8gWI4/preview')"><div class="episode-thumb"><img src="gfct8.jpg" alt="Corto 8"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">8. Guía de Mabel para las calcomanías</h4><p class="ep-desc">Un recorrido exclusivo por la impresionante colección de stickers de Mabel.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1v2O1mIndv6Z7qXOfENnmPewmrloGeNWh/preview')"><div class="episode-thumb"><img src="gfct9.jpg" alt="Corto 9"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">9. Guía de Mabel para la moda</h4><p class="ep-desc">Mabel somete a varios habitantes del pueblo a su propio cambio de imagen extremo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/16ZhyE8vBxW7_3WCVmIEOfM5ju7zHuG3f/preview')"><div class="episode-thumb"><img src="gfct10.jpg" alt="Corto 10"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">10. Guía de Mabel para el color</h4><p class="ep-desc">Mabel explora por qué Stan no percibe los colores mágicos de la misma manera que ella.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1KF5HLfFLXOcjX_FvDBDRqIUFsm4OQ_eN/preview')"><div class="episode-thumb"><img src="gfct11.jpg" alt="Corto 11"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">11. Guía de Mabel para el arte</h4><p class="ep-desc">La creatividad explota cuando Mabel enseña su particular perspectiva sobre las bellas artes.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1gP4W0TGis6UTbIjsSp16wjOTZYGTiH_g/preview')"><div class="episode-thumb"><img src="gfct12.jpg" alt="Corto 12"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">12. Reparando con Soos: El carrito</h4><p class="ep-desc">Soos intenta reparar el carrito de golf de la Cabaña del Misterio con dudoso éxito.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1hAZce1TZl1Tjfa8K-u3p4at5T8ZcqYPK/preview')"><div class="episode-thumb"><img src="gfct13.jpg" alt="Corto 13"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">13. Reparando con Soos: El reloj</h4><p class="ep-desc">El reloj de cuco está roto y Soos muestra su peculiar método para solucionar el problema.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1ZofvZkE5q03LDRoV2rBDViZDHCV3dLt8/preview')"><div class="episode-thumb"><img src="gfct14.jpg" alt="Corto 14"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">14. Cortos de TV 1</h4><p class="ep-desc">Un vistazo a la extraña y bizarra programación televisiva que se transmite en Gravity Falls.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1ou89I2f2Abyczw8GJ6nzj0XI6llquc_W/preview')"><div class="episode-thumb"><img src="gfct15.jpg" alt="Corto 15"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">15. Cortos de TV 2</h4><p class="ep-desc">Más comerciales insólitos y shows perturbadores de la televisión local.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1FgoZM24xtQM5ICV0GQJse6dq5E1A74Ii/preview')"><div class="episode-thumb"><img src="gfct16.jpg" alt="Corto 16"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">16. El álbum de Mabel: El robo</h4><p class="ep-desc">Mabel recuerda en su álbum la vez que tuvieron que recuperar un objeto robado del cine.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1iK_2Qe3gCvUCMoZf7XVaIA0TFQP_49-C/preview')"><div class="episode-thumb"><img src="gfct17.jpg" alt="Corto 17"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">17. El álbum de Mabel: Zoológico</h4><p class="ep-desc">Mabel relata su cómica y caótica visita al zoológico interactivo del pueblo.</p></div></div>
         </div>
+
     </section>
 
     <script>
-        function setVid(id) { document.getElementById('videoPlayer').src = "https://mega.nz/embed/" + id; document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' }); }
-        function setDrive(id) { document.getElementById('videoPlayer').src = "https://drive.google.com/file/d/" + id + "/preview"; document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' }); }
+        function cambiarVideo(tarjeta, nuevoLink) {
+            let tarjetas = document.querySelectorAll('.episode-card');
+            tarjetas.forEach(t => t.classList.remove('active'));
+            tarjeta.classList.add('active');
+
+            let reproductor = document.getElementById('videoPlayer');
+            reproductor.src = nuevoLink;
+
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+        }
+
         function cambiarTemporada() {
-            let valor = document.getElementById("seasonSelector").value;
-            document.querySelectorAll('.season-grid').forEach(g => g.classList.remove('active-grid'));
-            document.getElementById('grid-' + valor).classList.add('active-grid');
+            let selector = document.getElementById("seasonSelector");
+            let valorSeleccionado = selector.value;
+            
+            let grillas = document.querySelectorAll('.season-grid');
+            grillas.forEach(grilla => {
+                grilla.classList.remove('active-grid');
+            });
+            
+            let grillaActiva = document.getElementById('grid-' + valorSeleccionado);
+            grillaActiva.classList.add('active-grid');
         }
     </script>
 </body>
