@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Show Más: Las Cintas Perdidas | ElParque26</title>
+    <title>Gravity Falls | Temporadas | ElParque26</title>
     
     <style>
-        /* --- ESTILO HBO PREMIUM --- */
+        /* --- ESTILO HBO PREMIUM - EDICIÓN GRAVITY FALLS --- */
         :root {
-            --azul-sitio: #00c3ff;
-            --fondo-principal: #030407; /* Más oscuro, súper premium */
+            --color-principal: #f1c40f; /* Amarillo Gravity Falls */
+            --color-secundario: #00c3ff; /* Cian Dipper */
+            --fondo-principal: #030407;
             --fondo-secundario: #0b0c10;
             --hover-card: #151821;
             --texto-secundario: #a3a3a3;
@@ -36,15 +37,15 @@
             z-index: 100;
         }
         .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
-        .logo span { color: var(--azul-sitio); }
+        .logo span { color: var(--color-secundario); }
         .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--azul-sitio); }
+        .nav-links a:hover { color: var(--color-principal); }
 
         /* --- HERO BANNER --- */
         .hero-banner {
             width: 100%;
             height: 55vh;
-            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('cintas_banner.png');
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('banner_gf.png');
             background-size: cover;
             background-position: center top;
             display: flex;
@@ -52,7 +53,7 @@
             padding: 0 5% 40px 5%;
             box-sizing: border-box;
         }
-        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white; }
 
         /* --- LAYOUT PRINCIPAL --- */
         .main-content {
@@ -73,7 +74,7 @@
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
-        iframe.drive-player { width: 100%; height: 100%; border: none; outline: none; }
+        iframe.video-player { width: 100%; height: 100%; border: none; outline: none; }
 
         /* --- SINOPSIS LATERAL --- */
         .details-panel { padding-top: 10px; }
@@ -99,15 +100,9 @@
             align-items: flex-end;
             margin-bottom: 25px;
         }
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
 
-        .hbo-section-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 0;
-            color: white;
-            letter-spacing: 0.5px;
-        }
-
+        /* --- SELECTOR DE TEMPORADAS MÁGICO --- */
         .hbo-season-selector {
             background: transparent;
             color: #d1d1d1;
@@ -125,12 +120,18 @@
         }
         .hbo-season-selector option { background: #111; color: white; }
 
-        .episodes-grid { 
-            display: grid; 
+        /* --- CONTENEDORES DE GRILLA (PARA EL JS) --- */
+        .season-grid { 
+            display: none; /* Por defecto ocultas */
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
             gap: 20px; 
+            animation: fadeIn 0.4s ease-in-out;
         }
+        .season-grid.active-grid { display: grid; /* Muestra solo la seleccionada */ }
 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TARJETAS DE EPISODIOS --- */
         .episode-card {
             display: flex;
             flex-direction: column; 
@@ -141,9 +142,8 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-        
         .episode-card:hover { transform: scale(1.03); }
-        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--azul-sitio); border-radius: 4px; }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--color-principal); border-radius: 4px; }
         
         .episode-thumb { 
             width: 100%; 
@@ -156,7 +156,6 @@
             justify-content: center; 
             position: relative; 
         }
-        
         .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
         .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
         
@@ -167,21 +166,16 @@
         .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
         .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+        /* --- MODO CELULAR 2 COLUMNAS --- */
         @media (max-width: 900px) {
             .main-content { grid-template-columns: 1fr; gap: 20px; }
             .hero-title { font-size: 2.5rem; }
             .hero-banner { height: 40vh; padding-bottom: 20px; }
-            
             .episodes-header-hbo { margin-bottom: 15px; }
             .hbo-section-title { font-size: 1.4rem; }
             .hbo-season-selector { font-size: 0.95rem; }
 
-            /* GRILLA DE 2 COLUMNAS EN CELULAR (COMO JIM) */
-            .episodes-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 15px 10px; 
-            }
-            
+            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
             .episode-info { padding: 8px 0; }
             .ep-title { font-size: 0.85rem; }
             .ep-desc { font-size: 0.75rem; }
@@ -196,114 +190,165 @@
     </nav>
 
     <header class="hero-banner">
-        <h1 class="hero-title">LAS CINTAS PERDIDAS</h1>
+        <h1 class="hero-title">GRAVITY FALLS</h1>
     </header>
 
     <div class="main-content">
         <!-- REPRODUCTOR -->
         <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
-                <iframe id="videoPlayer" class="drive-player" src="https://drive.google.com/file/d/15Hccc7ITCdLz4eF0kuYxMt5A-S2JbgI9/preview" allow="autoplay; fullscreen"></iframe>
+                <!-- Acá poné el link del primer capítulo de la temporada 1 por defecto -->
+                <iframe id="videoPlayer" class="video-player" src="LINK_CAPITULO_1_ACA" allowfullscreen></iframe>
             </div>
         </div>
 
         <!-- SINOPSIS -->
         <aside class="details-panel">
             <div class="poster-wrapper">
-                <img src="cintas_poster.png" alt="Un Show Más">
+                <!-- Si tenés póster vertical, mandale acá. Sino usá el mismo de index -->
+                <img src="gravity_poster.png" alt="Gravity Falls Póster">
             </div>
-            <h2 class="info-title">Un Show Más</h2>
-            <p class="info-subtitle">Serie Original • Temporada Estreno</p>
-            <p class="info-synopsis">Mordecai y Rigby regresan al parque para vivir las historias nunca antes contadas. Nuevas aventuras, viejos amigos y el mismo caos surrealista de siempre en esta nueva etapa que funciona como una expansión directa del universo clásico.</p>
+            <h2 class="info-title">Gravity Falls</h2>
+            <p class="info-subtitle">Serie Original • 2 Temporadas</p>
+            <p class="info-synopsis">Los mellizos Dipper y Mabel Pines pasan el verano en el misterioso pueblo de Gravity Falls, Oregón, trabajando en la Cabaña del Misterio. Pronto descubren que el pueblo está lleno de secretos paranormales y criaturas extrañas.</p>
         </aside>
     </div>
 
-    <!-- LISTA DE EPISODIOS HBO MAX (ACTUALIZADO COMO JIM) -->
+    <!-- SECCIÓN DE EPISODIOS -->
     <section class="episode-list-section">
         
         <div class="episodes-header-hbo">
             <h2 class="hbo-section-title">Episodios</h2>
-            <select class="hbo-season-selector">
-                <option value="estreno">Temporada Estreno</option>
+            <!-- Este selector gatilla el cambio de grilla -->
+            <select class="hbo-season-selector" id="seasonSelector" onchange="cambiarTemporada()">
+                <option value="t1">Temporada 1</option>
+                <option value="t2">Temporada 2</option>
+                <option value="cortos">Cortos</option>
             </select>
         </div>
         
-        <div class="episodes-grid">
+        <!-- ================= TEMPORADA 1 (20 Caps) ================= -->
+        <div id="grid-t1" class="season-grid active-grid">
             
-            <div class="episode-card active" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/15Hccc7ITCdLz4eF0kuYxMt5A-S2JbgI9/preview')">
-                <div class="episode-thumb">
-                    <img src="usmcpc1.jpg" alt="Episodio 1">
-                    <div class="play-icon">▶</div>
-                </div>
+            <div class="episode-card active" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft1c1.jpg" alt="Episodio 1"><div class="play-icon">▶</div></div>
                 <div class="episode-info">
-                    <h4 class="ep-title">1. Arregla la cinta / El luau de Skips</h4>
-                    <p class="ep-desc">Una cinta VHS rota necesita que la reparen. Además, Skips organiza un luau que rápidamente se sale de control.</p>
+                    <h4 class="ep-title">1. Turista Atrapado</h4>
+                    <p class="ep-desc">Dipper y Mabel llegan a Gravity Falls. Dipper encuentra un misterioso diario en el bosque.</p>
                 </div>
             </div>
 
-            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1RotZ1WhLobaZtx13QyDrJPWrKY9_-sPp/preview')">
-                <div class="episode-thumb">
-                    <img src="usmcpc2.jpg" alt="Episodio 2">
-                    <div class="play-icon">▶</div>
-                </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft1c2.jpg" alt="Episodio 2"><div class="play-icon">▶</div></div>
                 <div class="episode-info">
-                    <h4 class="ep-title">2. Filojuegos</h4>
-                    <p class="ep-desc">Benson aprende una nueva y mejor manera de motivar a los empleados del parque a trabajar.</p>
+                    <h4 class="ep-title">2. La Leyenda del Monstruo...</h4>
+                    <p class="ep-desc">Dipper y Mabel salen de pesca para atrapar al legendario monstruo del lago.</p>
                 </div>
             </div>
 
-            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1pm1vpLNqS7su2v_itbQ70O6t6fG9zYhL/preview')">
-                <div class="episode-thumb">
-                    <img src="usmcpc3.jpg" alt="Episodio 3">
-                    <div class="play-icon">▶</div>
-                </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft1c3.jpg" alt="Episodio 3"><div class="play-icon">▶</div></div>
                 <div class="episode-info">
-                    <h4 class="ep-title">3. Lugar de siesta</h4>
-                    <p class="ep-desc">El descubrimiento de un lugar secreto para tomar siestas termina causando grandes problemas en el parque.</p>
+                    <h4 class="ep-title">3. Cazadores de Cabezas</h4>
+                    <p class="ep-desc">Mabel remodela a Stan de cera, pero alguien le corta la cabeza en la noche.</p>
                 </div>
             </div>
-
-            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1sRkUFNhog7OD-SMOM-69xGTIg0KbFr6v/preview')">
-                <div class="episode-thumb">
-                    <img src="usmcpc4.jpg" alt="Episodio 4">
-                    <div class="play-icon">▶</div>
-                </div>
-                <div class="episode-info">
-                    <h4 class="ep-title">4. Guerra de cafeterías</h4>
-                    <p class="ep-desc">La tensión estalla y la competencia se vuelve feroz cuando una cafetería rival se muda a la ciudad.</p>
-                </div>
-            </div>
-
-            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1RWpg-AOxmML55CPVamzeUPhUGYmKeYUf/preview')">
-                <div class="episode-thumb">
-                    <img src="usmcpc5.jpg" alt="Episodio 5">
-                    <div class="play-icon">▶</div>
-                </div>
-                <div class="episode-info">
-                    <h4 class="ep-title">5. Boba o nada</h4>
-                    <p class="ep-desc">Un simple té de burbujas (Boba) desata una cadena de eventos caóticos que solo Mordecai y Rigby pueden empeorar.</p>
-                </div>
-            </div>
+            
+            <!-- ACÁ PEGAS DEL CAP 4 AL 20 -->
 
         </div>
+
+        <!-- ================= TEMPORADA 2 (20 Caps) ================= -->
+        <div id="grid-t2" class="season-grid">
+            
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft2c1.jpg" alt="Episodio 1"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1. Espantajo-oke</h4>
+                    <p class="ep-desc">Stan organiza una fiesta, pero Dipper accidentalmente invoca a un ejército de zombis.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft2c2.jpg" alt="Episodio 2"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">2. Visita al refugio</h4>
+                    <p class="ep-desc">Dipper y sus amigos investigan un misterioso refugio subterráneo en el bosque.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gft2c3.jpg" alt="Episodio 3"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">3. La guerra del mini-golf</h4>
+                    <p class="ep-desc">Mabel y Pacifica compiten en el mini-golf controlado por diminutas criaturas.</p>
+                </div>
+            </div>
+
+            <!-- ACÁ PEGAS DEL CAP 4 AL 20 -->
+
+        </div>
+
+        <!-- ================= CORTOS (17 Cortos) ================= -->
+        <div id="grid-cortos" class="season-grid">
+            
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gfct1.jpg" alt="Corto 1"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1. El monstruo de los dulces</h4>
+                    <p class="ep-desc">Dipper investiga una anomalía en la tienda de dulces del pueblo.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gfct2.jpg" alt="Corto 2"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">2. El tatuaje de Stan</h4>
+                    <p class="ep-desc">Dipper intenta descubrir el secreto detrás del tatuaje oculto de su tío Stan.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'LINK_ACA')">
+                <div class="episode-thumb"><img src="gfct3.jpg" alt="Corto 3"><div class="play-icon">▶</div></div>
+                <div class="episode-info">
+                    <h4 class="ep-title">3. Buzón misterioso</h4>
+                    <p class="ep-desc">Dipper y Mabel le hacen preguntas a un buzón que parece saberlo todo.</p>
+                </div>
+            </div>
+
+            <!-- ACÁ PEGAS DEL CORTO 4 AL 17 -->
+
+        </div>
+
     </section>
 
-    <!-- SCRIPT DE REPRODUCCIÓN -->
     <script>
+        // Función para cambiar de video dentro de la misma grilla
         function cambiarVideo(tarjeta, nuevoLink) {
-            // Remover la clase activa de todos
             let tarjetas = document.querySelectorAll('.episode-card');
             tarjetas.forEach(t => t.classList.remove('active'));
-            
-            // Poner activa la tarjeta clickeada
             tarjeta.classList.add('active');
 
-            // Cambiar el link del iframe
             let reproductor = document.getElementById('videoPlayer');
             reproductor.src = nuevoLink;
 
-            // Scroll suave hacia el video
             document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // LÓGICA NUEVA: Función para cambiar entre Temporadas y Cortos
+        function cambiarTemporada() {
+            let selector = document.getElementById("seasonSelector");
+            let valorSeleccionado = selector.value; // 't1', 't2' o 'cortos'
+            
+            // Ocultamos todas las grillas
+            let grillas = document.querySelectorAll('.season-grid');
+            grillas.forEach(grilla => {
+                grilla.classList.remove('active-grid');
+            });
+            
+            // Mostramos la grilla que coincide con el valor del selector
+            let grillaActiva = document.getElementById('grid-' + valorSeleccionado);
+            grillaActiva.classList.add('active-grid');
         }
     </script>
 </body>
