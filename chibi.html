@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chibiverse | Temporada 1 | ElParque26</title>
+    <title>Chibiverse | ElParque26</title>
     
     <style>
         /* --- ESTILO HBO PREMIUM --- */
@@ -169,7 +169,7 @@
     <div class="main-content">
         <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
-                <!-- Se coloca el episodio 1 por defecto (Ok.ru) -->
+                <!-- Se coloca el episodio 1 por defecto -->
                 <iframe id="videoPlayer" class="video-player" src="https://ok.ru/videoembed/14126127450703" allow="autoplay" allowfullscreen></iframe>
             </div>
         </div>
@@ -179,7 +179,7 @@
                 <img src="chibi_poster.jpg" alt="Chibiverse Póster">
             </div>
             <h2 class="info-title">Chibiverse</h2>
-            <p class="info-subtitle">Serie Original • Temporada 1</p>
+            <p class="info-subtitle">Serie Original • 3 Temporadas</p>
             <p class="info-synopsis">¡Los personajes animados más famosos se reúnen en el Chibiverso! Acompañá a estas adorables versiones miniatura en sus locas y divertidas aventuras donde mundos increíbles chocan.</p>
         </aside>
     </div>
@@ -190,12 +190,13 @@
             <h2 class="hbo-section-title">Episodios</h2>
             <select class="hbo-season-selector" id="seasonSelector">
                 <option value="t1">Temporada 1</option>
+                <option value="t2">Temporada 2</option>
+                <option value="t3">Temporada 3</option>
             </select>
         </div>
         
-        <!-- ================= TEMPORADA 1 (4 Caps) ================= -->
+        <!-- ================= TEMPORADA 1 ================= -->
         <div id="grid-t1" class="season-grid active-grid">
-            
             <div class="episode-card active" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14126127450703')">
                 <div class="episode-thumb">
                     <img src="chibit1c1.jpg" alt="Ep 1">
@@ -203,10 +204,9 @@
                 </div>
                 <div class="episode-info">
                     <h4 class="ep-title">1. Pizza Vs. Fuegos Artificiales</h4>
-                    <p class="ep-desc">¡Arranca el caos en el Chibiverso! Una competencia épica para decidir qué es mejor en la gran fiesta de inauguración.</p>
+                    <p class="ep-desc">¡Arranca el caos en el Chibiverso! Una competencia épica para decidir qué es mejor en la gran fiesta.</p>
                 </div>
             </div>
-
             <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14136573430351')">
                 <div class="episode-thumb">
                     <img src="chibit1c2.jpg" alt="Ep 2">
@@ -214,10 +214,9 @@
                 </div>
                 <div class="episode-info">
                     <h4 class="ep-title">2. Mala Suerte, Chibis</h4>
-                    <p class="ep-desc">Una racha de eventos desafortunados pone a prueba a nuestros héroes chibi. ¿Lograrán darle la vuelta a la situación?</p>
+                    <p class="ep-desc">Una racha de eventos desafortunados pone a prueba a nuestros héroes chibi.</p>
                 </div>
             </div>
-
             <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14136650107471')">
                 <div class="episode-thumb">
                     <img src="chibit1c3.jpg" alt="Ep 3">
@@ -225,10 +224,9 @@
                 </div>
                 <div class="episode-info">
                     <h4 class="ep-title">3. ¡La Gran Confusión Chibi!</h4>
-                    <p class="ep-desc">Un enredo tremendo hace que todos los personajes crucen sus mundos de la forma más disparatada posible.</p>
+                    <p class="ep-desc">Un enredo tremendo hace que todos los personajes crucen sus mundos de la forma más disparatada.</p>
                 </div>
             </div>
-
             <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14136818010703')">
                 <div class="episode-thumb">
                     <img src="chibit1c4.jpg" alt="Ep 4">
@@ -236,15 +234,113 @@
                 </div>
                 <div class="episode-info">
                     <h4 class="ep-title">4. Villanos Chibi Unidos</h4>
-                    <p class="ep-desc">Los villanos más temibles y tiernos forman una alianza para arruinarle el día a los héroes del Chibiverso.</p>
+                    <p class="ep-desc">Los villanos más temibles y tiernos forman una alianza para arruinarle el día a los héroes.</p>
                 </div>
             </div>
+        </div>
 
+        <!-- ================= TEMPORADA 2 ================= -->
+        <div id="grid-t2" class="season-grid">
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138249448015')">
+                <div class="episode-thumb">
+                    <img src="chibit2c1.jpg" alt="Ep 1">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">1. El Desafío Del Concurso Chibi</h4>
+                    <p class="ep-desc">La competencia llega a un nuevo nivel en el universo chibi.</p>
+                </div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138318129743')">
+                <div class="episode-thumb">
+                    <img src="chibit2c2.jpg" alt="Ep 2">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">2. El Juego De Parejas Chibi</h4>
+                    <p class="ep-desc">Nuevas dinámicas y enredos divertidos con este particular juego de parejas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TEMPORADA 3 ================= -->
+        <div id="grid-t3" class="season-grid">
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138570574415')">
+                <div class="episode-thumb">
+                    <img src="chibit3c1.jpg" alt="Ep 1">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">1. La Isla De Los Adultos</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138585254479')">
+                <div class="episode-thumb">
+                    <img src="chibit3c2.jpg" alt="Ep 2">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">2. Los Opuestos Se Atacan</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138585188943')">
+                <div class="episode-thumb">
+                    <img src="chibit3c3.jpg" alt="Ep 3">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">3. La Gran Estafa De Stan</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138604980815')">
+                <div class="episode-thumb">
+                    <img src="chibit3c4.jpg" alt="Ep 4">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">4. El Laboratorio Del Dr. Doof</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138604849743')">
+                <div class="episode-thumb">
+                    <img src="chibit3c5.jpg" alt="Ep 5">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">5. El Regalo Perfecto</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138625034831')">
+                <div class="episode-thumb">
+                    <img src="chibit3c6.jpg" alt="Ep 6">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">6. Viaje Al Centro Del Chibiverso</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138624838223')">
+                <div class="episode-thumb">
+                    <img src="chibit3c7.jpg" alt="Ep 7">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">7. Penny Y Los Chibi Scouts</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138643843663')">
+                <div class="episode-thumb">
+                    <img src="chibit3c8.jpg" alt="Ep 8">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">8. Los Cuacstreet Boys</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138643712591')">
+                <div class="episode-thumb">
+                    <img src="chibit3c9.jpg" alt="Ep 9">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">9. Alégrense, Chibis</h4></div>
+            </div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://ok.ru/videoembed/14138667633231')">
+                <div class="episode-thumb">
+                    <img src="chibit3c10.jpg" alt="Ep 10">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info"><h4 class="ep-title">10. La Cita Soñada De Mabel</h4></div>
+            </div>
         </div>
 
     </section>
 
     <script>
+        // Función para cambiar el video y mover el scroll
         function cambiarVideo(tarjeta, nuevoLink) {
             let tarjetas = document.querySelectorAll('.episode-card');
             tarjetas.forEach(t => t.classList.remove('active'));
@@ -255,6 +351,18 @@
 
             document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Función para el selector de temporadas
+        document.getElementById('seasonSelector').addEventListener('change', function() {
+            let temporadaSeleccionada = this.value;
+            
+            // Ocultar todas las grillas
+            let grillas = document.querySelectorAll('.season-grid');
+            grillas.forEach(grilla => grilla.classList.remove('active-grid'));
+            
+            // Mostrar la grilla de la temporada seleccionada
+            document.getElementById('grid-' + temporadaSeleccionada).classList.add('active-grid');
+        });
     </script>
 </body>
 </html>
