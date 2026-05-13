@@ -4,496 +4,270 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ben 10 | ElParque26</title>
+    
     <style>
+        /* --- ESTILO HBO PREMIUM - BEN 10 --- */
         :root {
-            --bg-color: #050505;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --cyan-logo: #00d4ff;
+            --color-principal: #a2ff00; /* Verde Omnitrix */
+            --color-secundario: #00d4ff; /* Celeste ElParque26 */
+            --fondo-principal: #030407;
+            --fondo-secundario: #0b0c10;
+            --hover-card: #151821;
+            --texto-secundario: #a3a3a3;
         }
 
         body {
             margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--fondo-principal);
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR --- */
         .navbar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
             position: absolute;
             top: 0;
-            width: 100%;
-            box-sizing: border-box;
-            z-index: 10;
+            width: 90%;
+            z-index: 100;
         }
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: white;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-        .logo span { color: var(--cyan-logo); }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--color-secundario); }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-principal); }
 
-        /* --- HERO BANNER --- */
-        .hero {
-            position: relative;
+        .hero-banner {
             width: 100%;
-            height: 40vh; /* Altura del banner trasero */
-            background-image: url('https://image.tmdb.org/t/p/original/8Jp2Yv7B8N8qL8G2kI9kH2D9h4.jpg'); /* Imagen de fondo */
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('banner_ben10.png');
             background-size: cover;
-            background-position: center 20%;
-        }
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, var(--bg-color) 0%, rgba(5,5,5,0.4) 50%, transparent 100%);
+            background-position: center top;
             display: flex;
             align-items: flex-end;
-            padding: 20px;
+            padding: 0 5% 40px 5%;
             box-sizing: border-box;
         }
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin: 0;
-            letter-spacing: -1px;
-            text-transform: uppercase;
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white; }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
+            align-items: start;
         }
 
-        /* --- REPRODUCTOR PRINCIPAL --- */
+        .player-wrapper { scroll-margin-top: 80px; }
         .player-container {
             width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            margin-top: 10px;
-            margin-bottom: 30px;
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
             aspect-ratio: 16 / 9;
-            background-color: #000;
+            background: #000;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        iframe { width: 100%; height: 100%; border: none; outline: none; }
 
-        /* --- INFO DE LA SERIE --- */
-        .series-info {
-            display: flex;
-            gap: 20px;
-            padding: 0 20px;
-            max-width: 1000px;
-            margin: 0 auto 40px auto;
-        }
-        .poster {
-            width: 120px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-        .info-text h2 {
-            margin: 0 0 5px 0;
-            font-size: 1.5rem;
-        }
-        .meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0 0 15px 0;
-        }
-        .desc {
-            font-size: 0.95rem;
-            color: #d0d0d0;
-            line-height: 1.5;
-            margin: 0;
-        }
+        .details-panel { padding-top: 10px; }
+        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 25px; }
+        .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
 
-        /* --- EPISODIOS HEADER --- */
-        .episodes-section {
-            padding: 0 20px 40px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .episodes-header {
+        .episode-list-section { padding: 0 5% 60px 5%; }
+        
+        .episodes-header-hbo {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            align-items: flex-end;
+            margin-bottom: 25px;
         }
-        .episodes-header h3 {
-            font-size: 1.3rem;
-            margin: 0;
-        }
-        select {
-            background-color: transparent;
-            color: white;
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
+
+        .hbo-season-selector {
+            background: transparent;
+            color: #d1d1d1;
+            font-size: 1.1rem;
             border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
             outline: none;
-            font-family: inherit;
-        }
-        select option {
-            background-color: #1a1a1a;
-            color: white;
-        }
-
-        /* --- GRID DE EPISODIOS --- */
-        .season-grid {
-            display: none; /* Oculto por defecto */
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .season-grid.active {
-            display: grid; /* Muestra el activo */
-        }
-        .ep-card {
             cursor: pointer;
-            transition: 0.2s;
+            font-weight: 500;
+            appearance: none;
+            padding-right: 15px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 10px auto;
         }
-        .ep-card:active {
-            transform: scale(0.98);
-        }
-        .ep-img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            border-radius: 6px;
-            background-color: #222;
-        }
-        .ep-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 8px 0 0 0;
-            color: var(--text-main);
-        }
+        .hbo-season-selector option { background: #111; color: white; }
 
-        @media (min-width: 768px) {
-            .season-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-            .poster { width: 160px; }
-            .hero { height: 50vh; }
+        .season-grid { 
+            display: none; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+            animation: fadeIn 0.4s ease-in-out;
         }
-        @media (min-width: 1024px) {
-            .season-grid { grid-template-columns: repeat(4, 1fr); }
+        .season-grid.active-grid { display: grid; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .episode-card {
+            display: flex;
+            flex-direction: column; 
+            background-color: transparent; 
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .episode-card:hover { transform: scale(1.03); }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--color-principal); border-radius: 4px; }
+        
+        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #1a1c23; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
+        
+        .episode-card:hover .episode-thumb img { opacity: 0.6; }
+        .episode-card:hover .play-icon { opacity: 1; }
+
+        .episode-info { padding: 12px 0; text-align: left; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
+
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; gap: 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-banner { height: 40vh; padding-bottom: 20px; }
+            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+            .ep-title { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <a href="index.html" class="logo">EL<span>PARQUE</span>26</a>
-        <a href="index.html" class="nav-link">VOLVER AL INICIO</a>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
+    </nav>
+
+    <header class="hero-banner">
+        <h1 class="hero-title">BEN 10</h1>
     </header>
 
-    <!-- HERO BANNER -->
-    <div class="hero">
-        <div class="hero-overlay">
-            <h1 class="hero-title">BEN 10</h1>
+    <div class="main-content">
+        <div class="player-wrapper" id="reproductor-ancla">
+            <div class="player-container">
+                <!-- Se carga el ep 1 por defecto -->
+                <iframe id="videoPlayer" src="https://drive.google.com/file/d/1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE/preview" allowfullscreen></iframe>
+            </div>
         </div>
+
+        <aside class="details-panel">
+            <div class="poster-wrapper">
+                <img src="ben10.png" alt="Ben 10 Póster">
+            </div>
+            <h2 class="info-title">Ben 10</h2>
+            <p class="info-subtitle">Serie Original • 4 Temporadas</p>
+            <p class="info-synopsis">Ben Tennyson descubre un dispositivo alienígena llamado Omnitrix que le permite transformarse en 10 héroes diferentes para combatir el mal.</p>
+        </aside>
     </div>
 
-    <!-- REPRODUCTOR PRINCIPAL -->
-    <div class="player-container" id="zona-reproductor">
-        <div class="video-wrapper">
-            <!-- Por defecto carga el Cap 1 de la T1 -->
-            <iframe id="mainPlayer" src="https://drive.google.com/file/d/1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE/preview" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <!-- INFO DE LA SERIE -->
-    <div class="series-info">
-        <img src="https://image.tmdb.org/t/p/w500/A6T5rZqR51nN0kXY0vRj5aY9YGE.jpg" alt="Póster Ben 10" class="poster"> <!-- Podés cambiar el link del poster -->
-        <div class="info-text">
-            <h2>Ben 10</h2>
-            <p class="meta">Serie Original • 4 Temporadas</p>
-            <p class="desc">Durante unas vacaciones de verano con su abuelo Max y su prima Gwen, Ben Tennyson, un chico de 10 años, descubre un dispositivo alienígena mágico llamado Omnitrix. ¡Ahora tiene el poder de transformarse en 10 héroes alienígenas diferentes y salvar el mundo!</p>
-        </div>
-    </div>
-
-    <!-- SECCIÓN EPISODIOS -->
-    <div class="episodes-section">
+    <section class="episode-list-section">
         
-        <div class="episodes-header">
-            <h3>Episodios</h3>
-            <select id="seasonSelector" onchange="cambiarTemporada()">
+        <div class="episodes-header-hbo">
+            <h2 class="hbo-section-title">Episodios</h2>
+            <select class="hbo-season-selector" id="seasonSelector" onchange="cambiarTemporada()">
                 <option value="t1">Temporada 1</option>
                 <option value="t2">Temporada 2</option>
                 <option value="t3">Temporada 3</option>
                 <option value="t4">Temporada 4</option>
             </select>
         </div>
-
+        
         <!-- === TEMPORADA 1 === -->
-        <div id="t1" class="season-grid active">
-            <div class="ep-card" onclick="reproducir('1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE')">
-                <img src="b10t1c1.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">1. Y fueron diez</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU')">
-                <img src="b10t1c2.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">2. Aprendiendo a ser héroe</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif')">
-                <img src="b10t1c3.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">3. El Krakken</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On')">
-                <img src="b10t1c4.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">4. Jubilados con actitud</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6')">
-                <img src="b10t1c5.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">5. Perseguido</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('145yQGy1PamYGRNs5NMFLCqsvtq9iviiN')">
-                <img src="b10t1c6.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">6. Trampa para turistas</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G')">
-                <img src="b10t1c7.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">7. Kevin 11</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS')">
-                <img src="b10t1c8.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">8. La Alianza</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe')">
-                <img src="b10t1c9.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">9. El último en reír</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('18RR9h942rHEZFfSOR73VHUBnZdNqxKQh')">
-                <img src="b10t1c10.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">10. La chica de la suerte</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV')">
-                <img src="b10t1c11.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">11. Un pequeño problema</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP')">
-                <img src="b10t1c12.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">12. Efectos secundarios</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x')">
-                <img src="b10t1c13.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">13. Los secretos</h4>
-            </div>
+        <div id="grid-t1" class="season-grid active-grid">
+            <div class="episode-card active" onclick="setVid(this, '1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE')"><div class="episode-thumb"><img src="b10t1c1.jpg"></div><h4 class="ep-title">1. Y fueron diez</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU')"><div class="episode-thumb"><img src="b10t1c2.jpg"></div><h4 class="ep-title">2. Siendo héroe</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif')"><div class="episode-thumb"><img src="b10t1c3.jpg"></div><h4 class="ep-title">3. El Krakken</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On')"><div class="episode-thumb"><img src="b10t1c4.jpg"></div><h4 class="ep-title">4. Jubilados actitud</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6')"><div class="episode-thumb"><img src="b10t1c5.jpg"></div><h4 class="ep-title">5. Perseguido</h4></div>
+            <div class="episode-card" onclick="setVid(this, '145yQGy1PamYGRNs5NMFLCqsvtq9iviiN')"><div class="episode-thumb"><img src="b10t1c6.jpg"></div><h4 class="ep-title">6. Trampa turistas</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G')"><div class="episode-thumb"><img src="b10t1c7.jpg"></div><h4 class="ep-title">7. Kevin 11</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS')"><div class="episode-thumb"><img src="b10t1c8.jpg"></div><h4 class="ep-title">8. La Alianza</h4></div>
+            <div class="episode-card" onclick="setVid(this, '13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe')"><div class="episode-thumb"><img src="b10t1c9.jpg"></div><h4 class="ep-title">9. El último en reír</h4></div>
+            <div class="episode-card" onclick="setVid(this, '18RR9h942rHEZFfSOR73VHUBnZdNqxKQh')"><div class="episode-thumb"><img src="b10t1c10.jpg"></div><h4 class="ep-title">10. Chica suerte</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV')"><div class="episode-thumb"><img src="b10t1c11.jpg"></div><h4 class="ep-title">11. Pequeño problema</h4></div>
+            <div class="episode-card" onclick="setVid(this, '16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP')"><div class="episode-thumb"><img src="b10t1c12.jpg"></div><h4 class="ep-title">12. Efectos secun.</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x')"><div class="episode-thumb"><img src="b10t1c13.jpg"></div><h4 class="ep-title">13. Los secretos</h4></div>
         </div>
 
         <!-- === TEMPORADA 2 === -->
-        <div id="t2" class="season-grid">
-            <div class="ep-card" onclick="reproducir('1uOhCo_lItGyPAQhJWZ9Z7QL12uUGWtuq')">
-                <img src="b10t2c1.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">1. La verdad</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1SNhpqtaU09TrOZqprk84mZBaukD29LXB')">
-                <img src="b10t2c2.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">2. La gran garrapata</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1OXRhsAqoNVSlxfxcJgT51kpzqzeptVW5')">
-                <img src="b10t2c3.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">3. Inculpado</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1C8M9mkIP6yKeeBm31f-8XFfbCKBnpKIt')">
-                <img src="b10t2c4.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">4. Gwen 10</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1H9f3vrSmDsBWYjhU6r6JtNbQr0BWXC6x')">
-                <img src="b10t2c5.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">5. Gladiadores</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1Uw3IDmxNvhRIS5DbVD_kg5CxIjgvCyK6')">
-                <img src="b10t2c6.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">6. Los defensores galácticos</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1qvVafqNPo_1ZAGXfeR-TMqYlaErqaLbx')">
-                <img src="b10t2c7.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">7. El campamento del terror</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1Hiizk8l0RWHDGoQdAOAyFiwiHR-EnU5P')">
-                <img src="b10t2c8.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">8. La mejor arma</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1SsZWTvGJHW83PtvRaP6uMpncYGP5VbRW')">
-                <img src="b10t2c9.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">9. Mala suerte</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1Jp9xOycO_G1_FCqzgXB1itkoFks866Lm')">
-                <img src="b10t2c10.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">10. El misterio del fondo</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1Ib-kXtCQ7s7Rrf06xyiyrsR55X8fMERA')">
-                <img src="b10t2c11.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">11. El fantasma anda suelto</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1cO8WXyRICbVvIItXasTTdlZCj7kGMskP')">
-                <img src="b10t2c12.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">12. El Dr. Ánimo y el rayo mutante</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1zCaiaooqWhNm1u0Yo5nS_2RhhO9TFI3I')">
-                <img src="b10t2c13.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">13. La venganza</h4>
-            </div>
+        <div id="grid-t2" class="season-grid">
+            <div class="episode-card" onclick="setVid(this, '1uOhCo_lItGyPAQhJWZ9Z7QL12uUGWtuq')"><div class="episode-thumb"><img src="b10t2c1.jpg"></div><h4 class="ep-title">1. La verdad</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1SNhpqtaU09TrOZqprk84mZBaukD29LXB')"><div class="episode-thumb"><img src="b10t2c2.jpg"></div><h4 class="ep-title">2. Gran garrapata</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1OXRhsAqoNVSlxfxcJgT51kpzqzeptVW5')"><div class="episode-thumb"><img src="b10t2c3.jpg"></div><h4 class="ep-title">3. Inculpado</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1C8M9mkIP6yKeeBm31f-8XFfbCKBnpKIt')"><div class="episode-thumb"><img src="b10t2c4.jpg"></div><h4 class="ep-title">4. Gwen 10</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1H9f3vrSmDsBWYjhU6r6JtNbQr0BWXC6x')"><div class="episode-thumb"><img src="b10t2c5.jpg"></div><h4 class="ep-title">5. Gladiadores</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1Uw3IDmxNvhRIS5DbVD_kg5CxIjgvCyK6')"><div class="episode-thumb"><img src="b10t2c6.jpg"></div><h4 class="ep-title">6. Defensores galac.</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1qvVafqNPo_1ZAGXfeR-TMqYlaErqaLbx')"><div class="episode-thumb"><img src="b10t2c7.jpg"></div><h4 class="ep-title">7. Campa. terror</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1Hiizk8l0RWHDGoQdAOAyFiwiHR-EnU5P')"><div class="episode-thumb"><img src="b10t2c8.jpg"></div><h4 class="ep-title">8. La mejor arma</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1SsZWTvGJHW83PtvRaP6uMpncYGP5VbRW')"><div class="episode-thumb"><img src="b10t2c9.jpg"></div><h4 class="ep-title">9. Mala suerte</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1Jp9xOycO_G1_FCqzgXB1itkoFks866Lm')"><div class="episode-thumb"><img src="b10t2c10.jpg"></div><h4 class="ep-title">10. Misterio fondo</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1Ib-kXtCQ7s7Rrf06xyiyrsR55X8fMERA')"><div class="episode-thumb"><img src="b10t2c11.jpg"></div><h4 class="ep-title">11. Fantasma suelto</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1cO8WXyRICbVvIItXasTTdlZCj7kGMskP')"><div class="episode-thumb"><img src="b10t2c12.jpg"></div><h4 class="ep-title">12. Dr. Ánimo rayo</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1zCaiaooqWhNm1u0Yo5nS_2RhhO9TFI3I')"><div class="episode-thumb"><img src="b10t2c13.jpg"></div><h4 class="ep-title">13. La venganza</h4></div>
         </div>
 
         <!-- === TEMPORADA 3 === -->
-        <div id="t3" class="season-grid">
-            <div class="ep-card" onclick="reproducir('1z1kQw4exl7qCMxJouF1skKQjFdzbjUAm')">
-                <img src="b10t3c1.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">1. Ben 10.000</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1FqkSqslgze8ujtJgUweom1bCrIJDXmBT')">
-                <img src="b10t3c2.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">2. Locura a la medianoche</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1ctUR7RAFWQMFOv7iwqKIxHp2aebgQ6kn')">
-                <img src="b10t3c3.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">3. Cambio de cara</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1jkkGYBFIyhnBtxWNEocQ-HdwkSqPW7n-')">
-                <img src="b10t3c4.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">4. Feliz Navidad</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('11WxgovtGFzjqlSTCQnvwrRBufXyxANQa')">
-                <img src="b10t3c5.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">5. El lobo Ben</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('17CciwMQqzKcg0OiNQrS-7Sfa0YyZVdVb')">
-                <img src="b10t3c6.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">6. El juego terminó</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1o3k-nyCvYcgWofeX-wVlB87OhpN_bzV3')">
-                <img src="b10t3c7.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">7. Aventuras de súper héroes</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1ALxIytoFNfiPYh_Zh-ff3IfE-R4zc-Hm')">
-                <img src="b10t3c8.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">8. El secreto de la momia</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('16OoXiUHWMf17B6qyIDzRKZLjDgwBqoru')">
-                <img src="b10t3c9.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">9. Los anormales</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1YREiuwmt7NUXuaiQr2x-yfIjST2DFiXI')">
-                <img src="b10t3c10.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">10. El monstruo del clima</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1QXH8ZUbzSQl8W5bhK2s1G-3s4MTGCyf5')">
-                <img src="b10t3c11.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">11. El regreso</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1oWU2WKnkS0z1WjrLymkOyd-oLVeKCOFF')">
-                <img src="b10t3c12.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">12. Teme a la oscuridad</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1kdkCZ8nsFfbHG-ID3e8JCFB_SQKT_jWw')">
-                <img src="b10t3c13.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">13. El visitante</h4>
-            </div>
+        <div id="grid-t3" class="season-grid">
+            <div class="episode-card" onclick="setVid(this, '1z1kQw4exl7qCMxJouF1skKQjFdzbjUAm')"><div class="episode-thumb"><img src="b10t3c1.jpg"></div><h4 class="ep-title">1. Ben 10.000</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1FqkSqslgze8ujtJgUweom1bCrIJDXmBT')"><div class="episode-thumb"><img src="b10t3c2.jpg"></div><h4 class="ep-title">2. Medianoche</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1ctUR7RAFWQMFOv7iwqKIxHp2aebgQ6kn')"><div class="episode-thumb"><img src="b10t3c3.jpg"></div><h4 class="ep-title">3. Cambio cara</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1jkkGYBFIyhnBtxWNEocQ-HdwkSqPW7n-')"><div class="episode-thumb"><img src="b10t3c4.jpg"></div><h4 class="ep-title">4. Feliz Navidad</h4></div>
+            <div class="episode-card" onclick="setVid(this, '11WxgovtGFzjqlSTCQnvwrRBufXyxANQa')"><div class="episode-thumb"><img src="b10t3c5.jpg"></div><h4 class="ep-title">5. El lobo Ben</h4></div>
+            <div class="episode-card" onclick="setVid(this, '17CciwMQqzKcg0OiNQrS-7Sfa0YyZVdVb')"><div class="episode-thumb"><img src="b10t3c6.jpg"></div><h4 class="ep-title">6. Juego terminó</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1o3k-nyCvYcgWofeX-wVlB87OhpN_bzV3')"><div class="episode-thumb"><img src="b10t3c7.jpg"></div><h4 class="ep-title">7. Súper héroes</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1ALxIytoFNfiPYh_Zh-ff3IfE-R4zc-Hm')"><div class="episode-thumb"><img src="b10t3c8.jpg"></div><h4 class="ep-title">8. Secreto momia</h4></div>
+            <div class="episode-card" onclick="setVid(this, '16OoXiUHWMf17B6qyIDzRKZLjDgwBqoru')"><div class="episode-thumb"><img src="b10t3c9.jpg"></div><h4 class="ep-title">9. Los anormales</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1YREiuwmt7NUXuaiQr2x-yfIjST2DFiXI')"><div class="episode-thumb"><img src="b10t3c10.jpg"></div><h4 class="ep-title">10. Monstruo clima</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1QXH8ZUbzSQl8W5bhK2s1G-3s4MTGCyf5')"><div class="episode-thumb"><img src="b10t3c11.jpg"></div><h4 class="ep-title">11. El regreso</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1oWU2WKnkS0z1WjrLymkOyd-oLVeKCOFF')"><div class="episode-thumb"><img src="b10t3c12.jpg"></div><h4 class="ep-title">12. Teme oscuridad</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1kdkCZ8nsFfbHG-ID3e8JCFB_SQKT_jWw')"><div class="episode-thumb"><img src="b10t3c13.jpg"></div><h4 class="ep-title">13. El visitante</h4></div>
         </div>
 
         <!-- === TEMPORADA 4 === -->
-        <div id="t4" class="season-grid">
-            <div class="ep-card" onclick="reproducir('1R_-BeYKSbM5fYhvXhjEuc-CLeD3gc3lS')">
-                <img src="b10t4c1.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">1. Un día perfecto</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1QQWlh08GtgdM4mHNAJvzakESX_kggADo')">
-                <img src="b10t4c2.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">2. Es hora de dividirnos</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1RGVlIYLoHc10svpTR9xB4wxjyQkgvL0T')">
-                <img src="b10t4c3.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">3. No tomes el agua</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1qOErVgN4emP8rxNAohuqMnO-WWX-IuDT')">
-                <img src="b10t4c4.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">4. La gran boda alienígena</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1vhtBa01UepSuhamoFPoBlhfVZhEJT2P4')">
-                <img src="b10t4c5.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">5. Un viaje en carretera</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1IyzSm5D6zvD752GvabAV47dTlAnuxLVD')">
-                <img src="b10t4c6.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">6. Listos para luchar</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('19X5bP5LNwXaNPyzeZq-4VUXaW0-UK3sQ')">
-                <img src="b10t4c7.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">7. Ken 10</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1mHAKObMTfjS7mHoz7Sgzp4jWAJBEXqz9')">
-                <img src="b10t4c8.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">8. Ben 10 vs. Los 10 Negativos (Parte 1)</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1t1TjX3coscd-1fXO78WxoB4YYUKOl5R0')">
-                <img src="b10t4c9.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">9. Ben 10 vs. Los 10 Negativos (Parte 2)</h4>
-            </div>
-            <div class="ep-card" onclick="reproducir('1ML1oeoyLdQHd1qGKRfNbIo_ek_uTb7jH')">
-                <img src="b10t4c10.jpg" class="ep-img" onerror="this.src='https://via.placeholder.com/640x360/222/fff?text=Ben+10'">
-                <h4 class="ep-title">10. De regreso a casa</h4>
-            </div>
+        <div id="grid-t4" class="season-grid">
+            <div class="episode-card" onclick="setVid(this, '1R_-BeYKSbM5fYhvXhjEuc-CLeD3gc3lS')"><div class="episode-thumb"><img src="b10t4c1.jpg"></div><h4 class="ep-title">1. Día perfecto</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1QQWlh08GtgdM4mHNAJvzakESX_kggADo')"><div class="episode-thumb"><img src="b10t4c2.jpg"></div><h4 class="ep-title">2. Dividirnos</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1RGVlIYLoHc10svpTR9xB4wxjyQkgvL0T')"><div class="episode-thumb"><img src="b10t4c3.jpg"></div><h4 class="ep-title">3. No tomes agua</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1qOErVgN4emP8rxNAohuqMnO-WWX-IuDT')"><div class="episode-thumb"><img src="b10t4c4.jpg"></div><h4 class="ep-title">4. Boda alien</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1vhtBa01UepSuhamoFPoBlhfVZhEJT2P4')"><div class="episode-thumb"><img src="b10t4c5.jpg"></div><h4 class="ep-title">5. Carretera</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1IyzSm5D6zvD752GvabAV47dTlAnuxLVD')"><div class="episode-thumb"><img src="b10t4c6.jpg"></div><h4 class="ep-title">6. Listos luchar</h4></div>
+            <div class="episode-card" onclick="setVid(this, '19X5bP5LNwXaNPyzeZq-4VUXaW0-UK3sQ')"><div class="episode-thumb"><img src="b10t4c7.jpg"></div><h4 class="ep-title">7. Ken 10</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1mHAKObMTfjS7mHoz7Sgzp4jWAJBEXqz9')"><div class="episode-thumb"><img src="b10t4c8.jpg"></div><h4 class="ep-title">8. Negativos 1</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1t1TjX3coscd-1fXO78WxoB4YYUKOl5R0')"><div class="episode-thumb"><img src="b10t4c9.jpg"></div><h4 class="ep-title">9. Negativos 2</h4></div>
+            <div class="episode-card" onclick="setVid(this, '1ML1oeoyLdQHd1qGKRfNbIo_ek_uTb7jH')"><div class="episode-thumb"><img src="b10t4c10.jpg"></div><h4 class="ep-title">10. Regreso casa</h4></div>
         </div>
+    </section>
 
-    </div> <!-- Fin seccion episodios -->
-
-    <!-- SCRIPT DE FUNCIONAMIENTO -->
     <script>
-        // Función para cambiar de temporada con el selector
-        function cambiarTemporada() {
-            let selectedSeason = document.getElementById("seasonSelector").value;
-            
-            // Ocultar todas
-            let grids = document.getElementsByClassName("season-grid");
-            for (let i = 0; i < grids.length; i++) {
-                grids[i].classList.remove("active");
-            }
-            
-            // Mostrar la elegida
-            document.getElementById(selectedSeason).classList.add("active");
+        function setVid(tarjeta, id) {
+            document.querySelectorAll('.episode-card').forEach(t => t.classList.remove('active'));
+            tarjeta.classList.add('active');
+            document.getElementById('videoPlayer').src = "https://drive.google.com/file/d/" + id + "/preview";
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Función para darle Play a un capítulo
-        function reproducir(idVideo) {
-            // Cambia el link del reproductor de arriba
-            let player = document.getElementById("mainPlayer");
-            player.src = "https://drive.google.com/file/d/" + idVideo + "/preview";
-            
-            // Hace un scroll suave hacia arriba para que el usuario vea el video
-            document.getElementById("zona-reproductor").scrollIntoView({ behavior: 'smooth', block: 'center' });
+        function cambiarTemporada() {
+            let valor = document.getElementById("seasonSelector").value;
+            document.querySelectorAll('.season-grid').forEach(g => g.classList.remove('active-grid'));
+            document.getElementById('grid-' + valor).classList.add('active-grid');
         }
     </script>
-
 </body>
 </html>
