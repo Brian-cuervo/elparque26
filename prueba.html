@@ -3,762 +3,898 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Show Más Latino | ElParque26</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#030407">
-    <link rel="apple-touch-icon" href="icon.png">
-
+    <title>Ben 10 | ElParque26</title>
     <style>
-        /* --- TEMA PREMIUM HBO --- */
         :root {
-            --azul: #00c3ff;
-            --fondo-main: #030407;
-            --fondo-secundario: #0b0c10;
-            --texto-muted: #a3a3a3;
+            --verde-ben: #a2ff00;
+            --negro-fondo: #050505;
+            --gris-tarjeta: #121212;
+            --celeste-logo: #00d4ff;
+            --verde-oscuro: #1a2e05;
         }
-
         body {
             margin: 0;
-            background-color: var(--fondo-main);
+            background-color: var(--negro-fondo);
             color: white;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- BARRA DE NAVEGACIÓN FLOTANTE --- */
+        /* --- NAVBAR --- */
         .navbar {
+            background-color: rgba(5, 5, 5, 0.9);
+            width: 100%;
+            padding: 15px 40px;
+            box-sizing: border-box;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 20px 5%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 90%;
-            z-index: 1000;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-        }
-
-        /* --- MENÚ LATERAL --- */
-        .menu-lateral {
-            height: 100%;
-            width: 0;
+            align-items: center;
             position: fixed;
-            z-index: 2000;
             top: 0;
-            left: 0;
-            background-color: #0b0c10;
-            border-right: 1px solid #222;
-            overflow-x: hidden;
-            transition: 0.4s;
-            padding-top: 60px;
-            box-shadow: 5px 0 30px rgba(0,0,0,0.9);
+            z-index: 100;
+            border-bottom: 1px solid #222;
         }
-
-        .menu-lateral a, .boton-desplegable {
-            padding: 15px 15px 15px 30px;
+        .logo-nav {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
             text-decoration: none;
-            font-size: 1.1rem;
-            color: #ccc;
-            display: block;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 1px;
+        }
+        .logo-nav span { color: var(--celeste-logo); }
+        .btn-volver-nav {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
             transition: 0.2s;
-            font-weight: 600;
-            background: none;
-            border: none;
+        }
+        .btn-volver-nav:hover { color: var(--verde-ben); }
+
+        /* --- HERO BANNER --- */
+        .hero-banner {
             width: 100%;
-            text-align: left;
-            cursor: pointer;
-            outline: none;
-            letter-spacing: 0.5px;
-        }
-
-        .menu-lateral a:hover, .boton-desplegable:hover {
-            color: #fff;
-            background-color: #1a1c23;
-            border-left: 3px solid var(--azul);
-        }
-
-        .menu-lateral .boton-cerrar {
-            position: absolute;
-            top: 0;
-            right: 15px;
-            font-size: 36px;
-            margin-left: 50px;
-            padding: 10px;
-            width: auto;
-            border-left: none !important;
-        }
-
-        .submenu-lateral {
-            display: none;
-            background-color: #030407;
-        }
-
-        .submenu-lateral a {
-            font-size: 0.95rem;
-            padding-left: 50px;
-            color: #ccc;
-        }
-
-        .submenu-lateral a:hover {
-            color: #fff;
-            background-color: #111;
-        }
-
-        /* --- CARROUSEL / SLIDER PRINCIPAL --- */
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            height: 85vh; 
-            overflow: hidden;
-            background-color: var(--fondo-main);
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            display: flex;
-            align-items: flex-end;
+            height: 60vh;
+            background-image: linear-gradient(to right, rgba(5,5,5,1) 10%, rgba(5,5,5,0.4) 50%, rgba(5,5,5,1) 90%), url('https://image.tmdb.org/t/p/original/8Jp2Yv7B8N8qL8G2kI9kH2D9h4.jpg'); /* Imagen temporal de fondo */
             background-size: cover;
             background-position: center top;
-            background-repeat: no-repeat;
-            z-index: 1;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 40px;
+            border-bottom: 2px solid var(--verde-ben);
+            margin-top: 60px; /* Espacio para el navbar */
         }
-
-        .slide.active { opacity: 1; z-index: 2; }
-
-        .hero-gradient {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, var(--fondo-main) 0%, rgba(3, 4, 7, 0.7) 50%, transparent 100%),
-                        linear-gradient(to top, var(--fondo-main) 0%, transparent 40%);
-            z-index: 3;
-        }
-
-        .hero-content-hbo {
-            position: relative;
-            z-index: 10;
-            padding: 0 5% 80px 5%;
+        .hero-content {
+            padding: 0 5%;
             max-width: 800px;
         }
-
         .hero-title {
-            font-size: 3.5rem;
-            margin: 0 0 15px 0;
-            font-weight: 900;
+            font-size: 4rem;
+            font-family: 'Arial Black', sans-serif;
+            margin: 0;
             text-transform: uppercase;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
-
-        .badge-exclusivo {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 4px 10px;
-            font-weight: 800;
-            font-size: 0.75rem;
+        .hero-meta {
+            font-size: 1rem;
+            color: #ccc;
+            margin: 10px 0 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .badge {
+            border: 1px solid #ccc;
+            padding: 2px 6px;
             border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.8rem;
         }
-
         .hero-desc {
             font-size: 1.1rem;
-            color: #d1d1d1;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            line-height: 1.5;
+            color: #ddd;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
 
-        .btn-play-hbo {
-            background-color: white;
-            color: black;
-            padding: 12px 40px;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.2s;
-            cursor: pointer;
-            border: none;
+        /* --- SELECTOR DE TEMPORADAS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 5%;
         }
-
-        .btn-play-hbo:hover {
-            background-color: #e0e0e0;
-            transform: scale(1.05);
+        .section-title {
+            color: var(--verde-ben);
+            font-size: 1.2rem;
+            border-left: 4px solid var(--verde-ben);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
-
-        /* --- INDICADORES DEL SLIDER --- */
-        .slider-indicators {
-            position: absolute;
-            bottom: 25px;
-            left: 5%; 
-            display: flex;
-            gap: 10px;
-            z-index: 20;
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
         }
-
-        .dot {
-            width: 30px;
-            height: 4px; 
-            border-radius: 2px;
-            background-color: rgba(255, 255, 255, 0.3);
+        .btn-temporada {
+            background-color: var(--gris-tarjeta);
+            color: white;
+            border: 1px solid #333;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-temporada:hover {
+            background-color: #222;
+            border-color: var(--verde-ben);
+        }
+        .btn-temporada.activa {
+            background-color: var(--verde-oscuro);
+            border-color: var(--verde-ben);
+            color: var(--verde-ben);
+            box-shadow: 0 0 10px rgba(162, 255, 0, 0.2);
         }
 
-        .dot.active {
-            background-color: var(--azul);
-            box-shadow: 0 0 10px var(--azul);
-            width: 40px;
+        /* --- GRILLA DE EPISODIOS --- */
+        .temporada-content {
+            display: none; /* Ocultas por defecto */
+            animation: fadeIn 0.5s;
         }
-
-        /* --- BUSCADOR PREMIUM --- */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0 40px 0;
-            position: relative;
-            z-index: 20;
+        .temporada-content.activa {
+            display: block;
         }
         
-        .search-input {
-            width: 80%;
-            max-width: 600px;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background-color: rgba(20, 22, 28, 0.8);
-            color: white;
+        .grid-episodios { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+        .card-episodio {
+            background-color: var(--gris-tarjeta);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #222;
             transition: 0.3s;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--azul);
-            background-color: #111;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        /* --- CATEGORÍAS Y GRILLAS HORIZONTALES --- */
-        .categoria-section {
-            padding: 0 5% 40px 5%;
-        }
-
-        .categoria-titulo {
-            font-size: 1.3rem;
-            color: white;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 4px solid var(--azul);
-            padding-left: 10px;
-        }
-
-        .poster-row {
             display: flex;
-            gap: 20px;
-            overflow-x: auto; 
-            padding-bottom: 20px;
-            scrollbar-width: none; 
+            flex-direction: column;
         }
-        .poster-row::-webkit-scrollbar { display: none; }
-
-        .poster-card {
-            width: 180px;
-            min-width: 180px;
-            height: 270px;
-            background-color: #111;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .card-episodio:hover {
+            transform: translateY(-5px);
+            border-color: var(--verde-ben);
+            box-shadow: 0 5px 15px rgba(162, 255, 0, 0.1);
+        }
+        
+        /* Contenedor de la miniatura */
+        .thumb-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #222;
             position: relative;
             overflow: hidden;
-            text-decoration: none;
-            display: block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-
-        .poster-card img {
+        .thumb-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: 0.3s;
         }
-
-        .poster-overlay {
+        .card-episodio:hover .thumb-img {
+            transform: scale(1.05);
+        }
+        .play-overlay {
             position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: 0.3s;
+        }
+        .card-episodio:hover .play-overlay { opacity: 1; }
+        .play-icon {
+            color: var(--verde-ben);
+            font-size: 3rem;
+            filter: drop-shadow(0 0 5px black);
         }
 
-        .poster-play {
-            background: white;
-            color: black;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        /* Info del episodio */
+        .info-episodio {
+            padding: 15px;
+            flex-grow: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transform: scale(0.8);
-            transition: transform 0.3s;
-            padding-left: 5px; 
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .info-episodio h3 { 
+            color: white; 
+            font-size: 1.1rem; 
+            margin: 0 0 15px 0; 
+        }
+        
+        .btn-ver {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            background-color: var(--verde-ben);
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        .btn-ver:hover {
+            filter: brightness(1.2);
         }
 
-        .poster-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-            z-index: 5;
+        /* --- REPRODUCTOR (MODAL) --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95); 
+            backdrop-filter: blur(5px);
         }
-
-        .poster-card:hover .poster-overlay { opacity: 1; }
-        .poster-card:hover .poster-play { transform: scale(1); }
-        .poster-card:hover img { filter: brightness(0.7); }
-
-        .badge-estreno {
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 95%;
+            max-width: 1000px;
+            aspect-ratio: 16 / 9;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+        }
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .cerrar {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #ff0055;
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            border-radius: 4px;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            top: -40px;
+            right: 0;
+            color: gray;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar:hover { color: var(--verde-ben); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .hero-title { font-size: 2.5rem; }
-            .hero-desc { font-size: 0.95rem; }
-            .slider-wrapper { height: 70vh; }
-            .poster-card { width: 140px; min-width: 140px; height: 210px; }
-            .hero-content-hbo { padding-bottom: 50px; }
+            .hero-banner { height: 50vh; }
         }
     </style>
 </head>
-<body class="v-particles">
+<body>
 
-    <!-- MENÚ LATERAL -->
-    <div id="miMenuLateral" class="menu-lateral">
-        <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
-        
-        <!-- CARTOON NETWORK DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN')">Cartoon Network <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuCN">
-            <a href="cintas.html">Un Show Más Las Cintas Perdidas</a>
-            <a href="index.html">Un Show Más</a>
-            <a href="jim.html">El Submarino de Jim</a>
-            <a href="ben10.html">Ben 10</a>
-        </div>
-
-        <!-- DISNEY CHANNEL DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney')">Disney Channel <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuDisney">
-            <a href="gravityfalls.html">Gravity Falls</a>
-            <a href="chibi.html">Chibiverso</a>
-        </div>
-        
-        <!-- ANIME DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime')">Anime <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuAnime">
-            <a href="saga_saiyajin.html">Dragon Ball Z</a>
-        </div>
-    </div>
-
-    <!-- NAVBAR -->
     <nav class="navbar">
-        <div style="display: flex; align-items: center;">
-            <span style="font-size:25px; cursor:pointer; color: white; margin-right: 20px; transition: 0.2s;" onclick="abrirMenu()" onmouseover="this.style.color='var(--azul)'" onmouseout="this.style.color='white'">&#9776;</span>
-            
-            <div class="logo">
-                <a href="index.html" style="text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;">EL<span style="color: var(--azul);">PARQUE26</span></a>
-            </div>
-        </div>
-        <div class="nav-links">
-            <a href="#buscador" style="text-decoration: none; color: white; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">🔍 Buscar</a>
-        </div>
+        <a href="index.html" class="logo-nav">EL<span>PARQUE</span>26</a>
+        <a href="index.html" class="btn-volver-nav">← INICIO</a>
     </nav>
 
-    <!-- SLIDER PREMIUM -->
-    <div class="slider-wrapper">
+    <div class="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title">BEN 10</h1>
+            <div class="hero-meta">
+                <span>2005</span>
+                <span class="badge">TV-Y7</span>
+                <span>4 Temporadas</span>
+            </div>
+            <p class="hero-desc">
+                Durante unas vacaciones de verano con su abuelo Max y su prima Gwen, Ben Tennyson, un chico de 10 años, descubre un dispositivo alienígena mágico llamado Omnitrix. ¡Ahora tiene el poder de transformarse en 10 héroes alienígenas diferentes y salvar el mundo de las fuerzas del mal!
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
         
-        <header class="slide active" style="background-image: url('cintas_banner.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo" style="background-color: #e50914; color: white; border:none;">ESTRENO MUNDIAL</span>
-                <h1 class="hero-title" style="color: white;">LAS CINTAS PERDIDAS</h1>
-                <p class="hero-desc">Mordecai y Rigby regresan al parque con nuevas aventuras. ¡No te pierdas el primer capítulo exclusivo de esta nueva etapa!</p>
-                <a href="cintas.html" class="btn-play-hbo">▶ Ver Estreno Ahora</a>
-            </div>
-        </header>
+        <h2 class="section-title">Temporadas y Películas</h2>
+        
+        <!-- BOTONES SELECTORES -->
+        <div class="selector-grid">
+            <button class="btn-temporada activa" onclick="mostrarTemporada('t1', this)">Temporada 1</button>
+            <button class="btn-temporada" onclick="mostrarTemporada('t2', this)">Temporada 2</button>
+            <button class="btn-temporada" onclick="mostrarTemporada('t3', this)">Temporada 3</button>
+            <button class="btn-temporada" onclick="mostrarTemporada('t4', this)">Temporada 4</button>
+            <button class="btn-temporada" style="border-color: orange; color: orange;" onclick="alert('Película en proceso...')">Película: El Secreto del Omnitrix</button>
+        </div>
 
-        <header class="slide" style="background-image: url('banner_generico_usm.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">SERIE COMPLETA</span>
-                <h1 class="hero-title" style="color: white;">UN SHOW MÁS</h1>
-                <p class="hero-desc">Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas y la película en un solo lugar.</p>
-                <a href="t1.html" class="btn-play-hbo">▶ Reproducir T1</a>
+        <!-- ================= TEMPORADA 1 ================= -->
+        <div id="t1" class="temporada-content activa">
+            <div class="grid-episodios">
+                <!-- Ep 1 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c1.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>1. Y fueron diez</h3>
+                        <button onclick="abrirModal('1k1wXSGwh8_ub6DWFqhzzVtFzqLO0aPzE')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <!-- Ep 2 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c2.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>2. Aprendiendo a ser héroe</h3>
+                        <button onclick="abrirModal('1_uxrRJ28LgzbAZQmnLkFSWjNBCO0ejIU')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <!-- Ep 3 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c3.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>3. El Krakken</h3>
+                        <button onclick="abrirModal('1OKepzY2j3h8cNUriSpZ3QJOtLT5Mwhif')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <!-- Ep 4 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c4.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>4. Jubilados con actitud</h3>
+                        <button onclick="abrirModal('1Xs__8Yv4GfOxBfg6ZrBz4Dt1GhU1i3On')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <!-- Ep 5 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c5.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>5. Perseguido</h3>
+                        <button onclick="abrirModal('1KvRzY4IHZpXqh1GrubO_h_v7qLeJmsc6')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 6 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c6.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('145yQGy1PamYGRNs5NMFLCqsvtq9iviiN')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>6. Trampa para turistas</h3>
+                        <button onclick="abrirModal('145yQGy1PamYGRNs5NMFLCqsvtq9iviiN')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 7 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c7.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>7. Kevin 11</h3>
+                        <button onclick="abrirModal('1GA1RBBGNUwL64oFOuX_cZmzT8H_cgl_G')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 8 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c8.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>8. La Alianza</h3>
+                        <button onclick="abrirModal('1oOPWZ7d7loF7EXzarakVFoBkU0ze_kZS')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 9 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c9.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>9. El último en reír</h3>
+                        <button onclick="abrirModal('13pMUf49A-AfhRuwYuNEyd-OhoJ1olIEe')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 10 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c10.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('18RR9h942rHEZFfSOR73VHUBnZdNqxKQh')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>10. La chica de la suerte</h3>
+                        <button onclick="abrirModal('18RR9h942rHEZFfSOR73VHUBnZdNqxKQh')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 11 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c11.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>11. Un pequeño problema</h3>
+                        <button onclick="abrirModal('1vqaJId3P_k-hjaONXYaiprzWb0JnVLtV')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 12 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c12.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>12. Efectos secundarios</h3>
+                        <button onclick="abrirModal('16znNsBCTfRMFu_o9tF-iVKYsAGFcMUpP')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                 <!-- Ep 13 -->
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t1c13.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>13. Los secretos</h3>
+                        <button onclick="abrirModal('1TXYKQL4y5bCBo9gQOy-M_a1RYOgjdI1x')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('banner_gf.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">NUEVO</span>
-                <h1 class="hero-title" style="color: #f1c40f;">GRAVITY FALLS</h1>
-                <p class="hero-desc">Los mellizos Dipper y Mabel pasan el verano en Gravity Falls. Misterios, diarios y monstruos te esperan.</p>
-                <a href="gravityfalls.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- ================= TEMPORADA 2 ================= -->
+        <div id="t2" class="temporada-content">
+            <div class="grid-episodios">
+                <!-- Se repite la estructura de cards para la T2 -->
+                 <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c1.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1uOhCo_lItGyPAQhJWZ9Z7QL12uUGWtuq')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>1. La verdad</h3>
+                        <button onclick="abrirModal('1uOhCo_lItGyPAQhJWZ9Z7QL12uUGWtuq')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c2.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1SNhpqtaU09TrOZqprk84mZBaukD29LXB')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>2. La gran garrapata</h3>
+                        <button onclick="abrirModal('1SNhpqtaU09TrOZqprk84mZBaukD29LXB')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c3.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1OXRhsAqoNVSlxfxcJgT51kpzqzeptVW5')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>3. Inculpado</h3>
+                        <button onclick="abrirModal('1OXRhsAqoNVSlxfxcJgT51kpzqzeptVW5')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c4.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1C8M9mkIP6yKeeBm31f-8XFfbCKBnpKIt')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>4. Gwen 10</h3>
+                        <button onclick="abrirModal('1C8M9mkIP6yKeeBm31f-8XFfbCKBnpKIt')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c5.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1H9f3vrSmDsBWYjhU6r6JtNbQr0BWXC6x')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>5. Gladiadores</h3>
+                        <button onclick="abrirModal('1H9f3vrSmDsBWYjhU6r6JtNbQr0BWXC6x')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c6.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1Uw3IDmxNvhRIS5DbVD_kg5CxIjgvCyK6')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>6. Los defensores galácticos</h3>
+                        <button onclick="abrirModal('1Uw3IDmxNvhRIS5DbVD_kg5CxIjgvCyK6')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c7.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1qvVafqNPo_1ZAGXfeR-TMqYlaErqaLbx')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>7. El campamento del terror</h3>
+                        <button onclick="abrirModal('1qvVafqNPo_1ZAGXfeR-TMqYlaErqaLbx')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c8.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1Hiizk8l0RWHDGoQdAOAyFiwiHR-EnU5P')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>8. La mejor arma</h3>
+                        <button onclick="abrirModal('1Hiizk8l0RWHDGoQdAOAyFiwiHR-EnU5P')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c9.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1SsZWTvGJHW83PtvRaP6uMpncYGP5VbRW')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>9. Mala suerte</h3>
+                        <button onclick="abrirModal('1SsZWTvGJHW83PtvRaP6uMpncYGP5VbRW')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c10.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1Jp9xOycO_G1_FCqzgXB1itkoFks866Lm')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>10. El misterio del fondo</h3>
+                        <button onclick="abrirModal('1Jp9xOycO_G1_FCqzgXB1itkoFks866Lm')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c11.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1Ib-kXtCQ7s7Rrf06xyiyrsR55X8fMERA')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>11. El fantasma anda suelto</h3>
+                        <button onclick="abrirModal('1Ib-kXtCQ7s7Rrf06xyiyrsR55X8fMERA')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c12.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1cO8WXyRICbVvIItXasTTdlZCj7kGMskP')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>12. El Dr. Ánimo y el rayo mutante</h3>
+                        <button onclick="abrirModal('1cO8WXyRICbVvIItXasTTdlZCj7kGMskP')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t2c13.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1zCaiaooqWhNm1u0Yo5nS_2RhhO9TFI3I')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>13. La venganza</h3>
+                        <button onclick="abrirModal('1zCaiaooqWhNm1u0Yo5nS_2RhhO9TFI3I')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('chibi_banner.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">SERIE ORIGINAL</span>
-                <h1 class="hero-title" style="color: #9b59b6;">CHIBIVERSO</h1>
-                <p class="hero-desc">¡Los personajes animados más famosos se reúnen en el Chibiverso! Aventuras en miniatura donde mundos increíbles chocan.</p>
-                <a href="chibi.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- ================= TEMPORADA 3 ================= -->
+        <div id="t3" class="temporada-content">
+            <div class="grid-episodios">
+                 <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c1.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1z1kQw4exl7qCMxJouF1skKQjFdzbjUAm')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>1. Ben 10.000</h3>
+                        <button onclick="abrirModal('1z1kQw4exl7qCMxJouF1skKQjFdzbjUAm')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c2.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1FqkSqslgze8ujtJgUweom1bCrIJDXmBT')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>2. Locura a la medianoche</h3>
+                        <button onclick="abrirModal('1FqkSqslgze8ujtJgUweom1bCrIJDXmBT')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c3.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1ctUR7RAFWQMFOv7iwqKIxHp2aebgQ6kn')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>3. Cambio de cara</h3>
+                        <button onclick="abrirModal('1ctUR7RAFWQMFOv7iwqKIxHp2aebgQ6kn')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c4.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1jkkGYBFIyhnBtxWNEocQ-HdwkSqPW7n-')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>4. Feliz Navidad</h3>
+                        <button onclick="abrirModal('1jkkGYBFIyhnBtxWNEocQ-HdwkSqPW7n-')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c5.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('11WxgovtGFzjqlSTCQnvwrRBufXyxANQa')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>5. El lobo Ben</h3>
+                        <button onclick="abrirModal('11WxgovtGFzjqlSTCQnvwrRBufXyxANQa')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c6.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('17CciwMQqzKcg0OiNQrS-7Sfa0YyZVdVb')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>6. El juego terminó</h3>
+                        <button onclick="abrirModal('17CciwMQqzKcg0OiNQrS-7Sfa0YyZVdVb')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c7.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1o3k-nyCvYcgWofeX-wVlB87OhpN_bzV3')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>7. Aventuras de súper héroes alienígenas</h3>
+                        <button onclick="abrirModal('1o3k-nyCvYcgWofeX-wVlB87OhpN_bzV3')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c8.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1ALxIytoFNfiPYh_Zh-ff3IfE-R4zc-Hm')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>8. El secreto de la momia</h3>
+                        <button onclick="abrirModal('1ALxIytoFNfiPYh_Zh-ff3IfE-R4zc-Hm')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c9.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('16OoXiUHWMf17B6qyIDzRKZLjDgwBqoru')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>9. Los anormales</h3>
+                        <button onclick="abrirModal('16OoXiUHWMf17B6qyIDzRKZLjDgwBqoru')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c10.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1YREiuwmt7NUXuaiQr2x-yfIjST2DFiXI')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>10. El monstruo del clima</h3>
+                        <button onclick="abrirModal('1YREiuwmt7NUXuaiQr2x-yfIjST2DFiXI')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c11.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1QXH8ZUbzSQl8W5bhK2s1G-3s4MTGCyf5')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>11. El regreso</h3>
+                        <button onclick="abrirModal('1QXH8ZUbzSQl8W5bhK2s1G-3s4MTGCyf5')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c12.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1oWU2WKnkS0z1WjrLymkOyd-oLVeKCOFF')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>12. Teme a la oscuridad</h3>
+                        <button onclick="abrirModal('1oWU2WKnkS0z1WjrLymkOyd-oLVeKCOFF')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t3c13.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1kdkCZ8nsFfbHG-ID3e8JCFB_SQKT_jWw')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>13. El visitante</h3>
+                        <button onclick="abrirModal('1kdkCZ8nsFfbHG-ID3e8JCFB_SQKT_jWw')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('banner_ben10.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">CLÁSICO</span>
-                <h1 class="hero-title" style="color: #a2ff00;">BEN 10</h1>
-                <p class="hero-desc">Ben descubre el Omnitrix y ahora tiene el poder de transformarse en 10 héroes alienígenas para salvar el mundo.</p>
-                <a href="ben10.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- ================= TEMPORADA 4 ================= -->
+        <div id="t4" class="temporada-content">
+            <div class="grid-episodios">
+                 <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c1.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1R_-BeYKSbM5fYhvXhjEuc-CLeD3gc3lS')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>1. Un día perfecto</h3>
+                        <button onclick="abrirModal('1R_-BeYKSbM5fYhvXhjEuc-CLeD3gc3lS')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c2.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1QQWlh08GtgdM4mHNAJvzakESX_kggADo')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>2. Es hora de dividirnos</h3>
+                        <button onclick="abrirModal('1QQWlh08GtgdM4mHNAJvzakESX_kggADo')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c3.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1RGVlIYLoHc10svpTR9xB4wxjyQkgvL0T')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>3. No tomes el agua</h3>
+                        <button onclick="abrirModal('1RGVlIYLoHc10svpTR9xB4wxjyQkgvL0T')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c4.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1qOErVgN4emP8rxNAohuqMnO-WWX-IuDT')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>4. La gran boda alienígena</h3>
+                        <button onclick="abrirModal('1qOErVgN4emP8rxNAohuqMnO-WWX-IuDT')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c5.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1vhtBa01UepSuhamoFPoBlhfVZhEJT2P4')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>5. Un viaje en carretera</h3>
+                        <button onclick="abrirModal('1vhtBa01UepSuhamoFPoBlhfVZhEJT2P4')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c6.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1IyzSm5D6zvD752GvabAV47dTlAnuxLVD')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>6. Listos para luchar</h3>
+                        <button onclick="abrirModal('1IyzSm5D6zvD752GvabAV47dTlAnuxLVD')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c7.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('19X5bP5LNwXaNPyzeZq-4VUXaW0-UK3sQ')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>7. Ken 10</h3>
+                        <button onclick="abrirModal('19X5bP5LNwXaNPyzeZq-4VUXaW0-UK3sQ')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c8.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1mHAKObMTfjS7mHoz7Sgzp4jWAJBEXqz9')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>8. Ben 10 vs. Los 10 Negativos (Parte 1)</h3>
+                        <button onclick="abrirModal('1mHAKObMTfjS7mHoz7Sgzp4jWAJBEXqz9')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c9.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1t1TjX3coscd-1fXO78WxoB4YYUKOl5R0')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>9. Ben 10 vs. Los 10 Negativos (Parte 2)</h3>
+                        <button onclick="abrirModal('1t1TjX3coscd-1fXO78WxoB4YYUKOl5R0')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
+                <div class="card-episodio">
+                    <div class="thumb-container">
+                        <img src="b10t4c10.jpg" alt="Miniatura" class="thumb-img" onerror="this.src='https://via.placeholder.com/640x360/121212/a2ff00?text=BEN+10'">
+                        <div class="play-overlay" onclick="abrirModal('1ML1oeoyLdQHd1qGKRfNbIo_ek_uTb7jH')"><span class="play-icon">▶</span></div>
+                    </div>
+                    <div class="info-episodio">
+                        <h3>10. De regreso a casa</h3>
+                        <button onclick="abrirModal('1ML1oeoyLdQHd1qGKRfNbIo_ek_uTb7jH')" class="btn-ver">VER AHORA</button>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('jim.png');"> 
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">ESTRENO ORIGINAL</span>
-                <h1 class="hero-title" style="color: var(--azul);">EL SUBMARINO DE JIM</h1>
-                <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo. ¡Acompañalo!</p>
-                <a href="jim.html" class="btn-play-hbo">▶ Ver Episodio 1</a>
-            </div>
-        </header>
+    </div> <!-- Fin contenedor principal -->
 
-        <div class="slider-indicators">
-            <div class="dot active" onclick="goToSlide(0)"></div> 
-            <div class="dot" onclick="goToSlide(1)"></div> 
-            <div class="dot" onclick="goToSlide(2)"></div> 
-            <div class="dot" onclick="goToSlide(3)"></div> 
-            <div class="dot" onclick="goToSlide(4)"></div> 
-            <div class="dot" onclick="goToSlide(5)"></div> 
+    <!-- EL REPRODUCTOR OCULTO -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">×</span>
+            <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- EASTER EGGS PERSONAJES -->
-    <section class="characters-mini" style="margin-top: 20px; position: relative; z-index: 20;">
-        <div class="char-row" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <div class="c-item" onclick="festejoMordo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="mordecai.png" width="45" alt="Mordecai"></div>
-            <div class="c-item" onclick="retoHuevo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="rigby.png" width="45" alt="Rigby"></div>
-            <div class="c-item" onclick="enojarBenson()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="benson.png" width="45" alt="Benson"></div>
-            <div class="c-item" onclick="sabiduriaSkips()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="skips.png" width="45" alt="Skips"></div>
-            <div class="c-item" onclick="regaloPapaleta()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="papaleta.png" width="45" alt="Papaleta"></div>
-            <div class="c-item" onclick="bromaMusculoso()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="musculoso.png" width="45" alt="Musculoso"></div>
-        </div>
-    </section>
-
-    <!-- BUSCADOR -->
-    <div class="search-container" id="buscador">
-        <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="¿Qué querés ver hoy?" class="search-input">
-    </div>
-
-    <!-- SECCIÓN: ESTRENOS -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Estrenos Exclusivos</h3>
-        <div class="poster-row" id="fila-estrenos">
-            
-            <a href="cintas.html" class="poster-card" data-name="las cintas perdidas un show mas estreno">
-                <div class="badge-estreno" style="background-color: #e50914;">NUEVO</div>
-                <img src="cintas_poster.png" alt="Las Cintas Perdidas">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-            <a href="jim.html" class="poster-card" data-name="el submarino de jim">
-                <div class="badge-estreno">ESTRENO</div>
-                <img src="jim.png" alt="El submarino de Jim">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- SECCIÓN: UN SHOW MÁS CLÁSICO -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Un Show Más: Serie Clásica</h3>
-        <div class="poster-row" id="fila-clasico">
-            
-            <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas">
-                <img src="t1.png" alt="T1">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas">
-                <img src="t2.png" alt="T2">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas">
-                <img src="t3.png" alt="T3">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas">
-                <img src="t4.png" alt="T4">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas">
-                <img src="t5.png" alt="T5">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas">
-                <img src="t6.png" alt="T6">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas">
-                <img src="t7.png" alt="T7">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas">
-                <img src="t8.png" alt="T8">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas">
-                <img src="pelicula.png" alt="Pelicula">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- SECCIÓN: MÁS CATÁLOGO -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Explorar el Catálogo</h3>
-        <div class="poster-row" id="fila-catalogo">
-            
-            <a href="gravityfalls.html" class="poster-card" data-name="gravity falls temporadas cortos misterio dipper mabel">
-                <div class="badge-estreno" style="background-color: #f1c40f; color: black;">NUEVO</div>
-                <img src="gravity_poster.png" alt="Gravity Falls">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-            <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
-                <img src="chibi_poster.jpg" alt="Chibiverso">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-            <a href="ben10.html" class="poster-card" data-name="ben 10 clasico temporadas pelicula">
-                <img src="ben10.png" alt="Ben 10 Clásico">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">
-        ELPARQUE26 - 2026
-    </footer>
-
+    <!-- SCRIPTS -->
     <script>
-    // --- LÓGICA DEL SLIDER ---
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    let slideInterval;
-
-    function showSlide(n) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        slideIndex = n;
-        if (slideIndex >= slides.length) slideIndex = 0;
-        if (slideIndex < 0) slideIndex = slides.length - 1;
-        
-        slides[slideIndex].classList.add('active');
-        dots[slideIndex].classList.add('active');
-        
-        const currentDot = dots[slideIndex];
-        if(slideIndex === 0) { currentDot.style.backgroundColor = "#e50914"; currentDot.style.boxShadow = "0 0 10px #e50914"; } 
-        else if(slideIndex === 1) { currentDot.style.backgroundColor = "white"; currentDot.style.boxShadow = "0 0 10px white"; } 
-        else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } 
-        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#9b59b6"; currentDot.style.boxShadow = "0 0 10px #9b59b6"; } 
-        else if(slideIndex === 4) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
-        else { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
-    }
-
-    function nextSlide() { showSlide(slideIndex + 1); }
-
-    function goToSlide(n) {
-        showSlide(n);
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 6000); 
-    }
-
-    slideInterval = setInterval(nextSlide, 6000); 
-
-    // --- LÓGICA DEL MENÚ Y EXTRAS ---
-    function abrirMenu() { document.getElementById("miMenuLateral").style.width = "280px"; }
-    function cerrarMenu() { document.getElementById("miMenuLateral").style.width = "0"; }
-    
-    // Función actualizada para abrir/cerrar menús por ID
-    function toggleSubMenu(menuId) {
-        let submenu = document.getElementById(menuId);
-        submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
-    }
-
-    function buscarTemporada() {
-        let input = document.getElementById('inputBuscador').value.toLowerCase();
-        let posters = document.querySelectorAll('.poster-card');
-        
-        posters.forEach(p => {
-            let nombre = p.getAttribute('data-name');
-            if(nombre) {
-                p.style.display = (nombre.toLowerCase().includes(input)) ? "block" : "none";
+        // Función para cambiar de temporada
+        function mostrarTemporada(idTemporada, boton) {
+            // 1. Ocultar todas las grillas
+            let contenidos = document.getElementsByClassName("temporada-content");
+            for(let i=0; i < contenidos.length; i++){
+                contenidos[i].classList.remove("activa");
             }
-        });
-    }
-
-    function mostrarMensaje(texto, imagen = null) {
-        const m = document.createElement(imagen ? "img" : "div");
-        if (imagen) m.src = imagen; else m.innerText = texto;
-        m.className = "efecto-pop";
-        document.body.appendChild(m);
-        setTimeout(() => m.remove(), 2500);
-    }
-
-    // --- EASTER EGGS (CORREGIDOS PARA EL FONDO) ---
-    function enojarBenson() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage; 
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ff4757";
-        t.innerText = "¡VUELVAN A TRABAJAR!";
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 2000);
-    }
-
-    function retoHuevo() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ffd32a";
-        t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
-        
-        mostrarMensaje(null, "gorra.png"); 
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 3000);
-    }
-
-    function festejoMordo() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#1e90ff";
-        t.innerText = "¡OOOOOOOOOOH!";
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 1500);
-    }
-
-    function sabiduriaSkips() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        document.body.style.filter = "grayscale(1)";
-        const textoOriginal = t.innerText;
-        t.innerText = "YA HE VISTO ESTO ANTES...";
-        setTimeout(() => { document.body.style.filter = "none"; t.innerText = textoOriginal; }, 2500);
-    }
-
-    function regaloPapaleta() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ff79ff";
-        t.innerText = "¡QUÉ BUEN SHOW!";
-
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const paleta = document.createElement("div");
-                paleta.className = "paleta-caida";
-                paleta.innerText = "🍭";
-                paleta.style.left = Math.random() * 100 + "vw";
-                paleta.style.animationDuration = (Math.random() * 2 + 1) + "s";
-                document.body.appendChild(paleta);
-                setTimeout(() => paleta.remove(), 3000);
-            }, i * 100);
+            // 2. Sacar la clase 'activa' de todos los botones
+            let botones = document.getElementsByClassName("btn-temporada");
+            for(let i=0; i < botones.length; i++){
+                botones[i].classList.remove("activa");
+            }
+            // 3. Mostrar la grilla seleccionada y activar el botón
+            document.getElementById(idTemporada).classList.add("activa");
+            boton.classList.add("activa");
         }
 
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 3000);
-    }
+        // Funciones del reproductor
+        function abrirModal(idVideo) {
+            // URL de Drive optimizada para embeber
+            document.getElementById('videoFrame').src = "https://drive.google.com/file/d/" + idVideo + "/preview";
+            document.getElementById('videoModal').style.display = "block";
+            // Prevenir scroll de fondo
+            document.body.style.overflow = "hidden";
+        }
 
-    function bromaMusculoso() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        document.body.classList.add("shake-effect");
-        const textoOriginal = t.innerText;
-        t.innerText = "¿SABEN QUIÉN MÁS?";
-        mostrarMensaje("¡MI MAMI!"); 
-        setTimeout(() => { t.innerText = textoOriginal; document.body.classList.remove("shake-effect"); }, 3500);
-    }
+        function cerrarModal() {
+            document.getElementById('videoModal').style.display = "none";
+            document.getElementById('videoFrame').src = "";
+            // Restaurar scroll
+            document.body.style.overflow = "auto";
+        }
     </script>
+
 </body>
 </html>
