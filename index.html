@@ -99,7 +99,7 @@
         .submenu-lateral a {
             font-size: 0.95rem;
             padding-left: 50px;
-            color: #ff7f00;
+            color: #ccc;
         }
 
         .submenu-lateral a:hover {
@@ -367,15 +367,26 @@
     <div id="miMenuLateral" class="menu-lateral">
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
-        <a href="cintas.html" style="color: #ff0000; text-shadow: 0 0 5px red; animation: blink 1.5s infinite;">🔴 LAS CINTAS PERDIDAS</a>
-        <a href="index.html" style="color: var(--azul);">Un Show Más Clásico</a>
-        <a href="jim.html">El Submarino de Jim</a>
-        <a href="ben10.html">Ben 10 Clásico</a>
-        <a href="gravityfalls.html">Gravity Falls</a>
+        <!-- CARTOON NETWORK DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN')">Cartoon Network <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuCN">
+            <a href="cintas.html">Un Show Más Las Cintas Perdidas</a>
+            <a href="index.html">Un Show Más</a>
+            <a href="jim.html">El Submarino de Jim</a>
+            <a href="ben10.html">Ben 10</a>
+        </div>
+
+        <!-- DISNEY CHANNEL DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney')">Disney Channel <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuDisney">
+            <a href="gravityfalls.html">Gravity Falls</a>
+            <a href="chibi.html">Chibiverso</a>
+        </div>
         
-        <button class="boton-desplegable" onclick="toggleSubMenu()">Dragon Ball Z <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuDBZ">
-            <a href="saga_saiyajin.html">🐉 Saga Saiyajin</a>
+        <!-- ANIME DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime')">Anime <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuAnime">
+            <a href="saga_saiyajin.html">Dragon Ball Z</a>
         </div>
     </div>
 
@@ -426,6 +437,16 @@
             </div>
         </header>
 
+        <header class="slide" style="background-image: url('chibi_banner.jpg');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">SERIE ORIGINAL</span>
+                <h1 class="hero-title" style="color: #9b59b6;">CHIBIVERSO</h1>
+                <p class="hero-desc">¡Los personajes animados más famosos se reúnen en el Chibiverso! Aventuras en miniatura donde mundos increíbles chocan.</p>
+                <a href="chibi.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+            </div>
+        </header>
+
         <header class="slide" style="background-image: url('banner_ben10.png');">
             <div class="hero-gradient"></div>
             <div class="hero-content-hbo">
@@ -452,6 +473,7 @@
             <div class="dot" onclick="goToSlide(2)"></div> 
             <div class="dot" onclick="goToSlide(3)"></div> 
             <div class="dot" onclick="goToSlide(4)"></div> 
+            <div class="dot" onclick="goToSlide(5)"></div> 
         </div>
     </div>
 
@@ -548,6 +570,11 @@
                 <div class="poster-overlay"><div class="poster-play">▶</div></div>
             </a>
 
+            <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
+                <img src="chibi_poster.jpg" alt="Chibiverso">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
             <a href="ben10.html" class="poster-card" data-name="ben 10 clasico temporadas pelicula">
                 <img src="ben10.png" alt="Ben 10 Clásico">
                 <div class="poster-overlay"><div class="poster-play">▶</div></div>
@@ -582,8 +609,9 @@
         if(slideIndex === 0) { currentDot.style.backgroundColor = "#e50914"; currentDot.style.boxShadow = "0 0 10px #e50914"; } 
         else if(slideIndex === 1) { currentDot.style.backgroundColor = "white"; currentDot.style.boxShadow = "0 0 10px white"; } 
         else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } 
-        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
-        else { currentDot.style.backgroundColor = "#00c3ff"; currentDot.style.boxShadow = "0 0 10px #00c3ff"; } 
+        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#9b59b6"; currentDot.style.boxShadow = "0 0 10px #9b59b6"; } 
+        else if(slideIndex === 4) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
+        else { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
     }
 
     function nextSlide() { showSlide(slideIndex + 1); }
@@ -599,8 +627,10 @@
     // --- LÓGICA DEL MENÚ Y EXTRAS ---
     function abrirMenu() { document.getElementById("miMenuLateral").style.width = "280px"; }
     function cerrarMenu() { document.getElementById("miMenuLateral").style.width = "0"; }
-    function toggleSubMenu() {
-        let submenu = document.getElementById("submenuDBZ");
+    
+    // Función actualizada para abrir/cerrar menús por ID
+    function toggleSubMenu(menuId) {
+        let submenu = document.getElementById(menuId);
         submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
     }
 
