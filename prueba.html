@@ -57,16 +57,6 @@
             box-shadow: 5px 0 30px rgba(0,0,0,0.9);
         }
 
-        .menu-label {
-            padding: 25px 15px 5px 30px;
-            font-size: 0.75rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            display: block;
-        }
-
         .menu-lateral a, .boton-desplegable {
             padding: 15px 15px 15px 30px;
             text-decoration: none;
@@ -109,7 +99,7 @@
         .submenu-lateral a {
             font-size: 0.95rem;
             padding-left: 50px;
-            color: #ff7f00;
+            color: #ccc;
         }
 
         .submenu-lateral a:hover {
@@ -377,20 +367,26 @@
     <div id="miMenuLateral" class="menu-lateral">
         <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
         
-        <span class="menu-label">Cartoon Network</span>
-        <a href="cintas.html" style="color: #ff0000; text-shadow: 0 0 5px red; animation: blink 1.5s infinite;">🔴 LAS CINTAS PERDIDAS</a>
-        <a href="index.html" style="color: var(--azul);">Un Show Más Clásico</a>
-        <a href="jim.html">El Submarino de Jim</a>
-        <a href="ben10.html">Ben 10 Clásico</a>
+        <!-- CARTOON NETWORK DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN')">Cartoon Network <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuCN">
+            <a href="cintas.html">Un Show Más Las Cintas Perdidas</a>
+            <a href="index.html">Un Show Más</a>
+            <a href="jim.html">El Submarino de Jim</a>
+            <a href="ben10.html">Ben 10</a>
+        </div>
 
-        <span class="menu-label">Disney Channel</span>
-        <a href="gravityfalls.html">Gravity Falls</a>
-        <a href="chibi.html">Chibiverso</a>
+        <!-- DISNEY CHANNEL DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney')">Disney Channel <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuDisney">
+            <a href="gravityfalls.html">Gravity Falls</a>
+            <a href="chibi.html">Chibiverso</a>
+        </div>
         
-        <span class="menu-label">Anime</span>
-        <button class="boton-desplegable" onclick="toggleSubMenu()">Dragon Ball Z <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuDBZ">
-            <a href="saga_saiyajin.html">🐉 Saga Saiyajin</a>
+        <!-- ANIME DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime')">Anime <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuAnime">
+            <a href="saga_saiyajin.html">Dragon Ball Z</a>
         </div>
     </div>
 
@@ -631,8 +627,10 @@
     // --- LÓGICA DEL MENÚ Y EXTRAS ---
     function abrirMenu() { document.getElementById("miMenuLateral").style.width = "280px"; }
     function cerrarMenu() { document.getElementById("miMenuLateral").style.width = "0"; }
-    function toggleSubMenu() {
-        let submenu = document.getElementById("submenuDBZ");
+    
+    // Función actualizada para abrir/cerrar menús por ID
+    function toggleSubMenu(menuId) {
+        let submenu = document.getElementById(menuId);
         submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
     }
 
