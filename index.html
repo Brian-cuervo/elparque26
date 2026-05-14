@@ -3,783 +3,1556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Show Más Latino | ElParque26</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <title>ElParque26 | Streaming Premium</title>
+
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#030407">
+    <meta name="theme-color" content="#08050f">
     <link rel="apple-touch-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- TEMA PREMIUM HBO --- */
+        /* ============================================
+           ELPARQUE26 — PREMIUM STREAMING PLATFORM 2026
+           Inspired by HBO Max / Max
+           ============================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --azul: #00c3ff;
-            --fondo-main: #030407;
-            --fondo-secundario: #0b0c10;
-            --texto-muted: #a3a3a3;
+            --bg-primary: #08050f;
+            --bg-secondary: #0e0a1a;
+            --bg-card: #120e1f;
+            --bg-glass: rgba(14, 10, 26, 0.65);
+            --bg-glass-strong: rgba(14, 10, 26, 0.85);
+            --violet-primary: #8b5cf6;
+            --violet-light: #a78bfa;
+            --violet-dark: #6d28d9;
+            --violet-glow: rgba(139, 92, 246, 0.35);
+            --violet-subtle: rgba(139, 92, 246, 0.08);
+            --text-primary: #f0eef5;
+            --text-secondary: #a09bb5;
+            --text-muted: #6b6580;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-green: #22c55e;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f97316;
+            --border-subtle: rgba(139, 92, 246, 0.1);
+            --border-glass: rgba(255, 255, 255, 0.06);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-medium: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 0.2s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            background-color: var(--fondo-main);
-            color: white;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- BARRA DE NAVEGACIÓN FLOTANTE --- */
+        /* Ambient background glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(109, 40, 217, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+            z-index: -1;
+            animation: ambientShift 25s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes ambientShift {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            50%  { transform: translate(-2%, 1%) rotate(1deg); }
+            100% { transform: translate(1%, -1%) rotate(-0.5deg); }
+        }
+
+        /* ========== FLOATING NAVBAR ========== */
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 5%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 90%;
-            z-index: 1000;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            padding: 0 clamp(20px, 4vw, 60px);
+            height: 72px;
+            background: transparent;
+            transition: background var(--transition-medium), backdrop-filter var(--transition-medium), box-shadow var(--transition-medium);
         }
 
-        /* --- MENÚ LATERAL --- */
-        .menu-lateral {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            left: 0;
-            background-color: #0b0c10;
-            border-right: 1px solid #222;
-            overflow-x: hidden;
-            transition: 0.4s;
-            padding-top: 60px;
-            box-shadow: 5px 0 30px rgba(0,0,0,0.9);
+        .navbar.scrolled {
+            background: var(--bg-glass-strong);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        .menu-lateral a, .boton-desplegable {
-            padding: 15px 15px 15px 30px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            color: #ccc;
-            display: block;
-            transition: 0.2s;
-            font-weight: 600;
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu-toggle {
             background: none;
             border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .menu-toggle:hover {
+            background: var(--violet-subtle);
+            color: var(--violet-light);
+        }
+
+        .menu-toggle svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .logo-accent {
+            color: var(--violet-primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .nav-btn:hover {
+            background: var(--violet-subtle);
+            color: var(--text-primary);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ========== SIDE MENU ========== */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-medium);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 320px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-subtle);
+            z-index: 2001;
+            transform: translateX(-100%);
+            transition: transform var(--transition-slow);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-lateral.active {
+            transform: translateX(0);
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .menu-header .logo-text {
+            font-size: 1.2rem;
+        }
+
+        .menu-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .menu-close:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .menu-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu-section {
+            padding: 12px 0;
+        }
+
+        .menu-section-title {
+            padding: 8px 28px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 28px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            cursor: pointer;
+            border: none;
+            background: none;
             width: 100%;
             text-align: left;
-            cursor: pointer;
-            outline: none;
-            letter-spacing: 0.5px;
         }
 
-        .menu-lateral a:hover, .boton-desplegable:hover {
-            color: #fff;
-            background-color: #1a1c23;
-            border-left: 3px solid var(--azul);
+        .menu-item:hover {
+            color: var(--text-primary);
+            background: var(--violet-subtle);
+            padding-left: 32px;
         }
 
-        .menu-lateral .boton-cerrar {
-            position: absolute;
-            top: 0;
-            right: 15px;
-            font-size: 36px;
-            margin-left: 50px;
-            padding: 10px;
-            width: auto;
-            border-left: none !important;
+        .menu-item.has-arrow::after {
+            content: "";
+            margin-left: auto;
+            width: 6px;
+            height: 6px;
+            border-right: 1.5px solid var(--text-muted);
+            border-bottom: 1.5px solid var(--text-muted);
+            transform: rotate(-45deg);
+            transition: transform var(--transition-fast);
         }
 
-        .submenu-lateral {
-            display: none;
-            background-color: #030407;
+        .menu-item.has-arrow.open::after {
+            transform: rotate(45deg);
         }
 
-        .submenu-lateral a {
-            font-size: 0.95rem;
-            padding-left: 50px;
-            color: #ccc;
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(0, 0, 0, 0.15);
         }
 
-        .submenu-lateral a:hover {
-            color: #fff;
-            background-color: #111;
+        .submenu.open {
+            max-height: 500px;
         }
 
-        /* --- CARROUSEL / SLIDER PRINCIPAL --- */
-        .slider-wrapper {
+        .submenu .menu-item {
+            padding-left: 44px;
+            font-size: 0.87rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .submenu .menu-item:hover {
+            color: var(--violet-light);
+            padding-left: 48px;
+        }
+
+        /* ========== HERO SLIDER ========== */
+        .hero-slider {
             position: relative;
             width: 100%;
-            height: 85vh; 
+            height: 90vh;
+            min-height: 550px;
             overflow: hidden;
-            background-color: var(--fondo-main);
+            background: var(--bg-primary);
         }
 
-        .slide {
+        .hero-slide {
             position: absolute;
             inset: 0;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
-            display: flex;
-            align-items: flex-end;
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
+            transition: opacity 1.2s ease-in-out;
             z-index: 1;
         }
 
-        .slide.active { opacity: 1; z-index: 2; }
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
 
-        .hero-gradient {
+        .hero-slide-bg {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, var(--fondo-main) 0%, rgba(3, 4, 7, 0.7) 50%, transparent 100%),
-                        linear-gradient(to top, var(--fondo-main) 0%, transparent 40%);
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            transition: transform 8s ease-out;
+        }
+
+        .hero-slide.active .hero-slide-bg {
+            transform: scale(1.03);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, var(--bg-primary) 0%, rgba(8, 5, 15, 0.8) 35%, rgba(8, 5, 15, 0.3) 65%, rgba(8, 5, 15, 0.1) 100%),
+                linear-gradient(to top, var(--bg-primary) 0%, rgba(8, 5, 15, 0.6) 25%, transparent 60%),
+                linear-gradient(to bottom, rgba(8, 5, 15, 0.5) 0%, transparent 15%);
             z-index: 3;
         }
 
-        .hero-content-hbo {
-            position: relative;
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 10;
-            padding: 0 5% 80px 5%;
-            max-width: 800px;
+            padding: 0 clamp(20px, 5vw, 80px) clamp(80px, 10vh, 130px);
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--violet-light);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge.red {
+            background: rgba(239, 68, 68, 0.25);
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+
+        .hero-badge.gold {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .hero-badge.orange {
+            background: rgba(249, 115, 22, 0.2);
+            color: #fdba74;
+            border-color: rgba(249, 115, 22, 0.3);
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            margin: 0 0 15px 0;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 14px;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
         }
 
-        .badge-exclusivo {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 4px 10px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
+        .hero-description {
+            font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 28px;
+            max-width: 540px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
-        .hero-desc {
-            font-size: 1.1rem;
-            color: #d1d1d1;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
-        .btn-play-hbo {
-            background-color: white;
-            color: black;
-            padding: 12px 40px;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-decoration: none;
+        .btn-play {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: 0.2s;
-            cursor: pointer;
+            padding: 13px 32px;
+            background: var(--violet-primary);
+            color: white;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
             border: none;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            box-shadow: 0 4px 20px var(--violet-glow);
+            letter-spacing: 0.3px;
         }
 
-        .btn-play-hbo:hover {
-            background-color: #e0e0e0;
-            transform: scale(1.05);
+        .btn-play:hover {
+            background: var(--violet-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--violet-glow);
         }
 
-        /* --- INDICADORES DEL SLIDER --- */
+        .btn-play svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: var(--transition-medium);
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Slider indicators */
         .slider-indicators {
             position: absolute;
-            bottom: 25px;
-            left: 5%; 
+            bottom: clamp(24px, 4vh, 50px);
+            left: clamp(20px, 5vw, 80px);
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
             z-index: 20;
         }
 
-        .dot {
-            width: 30px;
-            height: 4px; 
+        .indicator {
+            width: 28px;
+            height: 3px;
             border-radius: 2px;
-            background-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition-medium);
+            border: none;
+            padding: 0;
         }
 
-        .dot.active {
-            background-color: var(--azul);
-            box-shadow: 0 0 10px var(--azul);
-            width: 40px;
+        .indicator.active {
+            width: 44px;
+            background: var(--violet-primary);
+            box-shadow: 0 0 12px var(--violet-glow);
         }
 
-        /* --- BUSCADOR PREMIUM --- */
-        .search-container {
+        .indicator:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ========== CHARACTERS STRIP ========== */
+        .characters-strip {
             display: flex;
             justify-content: center;
-            margin: 20px 0 40px 0;
+            align-items: center;
+            gap: 16px;
+            padding: 24px 20px;
             position: relative;
             z-index: 20;
         }
-        
-        .search-input {
-            width: 80%;
+
+        .char-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            cursor: pointer;
+            transition: var(--transition-medium);
+            background: var(--bg-card);
+            flex-shrink: 0;
+        }
+
+        .char-avatar:hover {
+            transform: scale(1.25);
+            border-color: var(--violet-primary);
+            box-shadow: 0 0 20px var(--violet-glow);
+        }
+
+        .char-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========== SEARCH ========== */
+        .search-section {
+            padding: 0 clamp(20px, 5vw, 80px) 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
             max-width: 600px;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background-color: rgba(20, 22, 28, 0.8);
-            color: white;
-            transition: 0.3s;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px 16px 52px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-glass);
+            color: var(--text-primary);
             outline: none;
+            transition: var(--transition-medium);
+            backdrop-filter: blur(16px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
         }
 
         .search-input:focus {
-            border-color: var(--azul);
-            background-color: #111;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-color: var(--violet-primary);
+            background: var(--bg-glass-strong);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1), 0 12px 40px rgba(0, 0, 0, 0.3);
         }
 
-        /* --- CATEGORÍAS Y GRILLAS HORIZONTALES --- */
-        .categoria-section {
-            padding: 0 5% 40px 5%;
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: color var(--transition-fast);
         }
 
-        .categoria-titulo {
-            font-size: 1.3rem;
-            color: white;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 4px solid var(--azul);
-            padding-left: 10px;
+        .search-input:focus ~ .search-icon {
+            color: var(--violet-primary);
         }
 
-        .poster-row {
+        .search-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            padding: 0 clamp(20px, 5vw, 80px) 56px;
+        }
+
+        .section-header {
             display: flex;
-            gap: 20px;
-            overflow-x: auto; 
-            padding-bottom: 20px;
-            scrollbar-width: none; 
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
         }
-        .poster-row::-webkit-scrollbar { display: none; }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 3px;
+            height: 20px;
+            border-radius: 2px;
+            background: var(--violet-primary);
+            box-shadow: 0 0 8px var(--violet-glow);
+        }
+
+        .section-see-all {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .section-see-all:hover {
+            color: var(--violet-light);
+        }
+
+        /* ========== POSTER CAROUSEL ========== */
+        .poster-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            scroll-snap-type: x proximity;
+        }
+
+        .poster-carousel::-webkit-scrollbar {
+            display: none;
+        }
 
         .poster-card {
-            width: 180px;
-            min-width: 180px;
-            height: 270px;
-            background-color: #111;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            flex-shrink: 0;
+            width: 175px;
+            aspect-ratio: 2/3;
+            border-radius: var(--radius-md);
             overflow: hidden;
+            cursor: pointer;
             text-decoration: none;
             display: block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: var(--transition-medium);
+            scroll-snap-align: start;
+            background: var(--bg-card);
         }
 
         .poster-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.3s;
+            transition: transform var(--transition-slow), filter var(--transition-medium);
         }
 
-        .poster-overlay {
+        .poster-card::after {
+            content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .poster-play {
-            background: white;
-            color: black;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transform: scale(0.8);
-            transition: transform 0.3s;
-            padding-left: 5px; 
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            transition: border-color var(--transition-medium);
         }
 
         .poster-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            transform: translateY(-10px) scale(1.04);
             z-index: 5;
         }
 
-        .poster-card:hover .poster-overlay { opacity: 1; }
-        .poster-card:hover .poster-play { transform: scale(1); }
-        .poster-card:hover img { filter: brightness(0.7); }
+        .poster-card:hover::after {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
 
-        .badge-estreno {
+        .poster-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.65);
+        }
+
+        .poster-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(8, 5, 15, 0.9) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .poster-card:hover .poster-card-overlay {
+            opacity: 1;
+        }
+
+        .play-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--violet-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px var(--violet-glow);
+            transform: scale(0.7);
+            transition: transform var(--transition-medium);
+        }
+
+        .poster-card:hover .play-circle {
+            transform: scale(1);
+        }
+
+        .play-circle svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+            margin-left: 2px;
+        }
+
+        .poster-badge {
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: #ff0055;
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            border-radius: 4px;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            padding: 3px 8px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
+            border-radius: 3px;
+            z-index: 10;
+            color: white;
+        }
+
+        .poster-badge.new { background: var(--accent-red); }
+        .poster-badge.premiere { background: var(--violet-primary); }
+        .poster-badge.original { background: var(--accent-gold); color: #1a1a1a; }
+        .poster-badge.mini { background: var(--accent-orange); }
+
+        /* Glow shadow on hover */
+        .poster-card:hover {
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--violet-glow);
+        }
+
+        /* ========== WIDE CARDS (Featured) ========== */
+        .featured-row {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+            scroll-snap-type: x proximity;
+        }
+
+        .featured-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .featured-card {
+            position: relative;
+            flex-shrink: 0;
+            width: clamp(280px, 40vw, 400px);
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: var(--transition-medium);
+            scroll-snap-align: start;
+            background: var(--bg-card);
+        }
+
+        .featured-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.15);
+        }
+
+        .featured-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .featured-card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 20px 16px;
+            background: linear-gradient(to top, rgba(8, 5, 15, 0.95) 0%, transparent 100%);
+        }
+
+        .featured-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .featured-card-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .featured-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            transition: border-color var(--transition-medium);
+        }
+
+        .featured-card:hover::after {
+            border-color: rgba(139, 92, 246, 0.25);
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 20px;
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
             letter-spacing: 1px;
         }
 
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-desc { font-size: 0.95rem; }
-            .slider-wrapper { height: 70vh; }
-            .poster-card { width: 140px; min-width: 140px; height: 210px; }
-            .hero-content-hbo { padding-bottom: 50px; }
+        /* ========== EASTER EGG EFFECTS ========== */
+        .efecto-pop {
+            position: fixed;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            pointer-events: none;
+            text-align: center;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
         }
+
+        .efecto-pop img {
+            width: 280px;
+            filter: drop-shadow(0 0 15px white);
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .paleta-caida {
+            position: fixed;
+            top: -50px;
+            font-size: 2.5rem;
+            z-index: 10001;
+            pointer-events: none;
+            animation: caerPaleta 3s linear forwards;
+        }
+
+        @keyframes caerPaleta {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .shake-effect {
+            animation: shake 0.4s infinite;
+        }
+
+        @keyframes shake {
+            0%  { transform: translate(1px, 1px); }
+            50% { transform: translate(-2px, -1px); }
+            100%{ transform: translate(1px, 1px); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero-slider {
+                height: 75vh;
+                min-height: 450px;
+            }
+
+            .poster-card {
+                width: 135px;
+            }
+
+            .featured-card {
+                width: 280px;
+            }
+
+            .characters-strip {
+                gap: 12px;
+            }
+
+            .char-avatar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .menu-lateral {
+                width: 85vw;
+                max-width: 320px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 60px;
+            }
+
+            .hero-slider {
+                height: 65vh;
+                min-height: 400px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .poster-card {
+                width: 120px;
+            }
+
+            .nav-right .nav-label {
+                display: none;
+            }
+        }
+
+        /* ========== LOADING ANIMATION ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .content-section:nth-child(1) { animation-delay: 0.1s; }
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.3s; }
+        .content-section:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
-<body class="v-particles">
+<body>
 
-    <!-- MENÚ LATERAL -->
-    <div id="miMenuLateral" class="menu-lateral">
-        <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
-        
-        <!-- CARTOON NETWORK DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN')">Cartoon Network <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuCN">
-            <a href="cintas.html">Un Show Más Las Cintas Perdidas</a>
-            <a href="index.html">Un Show Más</a>
-            <a href="jim.html">El Submarino de Jim</a>
-            <a href="ben10.html">Ben 10</a>
-            <a href="mj.html">Más allá del jardín</a>
+    <!-- OVERLAY FOR SIDE MENU -->
+    <div class="menu-overlay" id="menuOverlay" onclick="cerrarMenu()"></div>
+
+    <!-- SIDE MENU -->
+    <nav class="menu-lateral" id="menuLateral" aria-label="Menu principal">
+        <div class="menu-header">
+            <span class="logo-text">EL<span class="logo-accent">PARQUE26</span></span>
+            <button class="menu-close" onclick="cerrarMenu()" aria-label="Cerrar menu">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
         </div>
 
-        <!-- DISNEY CHANNEL DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney')">Disney Channel <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuDisney">
-            <a href="gravityfalls.html">Gravity Falls</a>
-            <a href="chibi.html">Chibiverso</a>
+        <div class="menu-section">
+            <div class="menu-section-title">Cartoon Network</div>
+            <a href="cintas.html" class="menu-item">Las Cintas Perdidas</a>
+            <a href="index.html" class="menu-item">Un Show Mas</a>
+            <a href="jim.html" class="menu-item">El Submarino de Jim</a>
+            <a href="ben10.html" class="menu-item">Ben 10</a>
+            <a href="mj.html" class="menu-item">Mas alla del jardin</a>
         </div>
-        
-        <!-- ANIME DESPLEGABLE -->
-        <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime')">Anime <span style="float:right; margin-right:20px;">&#9660;</span></button>
-        <div class="submenu-lateral" id="submenuAnime">
-            <a href="saga_saiyajin.html">Dragon Ball Z</a>
-        </div>
-    </div>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div style="display: flex; align-items: center;">
-            <span style="font-size:25px; cursor:pointer; color: white; margin-right: 20px; transition: 0.2s;" onclick="abrirMenu()" onmouseover="this.style.color='var(--azul)'" onmouseout="this.style.color='white'">&#9776;</span>
-            
-            <div class="logo">
-                <a href="index.html" style="text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;">EL<span style="color: var(--azul);">PARQUE26</span></a>
-            </div>
+        <div class="menu-section">
+            <div class="menu-section-title">Disney Channel</div>
+            <a href="gravityfalls.html" class="menu-item">Gravity Falls</a>
+            <a href="chibi.html" class="menu-item">Chibiverso</a>
         </div>
-        <div class="nav-links">
-            <a href="#buscador" style="text-decoration: none; color: white; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">🔍 Buscar</a>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Anime</div>
+            <a href="saga_saiyajin.html" class="menu-item">Dragon Ball Z</a>
         </div>
     </nav>
 
-    <!-- SLIDER PREMIUM -->
-    <div class="slider-wrapper">
-        
-        <header class="slide active" style="background-image: url('cintas_banner.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo" style="background-color: #e50914; color: white; border:none;">ESTRENO MUNDIAL</span>
-                <h1 class="hero-title" style="color: white;">LAS CINTAS PERDIDAS</h1>
-                <p class="hero-desc">Mordecai y Rigby regresan al parque con nuevas aventuras. ¡No te pierdas el primer capítulo exclusivo de esta nueva etapa!</p>
-                <a href="cintas.html" class="btn-play-hbo">▶ Ver Estreno Ahora</a>
-            </div>
-        </header>
+    <!-- FLOATING NAVBAR -->
+    <header class="navbar" id="navbar">
+        <div class="nav-left">
+            <button class="menu-toggle" onclick="abrirMenu()" aria-label="Abrir menu">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+            </button>
+            <a href="index.html" class="logo-link">
+                <span class="logo-text">EL<span class="logo-accent">PARQUE26</span></span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="#buscador" class="nav-btn" aria-label="Buscar">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+            </a>
+        </div>
+    </header>
 
-        <header class="slide" style="background-image: url('banner_generico_usm.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">SERIE COMPLETA</span>
-                <h1 class="hero-title" style="color: white;">UN SHOW MÁS</h1>
-                <p class="hero-desc">Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas y la película en un solo lugar.</p>
-                <a href="t1.html" class="btn-play-hbo">▶ Reproducir T1</a>
-            </div>
-        </header>
+    <!-- HERO SLIDER -->
+    <section class="hero-slider" aria-label="Contenido destacado">
 
-        <header class="slide" style="background-image: url('banner_gf.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">NUEVO</span>
-                <h1 class="hero-title" style="color: #f1c40f;">GRAVITY FALLS</h1>
-                <p class="hero-desc">Los mellizos Dipper y Mabel pasan el verano en Gravity Falls. Misterios, diarios y monstruos te esperan.</p>
-                <a href="gravityfalls.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- Slide 1: Las Cintas Perdidas -->
+        <div class="hero-slide active">
+            <div class="hero-slide-bg" style="background-image: url('cintas_banner.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge red">Estreno mundial</span>
+                <h1 class="hero-title" style="color: var(--text-primary);">Las Cintas Perdidas</h1>
+                <p class="hero-description">Mordecai y Rigby regresan al parque con nuevas aventuras. No te pierdas el primer episodio exclusivo de esta nueva etapa.</p>
+                <div class="hero-actions">
+                    <a href="cintas.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Estreno
+                    </a>
+                    <button class="btn-secondary" onclick="scrollToCatalog()">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 16v-4m0-4h.01"/></svg>
+                        Explorar
+                    </button>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('chibi_banner.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">SERIE ORIGINAL</span>
-                <h1 class="hero-title" style="color: #9b59b6;">CHIBIVERSO</h1>
-                <p class="hero-desc">¡Los personajes animados más famosos se reúnen en el Chibiverso! Aventuras en miniatura donde mundos increíbles chocan.</p>
-                <a href="chibi.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- Slide 2: Un Show Mas -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('banner_generico_usm.jpg');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge">Serie completa</span>
+                <h1 class="hero-title">Un Show Mas</h1>
+                <p class="hero-description">Revivi las 8 temporadas y la pelicula en un solo lugar. La locura total de Mordecai y Rigby.</p>
+                <div class="hero-actions">
+                    <a href="t1.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Reproducir T1
+                    </a>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('banner_ben10.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">CLÁSICO</span>
-                <h1 class="hero-title" style="color: #a2ff00;">BEN 10</h1>
-                <p class="hero-desc">Ben descubre el Omnitrix y ahora tiene el poder de transformarse en 10 héroes alienígenas para salvar el mundo.</p>
-                <a href="ben10.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+        <!-- Slide 3: Gravity Falls -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('banner_gf.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge gold">Nuevo</span>
+                <h1 class="hero-title" style="color: #fcd34d;">Gravity Falls</h1>
+                <p class="hero-description">Los mellizos Dipper y Mabel pasan el verano en Gravity Falls. Misterios, diarios y monstruos te esperan.</p>
+                <div class="hero-actions">
+                    <a href="gravityfalls.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Temporadas
+                    </a>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <header class="slide" style="background-image: url('jim.png');"> 
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo">ESTRENO ORIGINAL</span>
-                <h1 class="hero-title" style="color: var(--azul);">EL SUBMARINO DE JIM</h1>
-                <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo. ¡Acompañalo!</p>
-                <a href="jim.html" class="btn-play-hbo">▶ Ver Episodio 1</a>
+        <!-- Slide 4: Chibiverso -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('chibi_banner.jpg');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge">Serie original</span>
+                <h1 class="hero-title" style="color: var(--violet-light);">Chibiverso</h1>
+                <p class="hero-description">Los personajes animados mas famosos se reunen en el Chibiverso. Aventuras en miniatura donde mundos increibles chocan.</p>
+                <div class="hero-actions">
+                    <a href="chibi.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Temporadas
+                    </a>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN -->
-        <header class="slide" style="background-image: url('poster_mj.jpg');"> 
-            <div class="hero-gradient"></div>
-            <div class="hero-content-hbo">
-                <span class="badge-exclusivo" style="background-color: #ff7b00; color: white; border: none;">MINISERIE</span>
-                <h1 class="hero-title" style="color: #ff7b00;">MÁS ALLÁ DEL JARDÍN</h1>
-                <p class="hero-desc">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo.</p>
-                <a href="mj.html" class="btn-play-hbo">▶ Ver Miniserie</a>
+        <!-- Slide 5: Ben 10 -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('banner_ben10.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge">Clasico</span>
+                <h1 class="hero-title" style="color: #a3e635;">Ben 10</h1>
+                <p class="hero-description">Ben descubre el Omnitrix y ahora tiene el poder de transformarse en 10 heroes alienigenas para salvar el mundo.</p>
+                <div class="hero-actions">
+                    <a href="ben10.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Temporadas
+                    </a>
+                </div>
             </div>
-        </header>
+        </div>
 
+        <!-- Slide 6: El Submarino de Jim -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('jim.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge">Estreno original</span>
+                <h1 class="hero-title" style="color: var(--accent-cyan);">El Submarino de Jim</h1>
+                <p class="hero-description">Jim, un ingenuo delfin, recibe la mision de pilotar el primer submarino con ruedas del mundo.</p>
+                <div class="hero-actions">
+                    <a href="jim.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Episodio 1
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Mas Alla del Jardin -->
+        <div class="hero-slide">
+            <div class="hero-slide-bg" style="background-image: url('poster_mj.jpg');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge orange">Miniserie</span>
+                <h1 class="hero-title" style="color: #fdba74;">Mas Alla del Jardin</h1>
+                <p class="hero-description">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo.</p>
+                <div class="hero-actions">
+                    <a href="mj.html" class="btn-play">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Ver Miniserie
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicators -->
         <div class="slider-indicators">
-            <div class="dot active" onclick="goToSlide(0)"></div> 
-            <div class="dot" onclick="goToSlide(1)"></div> 
-            <div class="dot" onclick="goToSlide(2)"></div> 
-            <div class="dot" onclick="goToSlide(3)"></div> 
-            <div class="dot" onclick="goToSlide(4)"></div> 
-            <div class="dot" onclick="goToSlide(5)"></div> 
-            <div class="dot" onclick="goToSlide(6)"></div> <!-- AGREGADO EL SÉPTIMO PUNTO -->
+            <button class="indicator active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+            <button class="indicator" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+            <button class="indicator" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+            <button class="indicator" onclick="goToSlide(3)" aria-label="Slide 4"></button>
+            <button class="indicator" onclick="goToSlide(4)" aria-label="Slide 5"></button>
+            <button class="indicator" onclick="goToSlide(5)" aria-label="Slide 6"></button>
+            <button class="indicator" onclick="goToSlide(6)" aria-label="Slide 7"></button>
+        </div>
+    </section>
+
+    <!-- CHARACTERS STRIP -->
+    <section class="characters-strip" aria-label="Personajes">
+        <div class="char-avatar" onclick="festejoMordo()" title="Mordecai"><img src="mordecai.png" alt="Mordecai"></div>
+        <div class="char-avatar" onclick="retoHuevo()" title="Rigby"><img src="rigby.png" alt="Rigby"></div>
+        <div class="char-avatar" onclick="enojarBenson()" title="Benson"><img src="benson.png" alt="Benson"></div>
+        <div class="char-avatar" onclick="sabiduriaSkips()" title="Skips"><img src="skips.png" alt="Skips"></div>
+        <div class="char-avatar" onclick="regaloPapaleta()" title="Papaleta"><img src="papaleta.png" alt="Papaleta"></div>
+        <div class="char-avatar" onclick="bromaMusculoso()" title="Musculoso"><img src="musculoso.png" alt="Musculoso"></div>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-section" id="buscador">
+        <div class="search-wrapper">
+            <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="Buscar series, temporadas, peliculas..." class="search-input" aria-label="Buscar contenido">
+            <span class="search-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+            </span>
         </div>
     </div>
 
-    <!-- EASTER EGGS PERSONAJES -->
-    <section class="characters-mini" style="margin-top: 20px; position: relative; z-index: 20;">
-        <div class="char-row" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <div class="c-item" onclick="festejoMordo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="mordecai.png" width="45" alt="Mordecai"></div>
-            <div class="c-item" onclick="retoHuevo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="rigby.png" width="45" alt="Rigby"></div>
-            <div class="c-item" onclick="enojarBenson()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="benson.png" width="45" alt="Benson"></div>
-            <div class="c-item" onclick="sabiduriaSkips()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="skips.png" width="45" alt="Skips"></div>
-            <div class="c-item" onclick="regaloPapaleta()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="papaleta.png" width="45" alt="Papaleta"></div>
-            <div class="c-item" onclick="bromaMusculoso()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="musculoso.png" width="45" alt="Musculoso"></div>
+    <!-- SECTION: ESTRENOS -->
+    <section class="content-section" id="catalogo">
+        <div class="section-header">
+            <h2 class="section-title">Estrenos Exclusivos</h2>
+        </div>
+        <div class="featured-row" id="fila-estrenos">
+            <a href="cintas.html" class="featured-card" data-name="las cintas perdidas un show mas estreno">
+                <img src="cintas_banner.png" alt="Las Cintas Perdidas" loading="lazy">
+                <div class="featured-card-info">
+                    <div class="featured-card-title">Las Cintas Perdidas</div>
+                    <div class="featured-card-meta">Estreno exclusivo &bull; 2026</div>
+                </div>
+                <span class="poster-badge new">NUEVO</span>
+            </a>
+            <a href="jim.html" class="featured-card" data-name="el submarino de jim">
+                <img src="banner_jim.png" alt="El Submarino de Jim" loading="lazy">
+                <div class="featured-card-info">
+                    <div class="featured-card-title">El Submarino de Jim</div>
+                    <div class="featured-card-meta">Serie original &bull; T1</div>
+                </div>
+                <span class="poster-badge premiere">ESTRENO</span>
+            </a>
         </div>
     </section>
 
-    <!-- BUSCADOR -->
-    <div class="search-container" id="buscador">
-        <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="¿Qué querés ver hoy?" class="search-input">
-    </div>
-
-    <!-- SECCIÓN: ESTRENOS -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Estrenos Exclusivos</h3>
-        <div class="poster-row" id="fila-estrenos">
-            
-            <a href="cintas.html" class="poster-card" data-name="las cintas perdidas un show mas estreno">
-                <div class="badge-estreno" style="background-color: #e50914;">NUEVO</div>
-                <img src="cintas_poster.png" alt="Las Cintas Perdidas">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
-            <a href="jim.html" class="poster-card" data-name="el submarino de jim">
-                <div class="badge-estreno">ESTRENO</div>
-                <img src="jim.png" alt="El submarino de Jim">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
+    <!-- SECTION: UN SHOW MAS -->
+    <section class="content-section">
+        <div class="section-header">
+            <h2 class="section-title">Un Show Mas: Serie Clasica</h2>
+            <a href="t1.html" class="section-see-all">Ver todo</a>
+        </div>
+        <div class="poster-carousel" id="fila-clasico">
+            <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas"><img src="t1.png" alt="Temporada 1" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas"><img src="t2.png" alt="Temporada 2" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas"><img src="t3.png" alt="Temporada 3" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas"><img src="t4.png" alt="Temporada 4" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas"><img src="t5.png" alt="Temporada 5" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas"><img src="t6.png" alt="Temporada 6" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas"><img src="t7.png" alt="Temporada 7" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas"><img src="t8.png" alt="Temporada 8" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
+            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas"><img src="pelicula.png" alt="La Pelicula" loading="lazy"><div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></a>
         </div>
     </section>
 
-    <!-- SECCIÓN: UN SHOW MÁS CLÁSICO -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Un Show Más: Serie Clásica</h3>
-        <div class="poster-row" id="fila-clasico">
-            
-            <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas">
-                <img src="t1.png" alt="T1">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas">
-                <img src="t2.png" alt="T2">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas">
-                <img src="t3.png" alt="T3">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas">
-                <img src="t4.png" alt="T4">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas">
-                <img src="t5.png" alt="T5">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas">
-                <img src="t6.png" alt="T6">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas">
-                <img src="t7.png" alt="T7">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas">
-                <img src="t8.png" alt="T8">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas">
-                <img src="pelicula.png" alt="Pelicula">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
-            </a>
-
+    <!-- SECTION: EXPLORAR CATALOGO -->
+    <section class="content-section">
+        <div class="section-header">
+            <h2 class="section-title">Explorar el Catalogo</h2>
         </div>
-    </section>
-
-    <!-- SECCIÓN: MÁS CATÁLOGO -->
-    <section class="categoria-section">
-        <h3 class="categoria-titulo">Explorar el Catálogo</h3>
-        <div class="poster-row" id="fila-catalogo">
-            
+        <div class="poster-carousel" id="fila-catalogo">
             <a href="gravityfalls.html" class="poster-card" data-name="gravity falls temporadas cortos misterio dipper mabel">
-                <div class="badge-estreno" style="background-color: #f1c40f; color: black;">NUEVO</div>
-                <img src="gravity_poster.png" alt="Gravity Falls">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+                <span class="poster-badge original">NUEVO</span>
+                <img src="gravity_poster.png" alt="Gravity Falls" loading="lazy">
+                <div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </a>
-            
-            <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN EN EL CATÁLOGO -->
             <a href="mj.html" class="poster-card" data-name="mas alla del jardin miniserie bosque wirt greg bestia">
-                <div class="badge-estreno" style="background-color: #ff7b00; color: white;">MINISERIE</div>
-                <img src="poster_mj.jpg" alt="Más allá del jardín">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+                <span class="poster-badge mini">MINISERIE</span>
+                <img src="poster_mj.jpg" alt="Mas alla del jardin" loading="lazy">
+                <div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </a>
-
             <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
-                <img src="chibi_poster.jpg" alt="Chibiverso">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+                <img src="chibi_poster.jpg" alt="Chibiverso" loading="lazy">
+                <div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </a>
-
             <a href="ben10.html" class="poster-card" data-name="ben 10 clasico temporadas pelicula">
-                <img src="ben10.png" alt="Ben 10 Clásico">
-                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+                <img src="ben10.png" alt="Ben 10 Clasico" loading="lazy">
+                <div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
             </a>
-
+            <a href="saga_saiyajin.html" class="poster-card" data-name="dragon ball z anime saga saiyajin">
+                <img src="saga_saiyajin.png" alt="Dragon Ball Z" loading="lazy">
+                <div class="poster-card-overlay"><div class="play-circle"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </a>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">
-        ELPARQUE26 - 2026
+    <!-- SECTION: CONTINUAR VIENDO (featured wide cards) -->
+    <section class="content-section">
+        <div class="section-header">
+            <h2 class="section-title">Recomendados para ti</h2>
+        </div>
+        <div class="featured-row">
+            <a href="gravityfalls.html" class="featured-card">
+                <img src="banner_gf.png" alt="Gravity Falls" loading="lazy">
+                <div class="featured-card-info">
+                    <div class="featured-card-title">Gravity Falls</div>
+                    <div class="featured-card-meta">2 Temporadas &bull; Misterio, Aventura</div>
+                </div>
+            </a>
+            <a href="mj.html" class="featured-card">
+                <img src="banner_mj.jpg" alt="Mas alla del jardin" loading="lazy">
+                <div class="featured-card-info">
+                    <div class="featured-card-title">Mas Alla del Jardin</div>
+                    <div class="featured-card-meta">Miniserie &bull; 10 Episodios</div>
+                </div>
+            </a>
+            <a href="t1.html" class="featured-card">
+                <img src="banner_generico_usm.jpg" alt="Un Show Mas" loading="lazy">
+                <div class="featured-card-info">
+                    <div class="featured-card-title">Un Show Mas</div>
+                    <div class="featured-card-meta">8 Temporadas &bull; Comedia, Aventura</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-logo">EL<span style="color: var(--violet-primary);">PARQUE26</span></div>
+        <p class="footer-text">STREAMING PREMIUM &mdash; 2026</p>
     </footer>
 
     <script>
-    // --- LÓGICA DEL SLIDER ---
+    /* ==============================
+       SLIDER LOGIC
+       ============================== */
     let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll('.hero-slide');
+    const indicators = document.querySelectorAll('.indicator');
     let slideInterval;
 
     function showSlide(n) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        slideIndex = n;
-        if (slideIndex >= slides.length) slideIndex = 0;
-        if (slideIndex < 0) slideIndex = slides.length - 1;
-        
+        slides.forEach(s => {
+            s.classList.remove('active');
+            const bg = s.querySelector('.hero-slide-bg');
+            if (bg) bg.style.transform = 'scale(1)';
+        });
+        indicators.forEach(d => d.classList.remove('active'));
+
+        slideIndex = ((n % slides.length) + slides.length) % slides.length;
+
         slides[slideIndex].classList.add('active');
-        dots[slideIndex].classList.add('active');
-        
-        const currentDot = dots[slideIndex];
-        if(slideIndex === 0) { currentDot.style.backgroundColor = "#e50914"; currentDot.style.boxShadow = "0 0 10px #e50914"; } 
-        else if(slideIndex === 1) { currentDot.style.backgroundColor = "white"; currentDot.style.boxShadow = "0 0 10px white"; } 
-        else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } 
-        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#9b59b6"; currentDot.style.boxShadow = "0 0 10px #9b59b6"; } 
-        else if(slideIndex === 4) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
-        else if(slideIndex === 5) { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
-        else { currentDot.style.backgroundColor = "#ff7b00"; currentDot.style.boxShadow = "0 0 10px #ff7b00"; } // AGREGADO PARA EL COLOR NARANJA DEL JARDÍN
+        indicators[slideIndex].classList.add('active');
     }
 
     function nextSlide() { showSlide(slideIndex + 1); }
 
     function goToSlide(n) {
         showSlide(n);
+        resetInterval();
+    }
+
+    function resetInterval() {
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 6000); 
+        slideInterval = setInterval(nextSlide, 7000);
     }
 
-    slideInterval = setInterval(nextSlide, 6000); 
+    slideInterval = setInterval(nextSlide, 7000);
 
-    // --- LÓGICA DEL MENÚ Y EXTRAS ---
-    function abrirMenu() { document.getElementById("miMenuLateral").style.width = "280px"; }
-    function cerrarMenu() { document.getElementById("miMenuLateral").style.width = "0"; }
-    
-    // Función actualizada para abrir/cerrar menús por ID
-    function toggleSubMenu(menuId) {
-        let submenu = document.getElementById(menuId);
-        submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
+    /* Touch/swipe support */
+    let touchStartX = 0;
+    const sliderEl = document.querySelector('.hero-slider');
+    sliderEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    sliderEl.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+            diff > 0 ? goToSlide(slideIndex + 1) : goToSlide(slideIndex - 1);
+        }
+    }, { passive: true });
+
+    /* ==============================
+       NAVBAR SCROLL EFFECT
+       ============================== */
+    const navbar = document.getElementById('navbar');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                navbar.classList.toggle('scrolled', window.scrollY > 60);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    /* ==============================
+       SIDE MENU
+       ============================== */
+    const menuLateral = document.getElementById('menuLateral');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function abrirMenu() {
+        menuLateral.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
+    function cerrarMenu() {
+        menuLateral.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    /* Close menu with Escape */
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') cerrarMenu();
+    });
+
+    /* ==============================
+       SEARCH
+       ============================== */
     function buscarTemporada() {
-        let input = document.getElementById('inputBuscador').value.toLowerCase();
-        let posters = document.querySelectorAll('.poster-card');
-        
-        posters.forEach(p => {
-            let nombre = p.getAttribute('data-name');
-            if(nombre) {
-                p.style.display = (nombre.toLowerCase().includes(input)) ? "block" : "none";
+        const input = document.getElementById('inputBuscador').value.toLowerCase();
+        document.querySelectorAll('.poster-card, .featured-card').forEach(card => {
+            const name = card.getAttribute('data-name');
+            if (name) {
+                card.style.display = name.toLowerCase().includes(input) ? '' : 'none';
             }
         });
     }
 
-    function mostrarMensaje(texto, imagen = null) {
-        const m = document.createElement(imagen ? "img" : "div");
-        if (imagen) m.src = imagen; else m.innerText = texto;
-        m.className = "efecto-pop";
+    function scrollToCatalog() {
+        document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ==============================
+       EASTER EGGS
+       ============================== */
+    function mostrarMensaje(texto, imagen) {
+        const m = document.createElement(imagen ? 'img' : 'div');
+        if (imagen) { m.src = imagen; } else { m.innerText = texto; }
+        m.className = 'efecto-pop';
         document.body.appendChild(m);
         setTimeout(() => m.remove(), 2500);
     }
 
-    // --- EASTER EGGS (CORREGIDOS PARA EL FONDO) ---
+    function getActiveHeroTitle() {
+        const active = document.querySelector('.hero-slide.active');
+        return active ? active.querySelector('.hero-title') : null;
+    }
+
     function enojarBenson() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage; 
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ff4757";
-        t.innerText = "¡VUELVAN A TRABAJAR!";
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 2000);
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'VUELVAN A TRABAJAR!';
+        t.style.color = '#fca5a5';
+        setTimeout(() => { t.innerText = orig; t.style.color = origColor; }, 2000);
     }
 
     function retoHuevo() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ffd32a";
-        t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
-        
-        mostrarMensaje(null, "gorra.png"); 
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 3000);
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'SE EXTRA HUEVO ORDINARIO!';
+        t.style.color = '#fcd34d';
+        mostrarMensaje(null, 'gorra.png');
+        setTimeout(() => { t.innerText = orig; t.style.color = origColor; }, 3000);
     }
 
     function festejoMordo() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#1e90ff";
-        t.innerText = "¡OOOOOOOOOOH!";
-        
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 1500);
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'OOOOOOOOOOH!';
+        t.style.color = '#a78bfa';
+        setTimeout(() => { t.innerText = orig; t.style.color = origColor; }, 1500);
     }
 
     function sabiduriaSkips() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        document.body.style.filter = "grayscale(1)";
-        const textoOriginal = t.innerText;
-        t.innerText = "YA HE VISTO ESTO ANTES...";
-        setTimeout(() => { document.body.style.filter = "none"; t.innerText = textoOriginal; }, 2500);
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        document.body.style.filter = 'grayscale(1)';
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'YA HE VISTO ESTO ANTES...';
+        t.style.color = '#e2e8f0';
+        setTimeout(() => { document.body.style.filter = ''; t.innerText = orig; t.style.color = origColor; }, 2500);
     }
 
     function regaloPapaleta() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        
-        const imgOriginal = activeSlide.style.backgroundImage;
-        const textoOriginal = t.innerText;
-        
-        activeSlide.style.backgroundImage = "none";
-        activeSlide.style.backgroundColor = "#ff79ff";
-        t.innerText = "¡QUÉ BUEN SHOW!";
-
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'QUE BUEN SHOW!';
+        t.style.color = '#e879f9';
         for (let i = 0; i < 20; i++) {
             setTimeout(() => {
-                const paleta = document.createElement("div");
-                paleta.className = "paleta-caida";
-                paleta.innerText = "🍭";
-                paleta.style.left = Math.random() * 100 + "vw";
-                paleta.style.animationDuration = (Math.random() * 2 + 1) + "s";
-                document.body.appendChild(paleta);
-                setTimeout(() => paleta.remove(), 3000);
+                const p = document.createElement('div');
+                p.className = 'paleta-caida';
+                p.innerText = String.fromCodePoint(0x1F36D);
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 3000);
             }, i * 100);
         }
-
-        setTimeout(() => { 
-            activeSlide.style.backgroundImage = imgOriginal;
-            activeSlide.style.backgroundColor = "transparent";
-            t.innerText = textoOriginal; 
-        }, 3000);
+        setTimeout(() => { t.innerText = orig; t.style.color = origColor; }, 3000);
     }
 
     function bromaMusculoso() {
-        const activeSlide = document.querySelector('.slide.active');
-        const t = activeSlide.querySelector('.hero-title');
-        document.body.classList.add("shake-effect");
-        const textoOriginal = t.innerText;
-        t.innerText = "¿SABEN QUIÉN MÁS?";
-        mostrarMensaje("¡MI MAMI!"); 
-        setTimeout(() => { t.innerText = textoOriginal; document.body.classList.remove("shake-effect"); }, 3500);
+        const t = getActiveHeroTitle();
+        if (!t) return;
+        document.body.classList.add('shake-effect');
+        const orig = t.innerText;
+        const origColor = t.style.color;
+        t.innerText = 'SABEN QUIEN MAS?';
+        t.style.color = '#86efac';
+        mostrarMensaje('MI MAMI!');
+        setTimeout(() => { t.innerText = orig; t.style.color = origColor; document.body.classList.remove('shake-effect'); }, 3500);
     }
     </script>
+
 </body>
 </html>
