@@ -374,6 +374,7 @@
             <a href="index.html">Un Show Más</a>
             <a href="jim.html">El Submarino de Jim</a>
             <a href="ben10.html">Ben 10</a>
+            <a href="mj.html">Más allá del jardín</a>
         </div>
 
         <!-- DISNEY CHANNEL DESPLEGABLE -->
@@ -467,6 +468,17 @@
             </div>
         </header>
 
+        <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN -->
+        <header class="slide" style="background-image: url('poster_mj.jpg');"> 
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo" style="background-color: #ff7b00; color: white; border: none;">MINISERIE</span>
+                <h1 class="hero-title" style="color: #ff7b00;">MÁS ALLÁ DEL JARDÍN</h1>
+                <p class="hero-desc">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo.</p>
+                <a href="mj.html" class="btn-play-hbo">▶ Ver Miniserie</a>
+            </div>
+        </header>
+
         <div class="slider-indicators">
             <div class="dot active" onclick="goToSlide(0)"></div> 
             <div class="dot" onclick="goToSlide(1)"></div> 
@@ -474,6 +486,7 @@
             <div class="dot" onclick="goToSlide(3)"></div> 
             <div class="dot" onclick="goToSlide(4)"></div> 
             <div class="dot" onclick="goToSlide(5)"></div> 
+            <div class="dot" onclick="goToSlide(6)"></div> <!-- AGREGADO EL SÉPTIMO PUNTO -->
         </div>
     </div>
 
@@ -569,6 +582,13 @@
                 <img src="gravity_poster.png" alt="Gravity Falls">
                 <div class="poster-overlay"><div class="poster-play">▶</div></div>
             </a>
+            
+            <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN EN EL CATÁLOGO -->
+            <a href="mj.html" class="poster-card" data-name="mas alla del jardin miniserie bosque wirt greg bestia">
+                <div class="badge-estreno" style="background-color: #ff7b00; color: white;">MINISERIE</div>
+                <img src="poster_mj.jpg" alt="Más allá del jardín">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
 
             <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
                 <img src="chibi_poster.jpg" alt="Chibiverso">
@@ -611,7 +631,8 @@
         else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } 
         else if(slideIndex === 3) { currentDot.style.backgroundColor = "#9b59b6"; currentDot.style.boxShadow = "0 0 10px #9b59b6"; } 
         else if(slideIndex === 4) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
-        else { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
+        else if(slideIndex === 5) { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
+        else { currentDot.style.backgroundColor = "#ff7b00"; currentDot.style.boxShadow = "0 0 10px #ff7b00"; } // AGREGADO PARA EL COLOR NARANJA DEL JARDÍN
     }
 
     function nextSlide() { showSlide(slideIndex + 1); }
