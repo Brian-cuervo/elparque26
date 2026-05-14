@@ -3,240 +3,783 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Más allá del jardín | ElParque26</title>
+    <title>Un Show Más Latino | ElParque26</title>
+    <link rel="stylesheet" href="style.css">
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030407">
+    <link rel="apple-touch-icon" href="icon.png">
+
     <style>
-        /* --- ESTILO HBO PREMIUM - MÁS ALLÁ DEL JARDÍN --- */
+        /* --- TEMA PREMIUM HBO --- */
         :root {
-            --color-principal: #ff7b00; /* Naranja Calabaza/Otoño */
-            --color-secundario: #00d4ff; 
-            --fondo-principal: #0a0705; /* Marrón muy oscuro */
-            --fondo-secundario: #120d0a;
-            --hover-card: #1a130f; /* Fondo de la cajita del episodio */
-            --texto-secundario: #a3a3a3;
+            --azul: #00c3ff;
+            --fondo-main: #030407;
+            --fondo-secundario: #0b0c10;
+            --texto-muted: #a3a3a3;
         }
 
         body {
             margin: 0;
-            background-color: var(--fondo-principal);
+            background-color: var(--fondo-main);
             color: white;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
         }
 
+        /* --- BARRA DE NAVEGACIÓN FLOTANTE --- */
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 20px 5%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
             position: absolute;
             top: 0;
+            left: 0;
             width: 90%;
-            z-index: 100;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
         }
-        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
-        .logo span { color: var(--color-secundario); }
-        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--color-principal); }
 
-        .hero-banner {
+        /* --- MENÚ LATERAL --- */
+        .menu-lateral {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: #0b0c10;
+            border-right: 1px solid #222;
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+            box-shadow: 5px 0 30px rgba(0,0,0,0.9);
+        }
+
+        .menu-lateral a, .boton-desplegable {
+            padding: 15px 15px 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #ccc;
+            display: block;
+            transition: 0.2s;
+            font-weight: 600;
+            background: none;
+            border: none;
             width: 100%;
-            height: 55vh;
-            background-image: linear-gradient(to bottom, rgba(10,7,5,0) 40%, var(--fondo-principal) 100%), url('banner_mj.jpg');
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-lateral a:hover, .boton-desplegable:hover {
+            color: #fff;
+            background-color: #1a1c23;
+            border-left: 3px solid var(--azul);
+        }
+
+        .menu-lateral .boton-cerrar {
+            position: absolute;
+            top: 0;
+            right: 15px;
+            font-size: 36px;
+            margin-left: 50px;
+            padding: 10px;
+            width: auto;
+            border-left: none !important;
+        }
+
+        .submenu-lateral {
+            display: none;
+            background-color: #030407;
+        }
+
+        .submenu-lateral a {
+            font-size: 0.95rem;
+            padding-left: 50px;
+            color: #ccc;
+        }
+
+        .submenu-lateral a:hover {
+            color: #fff;
+            background-color: #111;
+        }
+
+        /* --- CARROUSEL / SLIDER PRINCIPAL --- */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 85vh; 
+            overflow: hidden;
+            background-color: var(--fondo-main);
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: flex-end;
             background-size: cover;
             background-position: center top;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        .slide.active { opacity: 1; z-index: 2; }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--fondo-main) 0%, rgba(3, 4, 7, 0.7) 50%, transparent 100%),
+                        linear-gradient(to top, var(--fondo-main) 0%, transparent 40%);
+            z-index: 3;
+        }
+
+        .hero-content-hbo {
+            position: relative;
+            z-index: 10;
+            padding: 0 5% 80px 5%;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin: 0 0 15px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .badge-exclusivo {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 4px 10px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #d1d1d1;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .btn-play-hbo {
+            background-color: white;
+            color: black;
+            padding: 12px 40px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-play-hbo:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        /* --- INDICADORES DEL SLIDER --- */
+        .slider-indicators {
+            position: absolute;
+            bottom: 25px;
+            left: 5%; 
             display: flex;
-            align-items: flex-end;
-            padding: 0 5% 40px 5%;
-            box-sizing: border-box;
-        }
-        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.9); color: white; }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-            padding: 0 5% 40px 5%;
-            align-items: start;
+            gap: 10px;
+            z-index: 20;
         }
 
-        .player-wrapper { scroll-margin-top: 80px; }
-        .player-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        .dot {
+            width: 30px;
+            height: 4px; 
+            border-radius: 2px;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
         }
-        iframe { width: 100%; height: 100%; border: none; outline: none; }
 
-        .details-panel { padding-top: 10px; }
-        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); margin-bottom: 25px; }
-        .poster-wrapper img { width: 100%; display: block; }
-        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
-        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
-        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
+        .dot.active {
+            background-color: var(--azul);
+            box-shadow: 0 0 10px var(--azul);
+            width: 40px;
+        }
 
-        .episode-list-section { padding: 0 5% 60px 5%; }
+        /* --- BUSCADOR PREMIUM --- */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px 0;
+            position: relative;
+            z-index: 20;
+        }
         
-        .episodes-header-hbo {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-        }
-        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
-
-        .season-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-            gap: 20px; 
-            animation: fadeIn 0.4s ease-in-out;
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: rgba(20, 22, 28, 0.8);
+            color: white;
+            transition: 0.3s;
+            outline: none;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .search-input:focus {
+            border-color: var(--azul);
+            background-color: #111;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
 
-        /* --- TARJETAS DE EPISODIOS --- */
-        .episode-card {
+        /* --- CATEGORÍAS Y GRILLAS HORIZONTALES --- */
+        .categoria-section {
+            padding: 0 5% 40px 5%;
+        }
+
+        .categoria-titulo {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 4px solid var(--azul);
+            padding-left: 10px;
+        }
+
+        .poster-row {
             display: flex;
-            flex-direction: column; 
-            background-color: var(--hover-card); 
-            border-radius: 6px;
+            gap: 20px;
+            overflow-x: auto; 
+            padding-bottom: 20px;
+            scrollbar-width: none; 
+        }
+        .poster-row::-webkit-scrollbar { display: none; }
+
+        .poster-card {
+            width: 180px;
+            min-width: 180px;
+            height: 270px;
+            background-color: #111;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
             overflow: hidden;
             text-decoration: none;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s;
-            border-bottom: 3px solid transparent; 
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        .episode-card:hover { transform: scale(1.03); }
-        .episode-card.active { border-bottom: 3px solid var(--color-principal); }
-        
-        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid #222;}
-        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; opacity: 0.8; }
-        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
-        
-        .episode-card:hover .episode-thumb img { opacity: 0.4; }
-        .episode-card:hover .play-icon { opacity: 1; }
 
-        .episode-info { padding: 12px 15px; text-align: left; }
-        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
-        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
 
-        @media (max-width: 900px) {
-            .main-content { grid-template-columns: 1fr; gap: 20px; }
+        .poster-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .poster-play {
+            background: white;
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: transform 0.3s;
+            padding-left: 5px; 
+        }
+
+        .poster-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            z-index: 5;
+        }
+
+        .poster-card:hover .poster-overlay { opacity: 1; }
+        .poster-card:hover .poster-play { transform: scale(1); }
+        .poster-card:hover img { filter: brightness(0.7); }
+
+        .badge-estreno {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff0055;
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 4px;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
-            .hero-banner { height: 40vh; padding-bottom: 20px; }
-            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
-            .ep-title { font-size: 0.85rem; }
-            .ep-desc { font-size: 0.75rem; }
-            .episode-info { padding: 8px 10px; }
+            .hero-desc { font-size: 0.95rem; }
+            .slider-wrapper { height: 70vh; }
+            .poster-card { width: 140px; min-width: 140px; height: 210px; }
+            .hero-content-hbo { padding-bottom: 50px; }
         }
     </style>
 </head>
-<body>
+<body class="v-particles">
 
-    <nav class="navbar">
-        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
-        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
-    </nav>
-
-    <header class="hero-banner">
-        <h1 class="hero-title">MÁS ALLÁ DEL JARDÍN</h1>
-    </header>
-
-    <div class="main-content">
-        <div class="player-wrapper" id="reproductor-ancla">
-            <div class="player-container">
-                <!-- Se carga el episodio 1 por defecto -->
-                <iframe id="videoPlayer" src="https://drive.google.com/file/d/1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ/preview" allowfullscreen></iframe>
-            </div>
+    <!-- MENÚ LATERAL -->
+    <div id="miMenuLateral" class="menu-lateral">
+        <a href="javascript:void(0)" class="boton-cerrar" onclick="cerrarMenu()">&times;</a>
+        
+        <!-- CARTOON NETWORK DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN')">Cartoon Network <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuCN">
+            <a href="cintas.html">Un Show Más Las Cintas Perdidas</a>
+            <a href="index.html">Un Show Más</a>
+            <a href="jim.html">El Submarino de Jim</a>
+            <a href="ben10.html">Ben 10</a>
+            <a href="mj.html">Más allá del jardín</a>
         </div>
 
-        <aside class="details-panel">
-            <div class="poster-wrapper">
-                <img src="poster_mj.jpg" alt="Más allá del jardín Póster" onerror="this.src='https://image.tmdb.org/t/p/w500/A0bErbT0Z9Esh3rP3gMvG3T6U2z.jpg'">
-            </div>
-            <h2 class="info-title">Más allá del jardín</h2>
-            <p class="info-subtitle">Miniserie Original • 10 Episodios</p>
-            <p class="info-synopsis">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo. Con la ayuda de un leñador sombrío y un azulejo con mal genio, viajan a través de la niebla con la esperanza de encontrar el camino a casa.</p>
-        </aside>
+        <!-- DISNEY CHANNEL DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney')">Disney Channel <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuDisney">
+            <a href="gravityfalls.html">Gravity Falls</a>
+            <a href="chibi.html">Chibiverso</a>
+        </div>
+        
+        <!-- ANIME DESPLEGABLE -->
+        <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime')">Anime <span style="float:right; margin-right:20px;">&#9660;</span></button>
+        <div class="submenu-lateral" id="submenuAnime">
+            <a href="saga_saiyajin.html">Dragon Ball Z</a>
+        </div>
     </div>
 
-    <section class="episode-list-section">
-        
-        <div class="episodes-header-hbo">
-            <h2 class="hbo-section-title">Miniserie Completa</h2>
-        </div>
-        
-        <!-- === LISTA DE EPISODIOS === -->
-        <div class="season-grid">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div style="display: flex; align-items: center;">
+            <span style="font-size:25px; cursor:pointer; color: white; margin-right: 20px; transition: 0.2s;" onclick="abrirMenu()" onmouseover="this.style.color='var(--azul)'" onmouseout="this.style.color='white'">&#9776;</span>
             
-            <div class="episode-card active" onclick="setVid(this, '1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ')">
-                <div class="episode-thumb"><img src="mjc1.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+1'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">1. El viejo molino</h4><p class="ep-desc">Wirt y Greg se pierden en el bosque y conocen a un leñador que les advierte sobre la Bestia.</p></div>
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;">EL<span style="color: var(--azul);">PARQUE26</span></a>
             </div>
-
-            <div class="episode-card" onclick="setVid(this, '1DuQ_7TbN72OS4IhLu1Uj94fZ-u8zMxYE')">
-                <div class="episode-thumb"><img src="mjc2.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+2'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">2. Tiempos de apuro en el granero</h4><p class="ep-desc">Los hermanos llegan a Pottsfield, un pueblo donde se celebra una extraña fiesta de la cosecha.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1jC9AN-QTNcodJDUUHGYmDZbAgpJmag7d')">
-                <div class="episode-thumb"><img src="mjc3.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+3'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">3. Escuela para animales</h4><p class="ep-desc">Wirt, Greg y Beatriz visitan una escuela de animales dirigida por una maestra preocupada.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1pTWer3RC6j80phG71giQv3OhO5P3SlCF')">
-                <div class="episode-thumb"><img src="mjc4.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+4'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">4. Canciones de la linterna oscura</h4><p class="ep-desc">El grupo entra a una taberna llena de pintorescos personajes para pedir indicaciones.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1T3KMaPrea9XSOay0_ZSvWceXQc7NpK43')">
-                <div class="episode-thumb"><img src="mjc5.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+5'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">5. Amor loco</h4><p class="ep-desc">Llegan a la mansión del excéntrico Quincy Endicott, quien cree que hay un fantasma en su casa.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1Rg1FkSCfGx4ZtI-Sq872Qzdyneqwut3Q')">
-                <div class="episode-thumb"><img src="mjc6.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+6'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">6. Cantos en la ranalandia</h4><p class="ep-desc">Wirt y Greg se escabullen en un barco de vapor elegante lleno de ranas bien vestidas.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1cy5odG1XZk0l6kyDDH3Su9eJykkJ-uxD')">
-                <div class="episode-thumb"><img src="mjc7.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+7'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">7. El repique de la campana</h4><p class="ep-desc">Wirt conoce a una joven misteriosa llamada Lorna y a su aterradora tía Susurros.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '11saLVr7ZVJ5l4rhgVYZO0zAbV46CS4ek')">
-                <div class="episode-thumb"><img src="mjc8.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+8'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">8. Niños en la madera</h4><p class="ep-desc">Greg debe tomar el liderazgo cuando Wirt pierde las esperanzas de salir del bosque.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1-FQuL_8y4TSXOSOlG0QoN7AMwfPPjSCI')">
-                <div class="episode-thumb"><img src="mjc9.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+9'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">9. Hacia lo desconocido</h4><p class="ep-desc">Se revela el origen de Wirt y Greg y cómo fue que terminaron perdidos en lo Desconocido.</p></div>
-            </div>
-
-            <div class="episode-card" onclick="setVid(this, '1eoImGGugFFCMAyDykXAiS1mpK2YuzCNq')">
-                <div class="episode-thumb"><img src="mjc10.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+10'"><div class="play-icon">▶</div></div>
-                <div class="episode-info"><h4 class="ep-title">10. Lo desconocido</h4><p class="ep-desc">El enfrentamiento final contra la Bestia para salvar sus vidas y encontrar el camino a casa.</p></div>
-            </div>
-
         </div>
+        <div class="nav-links">
+            <a href="#buscador" style="text-decoration: none; color: white; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">🔍 Buscar</a>
+        </div>
+    </nav>
 
+    <!-- SLIDER PREMIUM -->
+    <div class="slider-wrapper">
+        
+        <header class="slide active" style="background-image: url('cintas_banner.png');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo" style="background-color: #e50914; color: white; border:none;">ESTRENO MUNDIAL</span>
+                <h1 class="hero-title" style="color: white;">LAS CINTAS PERDIDAS</h1>
+                <p class="hero-desc">Mordecai y Rigby regresan al parque con nuevas aventuras. ¡No te pierdas el primer capítulo exclusivo de esta nueva etapa!</p>
+                <a href="cintas.html" class="btn-play-hbo">▶ Ver Estreno Ahora</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('banner_generico_usm.jpg');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">SERIE COMPLETA</span>
+                <h1 class="hero-title" style="color: white;">UN SHOW MÁS</h1>
+                <p class="hero-desc">Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas y la película en un solo lugar.</p>
+                <a href="t1.html" class="btn-play-hbo">▶ Reproducir T1</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('banner_gf.png');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">NUEVO</span>
+                <h1 class="hero-title" style="color: #f1c40f;">GRAVITY FALLS</h1>
+                <p class="hero-desc">Los mellizos Dipper y Mabel pasan el verano en Gravity Falls. Misterios, diarios y monstruos te esperan.</p>
+                <a href="gravityfalls.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('chibi_banner.jpg');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">SERIE ORIGINAL</span>
+                <h1 class="hero-title" style="color: #9b59b6;">CHIBIVERSO</h1>
+                <p class="hero-desc">¡Los personajes animados más famosos se reúnen en el Chibiverso! Aventuras en miniatura donde mundos increíbles chocan.</p>
+                <a href="chibi.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('banner_ben10.png');">
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">CLÁSICO</span>
+                <h1 class="hero-title" style="color: #a2ff00;">BEN 10</h1>
+                <p class="hero-desc">Ben descubre el Omnitrix y ahora tiene el poder de transformarse en 10 héroes alienígenas para salvar el mundo.</p>
+                <a href="ben10.html" class="btn-play-hbo">▶ Ver Temporadas</a>
+            </div>
+        </header>
+
+        <header class="slide" style="background-image: url('jim.png');"> 
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo">ESTRENO ORIGINAL</span>
+                <h1 class="hero-title" style="color: var(--azul);">EL SUBMARINO DE JIM</h1>
+                <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo. ¡Acompañalo!</p>
+                <a href="jim.html" class="btn-play-hbo">▶ Ver Episodio 1</a>
+            </div>
+        </header>
+
+        <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN -->
+        <header class="slide" style="background-image: url('banner_mj.jpg');"> 
+            <div class="hero-gradient"></div>
+            <div class="hero-content-hbo">
+                <span class="badge-exclusivo" style="background-color: #ff7b00; color: white; border: none;">MINISERIE</span>
+                <h1 class="hero-title" style="color: #ff7b00;">MÁS ALLÁ DEL JARDÍN</h1>
+                <p class="hero-desc">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo.</p>
+                <a href="mj.html" class="btn-play-hbo">▶ Ver Miniserie</a>
+            </div>
+        </header>
+
+        <div class="slider-indicators">
+            <div class="dot active" onclick="goToSlide(0)"></div> 
+            <div class="dot" onclick="goToSlide(1)"></div> 
+            <div class="dot" onclick="goToSlide(2)"></div> 
+            <div class="dot" onclick="goToSlide(3)"></div> 
+            <div class="dot" onclick="goToSlide(4)"></div> 
+            <div class="dot" onclick="goToSlide(5)"></div> 
+            <div class="dot" onclick="goToSlide(6)"></div> <!-- AGREGADO EL SÉPTIMO PUNTO -->
+        </div>
+    </div>
+
+    <!-- EASTER EGGS PERSONAJES -->
+    <section class="characters-mini" style="margin-top: 20px; position: relative; z-index: 20;">
+        <div class="char-row" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <div class="c-item" onclick="festejoMordo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="mordecai.png" width="45" alt="Mordecai"></div>
+            <div class="c-item" onclick="retoHuevo()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="rigby.png" width="45" alt="Rigby"></div>
+            <div class="c-item" onclick="enojarBenson()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="benson.png" width="45" alt="Benson"></div>
+            <div class="c-item" onclick="sabiduriaSkips()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="skips.png" width="45" alt="Skips"></div>
+            <div class="c-item" onclick="regaloPapaleta()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="papaleta.png" width="45" alt="Papaleta"></div>
+            <div class="c-item" onclick="bromaMusculoso()" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><img src="musculoso.png" width="45" alt="Musculoso"></div>
+        </div>
     </section>
 
+    <!-- BUSCADOR -->
+    <div class="search-container" id="buscador">
+        <input type="text" id="inputBuscador" onkeyup="buscarTemporada()" placeholder="¿Qué querés ver hoy?" class="search-input">
+    </div>
+
+    <!-- SECCIÓN: ESTRENOS -->
+    <section class="categoria-section">
+        <h3 class="categoria-titulo">Estrenos Exclusivos</h3>
+        <div class="poster-row" id="fila-estrenos">
+            
+            <a href="cintas.html" class="poster-card" data-name="las cintas perdidas un show mas estreno">
+                <div class="badge-estreno" style="background-color: #e50914;">NUEVO</div>
+                <img src="cintas_poster.png" alt="Las Cintas Perdidas">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+            <a href="jim.html" class="poster-card" data-name="el submarino de jim">
+                <div class="badge-estreno">ESTRENO</div>
+                <img src="jim.png" alt="El submarino de Jim">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN: UN SHOW MÁS CLÁSICO -->
+    <section class="categoria-section">
+        <h3 class="categoria-titulo">Un Show Más: Serie Clásica</h3>
+        <div class="poster-row" id="fila-clasico">
+            
+            <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas">
+                <img src="t1.png" alt="T1">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas">
+                <img src="t2.png" alt="T2">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas">
+                <img src="t3.png" alt="T3">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas">
+                <img src="t4.png" alt="T4">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas">
+                <img src="t5.png" alt="T5">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas">
+                <img src="t6.png" alt="T6">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas">
+                <img src="t7.png" alt="T7">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas">
+                <img src="t8.png" alt="T8">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas">
+                <img src="pelicula.png" alt="Pelicula">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN: MÁS CATÁLOGO -->
+    <section class="categoria-section">
+        <h3 class="categoria-titulo">Explorar el Catálogo</h3>
+        <div class="poster-row" id="fila-catalogo">
+            
+            <a href="gravityfalls.html" class="poster-card" data-name="gravity falls temporadas cortos misterio dipper mabel">
+                <div class="badge-estreno" style="background-color: #f1c40f; color: black;">NUEVO</div>
+                <img src="gravity_poster.png" alt="Gravity Falls">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+            
+            <!-- AGREGADO: MÁS ALLÁ DEL JARDÍN EN EL CATÁLOGO -->
+            <a href="mj.html" class="poster-card" data-name="mas alla del jardin miniserie bosque wirt greg bestia">
+                <div class="badge-estreno" style="background-color: #ff7b00; color: white;">MINISERIE</div>
+                <img src="poster_mj.jpg" alt="Más allá del jardín">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+            <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
+                <img src="chibi_poster.jpg" alt="Chibiverso">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+            <a href="ben10.html" class="poster-card" data-name="ben 10 clasico temporadas pelicula">
+                <img src="ben10.png" alt="Ben 10 Clásico">
+                <div class="poster-overlay"><div class="poster-play">▶</div></div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">
+        ELPARQUE26 - 2026
+    </footer>
+
     <script>
-        function setVid(tarjeta, id) {
-            document.querySelectorAll('.episode-card').forEach(t => t.classList.remove('active'));
-            tarjeta.classList.add('active');
-            document.getElementById('videoPlayer').src = "https://drive.google.com/file/d/" + id + "/preview";
-            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+    // --- LÓGICA DEL SLIDER ---
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let slideInterval;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slideIndex = n;
+        if (slideIndex >= slides.length) slideIndex = 0;
+        if (slideIndex < 0) slideIndex = slides.length - 1;
+        
+        slides[slideIndex].classList.add('active');
+        dots[slideIndex].classList.add('active');
+        
+        const currentDot = dots[slideIndex];
+        if(slideIndex === 0) { currentDot.style.backgroundColor = "#e50914"; currentDot.style.boxShadow = "0 0 10px #e50914"; } 
+        else if(slideIndex === 1) { currentDot.style.backgroundColor = "white"; currentDot.style.boxShadow = "0 0 10px white"; } 
+        else if(slideIndex === 2) { currentDot.style.backgroundColor = "#f1c40f"; currentDot.style.boxShadow = "0 0 10px #f1c40f"; } 
+        else if(slideIndex === 3) { currentDot.style.backgroundColor = "#9b59b6"; currentDot.style.boxShadow = "0 0 10px #9b59b6"; } 
+        else if(slideIndex === 4) { currentDot.style.backgroundColor = "#a2ff00"; currentDot.style.boxShadow = "0 0 10px #a2ff00"; } 
+        else if(slideIndex === 5) { currentDot.style.backgroundColor = "var(--azul)"; currentDot.style.boxShadow = "0 0 10px var(--azul)"; } 
+        else { currentDot.style.backgroundColor = "#ff7b00"; currentDot.style.boxShadow = "0 0 10px #ff7b00"; } // AGREGADO PARA EL COLOR NARANJA DEL JARDÍN
+    }
+
+    function nextSlide() { showSlide(slideIndex + 1); }
+
+    function goToSlide(n) {
+        showSlide(n);
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 6000); 
+    }
+
+    slideInterval = setInterval(nextSlide, 6000); 
+
+    // --- LÓGICA DEL MENÚ Y EXTRAS ---
+    function abrirMenu() { document.getElementById("miMenuLateral").style.width = "280px"; }
+    function cerrarMenu() { document.getElementById("miMenuLateral").style.width = "0"; }
+    
+    // Función actualizada para abrir/cerrar menús por ID
+    function toggleSubMenu(menuId) {
+        let submenu = document.getElementById(menuId);
+        submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
+    }
+
+    function buscarTemporada() {
+        let input = document.getElementById('inputBuscador').value.toLowerCase();
+        let posters = document.querySelectorAll('.poster-card');
+        
+        posters.forEach(p => {
+            let nombre = p.getAttribute('data-name');
+            if(nombre) {
+                p.style.display = (nombre.toLowerCase().includes(input)) ? "block" : "none";
+            }
+        });
+    }
+
+    function mostrarMensaje(texto, imagen = null) {
+        const m = document.createElement(imagen ? "img" : "div");
+        if (imagen) m.src = imagen; else m.innerText = texto;
+        m.className = "efecto-pop";
+        document.body.appendChild(m);
+        setTimeout(() => m.remove(), 2500);
+    }
+
+    // --- EASTER EGGS (CORREGIDOS PARA EL FONDO) ---
+    function enojarBenson() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        
+        const imgOriginal = activeSlide.style.backgroundImage; 
+        const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ff4757";
+        t.innerText = "¡VUELVAN A TRABAJAR!";
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 2000);
+    }
+
+    function retoHuevo() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
+        const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ffd32a";
+        t.innerText = "¡SÉ EXTRA HUEVO ORDINARIO!";
+        
+        mostrarMensaje(null, "gorra.png"); 
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 3000);
+    }
+
+    function festejoMordo() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
+        const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#1e90ff";
+        t.innerText = "¡OOOOOOOOOOH!";
+        
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 1500);
+    }
+
+    function sabiduriaSkips() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        document.body.style.filter = "grayscale(1)";
+        const textoOriginal = t.innerText;
+        t.innerText = "YA HE VISTO ESTO ANTES...";
+        setTimeout(() => { document.body.style.filter = "none"; t.innerText = textoOriginal; }, 2500);
+    }
+
+    function regaloPapaleta() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        
+        const imgOriginal = activeSlide.style.backgroundImage;
+        const textoOriginal = t.innerText;
+        
+        activeSlide.style.backgroundImage = "none";
+        activeSlide.style.backgroundColor = "#ff79ff";
+        t.innerText = "¡QUÉ BUEN SHOW!";
+
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const paleta = document.createElement("div");
+                paleta.className = "paleta-caida";
+                paleta.innerText = "🍭";
+                paleta.style.left = Math.random() * 100 + "vw";
+                paleta.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(paleta);
+                setTimeout(() => paleta.remove(), 3000);
+            }, i * 100);
         }
+
+        setTimeout(() => { 
+            activeSlide.style.backgroundImage = imgOriginal;
+            activeSlide.style.backgroundColor = "transparent";
+            t.innerText = textoOriginal; 
+        }, 3000);
+    }
+
+    function bromaMusculoso() {
+        const activeSlide = document.querySelector('.slide.active');
+        const t = activeSlide.querySelector('.hero-title');
+        document.body.classList.add("shake-effect");
+        const textoOriginal = t.innerText;
+        t.innerText = "¿SABEN QUIÉN MÁS?";
+        mostrarMensaje("¡MI MAMI!"); 
+        setTimeout(() => { t.innerText = textoOriginal; document.body.classList.remove("shake-effect"); }, 3500);
+    }
     </script>
 </body>
 </html>
