@@ -43,7 +43,7 @@
         .hero-banner {
             width: 100%;
             height: 55vh;
-            background-image: linear-gradient(to bottom, rgba(10,7,5,0) 40%, var(--fondo-principal) 100%), url('banner_jardin.png'); /* PONER TU BANNER ACÁ */
+            background-image: linear-gradient(to bottom, rgba(10,7,5,0) 40%, var(--fondo-principal) 100%), url('banner_mj.jpg');
             background-size: cover;
             background-position: center top;
             display: flex;
@@ -152,14 +152,14 @@
     <div class="main-content">
         <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
-                <!-- Se carga un video por defecto, podés poner el Ep 1 de Ok.ru cuando lo subas -->
-                <iframe id="videoPlayer" src="//ok.ru/videoembed/00000000000" allow="autoplay" allowfullscreen></iframe>
+                <!-- Se carga el episodio 1 por defecto -->
+                <iframe id="videoPlayer" src="https://drive.google.com/file/d/1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ/preview" allowfullscreen></iframe>
             </div>
         </div>
 
         <aside class="details-panel">
             <div class="poster-wrapper">
-                <img src="jardin_poster.png" alt="Más allá del jardín Póster" onerror="this.src='https://image.tmdb.org/t/p/w500/A0bErbT0Z9Esh3rP3gMvG3T6U2z.jpg'">
+                <img src="poster_mj.jpg" alt="Más allá del jardín Póster" onerror="this.src='https://image.tmdb.org/t/p/w500/A0bErbT0Z9Esh3rP3gMvG3T6U2z.jpg'">
             </div>
             <h2 class="info-title">Más allá del jardín</h2>
             <p class="info-subtitle">Miniserie Original • 10 Episodios</p>
@@ -176,54 +176,53 @@
         <!-- === LISTA DE EPISODIOS === -->
         <div class="season-grid">
             
-            <!-- ACÁ REEMPLAZÁS EL LINK DE OK.RU Y LA IMAGEN CUANDO LOS TENGAS -->
-            <div class="episode-card active" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c1.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+1'"><div class="play-icon">▶</div></div>
+            <div class="episode-card active" onclick="setVid(this, '1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ')">
+                <div class="episode-thumb"><img src="mjc1.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+1'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">1. El viejo molino</h4><p class="ep-desc">Wirt y Greg se pierden en el bosque y conocen a un leñador que les advierte sobre la Bestia.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c2.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+2'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1DuQ_7TbN72OS4IhLu1Uj94fZ-u8zMxYE')">
+                <div class="episode-thumb"><img src="mjc2.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+2'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">2. Tiempos de apuro en el granero</h4><p class="ep-desc">Los hermanos llegan a Pottsfield, un pueblo donde se celebra una extraña fiesta de la cosecha.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c3.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+3'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1jC9AN-QTNcodJDUUHGYmDZbAgpJmag7d')">
+                <div class="episode-thumb"><img src="mjc3.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+3'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">3. Escuela para animales</h4><p class="ep-desc">Wirt, Greg y Beatriz visitan una escuela de animales dirigida por una maestra preocupada.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c4.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+4'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1pTWer3RC6j80phG71giQv3OhO5P3SlCF')">
+                <div class="episode-thumb"><img src="mjc4.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+4'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">4. Canciones de la linterna oscura</h4><p class="ep-desc">El grupo entra a una taberna llena de pintorescos personajes para pedir indicaciones.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c5.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+5'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1T3KMaPrea9XSOay0_ZSvWceXQc7NpK43')">
+                <div class="episode-thumb"><img src="mjc5.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+5'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">5. Amor loco</h4><p class="ep-desc">Llegan a la mansión del excéntrico Quincy Endicott, quien cree que hay un fantasma en su casa.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c6.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+6'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1Rg1FkSCfGx4ZtI-Sq872Qzdyneqwut3Q')">
+                <div class="episode-thumb"><img src="mjc6.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+6'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">6. Cantos en la ranalandia</h4><p class="ep-desc">Wirt y Greg se escabullen en un barco de vapor elegante lleno de ranas bien vestidas.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c7.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+7'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1cy5odG1XZk0l6kyDDH3Su9eJykkJ-uxD')">
+                <div class="episode-thumb"><img src="mjc7.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+7'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">7. El repique de la campana</h4><p class="ep-desc">Wirt conoce a una joven misteriosa llamada Lorna y a su aterradora tía Susurros.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c8.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+8'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '11saLVr7ZVJ5l4rhgVYZO0zAbV46CS4ek')">
+                <div class="episode-thumb"><img src="mjc8.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+8'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">8. Niños en la madera</h4><p class="ep-desc">Greg debe tomar el liderazgo cuando Wirt pierde las esperanzas de salir del bosque.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c9.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+9'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1-FQuL_8y4TSXOSOlG0QoN7AMwfPPjSCI')">
+                <div class="episode-thumb"><img src="mjc9.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+9'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">9. Hacia lo desconocido</h4><p class="ep-desc">Se revela el origen de Wirt y Greg y cómo fue que terminaron perdidos en lo Desconocido.</p></div>
             </div>
 
-            <div class="episode-card" onclick="setVid(this, '//ok.ru/videoembed/PONER_ID_ACA')">
-                <div class="episode-thumb"><img src="mj_c10.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+10'"><div class="play-icon">▶</div></div>
+            <div class="episode-card" onclick="setVid(this, '1eoImGGugFFCMAyDykXAiS1mpK2YuzCNq')">
+                <div class="episode-thumb"><img src="mjc10.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+10'"><div class="play-icon">▶</div></div>
                 <div class="episode-info"><h4 class="ep-title">10. Lo desconocido</h4><p class="ep-desc">El enfrentamiento final contra la Bestia para salvar sus vidas y encontrar el camino a casa.</p></div>
             </div>
 
@@ -232,16 +231,10 @@
     </section>
 
     <script>
-        function setVid(tarjeta, urlVideo) {
-            // Remueve la clase active de todas las tarjetas
+        function setVid(tarjeta, id) {
             document.querySelectorAll('.episode-card').forEach(t => t.classList.remove('active'));
-            // Se la pone a la tarjeta tocada
             tarjeta.classList.add('active');
-            
-            // Cambia la URL del iframe al link de Ok.ru
-            document.getElementById('videoPlayer').src = urlVideo;
-            
-            // Sube la pantalla hasta el reproductor
+            document.getElementById('videoPlayer').src = "https://drive.google.com/file/d/" + id + "/preview";
             document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
