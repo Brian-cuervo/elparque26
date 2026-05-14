@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Más allá del jardín | ElParque26</title>
+    
+    <style>
+        /* --- ESTILO HBO PREMIUM - MÁS ALLÁ DEL JARDÍN --- */
+        :root {
+            --color-principal: #ff7b00; /* Naranja Calabaza/Otoño */
+            --color-secundario: #00d4ff; 
+            --fondo-principal: #0a0705; /* Marrón muy oscuro */
+            --fondo-secundario: #120d0a;
+            --hover-card: #1a130f; /* Fondo de la cajita del episodio */
+            --texto-secundario: #a3a3a3;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fondo-principal);
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            top: 0;
+            width: 90%;
+            z-index: 100;
+        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--color-secundario); }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-principal); }
+
+        .hero-banner {
+            width: 100%;
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(10,7,5,0) 40%, var(--fondo-principal) 100%), url('banner_mj.jpg');
+            background-size: cover;
+            background-position: center top;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5% 40px 5%;
+            box-sizing: border-box;
+        }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.9); color: white; }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
+            align-items: start;
+        }
+
+        .player-wrapper { scroll-margin-top: 80px; }
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        iframe { width: 100%; height: 100%; border: none; outline: none; }
+
+        .details-panel { padding-top: 10px; }
+        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); margin-bottom: 25px; }
+        .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
+
+        .episode-list-section { padding: 0 5% 60px 5%; }
+        
+        .episodes-header-hbo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+        }
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
+
+        .season-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TARJETAS DE EPISODIOS --- */
+        .episode-card {
+            display: flex;
+            flex-direction: column; 
+            background-color: var(--hover-card); 
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border-bottom: 3px solid transparent; 
+        }
+        .episode-card:hover { transform: scale(1.03); }
+        .episode-card.active { border-bottom: 3px solid var(--color-principal); }
+        
+        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid #222;}
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; opacity: 0.8; }
+        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
+        
+        .episode-card:hover .episode-thumb img { opacity: 0.4; }
+        .episode-card:hover .play-icon { opacity: 1; }
+
+        .episode-info { padding: 12px 15px; text-align: left; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
+        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; gap: 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-banner { height: 40vh; padding-bottom: 20px; }
+            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+            .ep-title { font-size: 0.85rem; }
+            .ep-desc { font-size: 0.75rem; }
+            .episode-info { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
+    </nav>
+
+    <header class="hero-banner">
+        <h1 class="hero-title">MÁS ALLÁ DEL JARDÍN</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="player-wrapper" id="reproductor-ancla">
+            <div class="player-container">
+                <!-- Se carga el episodio 1 por defecto -->
+                <iframe id="videoPlayer" src="https://drive.google.com/file/d/1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ/preview" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <aside class="details-panel">
+            <div class="poster-wrapper">
+                <img src="poster_mj.jpg" alt="Más allá del jardín Póster" onerror="this.src='https://image.tmdb.org/t/p/w500/A0bErbT0Z9Esh3rP3gMvG3T6U2z.jpg'">
+            </div>
+            <h2 class="info-title">Más allá del jardín</h2>
+            <p class="info-subtitle">Miniserie Original • 10 Episodios</p>
+            <p class="info-synopsis">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo. Con la ayuda de un leñador sombrío y un azulejo con mal genio, viajan a través de la niebla con la esperanza de encontrar el camino a casa.</p>
+        </aside>
+    </div>
+
+    <section class="episode-list-section">
+        
+        <div class="episodes-header-hbo">
+            <h2 class="hbo-section-title">Miniserie Completa</h2>
+        </div>
+        
+        <!-- === LISTA DE EPISODIOS === -->
+        <div class="season-grid">
+            
+            <div class="episode-card active" onclick="setVid(this, '1e_y8yuXp6tIWEOYmdqRB4E4lNVK06LBJ')">
+                <div class="episode-thumb"><img src="mjc1.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+1'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">1. El viejo molino</h4><p class="ep-desc">Wirt y Greg se pierden en el bosque y conocen a un leñador que les advierte sobre la Bestia.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1DuQ_7TbN72OS4IhLu1Uj94fZ-u8zMxYE')">
+                <div class="episode-thumb"><img src="mjc2.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+2'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">2. Tiempos de apuro en el granero</h4><p class="ep-desc">Los hermanos llegan a Pottsfield, un pueblo donde se celebra una extraña fiesta de la cosecha.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1jC9AN-QTNcodJDUUHGYmDZbAgpJmag7d')">
+                <div class="episode-thumb"><img src="mjc3.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+3'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">3. Escuela para animales</h4><p class="ep-desc">Wirt, Greg y Beatriz visitan una escuela de animales dirigida por una maestra preocupada.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1pTWer3RC6j80phG71giQv3OhO5P3SlCF')">
+                <div class="episode-thumb"><img src="mjc4.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+4'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">4. Canciones de la linterna oscura</h4><p class="ep-desc">El grupo entra a una taberna llena de pintorescos personajes para pedir indicaciones.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1T3KMaPrea9XSOay0_ZSvWceXQc7NpK43')">
+                <div class="episode-thumb"><img src="mjc5.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+5'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">5. Amor loco</h4><p class="ep-desc">Llegan a la mansión del excéntrico Quincy Endicott, quien cree que hay un fantasma en su casa.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1Rg1FkSCfGx4ZtI-Sq872Qzdyneqwut3Q')">
+                <div class="episode-thumb"><img src="mjc6.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+6'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">6. Cantos en la ranalandia</h4><p class="ep-desc">Wirt y Greg se escabullen en un barco de vapor elegante lleno de ranas bien vestidas.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1cy5odG1XZk0l6kyDDH3Su9eJykkJ-uxD')">
+                <div class="episode-thumb"><img src="mjc7.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+7'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">7. El repique de la campana</h4><p class="ep-desc">Wirt conoce a una joven misteriosa llamada Lorna y a su aterradora tía Susurros.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '11saLVr7ZVJ5l4rhgVYZO0zAbV46CS4ek')">
+                <div class="episode-thumb"><img src="mjc8.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+8'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">8. Niños en la madera</h4><p class="ep-desc">Greg debe tomar el liderazgo cuando Wirt pierde las esperanzas de salir del bosque.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1-FQuL_8y4TSXOSOlG0QoN7AMwfPPjSCI')">
+                <div class="episode-thumb"><img src="mjc9.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+9'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">9. Hacia lo desconocido</h4><p class="ep-desc">Se revela el origen de Wirt y Greg y cómo fue que terminaron perdidos en lo Desconocido.</p></div>
+            </div>
+
+            <div class="episode-card" onclick="setVid(this, '1eoImGGugFFCMAyDykXAiS1mpK2YuzCNq')">
+                <div class="episode-thumb"><img src="mjc10.jpg" onerror="this.src='https://via.placeholder.com/640x360/1a130f/ff7b00?text=Episodio+10'"><div class="play-icon">▶</div></div>
+                <div class="episode-info"><h4 class="ep-title">10. Lo desconocido</h4><p class="ep-desc">El enfrentamiento final contra la Bestia para salvar sus vidas y encontrar el camino a casa.</p></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+        function setVid(tarjeta, id) {
+            document.querySelectorAll('.episode-card').forEach(t => t.classList.remove('active'));
+            tarjeta.classList.add('active');
+            document.getElementById('videoPlayer').src = "https://drive.google.com/file/d/" + id + "/preview";
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
