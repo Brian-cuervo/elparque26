@@ -3,1519 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Show Más Latino | ElParque26</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#05010f">
-    <link rel="apple-touch-icon" href="icon.png">
+    <title>ELPARQUE26 | Premium Stream</title>
+    <meta name="theme-color" content="#030305">
+    
+    <!-- Fuentes Premium (Google Fonts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        /* ════════════════════════════════════════════════
-           VARIABLES Y RESET
-        ════════════════════════════════════════════════ */
+        /* --- variables & RESET --- */
         :root {
-            --bg-void:       #05010f;
-            --bg-deep:       #0a0514;
-            --bg-surface:    #110820;
-            --bg-glass:      rgba(14, 6, 28, 0.72);
-            --bg-card:       #120920;
-
-            --violet-glow:   #7b2fff;
-            --violet-mid:    #5b1fcf;
-            --violet-dim:    #2d1060;
-            --violet-ghost:  rgba(123, 47, 255, 0.12);
-
-            --accent-cyan:   #00d4ff;
-            --accent-red:    #ff2b55;
-            --accent-gold:   #f5c518;
-            --accent-lime:   #a2ff00;
-            --accent-orange: #ff7b00;
-            --accent-pink:   #d400ff;
-
-            --text-primary:  #f0eafa;
-            --text-secondary:#b8a8d4;
-            --text-muted:    #6b5a80;
-
-            --radius-card:   10px;
-            --radius-btn:    6px;
-
-            --font-display:  'Bebas Neue', sans-serif;
-            --font-body:     'Outfit', sans-serif;
-
-            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --hbo-violet: #6b2cf5;
+            --hbo-violet-dark: #4a12a8;
+            --hbo-glow: rgba(107, 44, 245, 0.6);
+            --bg-deep: #030305;
+            --bg-card: #141419;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --glass-bg: rgba(15, 15, 20, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-void);
-            color: var(--text-primary);
-            font-family: var(--font-body);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ════════════════════════════════════════════════
-           FONDO AMBIENTE
-        ════════════════════════════════════════════════ */
-        .bg-ambient {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+        /* Scrollbar Oculta pero funcional */
+        ::-webkit-scrollbar { width: 0; height: 0; }
+        ::-webkit-scrollbar-thumb { background: transparent; }
 
-        .bg-ambient::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: -20%;
-            width: 80vw;
-            height: 80vh;
-            background: radial-gradient(ellipse, rgba(91, 31, 207, 0.18) 0%, transparent 70%);
-            animation: ambientFloat1 20s ease-in-out infinite;
-        }
-
-        .bg-ambient::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
-            animation: ambientFloat2 25s ease-in-out infinite;
-        }
-
-        @keyframes ambientFloat1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(5%, 8%) scale(1.1); }
-        }
-        @keyframes ambientFloat2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-4%, -6%) scale(1.08); }
-        }
-
-        /* ════════════════════════════════════════════════
-           NAVBAR FLOTANTE
-        ════════════════════════════════════════════════ */
+        /* --- NAVBAR FLOTANTE (GLASSMORPHISM) --- */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 900;
+            width: 100%;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 5%;
-            height: 68px;
-            background: linear-gradient(to bottom,
-                rgba(5, 1, 15, 0.96) 0%,
-                rgba(5, 1, 15, 0.6) 70%,
-                transparent 100%);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(123, 47, 255, 0.12);
-            transition: all 0.4s var(--transition-smooth);
+            padding: 0 4%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(3,3,5,0.9) 0%, rgba(3,3,5,0.4) 60%, transparent 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.3s;
         }
 
-        .navbar.scrolled {
-            background: rgba(10, 5, 20, 0.97);
-            border-bottom-color: rgba(123, 47, 255, 0.25);
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(91, 31, 207, 0.08);
-        }
-
-        .navbar-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .hamburger-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 8px;
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+        
+        .menu-btn {
+            background: none; border: none; cursor: pointer; color: white; font-size: 24px;
             transition: 0.3s;
         }
+        .menu-btn:hover { color: var(--hbo-violet); text-shadow: 0 0 10px var(--hbo-violet); }
 
-        .hamburger-btn span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--text-secondary);
-            border-radius: 2px;
-            transition: all 0.3s var(--transition-smooth);
-        }
-
-        .hamburger-btn:hover span { background: white; }
-        .hamburger-btn:hover span:nth-child(2) { width: 16px; }
-
-        .logo-text {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
             letter-spacing: 2px;
             text-decoration: none;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 1px;
-        }
-
-        .logo-text .logo-accent {
-            background: linear-gradient(135deg, var(--violet-glow), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
             text-transform: uppercase;
-            transition: color 0.25s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
+        .logo span { color: var(--hbo-violet); }
 
-        .nav-link:hover { color: white; }
-
-        .nav-search-icon {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.1rem;
-            padding: 6px;
-            transition: color 0.25s;
+        .nav-search {
+            display: flex; align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
         }
-        .nav-search-icon:hover { color: white; }
-
-        /* ════════════════════════════════════════════════
-           MENÚ LATERAL
-        ════════════════════════════════════════════════ */
-        .sidebar-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1500;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s var(--transition-smooth);
-            backdrop-filter: blur(4px);
+        .nav-search:focus-within {
+            border-color: var(--hbo-violet);
+            background: rgba(0,0,0,0.6);
+            box-shadow: 0 0 15px var(--hbo-glow);
         }
-
-        .sidebar-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
+        .nav-search input {
+            background: transparent; border: none; color: white;
+            outline: none; font-size: 0.9rem; margin-left: 8px; width: 150px;
+            font-family: 'Inter', sans-serif;
         }
+        .nav-search i { color: var(--text-muted); }
 
-        .menu-lateral {
-            height: 100%;
-            width: 0;
-            position: fixed;
+        /* --- SIDEBAR (OFF-CANVAS) --- */
+        .sidebar {
+            position: fixed; top: 0; left: -320px;
+            width: 300px; height: 100%;
+            background: #0a0a0c;
+            border-right: 1px solid var(--glass-border);
             z-index: 2000;
-            top: 0;
-            left: 0;
-            background: linear-gradient(180deg, #0e0620 0%, #080313 100%);
-            border-right: 1px solid rgba(123, 47, 255, 0.2);
-            overflow: hidden;
-            transition: width 0.45s var(--transition-smooth);
-            box-shadow: 8px 0 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(91, 31, 207, 0.1);
-        }
-
-        .menu-lateral.open { width: 300px; }
-
-        .menu-inner {
-            width: 300px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            padding: 80px 20px 20px;
+            transition: var(--transition-smooth);
+            box-shadow: 10px 0 40px rgba(0,0,0,0.8);
             overflow-y: auto;
-            scrollbar-width: none;
+        }
+        .sidebar.active { left: 0; }
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px); z-index: 1500;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+        }
+        .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .sidebar-item {
+            display: block; padding: 15px 0;
+            color: var(--text-muted); text-decoration: none;
+            font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .sidebar-item:hover { color: white; padding-left: 10px; }
+        .sidebar-sub { padding-left: 20px; font-size: 0.9rem; color: #666; display: none; }
+        .sidebar-sub.active { display: block; animation: fadeIn 0.3s; }
+        
+        .sidebar-toggle {
+            width: 100%; text-align: left; background: none; border: none;
+            color: white; font-size: 1.1rem; padding: 15px 0;
+            cursor: pointer; display: flex; justify-content: space-between;
         }
 
-        .menu-inner::-webkit-scrollbar { display: none; }
-
-        .menu-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 22px 24px;
-            border-bottom: 1px solid rgba(123, 47, 255, 0.15);
-        }
-
-        .menu-logo {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            color: white;
-        }
-
-        .menu-close {
-            background: rgba(123, 47, 255, 0.12);
-            border: 1px solid rgba(123, 47, 255, 0.25);
-            color: var(--text-secondary);
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.25s;
-        }
-
-        .menu-close:hover {
-            background: rgba(123, 47, 255, 0.3);
-            color: white;
-        }
-
-        .menu-section-label {
-            padding: 20px 24px 8px;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: var(--violet-glow);
-        }
-
-        .boton-desplegable {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 13px 24px;
-            color: var(--text-secondary);
-            background: none;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-size: 0.92rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.2s;
-        }
-
-        .boton-desplegable:hover {
-            color: white;
-            background: rgba(123, 47, 255, 0.1);
-            padding-left: 28px;
-        }
-
-        .boton-desplegable .arrow {
-            font-size: 0.7rem;
-            transition: transform 0.3s;
-        }
-
-        .boton-desplegable.expanded .arrow { transform: rotate(180deg); }
-
-        .submenu-lateral {
-            display: none;
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 2px solid rgba(123, 47, 255, 0.25);
-            margin: 0 14px;
-            border-radius: 0 0 6px 6px;
-        }
-
-        .submenu-lateral a {
-            display: block;
-            padding: 11px 20px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .submenu-lateral a:hover {
-            color: white;
-            background: rgba(123, 47, 255, 0.1);
-            padding-left: 24px;
-        }
-
-        /* ════════════════════════════════════════════════
-           HERO SLIDER
-        ════════════════════════════════════════════════ */
-        .slider-wrapper {
+        /* --- HERO SECTION (CINEMATIC) --- */
+        .hero-slider {
             position: relative;
+            height: 85vh;
             width: 100%;
-            height: 92vh;
-            min-height: 600px;
             overflow: hidden;
-            background: var(--bg-void);
         }
 
         .slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1.4s var(--transition-smooth);
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            z-index: 1;
+            position: absolute; inset: 0;
+            opacity: 0; transition: opacity 1s ease;
+            background-size: cover; background-position: center;
         }
-
-        .slide.active {
-            opacity: 1;
+        .slide.active { opacity: 1; }
+        
+        /* Animación Ken Burns */
+        .slide.active::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, #030305 0%, rgba(3,3,5,0.6) 50%, transparent 100%),
+                        linear-gradient(to top, #030305 0%, transparent 40%);
             z-index: 2;
         }
+        
+        .slide.active img {
+            animation: zoomEffect 20s infinite alternate;
+            width: 100%; height: 100%; object-fit: cover;
+        }
 
-        .hero-gradient {
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(to right, rgba(5,1,15,0.97) 0%, rgba(5,1,15,0.65) 45%, rgba(5,1,15,0.1) 100%),
-                linear-gradient(to top, rgba(5,1,15,1) 0%, rgba(5,1,15,0.6) 25%, transparent 60%),
-                linear-gradient(to bottom, rgba(5,1,15,0.5) 0%, transparent 20%);
-            z-index: 3;
+        @keyframes zoomEffect {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .hero-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            padding: 0 6% 100px;
-            max-width: 750px;
+            position: absolute; bottom: 15%; left: 4%;
+            z-index: 10; max-width: 700px;
+            transform: translateY(20px); opacity: 0;
+            transition: all 0.8s ease-out 0.3s;
         }
+        .slide.active .hero-content { transform: translateY(0); opacity: 1; }
 
-        .slide.active .hero-content > * {
-            animation: heroReveal 0.8s var(--transition-smooth) both;
-        }
-
-        .slide.active .hero-badge { animation-delay: 0.1s; }
-        .slide.active .hero-title { animation-delay: 0.2s; }
-        .slide.active .hero-desc  { animation-delay: 0.35s; }
-        .slide.active .hero-actions { animation-delay: 0.5s; }
-
-        @keyframes heroReveal {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
+        .badge {
+            display: inline-block; padding: 6px 12px;
+            background: rgba(107, 44, 245, 0.2);
+            border: 1px solid var(--hbo-violet);
+            color: #d8b4fe;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 15px;
+            backdrop-filter: blur(5px);
             border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.08);
         }
-
-        .hero-badge.red {
-            background: rgba(229, 9, 20, 0.3);
-            border-color: rgba(229, 9, 20, 0.5);
-            color: #ff6b7a;
-        }
-
+        
         .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.8rem, 6vw, 5.5rem);
-            line-height: 0.95;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 8px 40px rgba(0,0,0,0.9);
-            margin-bottom: 18px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem; line-height: 0.9;
+            margin-bottom: 15px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-
+        
         .hero-desc {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.65;
-            margin-bottom: 32px;
-            max-width: 520px;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+            font-size: 1.1rem; color: #e2e2e2;
+            margin-bottom: 30px; line-height: 1.6;
+            max-width: 600px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        .hero-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-wrap: wrap;
+        .btn-hbo {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 35px;
+            background: var(--hbo-violet);
+            color: white; text-decoration: none;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; border-radius: 4px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 20px var(--hbo-glow);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-hbo:hover {
+            background: white; color: black;
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+            transform: scale(1.05);
         }
 
-        .btn-play {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 36px;
-            background: white;
-            color: #0a0514;
-            border-radius: var(--radius-btn);
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s var(--transition-spring);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        /* --- CAROUSELS & SECTIONS --- */
+        .section-title {
+            padding: 0 4%; margin-bottom: 15px;
+            font-size: 1.4rem; font-weight: 700;
+            color: white; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title::before {
+            content: ''; width: 4px; height: 20px;
+            background: var(--hbo-violet);
+            border-radius: 2px; box-shadow: 0 0 10px var(--hbo-violet);
         }
 
-        .btn-play:hover {
-            transform: scale(1.05) translateY(-2px);
-            background: #f0e8ff;
-            box-shadow: 0 8px 30px rgba(123, 47, 255, 0.4);
-        }
-
-        .btn-play .play-icon {
-            width: 0;
-            height: 0;
-            border-top: 7px solid transparent;
-            border-bottom: 7px solid transparent;
-            border-left: 12px solid #0a0514;
-            margin-left: 2px;
-        }
-
-        .btn-info {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 24px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-radius: var(--radius-btn);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.18);
-            backdrop-filter: blur(10px);
-            transition: all 0.25s;
-        }
-
-        .btn-info:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.35);
-        }
-
-        /* ── Indicadores slider ── */
-        .slider-indicators {
-            position: absolute;
-            bottom: 36px;
-            left: 6%;
-            display: flex;
-            gap: 8px;
-            z-index: 20;
-            align-items: center;
-        }
-
-        .dot {
-            width: 28px;
-            height: 3px;
-            border-radius: 2px;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: all 0.4s var(--transition-smooth);
-        }
-
-        .dot.active {
-            width: 44px;
-            background: var(--violet-glow);
-            box-shadow: 0 0 12px var(--violet-glow);
-        }
-
-        /* Progress bar */
-        .slider-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--violet-glow), var(--accent-cyan));
-            z-index: 20;
-            width: 0;
-            box-shadow: 0 0 8px var(--violet-glow);
-            transition: width 0.1s linear;
-        }
-
-        /* ════════════════════════════════════════════════
-           EASTER EGGS / PERSONAJES
-        ════════════════════════════════════════════════ */
-        .characters-section {
-            position: relative;
-            z-index: 20;
-            padding: 24px 6%;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .characters-label {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-
-        .char-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .c-item {
-            cursor: pointer;
-            transition: transform 0.25s var(--transition-spring);
-            position: relative;
-        }
-
-        .c-item::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: var(--violet-ghost);
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-
-        .c-item:hover {
-            transform: scale(1.25) translateY(-4px);
-        }
-
-        .c-item:hover::after { opacity: 1; }
-
-        .c-item img {
-            display: block;
-            width: 46px;
-            height: 46px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
-        }
-
-        /* ════════════════════════════════════════════════
-           BUSCADOR
-        ════════════════════════════════════════════════ */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            padding: 10px 5% 44px;
-            position: relative;
-            z-index: 20;
-        }
-
-        .search-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 580px;
-        }
-
-        .search-icon-inner {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            pointer-events: none;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 16px 24px 16px 48px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-radius: 10px;
-            border: 1px solid rgba(123, 47, 255, 0.2);
-            background: rgba(14, 6, 28, 0.8);
-            color: white;
-            transition: all 0.35s var(--transition-smooth);
-            outline: none;
-            backdrop-filter: blur(20px);
-        }
-
-        .search-input::placeholder { color: var(--text-muted); }
-
-        .search-input:focus {
-            border-color: rgba(123, 47, 255, 0.6);
-            background: rgba(18, 9, 35, 0.95);
-            box-shadow:
-                0 0 0 3px rgba(123, 47, 255, 0.12),
-                0 8px 40px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(123, 47, 255, 0.1);
-        }
-
-        /* ════════════════════════════════════════════════
-           SECCIONES CATEGORÍAS
-        ════════════════════════════════════════════════ */
-        .main-content {
-            position: relative;
-            z-index: 10;
-        }
-
-        .categoria-section {
-            padding: 0 5% 52px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 22px;
-        }
-
-        .section-line {
-            width: 3px;
-            height: 22px;
-            border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        .categoria-titulo {
-            font-family: var(--font-body);
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .section-count {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-left: auto;
-        }
-
-        /* ── Carrusel ── */
         .carousel-container {
             position: relative;
+            padding: 10px 0 40px 4%;
+            margin-bottom: 20px;
         }
-
-        .poster-row {
-            display: flex;
-            gap: 16px;
+        
+        .carousel-track {
+            display: flex; gap: 20px;
             overflow-x: auto;
-            padding-bottom: 16px;
-            scrollbar-width: none;
+            padding: 20px 4% 20px 0;
             scroll-behavior: smooth;
+            scrollbar-width: none;
         }
+        .carousel-track::-webkit-scrollbar { display: none; }
 
-        .poster-row::-webkit-scrollbar { display: none; }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            background: rgba(14, 6, 28, 0.9);
-            border: 1px solid rgba(123, 47, 255, 0.3);
-            color: white;
-            border-radius: 50%;
+        .card {
+            flex: 0 0 auto;
+            width: 200px;
+            height: 300px;
+            border-radius: 6px;
+            position: relative;
             cursor: pointer;
-            z-index: 10;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.25s;
-            backdrop-filter: blur(10px);
-        }
-
-        .carousel-container:hover .carousel-btn { opacity: 1; }
-        .carousel-btn:hover {
-            background: rgba(123, 47, 255, 0.4);
-            border-color: var(--violet-glow);
-            box-shadow: 0 0 20px rgba(123, 47, 255, 0.4);
-        }
-
-        .carousel-btn.left { left: -18px; }
-        .carousel-btn.right { right: -18px; }
-
-        /* ── Poster card ── */
-        .poster-card {
-            flex-shrink: 0;
-            width: 175px;
-            height: 265px;
+            transition: var(--transition-smooth);
             background: var(--bg-card);
-            border-radius: var(--radius-card);
-            cursor: pointer;
-            position: relative;
             overflow: hidden;
-            text-decoration: none;
-            display: block;
-            border: 1px solid rgba(255,255,255,0.04);
-            transition: all 0.4s var(--transition-spring);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .poster-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(123, 47, 255, 0.15) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 2;
+        .card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: 0.5s;
         }
 
-        .poster-card:hover {
-            transform: translateY(-10px) scale(1.04);
-            border-color: rgba(123, 47, 255, 0.4);
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.8),
-                0 0 30px rgba(123, 47, 255, 0.25),
-                0 0 0 1px rgba(123, 47, 255, 0.2);
-            z-index: 5;
+        .card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+            opacity: 0; transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 15px;
         }
 
-        .poster-card:hover::before { opacity: 1; }
-
-        .poster-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s var(--transition-smooth), filter 0.4s;
+        .card-title {
+            font-size: 0.9rem; font-weight: 600;
+            transform: translateY(10px); transition: 0.3s;
         }
 
-        .poster-card:hover img {
-            transform: scale(1.06);
-            filter: brightness(0.55) saturate(1.2);
-        }
-
-        .poster-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 0.35s;
-            z-index: 3;
-        }
-
-        .poster-card:hover .poster-overlay { opacity: 1; }
-
-        .poster-play-btn {
-            width: 52px;
-            height: 52px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s var(--transition-spring);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-        }
-
-        .poster-play-btn::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 9px solid transparent;
-            border-bottom: 9px solid transparent;
-            border-left: 16px solid #0a0514;
-            margin-left: 3px;
-        }
-
-        .poster-card:hover .poster-play-btn {
-            transform: scale(1.1);
-        }
-
-        .poster-title-overlay {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: white;
-            text-align: center;
-            padding: 0 12px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-            letter-spacing: 0.5px;
-        }
-
-        .badge-estreno {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 4px 9px;
-            font-size: 0.62rem;
-            font-weight: 800;
-            border-radius: 4px;
+        .card.playing .card-overlay, 
+        .card:hover .card-overlay { opacity: 1; }
+        .card:hover img { transform: scale(1.1); filter: brightness(0.6); }
+        .card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 15px var(--hbo-violet-dark);
             z-index: 10;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            backdrop-filter: blur(10px);
+        }
+        .card:hover .card-title { transform: translateY(0); color: white; }
+
+        .badge-new {
+            position: absolute; top: 10px; left: 10px;
+            background: #e50914; color: white;
+            font-size: 0.65rem; font-weight: 800;
+            padding: 4px 8px; border-radius: 3px;
+            z-index: 5; letter-spacing: 0.5px;
         }
 
-        .badge-estreno.red {
-            background: rgba(229, 9, 20, 0.85);
-            color: white;
+        /* --- CHARACTERS (MINIMALIST) --- */
+        .char-row {
+            display: flex; justify-content: center; gap: 30px;
+            padding: 40px 0;
+            background: linear-gradient(to bottom, transparent, rgba(107,44,245,0.05));
+            margin-bottom: 20px;
         }
-        .badge-estreno.yellow {
-            background: rgba(245, 197, 24, 0.85);
-            color: #000;
+        .char-item {
+            width: 60px; height: 60px; border-radius: 50%;
+            overflow: hidden; cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+            filter: grayscale(0.8);
         }
-        .badge-estreno.orange {
-            background: rgba(255, 123, 0, 0.85);
-            color: white;
-        }
-        .badge-estreno.purple {
-            background: rgba(123, 47, 255, 0.85);
-            color: white;
+        .char-item:hover {
+            border-color: var(--hbo-violet);
+            transform: scale(1.2);
+            filter: grayscale(0);
+            box-shadow: 0 0 20px var(--hbo-glow);
         }
 
-        /* ════════════════════════════════════════════════
-           FOOTER
-        ════════════════════════════════════════════════ */
+        /* --- UTILS & FOOTER --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         footer {
-            position: relative;
-            z-index: 10;
-            padding: 50px 6% 40px;
-            border-top: 1px solid rgba(123, 47, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+            text-align: center; padding: 60px 0;
+            color: #444; font-size: 0.8rem; letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-        }
-
-        .footer-copy {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        /* ════════════════════════════════════════════════
-           NOTIFICACIÓN EASTER EGG
-        ════════════════════════════════════════════════ */
-        .easter-toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(80px);
-            background: rgba(14, 6, 28, 0.95);
-            border: 1px solid rgba(123, 47, 255, 0.4);
-            border-radius: 12px;
-            padding: 14px 24px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: white;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0;
-            transition: all 0.4s var(--transition-spring);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 30px rgba(123, 47, 255, 0.2);
-            white-space: nowrap;
-        }
-
-        .easter-toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .efecto-pop {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            font-size: 3rem;
-            pointer-events: none;
-            animation: popUp 2.5s forwards;
-        }
-
-        @keyframes popUp {
-            0%   { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.5); }
-            20%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.2); }
-            80%  { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(1); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-60px) scale(0.8); }
-        }
-
-        .paleta-caida {
-            position: fixed;
-            top: -50px;
-            font-size: 2rem;
-            z-index: 9999;
-            pointer-events: none;
-            animation: caer linear forwards;
-        }
-
-        @keyframes caer {
-            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* ════════════════════════════════════════════════
-           RESPONSIVE
-        ════════════════════════════════════════════════ */
-        @media (max-width: 768px) {
-            .slider-wrapper { height: 75vh; }
-            .hero-content { padding: 0 5% 80px; }
-            .hero-desc { display: none; }
-            .poster-card { width: 140px; height: 210px; }
-            .characters-section { padding: 16px 5%; gap: 12px; }
-            .characters-label { display: none; }
-            .carousel-btn { display: none; }
-            .navbar { padding: 0 4%; height: 60px; }
-        }
-
-        /* ════════════════════════════════════════════════
-           TRANSICIÓN HERO FLASH
-        ════════════════════════════════════════════════ */
-        .slide-flash {
-            position: absolute;
-            inset: 0;
-            background: rgba(123, 47, 255, 0.15);
-            z-index: 15;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .slide-flash.active {
-            opacity: 1;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- FONDO AMBIENTE -->
-    <div class="bg-ambient"></div>
-
-    <!-- OVERLAY SIDEBAR -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="cerrarMenu()"></div>
-
-    <!-- TOAST EASTER EGG -->
-    <div class="easter-toast" id="easterToast"></div>
-
-    <!-- ═══════════════════════════════════════════════
-         MENÚ LATERAL
-    ═══════════════════════════════════════════════ -->
-    <div id="miMenuLateral" class="menu-lateral">
-        <div class="menu-inner">
-            <div class="menu-header">
-                <span class="menu-logo">EL<span style="background: linear-gradient(135deg, #7b2fff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">PARQUE26</span></span>
-                <button class="menu-close" onclick="cerrarMenu()">✕</button>
-            </div>
-
-            <span class="menu-section-label">Contenido</span>
-
-            <button class="boton-desplegable" onclick="toggleSubMenu('submenuCN', this)">
-                <span>Cartoon Network</span><span class="arrow">▼</span>
-            </button>
-            <div class="submenu-lateral" id="submenuCN">
-                <a href="cintas.html">Las Cintas Perdidas</a>
-                <a href="index.html">Un Show Más</a>
-                <a href="jim.html">El Submarino de Jim</a>
-                <a href="ben10.html">Ben 10</a>
-                <a href="mj.html">Más allá del jardín</a>
-            </div>
-
-            <button class="boton-desplegable" onclick="toggleSubMenu('submenuDisney', this)">
-                <span>Disney Channel</span><span class="arrow">▼</span>
-            </button>
-            <div class="submenu-lateral" id="submenuDisney">
-                <a href="gravityfalls.html">Gravity Falls</a>
-                <a href="chibi.html">Chibiverso</a>
-            </div>
-
-            <button class="boton-desplegable" onclick="toggleSubMenu('submenuAnime', this)">
-                <span>Anime</span><span class="arrow">▼</span>
-            </button>
-            <div class="submenu-lateral" id="submenuAnime">
-                <a href="saga_saiyajin.html">Dragon Ball Z</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════
-         NAVBAR
-    ═══════════════════════════════════════════════ -->
-    <nav class="navbar" id="mainNav">
-        <div class="navbar-left">
-            <button class="hamburger-btn" onclick="abrirMenu()" aria-label="Menú">
-                <span></span><span></span><span></span>
-            </button>
-            <a href="index.html" class="logo-text">EL<span class="logo-accent">PARQUE26</span></a>
-        </div>
-        <div class="navbar-right">
-            <a href="#buscador" class="nav-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                Buscar
-            </a>
-        </div>
-    </nav>
-
-    <!-- ═══════════════════════════════════════════════
-         HERO SLIDER
-    ═══════════════════════════════════════════════ -->
-    <div class="slider-wrapper">
-
-        <!-- Slide 1: Las Cintas Perdidas -->
-        <div class="slide active" style="background-image: url('cintas_banner.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge red">⬤ Estreno Mundial</span>
-                <h1 class="hero-title" style="color: white;">Las Cintas<br>Perdidas</h1>
-                <p class="hero-desc">Mordecai y Rigby regresan al parque con nuevas aventuras. ¡No te pierdas el primer capítulo exclusivo de esta nueva etapa!</p>
-                <div class="hero-actions">
-                    <a href="cintas.html" class="btn-play"><span class="play-icon"></span>Ver Estreno</a>
-                    <a href="cintas.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 2: Un Show Más -->
-        <div class="slide" style="background-image: url('banner_generico_usm.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge">Serie Completa</span>
-                <h1 class="hero-title" style="color: white;">Un Show<br>Más</h1>
-                <p class="hero-desc">Acompañá a Mordecai y Rigby en la locura total. Reviví las 8 temporadas y la película en un solo lugar.</p>
-                <div class="hero-actions">
-                    <a href="t1.html" class="btn-play"><span class="play-icon"></span>Reproducir T1</a>
-                    <a href="index.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3: Gravity Falls -->
-        <div class="slide" style="background-image: url('banner_gf.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge">Nuevo</span>
-                <h1 class="hero-title" style="color: #f5c518;">Gravity<br>Falls</h1>
-                <p class="hero-desc">Los mellizos Dipper y Mabel pasan el verano en Gravity Falls. Misterios, diarios y monstruos te esperan.</p>
-                <div class="hero-actions">
-                    <a href="gravityfalls.html" class="btn-play"><span class="play-icon"></span>Ver Temporadas</a>
-                    <a href="gravityfalls.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 4: Chibiverso -->
-        <div class="slide" style="background-image: url('chibi_banner.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge">Original</span>
-                <h1 class="hero-title" style="color: #d400ff;">Chibi<br>verso</h1>
-                <p class="hero-desc">Los personajes animados más famosos en el Chibiverso. Aventuras en miniatura donde mundos increíbles chocan.</p>
-                <div class="hero-actions">
-                    <a href="chibi.html" class="btn-play"><span class="play-icon"></span>Ver Temporadas</a>
-                    <a href="chibi.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Ben 10 -->
-        <div class="slide" style="background-image: url('banner_ben10.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge">Clásico</span>
-                <h1 class="hero-title" style="color: #a2ff00;">Ben 10</h1>
-                <p class="hero-desc">Ben descubre el Omnitrix y ahora tiene el poder de transformarse en 10 héroes alienígenas para salvar el mundo.</p>
-                <div class="hero-actions">
-                    <a href="ben10.html" class="btn-play"><span class="play-icon"></span>Ver Temporadas</a>
-                    <a href="ben10.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: El Submarino de Jim -->
-        <div class="slide" style="background-image: url('jim.png');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge">Estreno Original</span>
-                <h1 class="hero-title" style="color: #00d4ff;">El Submarino<br>de Jim</h1>
-                <p class="hero-desc">Jim, un ingenuo delfín, recibe la misión de pilotar el primer submarino con ruedas del mundo.</p>
-                <div class="hero-actions">
-                    <a href="jim.html" class="btn-play"><span class="play-icon"></span>Ver Ep. 1</a>
-                    <a href="jim.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Más allá del jardín -->
-        <div class="slide" style="background-image: url('poster_mj.jpg');">
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <span class="hero-badge" style="background: rgba(255,123,0,0.25); border-color: rgba(255,123,0,0.5); color: #ffb066;">Miniserie</span>
-                <h1 class="hero-title" style="color: #ff7b00;">Más allá<br>del jardín</h1>
-                <p class="hero-desc">Dos hermanos, Wirt y Greg, se pierden en "Lo Desconocido", un misterioso bosque a la deriva en el tiempo.</p>
-                <div class="hero-actions">
-                    <a href="mj.html" class="btn-play"><span class="play-icon"></span>Ver Miniserie</a>
-                    <a href="mj.html" class="btn-info">+ Info</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Indicadores -->
-        <div class="slider-indicators">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
-            <div class="dot" onclick="goToSlide(4)"></div>
-            <div class="dot" onclick="goToSlide(5)"></div>
-            <div class="dot" onclick="goToSlide(6)"></div>
-        </div>
-
-        <!-- Barra de progreso -->
-        <div class="slider-progress" id="sliderProgress"></div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════
-         PERSONAJES EASTER EGG
-    ═══════════════════════════════════════════════ -->
-    <section class="characters-section">
-        <span class="characters-label">Easter Eggs</span>
-        <div class="char-row">
-            <div class="c-item" onclick="festejoMordo()" title="Mordecai"><img src="mordecai.png" alt="Mordecai"></div>
-            <div class="c-item" onclick="retoHuevo()" title="Rigby"><img src="rigby.png" alt="Rigby"></div>
-            <div class="c-item" onclick="enojarBenson()" title="Benson"><img src="benson.png" alt="Benson"></div>
-            <div class="c-item" onclick="sabiduriaSkips()" title="Skips"><img src="skips.png" alt="Skips"></div>
-            <div class="c-item" onclick="regaloPapaleta()" title="Papaleta"><img src="papaleta.png" alt="Papaleta"></div>
-            <div class="c-item" onclick="bromaMusculoso()" title="Musculoso"><img src="musculoso.png" alt="Musculoso"></div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════
-         BUSCADOR
-    ═══════════════════════════════════════════════ -->
-    <div class="search-container" id="buscador">
-        <div class="search-wrapper">
-            <span class="search-icon-inner">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            </span>
-            <input type="text" id="inputBuscador" oninput="buscarTemporada()" placeholder="¿Qué querés ver hoy?" class="search-input" autocomplete="off">
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════
-         CONTENIDO
-    ═══════════════════════════════════════════════ -->
-    <main class="main-content">
-
-        <!-- ESTRENOS -->
-        <section class="categoria-section">
-            <div class="section-header">
-                <div class="section-line" style="background: linear-gradient(180deg, #ff2b55, #ff7b00);"></div>
-                <h2 class="categoria-titulo">Estrenos Exclusivos</h2>
-                <span class="section-count">2 títulos</span>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left" onclick="scrollCarousel('fila-estrenos', -1)">‹</button>
-                <div class="poster-row" id="fila-estrenos">
-                    <a href="cintas.html" class="poster-card" data-name="las cintas perdidas un show mas estreno">
-                        <div class="badge-estreno red">Nuevo</div>
-                        <img src="cintas_poster.png" alt="Las Cintas Perdidas">
-                        <div class="poster-overlay">
-                            <div class="poster-play-btn"></div>
-                            <div class="poster-title-overlay">Las Cintas Perdidas</div>
-                        </div>
-                    </a>
-                    <a href="jim.html" class="poster-card" data-name="el submarino de jim">
-                        <div class="badge-estreno purple">Estreno</div>
-                        <img src="jim.png" alt="El submarino de Jim">
-                        <div class="poster-overlay">
-                            <div class="poster-play-btn"></div>
-                            <div class="poster-title-overlay">El Submarino de Jim</div>
-                        </div>
-                    </a>
-                </div>
-                <button class="carousel-btn right" onclick="scrollCarousel('fila-estrenos', 1)">›</button>
-            </div>
-        </section>
-
-        <!-- SERIE CLÁSICA -->
-        <section class="categoria-section">
-            <div class="section-header">
-                <div class="section-line" style="background: linear-gradient(180deg, #7b2fff, #00d4ff);"></div>
-                <h2 class="categoria-titulo">Un Show Más: Serie Clásica</h2>
-                <span class="section-count">9 títulos</span>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left" onclick="scrollCarousel('fila-clasico', -1)">‹</button>
-                <div class="poster-row" id="fila-clasico">
-                    <a href="t1.html" class="poster-card" data-name="temporada 1 un show mas"><img src="t1.png" alt="T1"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 1</div></div></a>
-                    <a href="t2.html" class="poster-card" data-name="temporada 2 un show mas"><img src="t2.png" alt="T2"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 2</div></div></a>
-                    <a href="t3.html" class="poster-card" data-name="temporada 3 un show mas"><img src="t3.png" alt="T3"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 3</div></div></a>
-                    <a href="t4.html" class="poster-card" data-name="temporada 4 un show mas"><img src="t4.png" alt="T4"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 4</div></div></a>
-                    <a href="t5.html" class="poster-card" data-name="temporada 5 un show mas"><img src="t5.png" alt="T5"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 5</div></div></a>
-                    <a href="t6.html" class="poster-card" data-name="temporada 6 un show mas"><img src="t6.png" alt="T6"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 6</div></div></a>
-                    <a href="t7.html" class="poster-card" data-name="temporada 7 un show mas"><img src="t7.png" alt="T7"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 7</div></div></a>
-                    <a href="t8.html" class="poster-card" data-name="temporada 8 un show mas"><img src="t8.png" alt="T8"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Temporada 8</div></div></a>
-                    <a href="pelicula.html" class="poster-card" data-name="pelicula la pelicula un show mas"><img src="pelicula.png" alt="Pelicula"><div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">La Película</div></div></a>
-                </div>
-                <button class="carousel-btn right" onclick="scrollCarousel('fila-clasico', 1)">›</button>
-            </div>
-        </section>
-
-        <!-- CATÁLOGO -->
-        <section class="categoria-section">
-            <div class="section-header">
-                <div class="section-line" style="background: linear-gradient(180deg, #f5c518, #a2ff00);"></div>
-                <h2 class="categoria-titulo">Explorar el Catálogo</h2>
-                <span class="section-count">4 títulos</span>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left" onclick="scrollCarousel('fila-catalogo', -1)">‹</button>
-                <div class="poster-row" id="fila-catalogo">
-                    <a href="gravityfalls.html" class="poster-card" data-name="gravity falls temporadas cortos misterio dipper mabel">
-                        <div class="badge-estreno yellow">Nuevo</div>
-                        <img src="gravity_poster.png" alt="Gravity Falls">
-                        <div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Gravity Falls</div></div>
-                    </a>
-                    <a href="mj.html" class="poster-card" data-name="mas alla del jardin miniserie bosque wirt greg bestia">
-                        <div class="badge-estreno orange">Miniserie</div>
-                        <img src="poster_mj.jpg" alt="Más allá del jardín">
-                        <div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Más allá del jardín</div></div>
-                    </a>
-                    <a href="chibi.html" class="poster-card" data-name="chibiverso chibi disney temporadas">
-                        <img src="chibi_poster.jpg" alt="Chibiverso">
-                        <div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Chibiverso</div></div>
-                    </a>
-                    <a href="ben10.html" class="poster-card" data-name="ben 10 clasico temporadas pelicula">
-                        <img src="ben10.png" alt="Ben 10 Clásico">
-                        <div class="poster-overlay"><div class="poster-play-btn"></div><div class="poster-title-overlay">Ben 10</div></div>
-                    </a>
-                </div>
-                <button class="carousel-btn right" onclick="scrollCarousel('fila-catalogo', 1)">›</button>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ═══════════════════════════════════════════════
-         FOOTER
-    ═══════════════════════════════════════════════ -->
-    <footer>
-        <span class="footer-logo">ELPARQUE26</span>
-        <span class="footer-copy">© 2026 — Todos los derechos reservados</span>
-    </footer>
-
-    <!-- ═══════════════════════════════════════════════
-         JAVASCRIPT
-    ═══════════════════════════════════════════════ -->
-    <script>
-    // ── SLIDER ──────────────────────────────────────────
-    let slideIndex = 0;
-    const slides    = document.querySelectorAll('.slide');
-    const dots      = document.querySelectorAll('.dot');
-    const progress  = document.getElementById('sliderProgress');
-    let slideInterval, progressInterval, progressValue = 0;
-    const SLIDE_DURATION = 6000;
-
-    const dotColors = ['#ff2b55','white','#f5c518','#d400ff','#a2ff00','#00d4ff','#ff7b00'];
-
-    function showSlide(n) {
-        slides.forEach(s => s.classList.remove('active'));
-        dots.forEach((d, i) => {
-            d.classList.remove('active');
-            d.style.background = 'rgba(255,255,255,0.2)';
-            d.style.boxShadow  = 'none';
-            d.style.width      = '28px';
-        });
-
-        slideIndex = ((n % slides.length) + slides.length) % slides.length;
-        slides[slideIndex].classList.add('active');
-
-        const d = dots[slideIndex];
-        d.classList.add('active');
-        d.style.background  = dotColors[slideIndex];
-        d.style.boxShadow   = `0 0 14px ${dotColors[slideIndex]}`;
-        d.style.width       = '44px';
-
-        resetProgress();
-    }
-
-    function resetProgress() {
-        clearInterval(progressInterval);
-        progressValue = 0;
-        progress.style.width = '0%';
-        progress.style.transition = 'none';
-
-        requestAnimationFrame(() => {
-            progress.style.transition = `width ${SLIDE_DURATION}ms linear`;
-            progress.style.width = '100%';
-        });
-    }
-
-    function nextSlide() { showSlide(slideIndex + 1); }
-
-    function goToSlide(n) {
-        showSlide(n);
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, SLIDE_DURATION);
-    }
-
-    slideInterval = setInterval(nextSlide, SLIDE_DURATION);
-    resetProgress();
-
-    // Scroll carousel
-    function scrollCarousel(rowId, dir) {
-        const row = document.getElementById(rowId);
-        row.scrollBy({ left: dir * 600, behavior: 'smooth' });
-    }
-
-    // ── NAVBAR SCROLL ────────────────────────────────────
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('mainNav');
-        nav.classList.toggle('scrolled', window.scrollY > 80);
-    });
-
-    // ── SIDEBAR ─────────────────────────────────────────
-    function abrirMenu() {
-        document.getElementById('miMenuLateral').classList.add('open');
-        document.getElementById('sidebarOverlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarMenu() {
-        document.getElementById('miMenuLateral').classList.remove('open');
-        document.getElementById('sidebarOverlay').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    function toggleSubMenu(menuId, btn) {
-        const submenu = document.getElementById(menuId);
-        const isOpen  = submenu.style.display === 'block';
-        submenu.style.display = isOpen ? 'none' : 'block';
-        if (btn) btn.classList.toggle('expanded', !isOpen);
-    }
-
-    // ── BUSCADOR ─────────────────────────────────────────
-    function buscarTemporada() {
-        const input  = document.getElementById('inputBuscador').value.toLowerCase();
-        const posters = document.querySelectorAll('.poster-card');
-        posters.forEach(p => {
-            const name = (p.getAttribute('data-name') || '').toLowerCase();
-            p.style.display = (!input || name.includes(input)) ? 'block' : 'none';
-        });
-    }
-
-    // ── TOAST ────────────────────────────────────────────
-    let toastTimeout;
-    function showToast(msg) {
-        const t = document.getElementById('easterToast');
-        t.textContent = msg;
-        t.classList.add('show');
-        clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => t.classList.remove('show'), 2600);
-    }
-
-    // ── EASTER EGGS ──────────────────────────────────────
-    function flashHero(color, title, duration = 2000) {
-        const active = document.querySelector('.slide.active');
-        const h      = active.querySelector('.hero-title');
-        const orig   = h.textContent;
-        const origBg = active.style.backgroundImage;
-
-        h.textContent = title;
-        active.style.backgroundImage = 'none';
-        active.style.backgroundColor = color;
-
-        setTimeout(() => {
-            h.textContent = orig;
-            active.style.backgroundColor = '';
-            active.style.backgroundImage = origBg;
-        }, duration);
-    }
-
-    function enojarBenson() {
-        flashHero('#b71c1c', '¡VUELVAN A TRABAJAR!', 2000);
-        showToast('😤 Benson está furioso');
-    }
-
-    function retoHuevo() {
-        flashHero('#f9a825', '¡SÉ EXTRA HUEVO ORDINARIO!', 3000);
-        const e = document.createElement('div');
-        e.className = 'efecto-pop';
-        e.innerText = '🥚';
-        document.body.appendChild(e);
-        setTimeout(() => e.remove(), 2500);
-        showToast('🥚 El reto de Rigby');
-    }
-
-    function festejoMordo() {
-        flashHero('#1565c0', '¡OOOOOOOOOOH!', 1500);
-        showToast('🔵 ¡Mordecai está emocionado!');
-    }
-
-    function sabiduriaSkips() {
-        const h    = document.querySelector('.slide.active .hero-title');
-        const orig = h.textContent;
-        document.body.style.filter = 'grayscale(1) brightness(0.7)';
-        h.textContent = 'YA HE VISTO ESTO ANTES...';
-        showToast('🦍 La sabiduría de Skips');
-        setTimeout(() => { document.body.style.filter = ''; h.textContent = orig; }, 2500);
-    }
-
-    function regaloPapaleta() {
-        flashHero('#9c27b0', '¡QUÉ BUEN SHOW!', 3000);
-        showToast('🍭 ¡Papaleta te regala dulces!');
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const p = document.createElement('div');
-                p.className = 'paleta-caida';
-                p.innerText = '🍭';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 4000);
-            }, i * 120);
-        }
-    }
-
-    function bromaMusculoso() {
-        const h    = document.querySelector('.slide.active .hero-title');
-        const orig = h.textContent;
-        h.textContent = '¿SABEN QUIÉN MÁS?';
-        document.body.style.transform = 'translateX(0)';
-        let shakes = 0;
-        const shake = setInterval(() => {
-            document.body.style.transform = `translateX(${shakes % 2 === 0 ? 5 : -5}px)`;
-            if (++shakes > 10) { clearInterval(shake); document.body.style.transform = ''; }
-        }, 80);
-        showToast('💪 ¡MI MAMI!');
-        setTimeout(() => { h.textContent = orig; }, 3500);
-    }
-    </script>
-</body>
-    </html>
+        /* --- MODAL EASTER EGG --- */
+        .egg-modal {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(0,0,
