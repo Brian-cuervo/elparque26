@@ -2,195 +2,217 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElParque26 — Un Show Más y más series</title>
-<meta name="description" content="ElParque26: mirá Un Show Más, Las Cintas Perdidas, Gravity Falls, Ben 10, Chibiverso y más.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ElParque26 — Netflix Style</title>
+<meta name="description" content="ElParque26 estilo Netflix: Un Show Más, Las Cintas Perdidas, Gravity Falls y más.">
 <link rel="icon" href="icon.png">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
 <link rel="preload" as="image" href="cintas_banner.png">
-
 <style>
-:root{ --netflix:#E50914; --bg:#000; --bg2:#141414; --text:#fff; --muted:#b3b3b3; }
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Helvetica,Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+:root{--red:#e50914;--bg:#141414;--bg2:#181818;--muted:#999;--white:#fff}
+*{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff;font-family:Netflix Sans,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
+img{display:block;width:100%}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 4%;background:linear-gradient(180deg,rgba(0,0,0,.9),transparent);backdrop-filter:saturate(1.2) blur(2px);transition:.3s}
-.nav.scrolled{background:#000}
-.logo{margin:0;font-size:1.6rem;font-weight:900;letter-spacing:.5px;color:var(--netflix)}
-.logo span{color:var(--text)}
-.nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
-.nav-links a{font-size:.95rem;color:#e5e5e5;opacity:.9}
-.nav-links a:hover,.nav-links a:focus{opacity:1}
-.menu-btn{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer}
+.nav{position:fixed;top:0;width:100%;z-index:1000;display:flex;align-items:center;gap:24px;padding:0 60px;height:68px;background:linear-gradient(180deg,rgba(0,0,0,.9) 10%,transparent);transition:.4s}
+.nav.solid{background:#141414}
+.logo{color:var(--red);font-size:1.8rem;font-weight:900;letter-spacing:-1px;margin:0}
+.menu{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+.menu a{font-size:.9rem;color:#e5e5e5;transition:.2s}.menu a.active,.menu a:hover{color:#fff}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:22px}
+.search{position:relative}.search input{background:rgba(0,0,0,.7);border:1px solid #fff;color:#fff;padding:7px 10px 7px 32px;width:0;opacity:0;transition:.3s;border-radius:4px}
+.search.active input{width:220px;opacity:1}
+.search svg{position:absolute;left:8px;top:7px;pointer-events:none}
+.avatar{width:32px;height:32px;border-radius:4px;background:#e50914;display:grid;place-items:center;font-weight:700}
 
-/* HERO NETFLIX */
-.hero{position:relative;height:88vh;min-height:520px;display:flex;align-items:flex-end;background:#000 url('cintas_banner.png') center/cover no-repeat}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(77deg,rgba(0,0,0,.85) 0,rgba(0,0,0,.4) 40%,transparent 70%),linear-gradient(0deg,#000 0,transparent 30%)}
-.hero-content{position:relative;z-index:2;padding:0 4% 8%;max-width:680px}
-.badge{display:inline-block;background:var(--netflix);padding:4px 8px;border-radius:3px;font-size:.7rem;font-weight:800;letter-spacing:1px;margin-bottom:14px}
-.hero h2{font-size:3.2rem;margin:0 0 12px;line-height:1.05;font-weight:900;text-shadow:0 2px 20px rgba(0,0,0,.6)}
-.hero p{color:#ddd;font-size:1.05rem;line-height:1.5;margin:0 0 22px}
-.actions{display:flex;gap:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:4px;font-weight:700;font-size:1rem;cursor:pointer;border:none;transition:.2s}
-.btn-play{background:#fff;color:#000}
-.btn-play:hover{transform:scale(1.04);background:#e6e6e6}
-.btn-more{background:rgba(109,109,110,.7);color:#fff}
-.btn-more:hover{background:rgba(109,109,110,.5)}
+/* HERO */
+.hero{position:relative;height:95vh;min-height:700px;background:#000 url('cintas_banner.png') center/cover no-repeat;display:flex;align-items:flex-end}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(77deg,rgba(0,0,0,.85) 0,rgba(0,0,0,.3) 50%,transparent 85%),linear-gradient(0deg,#141414 0,transparent 35%)}
+.hero-wrap{position:relative;z-index:2;padding:0 60px 140px;max-width:650px}
+.supertitle{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.supertitle.n{color:var(--red);font-weight:900;font-size:1.4rem}
+.hero h1{font-size:3.4rem;margin:0 0 14px;line-height:1; text-shadow:2px 2px 4px rgba(0,0,0,.6)}
+.meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.95rem;color:#ddd}
+.match{color:#46d369;font-weight:700}.badge{border:1px solid #999;padding:0 5px;font-size:.75rem}
+.hero p{font-size:1.1rem;line-height:1.45;color:#fff;margin:0 0 20px;text-shadow:1px 1px 2px #000}
+.btns{display:flex;gap:10px}
+.btn{padding:8px 24px;border-radius:4px;font-weight:700;font-size:1.05rem;border:none;display:flex;align-items:center;gap:8px;transition:.15s}
+.btn-play{background:#fff;color:#000}.btn-play:hover{background:#e6e6e6}
+.btn-list{background:rgba(109,109,110,.7);color:#fff}.btn-list:hover{background:rgba(109,109,110,.5)}
+.age{position:absolute;right:60px;bottom:140px;border-left:3px solid #dcdcdc;background:rgba(0,0,0,.5);padding:6px 12px 6px 10px;font-size:1rem}
 
-/* FILAS */
-main{padding:0 0 60px;background:var(--bg)}
-.row{padding:24px 0 0 4%}
-.row h3{margin:0 0 12px;font-size:1.25rem;font-weight:700}
-.row-posters{display:flex;gap:10px;overflow-x:auto;padding:4px 4% 16px 0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.row-posters::-webkit-scrollbar{display:none}
-.card{position:relative;flex:0 0 auto;width:180px;scroll-snap-align:start;border-radius:6px;overflow:hidden;background:#222;transition:transform .3s}
-.card img{width:100%;height:270px;object-fit:cover}
-.card:hover,.card:focus-within{transform:scale(1.08);z-index:5}
-.card .tag{position:absolute;top:8px;left:8px;background:var(--netflix);font-size:.65rem;padding:3px 6px;border-radius:3px;font-weight:800;text-transform:uppercase}
-.card .overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent 60%);opacity:0;transition:.3s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px}
-.card:hover .overlay{opacity:1}
-.play-icon{width:38px;height:38px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-size:16px}
+/* ROWS */
+main{background:var(--bg);padding:0 0 80px}
+.row{padding:26px 0 0 60px;position:relative}
+.row h2{font-size:1.4rem;margin:0 0 12px;font-weight:700}
+.track{display:flex;gap:8px;overflow-x:auto;padding:4px 60px 20px 0;scroll-behavior:smooth}
+.track::-webkit-scrollbar{display:none}
+.card{position:relative;flex:0 0 16.6%;min-width:230px;border-radius:4px;overflow:hidden;background:#222;cursor:pointer;transition:transform.3s;aspect-ratio:16/9}
+.card img{height:100%;object-fit:cover}
+.card:hover{transform:scale(1.35);z-index:10;box-shadow:0 10px 25px rgba(0,0,0,.8)}
+.card.info{position:absolute;inset:auto 0 0 0;background:var(--bg2);padding:12px;transform:translateY(100%);transition:.3s;opacity:0}
+.card:hover.info{transform:translateY(0);opacity:1}
+.info-top{display:flex;gap:6px;align-items:center;margin-bottom:6px;font-size:.8rem}
+.info-top.match{font-size:.85rem}
+.icons{display:flex;gap:6px;margin-top:8px}
+.icon-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #999;background:#232323;display:grid;place-items:center;font-size:14px}
+.icon-btn:hover{border-color:#fff}
 
-/* MENU MOBILE */
-.drawer{position:fixed;inset:0 30% 0 0;max-width:320px;background:#0a0a0a;transform:translateX(-100%);transition:.3s;z-index:200;padding:70px 20px 20px;overflow-y:auto}
-.drawer.open{transform:translateX(0)}
-.drawer a,.drawer button{display:block;width:100%;text-align:left;padding:12px 8px;color:#ddd;background:none;border:none;font-size:1rem;cursor:pointer}
-.drawer h4{color:#777;margin:18px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
-.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.3s;z-index:150}
-.backdrop.show{opacity:1;pointer-events:auto}
+/* TOP 10 */
+.top.card{flex:0 0 20%;min-width:280px;aspect-ratio:auto;background:transparent;overflow:visible;display:flex;align-items:flex-end}
+.top.num{font-size:14rem;font-weight:900;color:#000;-webkit-text-stroke:2px #595959;line-height:.8;margin-right:-30px;z-index:1}
+.top img{width:170px;height:240px;border-radius:4px;object-fit:cover}
+
+/* CONTINUE */
+.progress{position:absolute;bottom:0;left:0;right:0;height:4px;background:#555}
+.progress span{display:block;height:100%;background:var(--red)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;z-index:2000;overflow-y:auto;padding:40px 0}
+.modal.open{display:flex}
+.modal-card{width:min(900px,95vw);background:#181818;border-radius:8px;overflow:hidden;box-shadow:0 20px 60px #000}
+.modal-hero{height:56vh;min-height:400px;background:center/cover;position:relative;display:flex;align-items:flex-end}
+.modal-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#181818 0,transparent 40%)}
+.modal-content{position:relative;z-index:2;padding:0 48px 30px}
+.close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:#181818;border:none;color:#fff;font-size:22px;z-index:3}
+.modal-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;margin-top:20px}
+.tag{color:#777;font-size:.9rem;margin:12px 0 4px}
 
 /* FOOTER */
-footer{padding:40px 4%;color:#737373;font-size:.85rem;border-top:1px solid #222}
+footer{padding:40px 60px;color:var(--muted);font-size:.85rem;background:#141414}
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  .nav-links{display:none}
-  .menu-btn{display:block}
-  .hero{height:75vh}
-  .hero h2{font-size:2.2rem}
-  .card{width:140px}
-  .card img{height:210px}
-}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* MOBILE */
+@media(max-width:900px){.nav{padding:0 20px;height:56px}.menu{display:none}.hero-wrap,.row{padding-left:20px}.hero-wrap{padding-bottom:80px}.hero h1{font-size:2.2rem}.card{min-width:160px}.track{padding-right:20px}.age{display:none}}
 </style>
 </head>
 <body>
+
 <nav class="nav" id="nav">
-  <div style="display:flex;align-items:center;gap:24px">
-    <h1 class="logo">ELPARQUE<span>26</span></h1>
-    <ul class="nav-links">
-      <li><a href="index.html" aria-current="page">Inicio</a></li>
-      <li><a href="#estrenos">Series</a></li>
-      <li><a href="#clasico">Clásicos</a></li>
-      <li><a href="#catalogo">Explorar</a></li>
-    </ul>
+  <h1 class="logo">ELPARQUE26</h1>
+  <ul class="menu">
+    <li><a class="active" href="#">Inicio</a></li>
+    <li><a href="#series">Series</a></li>
+    <li><a href="#">Películas</a></li>
+    <li><a href="#">Novedades</a></li>
+    <li><a href="#">Mi lista</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search" id="search"><svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M10 4a6 6 0 104.8 9.6l4.4 4.4 1.4-4.4-4.4A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg><input id="q" placeholder="Títulos, personajes"></div>
+    <div class="avatar">P</div>
   </div>
-  <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer">☰</button>
 </nav>
 
-<div class="backdrop" id="backdrop"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <h4>Cartoon Network</h4>
-  <a href="cintas.html">Las Cintas Perdidas</a>
-  <a href="index.html">Un Show Más</a>
-  <a href="jim.html">El Submarino de Jim</a>
-  <a href="ben10.html">Ben 10</a>
-  <a href="mj.html">Más allá del jardín</a>
-  <h4>Disney Channel</h4>
-  <a href="gravityfalls.html">Gravity Falls</a>
-  <a href="chibi.html">Chibiverso</a>
-  <h4>Anime</h4>
-  <a href="saga_saiyajin.html">Dragon Ball Z</a>
-</aside>
-
 <header class="hero">
-  <div class="hero-content">
-    <span class="badge">ESTRENO</span>
-    <h2>Las Cintas Perdidas</h2>
-    <p>Mordecai y Rigby vuelven con una nueva etapa llena de caos en el parque. Exclusivo de ElParque26.</p>
-    <div class="actions">
+  <div class="hero-wrap">
+    <div class="supertitle"><span class="n">N</span> <span>SERIE</span></div>
+    <h1>Las Cintas Perdidas</h1>
+    <div class="meta"><span class="match">97% coincidencia</span><span>2025</span><span class="badge">TV-14</span><span>1 temporada</span><span class="badge">HD</span></div>
+    <p>Mordecai y Rigby descubren una caja con VHS nunca vistos del parque. Cada cinta desata un glitch en la realidad. Una secuela directa creada por fans, con el humor absurdo original.</p>
+    <div class="btns">
       <a href="cintas.html" class="btn btn-play">▶ Reproducir</a>
-      <a href="cintas.html" class="btn btn-more">ⓘ Más información</a>
+      <button class="btn btn-list" onclick="openModal('cintas')">ⓘ Más información</button>
     </div>
-  </div>
+  <div class="age">16+</div>
 </header>
 
 <main>
-  <section class="row" id="estrenos">
-    <h3>Estrenos Exclusivos</h3>
-    <div class="row-posters">
-      <a href="cintas.html" class="card">
-        <span class="tag">Nuevo</span>
-        <img src="cintas_poster.png" alt="Las Cintas Perdidas" loading="lazy" decoding="async">
-        <div class="overlay"><div class="play-icon">▶</div></div>
-      </a>
-      <a href="jim.html" class="card">
-        <span class="tag" style="background:#00c3ff">Estreno</span>
-        <img src="jim.png" alt="El Submarino de Jim" loading="lazy" decoding="async">
-        <div class="overlay"><div class="play-icon">▶</div></div>
-      </a>
+  <!-- CONTINUAR -->
+  <section class="row">
+    <h2>Continuar viendo para Presidente</h2>
+    <div class="track">
+      <div class="card" onclick="location='t5.html'"><img src="t5.png" alt=""><div class="progress"><span style="width:65%"></span></div><div class="info"><div class="info-top"><span class="match">Nuevo</span><span class="badge">TV-PG</span><span>8 temp</span></div><div>Un Show Más T5</div></div></div>
+      <div class="card" onclick="location='gravityfalls.html'"><img src="gravity_poster.png"><div class="progress"><span style="width:22%"></span></div></div>
     </div>
   </section>
 
-  <section class="row" id="clasico">
-    <h3>Un Show Más: Serie Completa</h3>
-    <div class="row-posters">
-      <a href="t1.html" class="card"><img src="t1.png" alt="Temporada 1" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t2.html" class="card"><img src="t2.png" alt="Temporada 2" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t3.html" class="card"><img src="t3.png" alt="Temporada 3" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t4.html" class="card"><img src="t4.png" alt="Temporada 4" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t5.html" class="card"><img src="t5.png" alt="Temporada 5" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t6.html" class="card"><img src="t6.png" alt="Temporada 6" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t7.html" class="card"><img src="t7.png" alt="Temporada 7" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="t8.html" class="card"><img src="t8.png" alt="Temporada 8" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="pelicula.html" class="card"><img src="pelicula.png" alt="Un Show Más La Película" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
+  <!-- TOP 10 -->
+  <section class="row top">
+    <h2>Top 10 en Argentina hoy</h2>
+    <div class="track">
+      <div class="card"><div class="num">1</div><img src="cintas_poster.png" onclick="location='cintas.html'"></div>
+      <div class="card"><div class="num">2</div><img src="t1.png" onclick="location='t1.html'"></div>
+      <div class="card"><div class="num">3</div><img src="gravity_poster.png" onclick="location='gravityfalls.html'"></div>
+      <div class="card"><div class="num">4</div><img src="poster_mj.jpg" onclick="location='mj.html'"></div>
     </div>
   </section>
 
-  <section class="row" id="catalogo">
-    <h3>Explorar Catálogo</h3>
-    <div class="row-posters">
-      <a href="gravityfalls.html" class="card">
-        <span class="tag" style="background:#f1c40f;color:#000">Nuevo</span>
-        <img src="gravity_poster.png" alt="Gravity Falls" loading="lazy">
-        <div class="overlay"><div class="play-icon">▶</div></div>
-      </a>
-      <a href="mj.html" class="card">
-        <span class="tag" style="background:#ff7b00">Miniserie</span>
-        <img src="poster_mj.jpg" alt="Más allá del jardín" loading="lazy">
-        <div class="overlay"><div class="play-icon">▶</div></div>
-      </a>
-      <a href="chibi.html" class="card"><img src="chibi_poster.jpg" alt="Chibiverso" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
-      <a href="ben10.html" class="card"><img src="ben10.png" alt="Ben 10" loading="lazy"><div class="overlay"><div class="play-icon">▶</div></div></a>
+  <!-- ESTRENOS -->
+  <section class="row" id="series">
+    <h2>Estrenos exclusivos</h2>
+    <div class="track" id="track-estrenos">
+      <div class="card" data-id="cintas"><img src="cintas_poster.png" alt="Las Cintas Perdidas"><div class="info"><div class="info-top"><span class="match">97%</span><span class="badge">TV-14</span><span>2025</span></div><div>Las Cintas Perdidas</div><div class="icons"><button class="icon-btn" onclick="location='cintas.html'">▶</button><button class="icon-btn" onclick="openModal('cintas')">ⓘ</button><button class="icon-btn" onclick="toggleList(this,'cintas')">+</button></div></div></div>
+      <div class="card" data-id="jim"><img src="jim.png" alt="El Submarino de Jim"><div class="info"><div class="info-top"><span class="match">92%</span><span class="badge">TV-Y7</span></div><div>El Submarino de Jim</div><div class="icons"><button class="icon-btn" onclick="location='jim.html'">▶</button><button class="icon-btn" onclick="openModal('jim')">ⓘ</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- UN SHOW MAS -->
+  <section class="row">
+    <h2>Un Show Más: colección completa</h2>
+    <div class="track">
+      <div class="card" onclick="location='t1.html'"><img src="t1.png"><div class="info"><div>Temporada 1 • 2010</div></div></div>
+      <div class="card" onclick="location='t2.html'"><img src="t2.png"></div>
+      <div class="card" onclick="location='t3.html'"><img src="t3.png"></div>
+      <div class="card" onclick="location='t4.html'"><img src="t4.png"></div>
+      <div class="card" onclick="location='t5.html'"><img src="t5.png"></div>
+      <div class="card" onclick="location='t6.html'"><img src="t6.png"></div>
+      <div class="card" onclick="location='t7.html'"><img src="t7.png"></div>
+      <div class="card" onclick="location='t8.html'"><img src="t8.png"></div>
+      <div class="card" onclick="location='pelicula.html'"><img src="pelicula.png"></div>
+    </div>
+  </section>
+
+  <!-- CATALOGO -->
+  <section class="row">
+    <h2>Porque viste Un Show Más</h2>
+    <div class="track">
+      <div class="card" onclick="location='gravityfalls.html'"><img src="gravity_poster.png"><div class="info"><div>Gravity Falls • Misterio</div></div></div>
+      <div class="card" onclick="location='mj.html'"><img src="poster_mj.jpg"><div class="info"><div>Más allá del jardín • Miniserie</div></div></div>
+      <div class="card" onclick="location='chibi.html'"><img src="chibi_poster.jpg"></div>
+      <div class="card" onclick="location='ben10.html'"><img src="ben10.png"></div>
+      <div class="card" onclick="location='saga_saiyajin.html'"><img src="banner_generico_usm.jpg"></div>
     </div>
   </section>
 </main>
 
-<footer>
-  ELPARQUE26 © 2026 — Proyecto de fans. Todo el contenido pertenece a sus respectivos dueños.
-</footer>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="close" onclick="closeModal()">×</button>
+    <div class="modal-hero" id="mHero">
+      <div class="modal-content">
+        <h2 id="mTitle" style="font-size:2.6rem;margin:0"></h2>
+        <div class="btns" style="margin-top:14px"><a id="mPlay" class="btn btn-play">▶ Reproducir</a></div>
+      </div>
+    </div>
+    <div style="padding:0 48px 40px">
+      <div class="modal-grid">
+        <div>
+          <div class="meta"><span class="match" id="mMatch"></span><span id="mYear"></span><span class="badge" id="mRate"></span><span id="mSeas"></span></div>
+          <p id="mDesc" style="line-height:1.5"></p>
+        </div>
+        <div>
+          <div class="tag">Protagonistas:</div><div id="mCast"></div>
+          <div class="tag">Géneros:</div><div id="mGen"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 ElParque26 — Interfaz inspirada en Netflix. Contenido de fans.</footer>
 
 <script>
-// navbar scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', ()=> nav.classList.toggle('scrolled', window.scrollY>20));
+const data = {
+  cintas:{title:'Las Cintas Perdidas',match:'97% coincidencia',year:'2025',rate:'TV-14',seas:'1 temporada',desc:'Mordecai y Rigby encuentran VHS malditos que reescriben episodios clásicos. Cada cinta es un "what if" con animación restaurada y chistes nuevos.',cast:'Mordecai, Rigby, Benson',gen:'Comedia absurda, Animación, Nostalgia',img:'cintas_banner.png',play:'cintas.html'},
+  jim:{title:'El Submarino de Jim',match:'92%',year:'2024',rate:'TV-Y7',seas:'1 temporada',desc:'Jim, un delfín ingenuo, pilota el primer submarino con ruedas. Aventura submarina con humor físico.',cast:'Jim, Capitán',gen:'Aventura, Infantil',img:'jim.png',play:'jim.html'}
+};
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>30));
+document.getElementById('search').onclick=()=>document.getElementById('search').classList.add('active');
+document.getElementById('q').oninput=e=>{const v=e.target.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(v)||c.querySelector('img').alt.toLowerCase().includes(v)?'':'none'})};
 
-// drawer
-const btn = document.getElementById('menuBtn');
-const drawer = document.getElementById('drawer');
-const back = document.getElementById('backdrop');
-function openDrawer(){ drawer.classList.add('open'); back.classList.add('show'); btn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); }
-function closeDrawer(){ drawer.classList.remove('open'); back.classList.remove('show'); btn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); }
-btn.onclick = ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer();
-back.onclick = closeDrawer;
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer() });
-
-// PWA
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw.js').catch(()=>{}) }
+function openModal(id){const d=data[id];if(!d)return;m=document.getElementById('modal');m.classList.add('open');mHero.style.backgroundImage=`linear-gradient(0deg,#181818,transparent 40%),url('${d.img}')`;mTitle.textContent=d.title;mMatch.textContent=d.match;mYear.textContent=d.year;mRate.textContent=d.rate;mSeas.textContent=d.seas;mDesc.textContent=d.desc;mCast.textContent=d.cast;mGen.textContent=d.gen;mPlay.href=d.play}
+function closeModal(){modal.classList.remove('open')}
+function toggleList(btn,id){btn.textContent=btn.textContent==='+'?'✓':'+';let l=JSON.parse(localStorage.getItem('mylist')||'[]');l.includes(id)?l=l.filter(x=>x!==id):l.push(id);localStorage.setItem('mylist',JSON.stringify(l))}
 </script>
 </body>
 </html>
