@@ -3,135 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Owl House - Temporada 1 | ElParque26</title>
+    <title>The Owl House | ElParque26</title>
+    
     <style>
-        body {
-            background-color: #0b0118; /* Violeta casi negro */
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+        /* --- ESTILO HBO PREMIUM - THE OWL HOUSE --- */
+        :root {
+            --color-principal: #9d4edd; /* Violeta Luz */
+            --color-secundario: #ff00ff; /* Magia Magenta */
+            --fondo-principal: #030407;
+            --fondo-secundario: #0b0c10;
+            --hover-card: #1a0933;
+            --texto-secundario: #a3a3a3;
         }
 
-        .header-banner {
+        body {
+            margin: 0;
+            background-color: var(--fondo-principal);
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navbar igual a Gravity Falls */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            top: 0;
+            width: 90%;
+            z-index: 100;
+        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--color-principal); }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-secundario); }
+
+        /* Banner Principal con degradado Max */
+        .hero-banner {
             width: 100%;
-            height: 300px;
-            background: url('banner_owl_house.jpg') no-repeat center center/cover;
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('banner_toh.png');
+            background-size: cover;
+            background-position: center top;
             display: flex;
             align-items: flex-end;
-            justify-content: center;
+            padding: 0 5% 40px 5%;
+            box-sizing: border-box;
         }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white; }
 
-        .titulo-serie {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 24px;
-            border: 1px solid #9d4edd;
-        }
-
-        .grid-episodios {
+        .main-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            padding: 20px;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
+            align-items: start;
         }
 
-        .card-episodio {
-            background: #1a0933;
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #3c096c;
-            transition: 0.3s;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        iframe.video-player { width: 100%; height: 100%; border: none; }
+
+        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 25px; }
+        .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; }
+
+        /* Lista de Episodios */
+        .episode-list-section { padding: 0 5% 60px 5%; }
+        .episodes-header-hbo { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; }
+
+        .season-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
         }
 
-        .card-episodio:hover {
-            border-color: #9d4edd;
-            transform: scale(1.05);
-        }
-
-        .miniatura {
-            width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        .info-cap {
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        .btn-ver {
-            display: block;
-            background: #7b2cbf;
-            color: white;
+        .episode-card {
+            display: flex;
+            flex-direction: column; 
             text-decoration: none;
-            padding: 5px;
-            margin-top: 5px;
-            border-radius: 4px;
-            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
+        .episode-card:hover { transform: scale(1.03); }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--color-principal); }
+        
+        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #1a1c23; border-radius: 4px; overflow: hidden; position: relative; }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; opacity: 0; transition: 0.3s; }
+        .episode-card:hover .play-icon { opacity: 1; }
 
-        /* Estilo para el reproductor */
-        .reproductor-container {
-            margin-top: 20px;
-            padding: 10px;
-        }
+        .ep-title { margin: 10px 0 5px 0; font-size: 1rem; font-weight: bold; }
+        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        iframe {
-            width: 90%;
-            max-width: 800px;
-            height: 450px;
-            border: 2px solid #9d4edd;
-            border-radius: 10px;
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.5rem; }
+            .season-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <div class="header-banner">
-        <div class="titulo-serie">The Owl House - Temporada 1</div>
-    </div>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
+    </nav>
 
-    <div class="reproductor-container" id="reproductor">
-        <p>Selecciona un capítulo para empezar a ver</p>
-    </div>
+    <header class="hero-banner">
+        <h1 class="hero-title">The Owl House</h1>
+    </header>
 
-    <div class="grid-episodios">
-        <div class="card-episodio">
-            <img src="oht1c1.jpg" class="miniatura" onclick="cambiarVideo('ID_DE_DRIVE_CAP_1')">
-            <div class="info-cap">
-                <span>Capítulo 1</span>
-                <a href="#reproductor" class="btn-ver" onclick="cambiarVideo('ID_DE_DRIVE_CAP_1')">VER AHORA</a>
+    <div class="main-content">
+        <div class="player-wrapper" id="reproductor-ancla">
+            <div class="player-container">
+                <iframe id="videoPlayer" class="video-player" src="https://drive.google.com/file/d/ID_CAP_1/preview" allowfullscreen></iframe>
             </div>
         </div>
 
-        <div class="card-episodio">
-            <img src="oht1c2.jpg" class="miniatura" onclick="cambiarVideo('ID_DE_DRIVE_CAP_2')">
-            <div class="info-cap">
-                <span>Capítulo 2</span>
-                <a href="#reproductor" class="btn-ver" onclick="cambiarVideo('ID_DE_DRIVE_CAP_2')">VER AHORA</a>
+        <aside class="details-panel">
+            <div class="poster-wrapper">
+                <img src="toh_poster.png" alt="The Owl House Póster">
             </div>
-        </div>
-
-        <div class="card-episodio">
-            <img src="oht1c19.jpg" class="miniatura" onclick="cambiarVideo('ID_DE_DRIVE_CAP_19')">
-            <div class="info-cap">
-                <span>Capítulo 19</span>
-                <a href="#reproductor" class="btn-ver" onclick="cambiarVideo('ID_DE_DRIVE_CAP_19')">VER AHORA</a>
-            </div>
-        </div>
+            <h2 class="info-title">La Casa Búho</h2>
+            <p class="info-subtitle">Serie Original • 3 Temporadas</p>
+            <p class="info-synopsis">Luz, una adolescente humana, tropieza accidentalmente con un portal a un mundo mágico donde se hace amiga de una bruja rebelde, Eda, y de un pequeño guerrero, King.</p>
+        </aside>
     </div>
+
+    <section class="episode-list-section">
+        <div class="episodes-header-hbo">
+            <h2 class="hbo-section-title">Episodios: Temporada 1</h2>
+        </div>
+        
+        <div id="grid-t1" class="season-grid">
+            </div>
+    </section>
 
     <script>
-        function cambiarVideo(id) {
-            const contenedor = document.getElementById('reproductor');
-            contenedor.innerHTML = `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay"></iframe>`;
+        function cambiarVideo(tarjeta, nuevoLink) {
+            let tarjetas = document.querySelectorAll('.episode-card');
+            tarjetas.forEach(t => t.classList.remove('active'));
+            tarjeta.classList.add('active');
+            document.getElementById('videoPlayer').src = nuevoLink;
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
-
 </body>
 </html>
