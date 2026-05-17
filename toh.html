@@ -3,257 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Owl House - ElParque26</title>
+    <title>The Owl House | Temporadas | ElParque26</title>
+    
     <style>
+        /* --- ESTILO HBO PREMIUM - THE OWL HOUSE --- */
         :root {
-            --primary: #6a4da0;
-            --accent: #ffcc00;
-            --bg: #121212;
-            --card-bg: #1e1e1e;
-            --text: #ffffff;
+            --color-principal: #6a4da0; /* Violeta Mágico */
+            --color-secundario: #ffcc00; /* Dorado */
+            --fondo-principal: #030407;
+            --fondo-secundario: #0b0c10;
+            --hover-card: #151821;
+            --texto-secundario: #a3a3a3;
         }
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-        }
-
-        /* Reproductor */
-        .video-container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 20px auto;
-            aspect-ratio: 16/9;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        /* Selector de Temporadas */
-        .season-selector {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px;
-        }
-
-        .btn-season {
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
+            background-color: var(--fondo-principal);
             color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        .btn-season.active {
-            background: var(--primary);
-            color: var(--accent);
-        }
-
-        /* Grid de Episodios */
-        .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .episode-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s, border 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .episode-card:hover {
-            transform: scale(1.02);
-            border-color: var(--primary);
-        }
-
-        .episode-card.active {
-            border-color: var(--accent);
-        }
-
-        .thumb-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-        }
-
-        .thumb-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .play-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
+        .navbar {
             display: flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: 0.3s;
+            justify-content: space-between;
+            padding: 20px 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            top: 0;
+            width: 90%;
+            z-index: 100;
+        }
+        .logo a { text-decoration: none; color: white; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--color-secundario); }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-principal); }
+
+        .hero-banner {
+            width: 100%;
+            height: 55vh;
+            background-image: linear-gradient(to bottom, rgba(3,4,7,0) 40%, var(--fondo-principal) 100%), url('toh/img/banner_toh.jpg');
+            background-size: cover;
+            background-position: center top;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5% 40px 5%;
+            box-sizing: border-box;
+        }
+        .hero-title { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white; }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 0 5% 40px 5%;
+            align-items: start;
         }
 
-        .episode-card:hover .play-overlay {
-            opacity: 1;
+        .player-wrapper { scroll-margin-top: 80px; }
+        .player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
+        iframe.video-player { width: 100%; height: 100%; border: none; outline: none; }
 
-        .episode-info {
-            padding: 12px;
+        .details-panel { padding-top: 10px; }
+        .poster-wrapper { width: 100%; max-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 25px; }
+        .poster-wrapper img { width: 100%; display: block; }
+        .info-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .info-subtitle { color: var(--texto-secundario); font-size: 0.9rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .info-synopsis { font-size: 1rem; color: #d1d1d1; line-height: 1.6; margin: 0; }
+
+        .episode-list-section { padding: 0 5% 60px 5%; }
+        
+        .episodes-header-hbo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
         }
+        .hbo-section-title { font-size: 1.8rem; font-weight: bold; margin: 0; color: white; letter-spacing: 0.5px; }
 
-        .episode-info h4 {
-            margin: 0 0 5px 0;
-            font-size: 16px;
-            color: var(--accent);
+        .hbo-season-selector {
+            background: transparent;
+            color: #d1d1d1;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-weight: 500;
+            appearance: none;
+            padding-right: 15px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 10px auto;
         }
+        .hbo-season-selector option { background: #111; color: white; }
 
-        .episode-info p {
-            margin: 0;
-            font-size: 13px;
-            color: #bbb;
+        .season-grid { 
+            display: none; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .season-grid.active-grid { display: grid; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .episode-card {
+            display: flex;
+            flex-direction: column; 
+            background-color: transparent; 
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .episode-card:hover { transform: scale(1.03); }
+        .episode-card.active .episode-thumb { border-bottom: 3px solid var(--color-principal); border-radius: 4px; }
+        
+        .episode-thumb { width: 100%; aspect-ratio: 16/9; background-color: #1a1c23; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .episode-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .play-icon { position: absolute; font-size: 2rem; color: white; opacity: 0; transition: 0.3s; text-shadow: 0 2px 10px black; }
+        
+        .episode-card:hover .episode-thumb img { opacity: 0.6; }
+        .episode-card:hover .play-icon { opacity: 1; }
+
+        .episode-info { padding: 12px 0; text-align: left; }
+        .ep-title { margin: 0 0 5px 0; font-size: 1rem; font-weight: bold; color: white; line-height: 1.3; }
+        .ep-desc { margin: 0; font-size: 0.8rem; color: var(--texto-secundario); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* Mensaje Próximamente */
+        .coming-soon { grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--texto-secundario); font-size: 1.2rem; border: 1px dashed var(--color-principal); border-radius: 8px; margin-top: 20px;}
+
+        @media (max-width: 900px) {
+            .main-content { grid-template-columns: 1fr; gap: 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-banner { height: 40vh; padding-bottom: 20px; }
+            .episodes-header-hbo { margin-bottom: 15px; }
+            .hbo-section-title { font-size: 1.4rem; }
+            .hbo-season-selector { font-size: 0.95rem; }
+
+            .season-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+            .episode-info { padding: 8px 0; }
+            .ep-title { font-size: 0.85rem; }
+            .ep-desc { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
-        <iframe id="main-player" src="https://drive.google.com/file/d/1adNs_CpANz_k1nzM0MaO2k4hFMfQ6L4h/preview" allow="autoplay"></iframe>
-    </div>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">EL<span>PARQUE26</span></a></div>
+        <div class="nav-links"><a href="index.html">Volver al inicio</a></div>
+    </nav>
 
-    <div class="season-selector">
-        <button class="btn-season active">Temporada 1</button>
-        </div>
+    <header class="hero-banner">
+        <h1 class="hero-title">THE OWL HOUSE</h1>
+    </header>
 
-    <div class="episodes-grid" id="grid-t1">
-        <div class="episode-card active" onclick="cambiarVideo(this, '1adNs_CpANz_k1nzM0MaO2k4hFMfQ6L4h')">
-            <div class="thumb-container">
-                <img src="toh/img/oht1c1.jpg" alt="E1">
-                <div class="play-overlay">▶</div>
+    <div class="main-content">
+        <div class="player-wrapper" id="reproductor-ancla">
+            <div class="player-container">
+                <iframe id="videoPlayer" class="video-player" src="https://drive.google.com/file/d/1adNs_CpANz_k1nzM0MaO2k4hFMfQ6L4h/preview" allowfullscreen></iframe>
             </div>
-            <div class="episode-info"><h4>1. Una bruja mentirosa y un guerrero</h4><p>Luz llega a las Islas Hirvientes.</p></div>
         </div>
 
-        <div class="episode-card" onclick="cambiarVideo(this, '1ekph_INhjISyKY8cuw1-YTke2laE7E8x')">
-            <div class="thumb-container"><img src="toh/img/oht1c2.jpg" alt="E2"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>2. Brujas antes que magos</h4><p>Luz busca una misión épica.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1EPk7tNNgF9GSXd9pFxuTFb8VwjNihDWI')">
-            <div class="thumb-container"><img src="toh/img/oht1c3.jpg" alt="E3"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>3. El abominable abominable</h4><p>Luz se infiltra en Hexside.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1oxYrpI1ENJ6v_101Ibk6FDJSbevCVl52')">
-            <div class="thumb-container"><img src="toh/img/oht1c4.jpg" alt="E4"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>4. El intruso</h4><p>Luz aprende su primer glifo.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1enYq93KkSMAGfnvIOmqlvq-UhDZp1CS9')">
-            <div class="thumb-container"><img src="toh/img/oht1c5.jpg" alt="E5"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>5. Convención</h4><p>Duelo entre Eda y Lilith.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1UxqVrSRJ1_0LPzVrizl4Bjzen3jIUqHt')">
-            <div class="thumb-container"><img src="toh/img/oht1c6.jpg" alt="E6"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>6. La casa búa viviente</h4><p>Hooty cuida la casa.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1XKbwPeRHuqtCwbEbi_HTtwQxjgYtwNgY')">
-            <div class="thumb-container"><img src="toh/img/oht1c7.jpg" alt="E7"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>7. Perdido en el lenguaje</h4><p>Aventuras en la biblioteca.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1EKTFB-VrlWrhcPXET17fUqW8EHIEJu-E')">
-            <div class="thumb-container"><img src="toh/img/oht1c8.jpg" alt="E8"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>8. Érase una vez un intercambio</h4><p>Cambio de cuerpos.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1Sn25XsTi3RWYwwgM9GHyHcSZcQ-ukTSP')">
-            <div class="thumb-container"><img src="toh/img/oht1c9.jpg" alt="E9"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>9. Algo ventajoso, algo abominable</h4><p>Gus y Luz en Hexside.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1nTsldHktApHZuFPOBPJ2NrDw0UtE3STZ')">
-            <div class="thumb-container"><img src="toh/img/oht1c10.jpg" alt="E10"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>10. El escape del Palisman</h4><p>Luz cuida del bastón de Eda.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '10G4LNIaLjY7N175zj9fJIrFsCB9xO4Cl')">
-            <div class="thumb-container"><img src="toh/img/oht1c11.jpg" alt="E11"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>11. Sensatez y sensibilidad</h4><p>King se vuelve escritor.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1h0oFrxuF4byQYPHiF9L35VmvwzmMHHTM')">
-            <div class="thumb-container"><img src="toh/img/oht1c12.jpg" alt="E12"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>12. Aventuras en los elementos</h4><p>Entrenamiento en la nieve.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1Ozk4cv0Q12NTTqkJYyYNiJNTsDX88WAn')">
-            <div class="thumb-container"><img src="toh/img/oht1c13.jpg" alt="E13"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>13. El primer día</h4><p>Luz entra a todas las clases.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1EZu76t8-9p1a8hz9F6_18pashkXvJfjL')">
-            <div class="thumb-container"><img src="toh/img/oht1c14.jpg" alt="E14"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>14. Pequeños problemas</h4><p>Luz y King encogidos.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '13D1VNqRHX5L4lc9Dx17WHS3o6atUjAOY')">
-            <div class="thumb-container"><img src="toh/img/oht1c15.jpg" alt="E15"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>15. Comprensión de Willow</h4><p>Dentro de la mente de Willow.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1KwD2Z2lrbSfdKNgtBKSMeDiVdoTu-X7x')">
-            <div class="thumb-container"><img src="toh/img/oht1c16.jpg" alt="E16"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>16. El baile de graduación</h4><p>Grom Queen.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1Z9Uh8D_SHXHrX1KM4w2hjdGtZdopfLzU')">
-            <div class="thumb-container"><img src="toh/img/oht1c17.jpg" alt="E17"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>17. Improvisando como brujas</h4><p>Partido contra Boscha.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1argPeKjgoFs6dBur1KyUEC87hk_IgddW')">
-            <div class="thumb-container"><img src="toh/img/oht1c18.jpg" alt="E18"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>18. La agonía de una bruja</h4><p>El sacrificio de Eda.</p></div>
-        </div>
-
-        <div class="episode-card" onclick="cambiarVideo(this, '1kvAWIU8QJsAPLjC4xOCXhmbZD39fiTM_')">
-            <div class="thumb-container"><img src="toh/img/oht1c19.jpg" alt="E19"><div class="play-overlay">▶</div></div>
-            <div class="episode-info"><h4>19. Sangre joven, almas viejas</h4><p>Final de temporada.</p></div>
-        </div>
+        <aside class="details-panel">
+            <div class="poster-wrapper">
+                <img src="toh/img/poster_toh.jpg" alt="The Owl House Póster">
+            </div>
+            <h2 class="info-title">The Owl House</h2>
+            <p class="info-subtitle">Serie Original • 3 Temporadas</p>
+            <p class="info-synopsis">Luz Noceda, una adolescente humana, tropieza accidentalmente con un portal a las Islas Hirvientes, un mundo mágico y peligroso. Allí se hace amiga de la bruja rebelde Eda y de un adorable demonio llamado King.</p>
+        </aside>
     </div>
+
+    <section class="episode-list-section">
+        
+        <div class="episodes-header-hbo">
+            <h2 class="hbo-section-title">Episodios</h2>
+            <select class="hbo-season-selector" id="seasonSelector" onchange="cambiarTemporada()">
+                <option value="t1">Temporada 1</option>
+                <option value="t2">Temporada 2</option>
+                <option value="t3">Temporada 3</option>
+            </select>
+        </div>
+        
+        <div id="grid-t1" class="season-grid active-grid">
+            <div class="episode-card active" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1adNs_CpANz_k1nzM0MaO2k4hFMfQ6L4h/preview')"><div class="episode-thumb"><img src="toh/img/oht1c1.jpg" alt="Ep 1"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">1. Una bruja mentirosa y un guerrero</h4><p class="ep-desc">Luz llega a las Islas Hirvientes y conoce a Eda, la Dama Búho.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1ekph_INhjISyKY8cuw1-YTke2laE7E8x/preview')"><div class="episode-thumb"><img src="toh/img/oht1c2.jpg" alt="Ep 2"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">2. Brujas antes que magos</h4><p class="ep-desc">Un misterioso mago le ofrece a Luz la misión épica que siempre soñó.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1EPk7tNNgF9GSXd9pFxuTFb8VwjNihDWI/preview')"><div class="episode-thumb"><img src="toh/img/oht1c3.jpg" alt="Ep 3"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">3. El abominable abominable</h4><p class="ep-desc">Luz se hace pasar por una abominación para colarse en la escuela de magia Hexside.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1oxYrpI1ENJ6v_101Ibk6FDJSbevCVl52/preview')"><div class="episode-thumb"><img src="toh/img/oht1c4.jpg" alt="Ep 4"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">4. El intruso</h4><p class="ep-desc">Luz aprende su primer glifo de magia durante una tormenta hirviente.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1enYq93KkSMAGfnvIOmqlvq-UhDZp1CS9/preview')"><div class="episode-thumb"><img src="toh/img/oht1c5.jpg" alt="Ep 5"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">5. Convención</h4><p class="ep-desc">Luz asiste a una convención de aquelarres y presuncia un duelo entre Eda y su hermana Lilith.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1UxqVrSRJ1_0LPzVrizl4Bjzen3jIUqHt/preview')"><div class="episode-thumb"><img src="toh/img/oht1c6.jpg" alt="Ep 6"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">6. La casa búa viviente</h4><p class="ep-desc">Luz, King y Hooty intentan cuidar la casa mientras Eda está fuera.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1XKbwPeRHuqtCwbEbi_HTtwQxjgYtwNgY/preview')"><div class="episode-thumb"><img src="toh/img/oht1c7.jpg" alt="Ep 7"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">7. Perdido en el lenguaje</h4><p class="ep-desc">Los libros cobran vida en la biblioteca gracias a las travesuras de unos gemelos.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1EKTFB-VrlWrhcPXET17fUqW8EHIEJu-E/preview')"><div class="episode-thumb"><img src="toh/img/oht1c8.jpg" alt="Ep 8"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">8. Érase una vez un intercambio</h4><p class="ep-desc">Luz, Eda y King intercambian cuerpos por un día para ver quién lo tiene más fácil.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Sn25XsTi3RWYwwgM9GHyHcSZcQ-ukTSP/preview')"><div class="episode-thumb"><img src="toh/img/oht1c9.jpg" alt="Ep 9"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">9. Algo ventajoso, algo abominable</h4><p class="ep-desc">Luz ayuda a Gus dándole una mano para su presentación en la escuela.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1nTsldHktApHZuFPOBPJ2NrDw0UtE3STZ/preview')"><div class="episode-thumb"><img src="toh/img/oht1c10.jpg" alt="Ep 10"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">10. El escape del Palisman</h4><p class="ep-desc">Luz pierde a Owlbert y se embarca en una aventura nocturna para recuperarlo.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/10G4LNIaLjY7N175zj9fJIrFsCB9xO4Cl/preview')"><div class="episode-thumb"><img src="toh/img/oht1c11.jpg" alt="Ep 11"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">11. Sensatez y sensibilidad</h4><p class="ep-desc">King se convierte en un exitoso escritor, pero la fama se le sube a la cabeza.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1h0oFrxuF4byQYPHiF9L35VmvwzmMHHTM/preview')"><div class="episode-thumb"><img src="toh/img/oht1c12.jpg" alt="Ep 12"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">12. Aventuras en los elementos</h4><p class="ep-desc">Eda lleva a Luz a entrenar a la montaña nevada para que aprenda más sobre la magia.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Ozk4cv0Q12NTTqkJYyYNiJNTsDX88WAn/preview')"><div class="episode-thumb"><img src="toh/img/oht1c13.jpg" alt="Ep 13"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">13. El primer día</h4><p class="ep-desc">Luz finalmente comienza las clases en Hexside, pero quiere estudiar todos los aquelarres.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1EZu76t8-9p1a8hz9F6_18pashkXvJfjL/preview')"><div class="episode-thumb"><img src="toh/img/oht1c14.jpg" alt="Ep 14"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">14. Pequeños problemas</h4><p class="ep-desc">Luz y King son reducidos de tamaño por un charlatán y deben buscar la cura.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/13D1VNqRHX5L4lc9Dx17WHS3o6atUjAOY/preview')"><div class="episode-thumb"><img src="toh/img/oht1c15.jpg" alt="Ep 15"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">15. Comprensión de Willow</h4><p class="ep-desc">Luz y Amity entran en la mente de Willow para intentar restaurar sus recuerdos perdidos.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1KwD2Z2lrbSfdKNgtBKSMeDiVdoTu-X7x/preview')"><div class="episode-thumb"><img src="toh/img/oht1c16.jpg" alt="Ep 16"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">16. El baile de graduación</h4><p class="ep-desc">Amity debe enfrentar al Grom, el monstruo que toma la forma de sus peores miedos.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1Z9Uh8D_SHXHrX1KM4w2hjdGtZdopfLzU/preview')"><div class="episode-thumb"><img src="toh/img/oht1c17.jpg" alt="Ep 17"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">17. Improvisando como brujas</h4><p class="ep-desc">Luz, Willow y Gus se enfrentan al equipo de Boscha en un intenso partido de Rencorbol.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1argPeKjgoFs6dBur1KyUEC87hk_IgddW/preview')"><div class="episode-thumb"><img src="toh/img/oht1c18.jpg" alt="Ep 18"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">18. La agonía de una bruja</h4><p class="ep-desc">Luz se infiltra en el castillo del Emperador y Eda debe luchar para protegerla.</p></div></div>
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1kvAWIU8QJsAPLjC4xOCXhmbZD39fiTM_/preview')"><div class="episode-thumb"><img src="toh/img/oht1c19.jpg" alt="Ep 19"><div class="play-icon">▶</div></div><div class="episode-info"><h4 class="ep-title">19. Sangre joven, almas viejas</h4><p class="ep-desc">Final de temporada. Luz se enfrenta al mismísimo Emperador Belos para salvar a su mentora.</p></div></div>
+        </div>
+
+        <div id="grid-t2" class="season-grid">
+            <div class="coming-soon">
+                <h3>Los capítulos de la Temporada 2 se agregarán pronto...</h3>
+            </div>
+        </div>
+
+        <div id="grid-t3" class="season-grid">
+            <div class="coming-soon">
+                <h3>Los capítulos de la Temporada 3 se agregarán pronto...</h3>
+            </div>
+        </div>
+
+    </section>
 
     <script>
-        function cambiarVideo(card, id) {
-            // Cambiar el iframe
-            document.getElementById('main-player').src = "https://drive.google.com/file/d/" + id + "/preview";
+        function cambiarVideo(tarjeta, nuevoLink) {
+            let tarjetas = document.querySelectorAll('.episode-card');
+            tarjetas.forEach(t => t.classList.remove('active'));
+            tarjeta.classList.add('active');
+
+            let reproductor = document.getElementById('videoPlayer');
+            reproductor.src = nuevoLink;
+
+            document.getElementById('reproductor-ancla').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cambiarTemporada() {
+            let selector = document.getElementById("seasonSelector");
+            let valorSeleccionado = selector.value;
             
-            // Quitar clase activa de todos
-            document.querySelectorAll('.episode-card').forEach(c => c.classList.remove('active'));
+            let grillas = document.querySelectorAll('.season-grid');
+            grillas.forEach(grilla => {
+                grilla.classList.remove('active-grid');
+            });
             
-            // Poner clase activa al seleccionado
-            card.classList.add('active');
-            
-            // Subir al reproductor suavemente
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            let grillaActiva = document.getElementById('grid-' + valorSeleccionado);
+            grillaActiva.classList.add('active-grid');
         }
     </script>
 </body>
