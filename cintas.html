@@ -200,14 +200,12 @@
     </header>
 
     <div class="main-content">
-        <!-- REPRODUCTOR -->
         <div class="player-wrapper" id="reproductor-ancla">
             <div class="player-container">
                 <iframe id="videoPlayer" class="drive-player" src="https://drive.google.com/file/d/15Hccc7ITCdLz4eF0kuYxMt5A-S2JbgI9/preview" allow="autoplay; fullscreen"></iframe>
             </div>
         </div>
 
-        <!-- SINOPSIS -->
         <aside class="details-panel">
             <div class="poster-wrapper">
                 <img src="cintas_poster.png" alt="Un Show Más">
@@ -218,7 +216,6 @@
         </aside>
     </div>
 
-    <!-- LISTA DE EPISODIOS HBO MAX (ACTUALIZADO COMO JIM) -->
     <section class="episode-list-section">
         
         <div class="episodes-header-hbo">
@@ -285,10 +282,53 @@
                 </div>
             </div>
 
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/18siY3s7scBX08Gxhkrj6x2N0O17wfe5S/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc6.jpg" alt="Episodio 6">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">6. Flor Cadáver</h4>
+                    <p class="ep-desc">Algunas flores huelen verdaderamente mal.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1026KOT5lpQ_zIj1yYXt9blPxVqLGnCk_/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc7.jpg" alt="Episodio 7">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">7. El Inicio De Benson</h4>
+                    <p class="ep-desc">Expulsan a Benson de Heredero al Trono.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1MTlxTfNwVRQKs-gCut2_16489QZlKhSY/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc8.jpg" alt="Episodio 8">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">8. Mitch El Rematador</h4>
+                    <p class="ep-desc">Musculoso revela su pasado secreto.</p>
+                </div>
+            </div>
+
+            <div class="episode-card" onclick="cambiarVideo(this, 'https://drive.google.com/file/d/1_aVUa2-NdMIec_3sReP-8MgRhxEJOcmA/preview')">
+                <div class="episode-thumb">
+                    <img src="usmcpc9.jpg" alt="Episodio 9">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="episode-info">
+                    <h4 class="ep-title">9. Los Zancos</h4>
+                    <p class="ep-desc">Rigby quiere que alguien tome esta foto, de verdad.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- SCRIPT DE REPRODUCCIÓN -->
     <script>
         function cambiarVideo(tarjeta, nuevoLink) {
             // Remover la clase activa de todos
