@@ -4,108 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ed, Edd y Eddy: Todos contra los Eds | ElParque26</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #6366f1; /* El color de tu marca */
-            --bg-dark: #050505;
-        }
-
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-dark);
+            background-color: #000;
             color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
         }
 
-        /* Fondo dinámico con el poster */
-        .main-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(5,5,5,0.5) 0%, var(--bg-dark) 90%), 
-                        url('peliculas/img/poster_eeyep.jpg');
-            background-size: cover;
-            background-position: center top;
-            filter: blur(40px);
-            z-index: -1;
-            transform: scale(1.1);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header con estilo de app */
+        /* Header superior */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
+            padding: 15px 20px;
+            position: absolute;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
         }
 
-        .btn-back {
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #00bfff;
+        }
+
+        .btn-volver {
             text-decoration: none;
             color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 25px;
-            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.4s;
-        }
-
-        .btn-back:hover {
-            background: var(--primary-color);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
-        }
-
-        .logo-site {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            color: var(--primary-color);
             text-transform: uppercase;
         }
 
-        /* Título de impacto */
-        .movie-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 900;
-            text-align: center;
-            margin: 40px 0;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            background: linear-gradient(to bottom, #fff 40%, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Reproductor Premium */
-        .player-wrapper {
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.05);
+        /* Banner Principal */
+        .hero {
             position: relative;
-            margin-bottom: 50px;
+            width: 100%;
+            height: 70vh;
+            background: linear-gradient(to bottom, transparent 40%, #000 100%), 
+                        url('peliculas/img/poster_eeyep.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
 
-        .aspect-ratio {
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        /* Tags de información */
+        .meta-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .tag {
+            border: 1px solid #555;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .tag-gold {
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+
+        /* Sinopsis */
+        .description {
+            max-width: 800px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #eee;
+            margin-bottom: 25px;
+        }
+
+        /* Botón Ver Película */
+        .btn-play {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            transition: 0.3s;
+        }
+
+        .btn-play:hover {
+            background-color: #ccc;
+        }
+
+        /* Sección del Reproductor (Se activa al scrollear o clickear) */
+        .reproductor-section {
+            padding: 40px 20px;
+            background-color: #000;
+        }
+
+        .video-box {
             position: relative;
             padding-top: 56.25%;
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        .aspect-ratio iframe {
+        .video-box iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -114,85 +138,47 @@
             border: none;
         }
 
-        /* Ficha técnica estilo HBO */
-        .info-card {
-            background: rgba(15, 15, 15, 0.6);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 100px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .tags-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .tag.gold { color: #ffd700; border: 1px solid #ffd700; }
-
-        .description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #ccc;
-            max-width: 800px;
-        }
-
-        /* Footer de la página */
         footer {
             text-align: center;
-            padding: 50px;
-            opacity: 0.5;
-            font-size: 0.8rem;
+            padding: 30px;
+            font-size: 0.7rem;
+            color: #555;
+            border-top: 1px solid #222;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-bg"></div>
+    <header>
+        <div class="logo">EL<span style="color:#fff">PARQUE26</span></div>
+        <a href="index.html" class="btn-volver">← VOLVER AL INICIO</a>
+    </header>
 
-    <div class="container">
-        <header>
-            <a href="index.html" class="btn-back">← INICIO</a>
-            <div class="logo-site">ELPARQUE26</div>
-        </header>
-
-        <h1 class="movie-title">Todos contra los Eds</h1>
-
-        <div class="player-wrapper">
-            <div class="aspect-ratio">
-                <iframe src="https://www.tokyvideo.com/es/embed/845203" allowfullscreen></iframe>
-            </div>
+    <div class="hero">
+        <h1>ED, EDD Y EDDY:<br>TODOS CONTRA LOS EDS</h1>
+        
+        <div class="meta-container">
+            <span>2009</span>
+            <span class="tag">Película Final</span>
+            <span class="tag tag-gold">1080P FHD</span>
+            <span class="tag">Español Latino</span>
         </div>
 
-        <div class="info-card">
-            <div class="tags-row">
-                <span class="tag gold">1080P FHD</span>
-                <span class="tag">PELÍCULA FINAL</span>
-                <span class="tag">ESPAÑOL LATINO</span>
-                <span class="tag">2009</span>
-            </div>
-            <p class="description">
-                El final legendario de la serie. Tras una estafa catastrófica que deja al vecindario en ruinas, Ed, Edd y Eddy huyen en busca del misterioso hermano de Eddy. Un viaje emocional y bizarro que pone a prueba la amistad de los tres protagonistas como nunca antes.
-            </p>
+        <p class="description">
+            Después de que una de sus estafas termina en un desastre total, los Eds se ven obligados a huir de los demás chicos del vecindario. Su única esperanza es encontrar al legendario hermano mayor de Eddy, sin saber que este viaje cambiará su amistad para siempre.
+        </p>
+
+        <a href="#ver" class="btn-play">▶ VER PELÍCULA</a>
+    </div>
+
+    <div id="ver" class="reproductor-section">
+        <div class="video-box">
+            <iframe src="https://www.tokyvideo.com/es/embed/845203" allowfullscreen></iframe>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 ElParque26 - Desarrollado por Brian Rodríguez
+        © 2026 ElParque26 - Desarrollado por Brian Rodríguez
     </footer>
 
 </body>
